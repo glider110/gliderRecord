@@ -1,4 +1,4 @@
-#### 简易的命令行入门教程:
+简易的命令行入门教程:
 
 Git 全局设置:
 
@@ -27,7 +27,7 @@ git remote add origin git@gitee.com:aktof/pcl_library.git
 git push -u origin master
 ```
 
-已有仓库?
+#### 已有仓库
 
 ```
 cd existing_git_repo
@@ -36,3 +36,14 @@ git push -u origin master
 ```
 
 ![image-20210913110754055](git.assets/image-20210913110754055.png)
+
+
+
+#### [Git回滚代码到某个commit](https://www.cnblogs.com/hukuangjie/p/11369434.html)
+
+回退命令：
+
+$ git reset --hard HEAD^ 回退到上个版本
+$ git reset --hard HEAD~3 回退到前3次提交之前，以此类推，回退到n次提交之前
+$ git reset --hard commit_id 退到/进到 指定commit的sha码
+
