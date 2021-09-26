@@ -49,7 +49,9 @@ git push -u origin master
 
 
 
-### 一些命令：
+
+
+一些命令：
 
 #### [Git回滚代码到某个commit](https://www.cnblogs.com/hukuangjie/p/11369434.html)
 
@@ -69,4 +71,16 @@ $ git reflog
 $ git diff   查看修改但没有commit的内容  详细
 $ git  status    查看修改但没有commit的内容    简单
 ```
+
+
+
+
+
+### 问题：
+
+- git commit 后可能没反应 就用vscode提交评论
+
+- 用ssh 尽量不要用https
+
+  
 
