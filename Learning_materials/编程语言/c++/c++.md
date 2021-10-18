@@ -510,7 +510,7 @@ make -j8
                           "request": "launch",
                           "program": "${workspaceFolder}/build/StereoCalibMatch",   //修改
                           "args": [],
-                          "stopAtEntry": false,
+                          "stopAtEntry": true,
                           "cwd": "${workspaceFolder}",
                           "environment": [],
                           "externalConsole": false,
@@ -538,7 +538,7 @@ make -j8
 
   add_executable(main main.cpp ${DIR_DISPALY})//把头文件都包含在里面去了
   
-- 单步调试需加：set(CMAKE_BUILD_TYPE DEBUG)  
+- 单步调试需加：set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Wall  -std=c++14 -pthread -g")  
 
 #### 6.工程项目构建
 

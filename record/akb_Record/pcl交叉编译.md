@@ -54,14 +54,21 @@
 3. **编译flann**
 
    - 和前面一样 进入flann源码 mkdir build 配置工具链
+   
    - missing: PKG_CONFIG_EXECUTABLE （再工具链里面找）
-
+   
      ![2021-08-07 11-35-38 的屏幕截图](pcl交叉编译.assets/2021-08-07 11-35-38 的屏幕截图.png)
-
+   
      ![2021-08-07 11-39-47 的屏幕截图](pcl交叉编译.assets/2021-08-07 11-39-47 的屏幕截图.png)
+     
    - 如过缺少liblz4库 编译后放在工具链对应的include和lib文件夹里![2021-08-06 20-06-11 的屏幕截图](pcl交叉编译.assets/2021-08-06 20-06-11 的屏幕截图.png)
+   
    - 把liblz4.pc   /opt/rockchip-cc-tools/host/aarch64-buildroot-linux-gnu/sysroot/usr/lib/pkgconfig/liblz4.pc
+   
+   - 需要cmake_ar 不然静态库不能编译；![image-20211015160810018](pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/image-20211015160810018.png)
+   
    - 修改安装路径为源码同级的文件夹：flann_install
+   
    - make -j8 && make install
 4. **编译boost**
 
