@@ -102,6 +102,8 @@
 
 PCL必须依赖的库：Boost, Eigen, FLANN   可选：OpenNI2, Qhull,
 
+​												![image-20211018160009690](pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/image-20211018160009690.png)
+
 ![img](https://images2015.cnblogs.com/blog/976394/201702/976394-20170225151323366-734164749.png)
 
 ![img](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-d43caf33f04c5b9f2b45173c309defe3_b.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1630924444&t=fa56a9e24ddad4f34037c5ce21fcc234)
