@@ -63,6 +63,9 @@
      
    - 如过缺少liblz4库 编译后放在工具链对应的include和lib文件夹里![2021-08-06 20-06-11 的屏幕截图](pcl交叉编译.assets/2021-08-06 20-06-11 的屏幕截图.png)
    
+     ./rk3326-cross-compile-toolchain/host/aarch64-buildroot-linux-gnu/sysroot/usr/include/lz4hc.h
+     ./rk3326-cross-compile-toolchain/host/aarch64-buildroot-linux-gnu/sysroot/usr/include/lz4.h
+   
    - 把liblz4.pc   /opt/rockchip-cc-tools/host/aarch64-buildroot-linux-gnu/sysroot/usr/lib/pkgconfig/liblz4.pc
    
    - 需要cmake_ar 不然静态库不能编译；![image-20211015160810018](pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/image-20211015160810018.png)

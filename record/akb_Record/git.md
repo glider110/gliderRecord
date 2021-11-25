@@ -68,6 +68,8 @@ $ git log
 $ git reflog
 $ git diff   查看修改但没有commit的内容  详细
 $ git  status    查看修改但没有commit的内容    简单
+查看本地和远程仓库的所有分支
+git branch -a
 ```
 
 
