@@ -1,4 +1,4 @@
-# PCL交叉编译文档
+PCL交叉编译文档
 
 > 引言：本文档是主要针对实现分割算法及其依赖库进行交叉编译，未涵盖所有模块的编译。
 
@@ -76,19 +76,36 @@
 4. **编译boost**
 
    - cd到boost 源目录
+   
+   - 按照缺少的库编译（选择性编译）
+   
+
+  ![img](pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/lALPDgQ9zk8d_VTNAWvNA3k_889_363.png)
+
    - 编译配置，运行下面代码
-
+   
      `./bootstrap.sh --without-libraries=atomic,chrono,context,coroutine,exception,graph,graph_parallel,mpi,python,wave --prefix=/home/admins/akblib/extern_libs/boot_install`
+     
    - 更改生成的project-config.jam 文件，修改该文件的一行(指定自己的编译器)：
-
+   
      `if ! gcc in [ feature.values <toolset> ] { using gcc : : /opt/rockchip-cc-tools/host/usr/bin/aarch64-linux-gcc ;  }`
+     
    - 执行 ./bjam 即可，这是编译，创建的 lib 文件默认在 stage 文件夹
+   
    - 编译完后，执行 ./bjam install 即进行安装，我的上面 --prefix=/.../ 指定的目录就是安装目录
 5. **接着编译PCL**
 
    - 配置好上述boost和flann的路径 with里面 勾pcap
+   
    - 关掉gl、vtk、cuda无关模块；
-   - build对象勾选如下图：![2021-08-07 14-09-52 的屏幕截图](pcl交叉编译.assets/2021-08-07 14-09-52 的屏幕截图.png)
+   
+   - build对象勾选如下图：
+   
+     ![img](pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/lALPDiCpw3VFLVk7zQK6_698_59.png)
+   
+
+​                                                           ![img](pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/lALPDhJzyOI6x83M9c0CsQ_689_245.png)
+   - ![2021-08-07 14-09-52 的屏幕截图](pcl交叉编译.assets/2021-08-07 14-09-52 的屏幕截图.png)
    - CMAKE-BUILD-TYPE设置为release    减少耗时
    - 修改安装路径为源码同级的文件夹：pcl_install
    - make -j8 && make install
