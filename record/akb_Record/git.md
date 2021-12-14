@@ -45,10 +45,6 @@ git push -u origin master
 
 
 
-
-
-
-
 一些命令：
 
 #### [Git回滚代码到某个commit](https://www.cnblogs.com/hukuangjie/p/11369434.html)
@@ -59,6 +55,8 @@ git push -u origin master
 $ git reset --hard HEAD^ 回退到上个版本
 $ git reset --hard HEAD~3 回退到前3次提交之前，以此类推，回退到n次提交之前
 $ git reset --hard commit_id 退到/进到 指定commit的sha码
+$ git checkout commit_然后在git checkout -b 新分支
+
 ```
 
 #### [查看log](https://blog.csdn.net/chenpuzhen/article/details/92084229?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link)
@@ -68,19 +66,50 @@ $ git log
 $ git reflog
 $ git diff   查看修改但没有commit的内容  详细
 $ git  status    查看修改但没有commit的内容    简单
-查看本地和远程仓库的所有分支
-git branch -a
+$ git branch -a   查看本地和远程仓库的所有分支
+$ git remote -v     查看远程git地址
+git config --system --list       config 配置有system级别 global（用户级别） 和local（当前仓库）三个
+git config --global  --list
+git config --local  --list
 ```
 
 
+
+### 难点：
+
+- merge  rebase 区别
+
+- pull fetch  区别
+
+- reset revert 区别
+
+- 冲突问题
+
+  
 
 
 
 ### 问题：
 
-- git commit 后可能没反应 就用vscode提交评论
+- 用ssh 尽量不要用https      包括git clone 和配远程仓库时候
 
-- 用ssh 尽量不要用https
+- 撤销某次commit
 
   
+
+### 实战场景：
+
+1.等别人代码和合在自己分支上；
+
+2.不需要修改了很多代码发现不对又删除了；有些代码片段又舍不得扔
+
+3.各种文件夹备份；
+
+4.重做某一个commit，之后的代码又不想重新写；
+
+
+
+==**思想：你平常开发过程中能想到的和想不到的，git已经给你弄好了，只是你自己没意识到；**==
+
+
 
