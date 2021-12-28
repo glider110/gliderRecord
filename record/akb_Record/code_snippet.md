@@ -24,3 +24,27 @@ void AKBMSDetector::initialize(const string &bms_config_file, ofstream &log)
 }
 ```
 
+
+
+```c++
+if (m_config.saveRobotPose)
+{
+    ofstream poseLog;
+    poseLog.open(m_config.saveRobotPosePath, ios::app);
+    string data;
+    data += to_string(pose_data.timestamp) + ",";
+    data += to_string(pose_data.x) + ",";
+    data += to_string(pose_data.y) + ",";
+    data += to_string(pose_data.theta);
+    poseLog << data << endl;
+    poseLog.close();
+}
+```
+
+
+
+```c
+    // 初始化pcl相关变量
+    original_points.reset(new pcl::PointCloud<pcl::PointXYZ>());
+```
+
