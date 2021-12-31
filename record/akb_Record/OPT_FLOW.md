@@ -43,7 +43,7 @@
   
 
 ```shell
-ssh  root@192.168.5.48   rockchip
+ssh  root@192.168.5.48   rockchip           192.168.50.55
 scp -r root@192.168.5.48:/usr/akb/slam_data/frame /home/admins/opticl
 scp -r root@192.168.5.48:/tmp/data/slam/pose_fusion /home/admins/opticl
 rm -rf  /usr/akb/slam_data/frame

@@ -43,8 +43,32 @@ if (m_config.saveRobotPose)
 
 
 
-```c
-    // 初始化pcl相关变量
-    original_points.reset(new pcl::PointCloud<pcl::PointXYZ>());
+```c++
+// 初始化pcl相关变量
+original_points.reset(new pcl::PointCloud<pcl::PointXYZ>());
+```
+
+
+
+```c++
+static int count = 0;
+static uint64_t time_total = 0;
+if (count < 30) {
+    count++;
+    time_total += time_diff;
+} else {
+    cout << "####################### bms time = " << current_timestamp << "  time_diff = "
+        << time_total/count << " ######################" << endl;
+    time_total = 0;
+    count = 0;
+```
+
+
+
+```c++
+void AKBmsService::destroy()
+{
+    delete this;
+}
 ```
 
