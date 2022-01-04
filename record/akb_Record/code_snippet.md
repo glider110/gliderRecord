@@ -24,7 +24,11 @@ void AKBMSDetector::initialize(const string &bms_config_file, ofstream &log)
 }
 ```
 
+**3.读取config文件**
 
+
+
+**4.保存log文件**
 
 ```c++
 if (m_config.saveRobotPose)
@@ -41,14 +45,14 @@ if (m_config.saveRobotPose)
 }
 ```
 
-
+- **初始化方式**
 
 ```c++
 // 初始化pcl相关变量
 original_points.reset(new pcl::PointCloud<pcl::PointXYZ>());
 ```
 
-
+- **调试分析**
 
 ```c++
 static int count = 0;
@@ -63,7 +67,7 @@ if (count < 30) {
     count = 0;
 ```
 
-
+- **析构方式**
 
 ```c++
 void AKBmsService::destroy()

@@ -113,3 +113,15 @@ git config --local  --list
 
 
 
+### github开源项目：
+
+- **[C++基础  黑马程序员](https://github.com/Blitzer207/C-Resource)**
+
+- [**Python 黑马程序员**](https://github.com/hyh1750522171/bigData/tree/master/He%20Yihao)
+
+- [**设计模式**](https://github.com/FengJungle/DesignPattern)   
+
+- [**yolo3**](https://github.com/bubbliiiing/yolo3-pytorch)
+
+- **激光slame**
+
