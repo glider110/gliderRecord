@@ -56,7 +56,8 @@ $ git reset --hard HEAD^ 回退到上个版本
 $ git reset --hard HEAD~3 回退到前3次提交之前，以此类推，回退到n次提交之前
 $ git reset --hard commit_id 退到/进到 指定commit的sha码
 $ git checkout commit_然后在git checkout -b 新分支
-
+执行如下命令即可修改(注意，仅仅只能针对最后一次提交):
+git commit --amend -m "新的修改提交信息"
 ```
 
 #### [查看log](https://blog.csdn.net/chenpuzhen/article/details/92084229?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link)
@@ -112,16 +113,4 @@ git config --local  --list
 ==**思想：你平常开发过程中能想到的和想不到的，git已经给你弄好了，只是你自己没意识到；**==
 
 
-
-### github开源项目：
-
-- **[C++基础  黑马程序员](https://github.com/Blitzer207/C-Resource)**
-
-- [**Python 黑马程序员**](https://github.com/hyh1750522171/bigData/tree/master/He%20Yihao)
-
-- [**设计模式**](https://github.com/FengJungle/DesignPattern)   
-
-- [**yolo3**](https://github.com/bubbliiiing/yolo3-pytorch)
-
-- **激光slame**
 

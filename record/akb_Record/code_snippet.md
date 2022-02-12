@@ -1,3 +1,9 @@
+# 常用代码段
+
+> ***代码复用,避免重复造轮子;***
+
+
+
 **1.int 和 string互换**
 
 ```c++
@@ -60,11 +66,19 @@ static uint64_t time_total = 0;
 if (count < 30) {
     count++;
     time_total += time_diff;
-} else {
-    cout << "####################### bms time = " << current_timestamp << "  time_diff = "
-        << time_total/count << " ######################" << endl;
-    time_total = 0;
-    count = 0;
+} 
+else
+{
+    cout << "####################### bms time = " << current_timestamp << "  time_diff = "<< time_total/count << " ######################" << endl;
+	time_total = 0;
+	count = 0;
+    
+ount++;
+if((count % 40 ) == 1)
+// if(count== 100)
+{
+    cv::imwrite("/tmp/lenna_gray====" + std::to_string(mEnqueueSMSBuf.timestamp)  + ".jpg", mRawGrayImg);
+}
 ```
 
 - **析构方式**
@@ -74,5 +88,79 @@ void AKBmsService::destroy()
 {
     delete this;
 }
+```
+
+- **耗时统计**
+
+```c
+uint64_t current_timestamp = getCurrentTime1970msec();
+uint64_t time_diff = current_timestamp - timestamp;
+timestamp = current_timestamp;
+
+auto t11 = std::chrono::steady_clock::now();
+calcOpticalFlowFarneback(Imgahead_downsample, Imgback_downsample, m_flow, 0.5, 3, 15, 3, 5, 1.2, 0);    //1280*720 耗时接近5s
+auto t22 = std::chrono::steady_clock::now();
+cout << "<======= opticalflow3 time "<< std::chrono::duration_cast<std::chrono::microseconds>(t22 - t11).count()/1000<< " ms" << endl;
+
+std::this_thread::sleep_for(std::chrono::milliseconds(100));
+```
+
+- 只获取第一次数据
+
+
+```c++
+
+for (size_t i = 0; i < imagePathList.size(); i++)
+        {
+            std::cout << imagePathList[i] << "DDDDD\n";
+            if(isFrist == true)
+            {
+                std::cout  << "DDDDDDDDDDDDDDDDD\n";
+                auto last_image = cv::imread(imagePathList[i], CV_LOAD_IMAGE_COLOR);
+                isFrist = false;
+            }
+```
+
+- 数据交互
+
+
+```c++
+1.读取csv文件
+getline("/home/admins/opticl/12.24.2/pose_fusion/fusionpose_file.csv",line); 
+while (getline(fp,line)){
+    vector<float> data_line;
+    string number;
+    istringstream readstr(line); //string数据流化
+    for(int j = 0;j < 11;j++){ 
+        getline(readstr,number,','); //循环读取数据
+        data_line.push_back(atof(number.c_str())); 
+    }
+}
+```
+
+- 文件名获取数字
+
+```c++
+void NS_SKIDDETECTION::SkidDetecsteady_clocktion::load_img()
+{
+    Mat img;
+    cv::glob(m_folder, filenames); 
+    for (size_t i = 0; i < filenames.size(); ++i)
+    {
+        vector<string> v1,v;
+        STR_IMG tmp;
+        // cout << filenames[i] << endl;
+        img = imread(filenames[i]);
+        Rect roi(0, 0, 640,360); 
+        tmp.imag.create(img(roi).rows, img(roi).cols, CV_8UC1);
+        cvtColor(img(roi), tmp.imag, CV_RGB2GRAY); 
+        SplitString(filenames[i], v1, ".jpg");
+        // cout << v1[0]<< endl;
+        SplitString(v1[0],  v,  "/");
+        tmp.timestamp= atof(v[v.size() - 1].c_str());
+        m_origin_img.push_back(tmp);
+        // cout << tmp.timestamp<< endl;
+    }
+}   
 ```
 
