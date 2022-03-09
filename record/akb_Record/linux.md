@@ -93,6 +93,8 @@
 ```shell
 find  -mmin -2
 md5sum
+start.sh |grep "isStaticStateForOpticalFlow\|xxxxxxoo==="
+start.sh | grep "xoo=\|OpticalFl\|tensit\|encode\|distanc"
 ```
 
 
@@ -110,7 +112,7 @@ md5sum
   
     折叠所有 Ctrl+K+0
     展开所有 Ctrl+K+J
-    仅仅操作光标所处代码块内的代码：
+    仅仅操作光标所处代码块内的代码：[](//对该像素是否为黄色进行判断)
   
     折叠 Ctrl+Shift+[
     展开 Ctrl+Shift+]

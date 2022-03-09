@@ -2,9 +2,7 @@
 
 > ***代码复用,避免重复造轮子;***
 
-
-
-**1.int 和 string互换**
+#### 1.int 和 string互换
 
 ```c++
 std::string perfect = std::to_string(1+2+4+7+14) + " is a perfect number";  
@@ -12,7 +10,7 @@ std::string str = "123";
 int n = atoi(str.c_str());
 ```
 
-**2.初始化形式**
+#### 2.初始化形式
 
 ```c++
 void AKBMSDetector::initialize(const string &bms_config_file, ofstream &log)
@@ -30,11 +28,11 @@ void AKBMSDetector::initialize(const string &bms_config_file, ofstream &log)
 }
 ```
 
-**3.读取config文件**
+#### 3.**读取config文件**
 
 
 
-**4.保存log文件**
+#### 4.保存log文件
 
 ```c++
 if (m_config.saveRobotPose)
@@ -51,14 +49,14 @@ if (m_config.saveRobotPose)
 }
 ```
 
-- **初始化方式**
+#### 5.初始化方式
 
 ```c++
 // 初始化pcl相关变量
 original_points.reset(new pcl::PointCloud<pcl::PointXYZ>());
 ```
 
-- **调试分析**
+#### 6.调试分析
 
 ```c++
 static int count = 0;
@@ -81,7 +79,7 @@ if((count % 40 ) == 1)
 }
 ```
 
-- **析构方式**
+#### 7.析构方式
 
 ```c++
 void AKBmsService::destroy()
@@ -90,7 +88,7 @@ void AKBmsService::destroy()
 }
 ```
 
-- **耗时统计**
+#### 8.耗时统计
 
 ```c
 uint64_t current_timestamp = getCurrentTime1970msec();
@@ -105,7 +103,7 @@ cout << "<======= opticalflow3 time "<< std::chrono::duration_cast<std::chrono::
 std::this_thread::sleep_for(std::chrono::milliseconds(100));
 ```
 
-- 只获取第一次数据
+#### 9.只获取第一次数据
 
 
 ```c++
@@ -121,7 +119,7 @@ for (size_t i = 0; i < imagePathList.size(); i++)
             }
 ```
 
-- 数据交互
+#### 10.数据交互
 
 
 ```c++
@@ -138,7 +136,7 @@ while (getline(fp,line)){
 }
 ```
 
-- 文件名获取数字
+#### 11.文件名获取数字
 
 ```c++
 void NS_SKIDDETECTION::SkidDetecsteady_clocktion::load_img()
@@ -162,5 +160,105 @@ void NS_SKIDDETECTION::SkidDetecsteady_clocktion::load_img()
         // cout << tmp.timestamp<< endl;
     }
 }   
+```
+
+#### 12.同步线程类设计模式
+
+```c++
+    public:
+        void init(queue<AK::PoseData> &pose_data, queue<FrameBufQueue> &frame_bufqueue)
+        {
+            this->pose_data_ = pose_data;
+            this->frame_bufqueue_ =  frame_bufqueue;
+            // 初始化变量
+            is_start = false;
+            // 单独启动线程
+            thread_detect_handle = std::thread(&SlipDetectionInterface::thread_detect, this);
+            thread_detect_handle.detach();
+        }
+        
+        void start()
+        {
+            is_start = true;
+        }
+        void stop()
+        {
+            is_start = false;
+        }
+        void get_flag(SkidData& output)
+        {
+            std::lock_guard<std::mutex> lock(mutex_data);
+            output = result;
+        }
+    private:
+        std::thread thread_detect_handle;
+        std::atomic<bool> is_start;
+        std::mutex mutex_data;
+        SkidData result;
+        void thread_detect()
+        {
+            bool is_frist = true;
+            FrameBufQueue imgbuffer_ahead, imgbuffer_back;
+            AK::PoseData pose_ahead, pose_back;
+
+           while (true)
+            {       
+                SkidData temp;
+                if(is_start)
+                {
+                    // 核心算法
+                }
+                else
+                {
+                      usleep(50*1000);
+                }
+```
+
+#### **13.数组本质指针常量,不能赋值**
+
+```c++
+if (mCamRawDataSmsQueue.dequeue(&mEnqueueSMSBuf))
+{
+
+    if (mEnqueueSMSBuf.timestamp > lastTimeStamp2)
+    {
+        {
+            std::unique_lock<std::mutex> lock(mMutexPMSdata_camera);
+            if (frameQueue.size() >= mMaxCamDataQueueSize)
+                frameQueue.pop();
+            frameQueue.push(mEnqueueSMSBuf);
+            lastTimeStamp2 = mEnqueueSMSBuf.timestamp;
+        }
+        {
+            std::unique_lock<std::mutex> lock(mcamDataMutex);
+            cam_data->timestamp = mEnqueueSMSBuf.timestamp;
+            memcpy(cam_data->buffer, mEnqueueSMSBuf.buffer, sizeof(mEnqueueSMSBuf.buffer));          //通过拷贝地址内存来实现
+            cam_data->length = mEnqueueSMSBuf.length;
+
+        }
+    }
+}
+```
+
+#### 14.获取文件名含有的时间戳
+
+```c
+SplitString(filenames[i], v1, ".jpg");
+SplitString(v1[0],  v,  "/");
+tmp.timestamp= atof(v[v.size() - 1].c_str());
+```
+
+#### 15.数组转mat取巧
+
+```c
+cv::Mat disp8 = cv::Mat(height, width, CV_8UC1);
+for (sint32 i = 0; i < height; i++)
+{
+for (sint32 j = 0; j < width; j++)
+{
+// disp8.data[i * width + j]= disparity[i * width + j];
+disp8.at<uint8_t>(i,j)= disparity[i * width + j];
+}
+}
 ```
 
