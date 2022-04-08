@@ -24,6 +24,7 @@
 - 补习内容:
   - 资料?
   - 课程?
+- 一个项目构成: 1.软件架构 2.核心算法 3.分析调试
 
 
 
@@ -33,6 +34,7 @@
 - [ ] 熟悉激光slam架构,解读代码;
 - [ ] 计算机视觉cartographer一期视频课程;
 - [ ] 看明白建图逻辑;
+- [ ] 
 
 
 
@@ -69,4 +71,6 @@
   ldd ak_sysroot/a9_x86_64/usr/bin/protoc
   LD_LIBRARY_PATH=${PWD}/ak_sysroot/a9_x86_64/usr/lib/ ./ak_sysroot/a9_x86_64/usr/bin/protoc --help LD_LIBRARY_PATH=$(pwd)/ak_sysroot/a9_x86_64/usr/lib/ ./ak_sysroot/a9_x86_64/usr/bin/protoc --help
   ```
+
+- 上位机client系统版本不匹配;
 

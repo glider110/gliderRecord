@@ -262,3 +262,45 @@ disp8.at<uint8_t>(i,j)= disparity[i * width + j];
 }
 ```
 
+#### **16.关于sleep**
+
+```c
+sleep() 秒  对应的头文件 #include <unistd.h>
+usleep() 微秒
+Sleep() window写法
+ 代表开始堵塞,代码挂起
+```
+
+#### 17.强枚举
+
+```c
+enum class DestructorAction {join, detach};
+```
+
+#### 18.保存mat→csv
+
+```c++
+ofstream myfile;
+string filename = "/tmp/hmat.csv";
+myfile.open(filename.c_str());
+myfile << cv::format(ptMat, cv::Formatter::FMT_CSV) << std::endl;
+ myfile.close();
+```
+
+#### 19.关键词修饰函数
+
+```c++
+  virtual bool Run(void) = 0;
+  bool Run(void) override;
+  bool Run(void) final;
+  bool Run(void) const;
+```
+
+#### 其他:
+
+- inline 内联 。内联函数，顾名思义就是将编译代码和其它代码 “内联” 起来了。使用相应的函数代码替换函数调用。
+- **[static](https://www.runoob.com/cplusplus/cpp-storage-classes.html)** 存储类指示编译器在程序的生命周期内保持局部变量的存在，而不需要在每次它进入和离开作用域时进行创建和销毁。
+- **[extern](https://www.runoob.com/cplusplus/cpp-storage-classes.html)** 存储类用于提供一个全局变量的引用，全局变量对所有的程序文件都是可见的
+- [**const**](https://www.cnblogs.com/narjaja/p/9300525.html)   修饰常量 修饰函数参数 修饰返回值 修饰函数
+- c++ 对象: 右值(纯右值 字面量 将亡值 lamda表达式)
+

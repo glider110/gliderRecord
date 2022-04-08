@@ -564,19 +564,18 @@ vscode开发效率工具：
 打断点调试及vector赋值
 
 ```c++
-    int i = 0;
-    vector<int> a;
-    vector<int> a(4);
-    while (1)
-    {
-        i++;
-        sleep(1);
-        cout << i << endl;
-    }
-    for (int i = 0; i < 4; i++)
-        a[i] = i;
-  
-    cout << a.size() << endl;
+int i = 0;
+vector<int> a;
+vector<int> a(4);
+while (1)
+{
+    i++;
+    sleep(1);
+    cout << i << endl;
+}
+for (int i = 0; i < 4; i++)
+    a[i] = i;
+cout << a.size() << endl;
 ```
 
 

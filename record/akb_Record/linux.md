@@ -39,6 +39,8 @@
   
 - 查看生效 echo $PATH    $LD_LIBRARY_PATH
 
+- export LD_LIBRARY_PATH=$PWD/../lib
+
 - ls -rt 安装时间排序
 
 - 条件查找：egrep “啊|呕”
@@ -149,8 +151,6 @@ start.sh | grep "xoo=\|OpticalFl\|tensit\|encode\|distanc"
 查看依赖：readelf -d libakWireDetector.so 
 
 查看函数：nm  libakPerceptionInterface.so  -D |awk '{if($2 == "T"){print $3}}'
-
-
 
 
 

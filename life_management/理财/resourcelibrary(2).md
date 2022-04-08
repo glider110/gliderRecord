@@ -81,7 +81,6 @@
 
 #### **优质资源汇总：**
 
-- **[理财书籍库](https://www.aliyundrive.com/s/niPqmVYVHrE/folder/618bf5b0c53481d44d824be0af1a9bd43d1ef339)**
 - 桥水基金　瑞-达利欧　经济机器是怎么运行的
-- 
+- **[【梨核】如何用三个模型解决大多数财经问题？](https://www.bilibili.com/read/cv15064463?from=note)**
 
