@@ -296,6 +296,14 @@ myfile << cv::format(ptMat, cv::Formatter::FMT_CSV) << std::endl;
   bool Run(void) const;
 ```
 
+20.vecter转mat
+
+```c++
+cv::Mat slam_map_gray(cv::Size(mCarMap.map_param.width, mCarMap.map_param.height), CV_8UC1, &mCarMap.map[0]);
+```
+
+
+
 #### 其他:
 
 - inline 内联 。内联函数，顾名思义就是将编译代码和其它代码 “内联” 起来了。使用相应的函数代码替换函数调用。
@@ -303,4 +311,6 @@ myfile << cv::format(ptMat, cv::Formatter::FMT_CSV) << std::endl;
 - **[extern](https://www.runoob.com/cplusplus/cpp-storage-classes.html)** 存储类用于提供一个全局变量的引用，全局变量对所有的程序文件都是可见的
 - [**const**](https://www.cnblogs.com/narjaja/p/9300525.html)   修饰常量 修饰函数参数 修饰返回值 修饰函数
 - c++ 对象: 右值(纯右值 字面量 将亡值 lamda表达式)
+
+###### 
 

@@ -34,7 +34,7 @@
 - [ ] 熟悉激光slam架构,解读代码;
 - [ ] 计算机视觉cartographer一期视频课程;
 - [ ] 看明白建图逻辑;
-- [ ] 
+- [ ] 测试回环之前的和字后 地图变化对比;
 
 
 
@@ -73,4 +73,24 @@
   ```
 
 - 上位机client系统版本不匹配;
+
+
+
+lidar
+
+
+
+
+
+
+
+![image-20220420175526177](激光slam.assets/image-20220420175526177.png)
+
+![image-20220420175615807](激光slam.assets/image-20220420175615807.png)
+
+
+
+
+
+W0805 18:11:32.829422  1061 local_trajectory_builder_2d.cc:223] Dropped empty horizontal range data.
 

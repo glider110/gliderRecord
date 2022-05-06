@@ -41,6 +41,13 @@
 
 - export LD_LIBRARY_PATH=$PWD/../lib
 
+- chmod 777 *
+
+- -rwxr-xr-x 1 sshd input 7.2K Apr 22  2022 plan.yaml
+  ==d==rwxrwxr-x 3 root root  1.0K Aug  5 17:18 slam.cfg
+
+- 查看依赖：readelf -d libakWireDetector.so 
+
 - ls -rt 安装时间排序
 
 - 条件查找：egrep “啊|呕”
@@ -91,6 +98,8 @@
   exec
 
 其他命令:
+
+
 
 ```shell
 find  -mmin -2
@@ -152,6 +161,12 @@ start.sh | grep "xoo=\|OpticalFl\|tensit\|encode\|distanc"
 
 查看函数：nm  libakPerceptionInterface.so  -D |awk '{if($2 == "T"){print $3}}'
 
+<font color=red>**typora字体颜色设置**</font>
+
+
+
+
+
 
 
 
@@ -182,3 +197,4 @@ F2重命名    F5调试    F11全屏     F12跳转定义
 CTRL+H 打开隐藏文件
 
 ```
+
