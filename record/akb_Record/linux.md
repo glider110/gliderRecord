@@ -37,7 +37,7 @@
     sudo ln -s ./node /usr/local/bin/     软连接
     ```
   
-- 查看生效 echo $PATH    $LD_LIBRARY_PATH
+- 查看生效 echo $PATH      $ LD_LIBRARY_PATH
 
 - export LD_LIBRARY_PATH=$PWD/../lib
 
@@ -193,6 +193,7 @@ Win+→    Win 1
 Tab shift+Tab
 ctrl+D 收藏 exp:文件+360浏览器
 ctrl+L terminate 清屏
+ctrl+w 关闭窗口
 F2重命名    F5调试    F11全屏     F12跳转定义 
 CTRL+H 打开隐藏文件
 

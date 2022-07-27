@@ -82,5 +82,10 @@
 #### **优质资源汇总：**
 
 - 桥水基金　瑞-达利欧　经济机器是怎么运行的
+
 - **[【梨核】如何用三个模型解决大多数财经问题？](https://www.bilibili.com/read/cv15064463?from=note)**
+
+- 阿里云资源汇总:
+
+  大杂烩1:**https://www.aliyundrive.com/s/pDamk7NR3HU/folder/61fdbd3e7e7f6d8828a04064b480f014da6e400a**
 

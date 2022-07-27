@@ -296,11 +296,17 @@ myfile << cv::format(ptMat, cv::Formatter::FMT_CSV) << std::endl;
   bool Run(void) const;
 ```
 
-20.vecter转mat
+#### **20.vecter转mat**
 
 ```c++
 cv::Mat slam_map_gray(cv::Size(mCarMap.map_param.width, mCarMap.map_param.height), CV_8UC1, &mCarMap.map[0]);
 ```
+
+21.
+
+
+
+
 
 
 
@@ -311,6 +317,7 @@ cv::Mat slam_map_gray(cv::Size(mCarMap.map_param.width, mCarMap.map_param.height
 - **[extern](https://www.runoob.com/cplusplus/cpp-storage-classes.html)** 存储类用于提供一个全局变量的引用，全局变量对所有的程序文件都是可见的
 - [**const**](https://www.cnblogs.com/narjaja/p/9300525.html)   修饰常量 修饰函数参数 修饰返回值 修饰函数
 - c++ 对象: 右值(纯右值 字面量 将亡值 lamda表达式)
+- [**static**](https://blog.csdn.net/lms1008611/article/details/81408236?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2-81408236-blog-123122434.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2-81408236-blog-123122434.pc_relevant_default&utm_relevant_index=5)关键词:类名调用 不在对象的生命周期在程序的生命周期 类外初始化 **只初始化一次**
 
 ###### 
 
