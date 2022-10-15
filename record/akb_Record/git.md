@@ -74,7 +74,39 @@ git config --global  --list
 git config --local  --list
 ```
 
+#### [**远程获取仓库到一个新branch上(详解git fetch和git pull区别)**](https://blog.csdn.net/Javammf/article/details/125539790)
 
+![img](https://img2020.cnblogs.com/blog/816762/202112/816762-20211230093656491-1101724228.jpg)
+
+```shell
+ //在本地新建一个tmp分支，并将远程origin仓库的master分支代码下载到本地temp分支
+git fetch origin master:tmp 
+//来比较本地代码与刚刚从远程下载下来的代码的区别
+git diff tmp 
+//合并temp分支到本地的master分支
+git merge tmp
+//如果不想保留tmp分支 可以用这步删除
+git branch -d tmp
+```
+
+
+
+#### 秋林network_clinet上传新开的gitlab仓库   
+
+```shell
+1961  git diff --cached 
+ 1962  git commit -m "updata"
+ 1963  git remote add origin git@gitee.com:ak_lidar_project/network_client.git
+ 1964  git remote add upstream git@gitee.com:ak_lidar_project/network_client.git
+ 1965  git push upstream master
+ git submodule add git@github.com:glider110/lidar_undistortion_2d.git modules3rd/
+ git checkout .  及放弃修改 
+ git pull  和  git fetch origin    区别
+ 
+
+```
+
+![image-20220824135303977](git.assets/image-20220824135303977.png)
 
 ### 难点：
 

@@ -41,6 +41,8 @@
 
 - export LD_LIBRARY_PATH=$PWD/../lib
 
+- printenv |grep ros
+
 - chmod 777 *
 
 - -rwxr-xr-x 1 sshd input 7.2K Apr 22  2022 plan.yaml
@@ -99,14 +101,16 @@
 
 其他命令:
 
-
-
 ```shell
 find  -mmin -2
 md5sum
 start.sh |grep "isStaticStateForOpticalFlow\|xxxxxxoo==="
 start.sh | grep "xoo=\|OpticalFl\|tensit\|encode\|distanc"
 ```
+
+小工具 传输局域网
+
+` sudo ./dufs -p 80 . --allow-upload`
 
 
 
@@ -187,8 +191,16 @@ Win //
 *******************************************************************
 Ctrl+Alt+D  =Win+D   //
 Alt+Ctrl+T=Ctrl+Shift+C
+ctrl+win +D
 Alt + F4      
 Win+→    Win 1
+最大窗口 win + ↑
+最小化窗口 win + ↓
+隐藏窗口 win + H
+窗口放左边 win + ←
+窗口放右边 win + →
+
+
 
 Tab shift+Tab
 ctrl+D 收藏 exp:文件+360浏览器
@@ -198,4 +210,6 @@ F2重命名    F5调试    F11全屏     F12跳转定义
 CTRL+H 打开隐藏文件
 
 ```
+
+
 

@@ -30,7 +30,7 @@ auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime
 std::cout << "Point cloud filtering took " << elapsedTime.count() << " milliseconds" << std::endl;
 ```
 
-**1.3 匿名函数，只调用一次，display()**
+##### 1.3 匿名函数，只调用一次，display()
 
 ```c++
 #include<iostream>
@@ -51,7 +51,7 @@ void hello()
 }
 ```
 
-**1.4 读取文件图片，简化的循环方式，适合vecter的迭代器**
+##### 1.4 读取文件图片，简化的循环方式，适合vecter的迭代器
 
 ```C++
  glob(folder, calib_files);
