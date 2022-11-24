@@ -2,12 +2,6 @@
 
 ### **linux相关命令：**
 
-- sudo apt install ninja-build
-
-
-- sudo apt-get install libblas-dev liblapack-dev
-- vi vim  gedit code
-
 
 - 查看编译库是否存在某个函数 objdump  -tT libakWireDetector.so | grep detectCarpetFromPairLine
 
@@ -15,9 +9,7 @@
 
 - 查看代码行数： wc -l
 
-- 远程调试：./client 192.168.31.253 /home/guo/桌面/3D_tof/test/Night_Tilefloor_BlackBlueWire_dataset/obstacles
-
-- vi的基本操作：命令模式 Esc 编辑模式 i 保存退出：wq 不保存退出 ：q！
+  vi的基本操作：命令模式 Esc 编辑模式 i 保存退出：wq 不保存退出 ：q！
 
 - 查看行数：find * | wc -l
 
@@ -45,20 +37,13 @@
 
 - chmod 777 *
 
-- -rwxr-xr-x 1 sshd input 7.2K Apr 22  2022 plan.yaml
-  ==d==rwxrwxr-x 3 root root  1.0K Aug  5 17:18 slam.cfg
-
 - 查看依赖：readelf -d libakWireDetector.so 
 
 - ls -rt 安装时间排序
 
 - 条件查找：egrep “啊|呕”
 
-- adb push libakPerceptionInterface.so /usr/lib
-
 - Linux三剑客： grep sed awk 
-
-- 删除程序所有进程 killall record_data 
 
 - 文件处理：
 
@@ -106,11 +91,29 @@ find  -mmin -2
 md5sum
 start.sh |grep "isStaticStateForOpticalFlow\|xxxxxxoo==="
 start.sh | grep "xoo=\|OpticalFl\|tensit\|encode\|distanc"
+slam | grep " xxx" |tee -a 2.txt
+ tail -f 1.txt
+ start.sh  | grep " xxx" |tee -a 1.csv
+
 ```
 
 小工具 传输局域网
 
 ` sudo ./dufs -p 80 . --allow-upload`
+
+docker操作
+
+```
+groups 
+ 1969  docker exec -it ak_sdk /bin/bash
+ 1970  exit
+ 1971  docker compose up -d 
+ 1972  docker container ls -a
+ 1973  docker rm epic_bhabha quirky_burnell 
+ 1974  docker compose up -d 
+ 1975  docker container ls -a
+ 1976  docker exec -it ak_sdk /bin/bash
+```
 
 
 
@@ -199,7 +202,6 @@ Win+→    Win 1
 隐藏窗口 win + H
 窗口放左边 win + ←
 窗口放右边 win + →
-
 
 
 Tab shift+Tab
