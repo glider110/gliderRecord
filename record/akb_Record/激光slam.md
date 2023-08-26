@@ -78,3 +78,37 @@ W0805 18:11:32.829422  1061 local_trajectory_builder_2d.cc:223] Dropped empty ho
 
   
 
+### 离线仿真操作:
+
+**1.打开docker环境进入**
+
+  cd到docker配置好的目录  cd /home/admins/桌面/Lidar/ak_sdk
+
+  docker compose up -d 
+
+  docker exec -it ak_sdk /bin/bash
+
+**2.跑机发布话题**
+
+cd ak_sdk/ak_sysroot/l9_x86_64/usr/bin/ &./network_client_ros 
+
+**3.录包**
+
+ cd ak_sdk & ros2 bag record  /imu_src /odom_src /point_cloud_src -o bag/sensor_20
+
+**4.播放录制的包**
+
+ ros2 bag play bag/sensor_data_12.15.4
+
+**5.启动仿真sensor**
+
+cd ak_sdk/ak_sysroot/l9_x86_64/usr/bin/ &./offline_sensor
+
+**6.启动slam**
+
+cd ak_sdk/ak_sysroot/l9_x86_64/usr/bin/ &./slam
+
+**7.启动上位机**
+
+cd ak_sdk/ak_sysroot/l9_x86_64/usr/bin/ & ./network_client_slam --ip 127.0.0.1
+
