@@ -82,6 +82,9 @@ git config --local  --list
  //在本地新建一个tmp分支，并将远程origin仓库的master分支代码下载到本地temp分支
 git fetch origin master:tmp 
 //来比较本地代码与刚刚从远程下载下来的代码的区别
+
+git checkout -b develop origin/develop
+
 git diff tmp 
 //合并temp分支到本地的master分支
 git merge tmp
