@@ -4,6 +4,14 @@
 
 <img src="git.assets/20180919181719956-16325429886814.png" alt="20180919181719956" style="zoom: 67%;" /><img src="git.assets/20180919181719784-16325430703885.png" alt="20180919181719784" style="zoom:67%;" />
 
+#### [**远程获取仓库到一个新branch上(详解git fetch和git pull区别)**](https://blog.csdn.net/Javammf/article/details/125539790)
+
+![img](https://img2020.cnblogs.com/blog/816762/202112/816762-20211230093656491-1101724228.jpg)
+
+
+
+
+
 ### 简易的命令行入门教程(案例):
 
 Git 全局设置:
@@ -11,15 +19,14 @@ Git 全局设置:
 ```
 git config --global user.name "郭小凡"
 git config --global user.email "glider.guo@ankobot.com"
-git config core.fileMode false
 ```
 
 生成秘钥放在远程服务器 免密登录：
-
 ```
 ssh-keygen -t rsa -C "glider.guo@ankobot.com"
 cat id_rsa.pub 
 ```
+
 
 创建 git 仓库:
 
@@ -42,7 +49,28 @@ git remote add origin git@gitee.com:aktof/pcl_library.git
 git push -u origin master
 ```
 
+![image-20210913110754055](git.assets/image-20210913110754055.png)
+
+
+
 一些命令：
+#### [查看log](https://blog.csdn.net/chenpuzhen/article/details/92084229?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link)
+
+```shell
+$ git log
+$ git reflog
+$ git diff   查看修改但没有commit的内容  详细
+$ git  status    查看修改但没有commit的内容    简单
+$ git branch -a   查看本地和远程仓库的所有分支
+$ git remote -v     查看远程git地址
+git config --system --list       config 配置有system级别 global（用户级别） 和local（当前仓库）三个
+git config --global  --list 
+git config --local  --list
+git stash list
+git stash show
+```
+
+
 
 #### [Git回滚代码到某个commit](https://www.cnblogs.com/hukuangjie/p/11369434.html)
 
@@ -57,23 +85,25 @@ $ git checkout commit_然后在git checkout -b 新分支
 git commit --amend -m "新的修改提交信息"
 ```
 
-#### [查看log](https://blog.csdn.net/chenpuzhen/article/details/92084229?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link)
+
+
+#### 切换问题，stash解决
 
 ```shell
-$ git log
-$ git reflog
-$ git diff   查看修改但没有commit的内容  详细
-$ git  status    查看修改但没有commit的内容    简单
-$ git branch -a   查看本地和远程仓库的所有分支
-$ git remote -v     查看远程git地址
-git config --system --list       config 配置有system级别 global（用户级别） 和local（当前仓库）三个
-git config --global  --list
-git config --local  --list
+git stash
+git stash save "储藏代码"    临时需要切换而又达不到一次commit要求的情况
+git stash list
+git stash show -p
+git stash pop 
+git stash apply
+git stsh drop/clear
+
+
 ```
 
-#### [**远程获取仓库到一个新branch上(详解git fetch和git pull区别)**](https://blog.csdn.net/Javammf/article/details/125539790)
 
-![img](https://img2020.cnblogs.com/blog/816762/202112/816762-20211230093656491-1101724228.jpg)
+
+
 
 ```shell
  //在本地新建一个tmp分支，并将远程origin仓库的master分支代码下载到本地temp分支
@@ -89,7 +119,9 @@ git merge tmp
 git branch -d tmp
 ```
 
-#### 秋林network_clinet上传新开的gitlab仓库
+
+
+#### 秋林network_clinet上传新开的gitlab仓库   
 
 ```shell
 1961  git diff --cached 
@@ -106,27 +138,31 @@ git branch -d tmp
 
 ![image-20220824135303977](git.assets/image-20220824135303977.png)
 
-**将当前分支修改暂存**
-
-　　在任务推进过程中，可能遇到需要切换到其他分支进行处理的情况。但是对应的，对于当前分支的修改可能并不足以达到需要进行一次提交的程度，此时更合适的方案是将本分支修改暂存，然后切换到其他分支进行工作，待其他分支的任务完成后，再切换回本分支，并将暂存的方案恢复，进而继续本分支的修改。
-
-```
-    git stash              //暂存本分支的修改
-    git stash list         //显示所有 stash 的数
-    git stash apply        //恢复最近一次暂存的修改
-```
-
 ### 难点：
 
-- merge  rebase 区别
+- merge  rebase 区别 以及和cherry pick
+
 - pull fetch  区别
+
 - reset revert 区别
-- 冲突问题
+
+- checkout 多功能用法
+
+  - 切换分支 
+  - 清除本地修改
+  - 指定commit文件修改到工作区
+  
+  
+
+
 
 ### 问题：
 
 - 用ssh 尽量不要用https      包括git clone 和配远程仓库时候
+
 - 撤销某次commit
+
+  
 
 ### 实战场景：
 
@@ -138,21 +174,9 @@ git branch -d tmp
 
 4.重做某一个commit，之后的代码又不想重新写；
 
+
+
 ==**思想：你平常开发过程中能想到的和想不到的，git已经给你弄好了，只是你自己没意识到；**==
 
- git log
-  431  gitg
-  432  git status
-  433  git diff
-  434  git stash
-  435  git log
-  436  gitg
-  437  git checkout a844f33d4e9aaba792954ed743d2ad4601cc6d42
-  438  git log
-  439* gitg
-  440  git cherry-pick 399c6190c6315df6bfbcb8aaed52d006e096f2f9
-  441  gitg
-  442  git checkout -b feature/modify_obstacle_mid70
-  443  gitg
-  444  git stash pop
-  445  gitg
+
+
