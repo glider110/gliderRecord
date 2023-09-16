@@ -11,14 +11,15 @@ Git 全局设置:
 ```
 git config --global user.name "郭小凡"
 git config --global user.email "glider.guo@ankobot.com"
+git config core.fileMode false
 ```
 
 生成秘钥放在远程服务器 免密登录：
+
 ```
 ssh-keygen -t rsa -C "glider.guo@ankobot.com"
 cat id_rsa.pub 
 ```
-
 
 创建 git 仓库:
 
@@ -40,10 +41,6 @@ cd existing_git_repo
 git remote add origin git@gitee.com:aktof/pcl_library.git
 git push -u origin master
 ```
-
-![image-20210913110754055](git.assets/image-20210913110754055.png)
-
-
 
 一些命令：
 
@@ -92,9 +89,7 @@ git merge tmp
 git branch -d tmp
 ```
 
-
-
-#### 秋林network_clinet上传新开的gitlab仓库   
+#### 秋林network_clinet上传新开的gitlab仓库
 
 ```shell
 1961  git diff --cached 
@@ -111,27 +106,27 @@ git branch -d tmp
 
 ![image-20220824135303977](git.assets/image-20220824135303977.png)
 
+**将当前分支修改暂存**
+
+　　在任务推进过程中，可能遇到需要切换到其他分支进行处理的情况。但是对应的，对于当前分支的修改可能并不足以达到需要进行一次提交的程度，此时更合适的方案是将本分支修改暂存，然后切换到其他分支进行工作，待其他分支的任务完成后，再切换回本分支，并将暂存的方案恢复，进而继续本分支的修改。
+
+```
+    git stash              //暂存本分支的修改
+    git stash list         //显示所有 stash 的数
+    git stash apply        //恢复最近一次暂存的修改
+```
+
 ### 难点：
 
 - merge  rebase 区别
-
 - pull fetch  区别
-
 - reset revert 区别
-
 - 冲突问题
-
-  
-
-
 
 ### 问题：
 
 - 用ssh 尽量不要用https      包括git clone 和配远程仓库时候
-
 - 撤销某次commit
-
-  
 
 ### 实战场景：
 
@@ -143,9 +138,21 @@ git branch -d tmp
 
 4.重做某一个commit，之后的代码又不想重新写；
 
-
-
 ==**思想：你平常开发过程中能想到的和想不到的，git已经给你弄好了，只是你自己没意识到；**==
 
-
-
+ git log
+  431  gitg
+  432  git status
+  433  git diff
+  434  git stash
+  435  git log
+  436  gitg
+  437  git checkout a844f33d4e9aaba792954ed743d2ad4601cc6d42
+  438  git log
+  439* gitg
+  440  git cherry-pick 399c6190c6315df6bfbcb8aaed52d006e096f2f9
+  441  gitg
+  442  git checkout -b feature/modify_obstacle_mid70
+  443  gitg
+  444  git stash pop
+  445  gitg
