@@ -1,8 +1,8 @@
-### 项目工程理解
+### 
 
-**环境配置&&编译记录：**
+#### **环境配置&&编译记录：**
 
-- [ ] ros    小鱼脚本一键安装
+- [ ] ros   小鱼脚本一键安装
 
 - [ ] pcl1.10 和eigen
 
@@ -12,78 +12,6 @@
 
   与ubuntu20版本不匹配
 
-  
-
-**项目架构:**
-
-
-
-
-
-**开发流程&&规范：**
-
-
-
-
-
-**question？：**
-
-- [ ] sros-nxp && sros
-
-- [ ] docker远程仓库地址不对
-
-  
-
-
-
-### TODO LIST:
-
-- [ ] 调试：
-  - [ ] 1.sros脚本推送
-  - [ ] 2.创建新module测试pcl功能；
-- [ ] 开发:
-  - [ ] 协议对接：
-
-
-
-#### 微重构对接协议
-
-| **输入** | **消息名称**                               | 消息类型                                |
-| -------- | ------------------------------------------ | --------------------------------------- |
-|          | 点云（主激光雷达、避障激光雷达、避障相机） | `sros::core::base_msg_ptr`              |
-|          | 检测框（多个BOX）                          | `SpaceRange3DS`                         |
-|          | 传感器外参                                 |                                         |
-|          | 机器的位姿                                 | `std::shared_ptr<slam::tf::TFOperator>` |
-| **输出** | 障碍点信息（基于车体）                     | `std::shared_ptr<ObstacleMsg>`          |
-|          | 障碍点信息（基于地图）                     | `std::shared_ptr<ObstacleMsg>`          |
-
-
-
-
-
-
-
-
-
-
-
-- **【perception】**
-
-- [x] 运行编译
-- [x] 功能模块组织cmakelists
-- [ ] 单独模块的离线调试(细看)
-
-
-
-- **【sros】**
-
-- [x] sros组织架构，cmakelists粗略，
-
-- [x] 感知模块集成编译（消息发布订阅，嵌套）
-
-  *1.远程仓库拉去image问题。  Json文件里面配置问题*
-
-  *2.sros下子仓库submodle  sros-resources位置不对；*
 
 - [ ] 运行编译
 
@@ -91,21 +19,114 @@
 
 
 
-- **【避障模块】**
+#### **比亚迪偶发避障问题**
 
-- [ ] 导航方式：路网导航,自由导航，手动导航
-- [ ] 产品分类：O车和叉车、避障模型、传感器类别
+- oradar 1512  mian 2505  sick 240
+- ![image-20230926200129188](std_record.assets/image-20230926200129188.png)
+
+- 555 原始代码加log
+- 444 只开启 后避障雷达的cluster
+- 关闭后避障雷达 机器重连
+
+**FAE&&研发联调过程：**
+
+- 工厂环境下跑图，后侧ORADAR避障雷达误触发较多，且呈现在==**特定区域的叉臂区域附近**==；
+
+- 遮挡左右侧SICK雷达，仅测试后侧ORADAR，触发误触发较多，排除其他雷达频段干扰；
+
+- 添加聚类滤波算法，未见明显改善，偶发的杂点并==**不完全是孤立点**==；
+
+- 调高叉臂到1m, 同时用白色泡沫遮挡上下叉臂，==**误触发频率减少**==。
+
+  ​             
+
+**测试总结：**
+
+- 结合工厂强光环境下，且地面是金属等高反材质，比较容易形成==**多次反射干扰**==雷达；
+- 干扰源呈偶发、集聚特点；
 
 
 
-- 产品→业务→机器人平台→感知需求
+**解决思路：**
 
-- Matrix理解及使用
-
-  
-
-- **【开发调试】**
-
+- 数据端：联系供应商针对强光高反环境下的是否有相应优化，可配合调整传感器参数及更新SDK；
+- 算法端：根据测试经验，滤掉整个叉臂附近区域，是否会对取放货等任务有影响还需进一步评估；
+- 业务端：前进过程可以暂时关闭后侧避障功能；
+- 产品端：同时用三个SICK, 替换后侧ORADAR避障雷达。
 
 
-![2023-09-07 17-47-59 的屏幕截图](std_record.assets/2023-09-07 17-47-59 的屏幕截图.png)
+
+
+
+
+
+#### **开发调试常用**
+
+```shell
+ls -l /sros/bin/sros     #  查看sros可执行程序
+/sros/bin/sros --version # 查看sros版本
+
+systemctl status sros  # 查看sros运行状态
+systemctl stop sros    # 停止sros程序运行
+
+# 改软链接
+cd /sros/bin/
+ls -lrt
+./sros_a3be7aa-nxp  --version  # 示例，查看每一个sros文件，找出好用的历史版本
+ln -sf sros_a3be7aa-nxp sros # 示例，改sros软链接
+
+systemctl start sros   # 启动sros程序运行
+
+systemctl status ui_server # 查看Matrix运行状态
+systemctl stop ui_server   # 停止Matrix程序运行
+systemctl start ui_server  # 启动Matrix程序运行
+
+
+journalctl -f  # 查看实时日志
+
+ls -l /sros/log/core*   # 查看崩溃日志
+gdb /sros/bin/sros /sros/log/core-sros-1604006748.142550 # 示例， GDB查看崩溃点 敲bt等
+
+当Matrix不能升级，手动升级方法
+在电脑打开终端，scp命令传输升级包到控制器
+在控制器系统终端，把升级包文件复制到/sros/update/sros-1.tar.gz
+systemctl restart sros  # startup.sh脚本会执行升级
+
+telnet <ip> <port> 可以查看sros提供给matrix的socket连接的端口是否连通，类似可以看 5002，80，8088， 443端口
+
+scp -P 2222 sros root@10.10.91.4:/sros/bin/
+sshpass -p SRpasswd@2017 ssh  -p 2222 root@10.10.91.4
+
+git checkout 399c6190c6315df6bfbcb8aaed52d006e096f2f9 modules/obstacle/sensor_manager/sensor_process_alg.cpp
+git checkout  -- modules/obstacle/sensor_manager/sensor_process_alg.cpp
+
+cat /sros/log/sros.INFO | grep "card_detection.cpp:491] {task}    goal in agv world pose:" > /sros/debug_data/test.txt
+cd /d d:         
+```
+
+
+
+![image-20230926112337903](std_record.assets/image-20230926112337903.png)
+
+
+
+
+
+
+
+
+
+#### 其他备注：
+
+版本管理：微重构在main开发   切换到稳定的版本 按tag版本
+
+
+
+
+
+
+
+
+
+
+

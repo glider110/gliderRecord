@@ -23,14 +23,12 @@
 
 
 
-scp -P 2222 sros root@10.10.91.4:/sros/bin/
-
-sshpass -p SRpasswd@2017 ssh  -p 2222 root@10.10.91.4
 
 
+**TODO LIST:**
 
+- [ ] 协议具体化 拉会确定。
+- [ ] 旧代码梳理
 
+- [ ] 
 
-git checkout 399c6190c6315df6bfbcb8aaed52d006e096f2f9 modules/obstacle/sensor_manager/sensor_process_alg.cpp
-
-git checkout  -- modules/obstacle/sensor_manager/sensor_process_alg.cpp
