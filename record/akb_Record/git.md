@@ -117,6 +117,8 @@ git diff tmp
 git merge tmp
 //如果不想保留tmp分支 可以用这步删除
 git branch -d tmp
+
+git push origin --delete gxf/refactor_pointcloud_process
 ```
 
 
@@ -137,6 +139,8 @@ git branch -d tmp
 ```
 
 ![image-20220824135303977](git.assets/image-20220824135303977.png)
+
+### ![image-20231027141139801](git.assets/image-20231027141139801.png)
 
 ### 难点：
 
@@ -162,6 +166,14 @@ git branch -d tmp
 
 - 撤销某次commit
 
+- 有时会遇到git branch -a时总是不出现新的分支或者远程已经没有的分支在本地还有，这时就需要更新下本地的[git分支](https://so.csdn.net/so/search?q=git分支&spm=1001.2101.3001.7020)保持和远程分支一致，使用下面命令即可：
+
+  git branch -a |grep ehl      
+  
+  git remote update origin --prune
+  
+  
+  
   
 
 ### 实战场景：

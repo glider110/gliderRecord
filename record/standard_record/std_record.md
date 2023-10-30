@@ -1,21 +1,6 @@
-### 
+# 避障问题汇总
 
-#### **环境配置&&编译记录：**
-
-- [ ] ros   小鱼脚本一键安装
-
-- [ ] pcl1.10 和eigen
-
-- [ ] glog    配置环境变量不起效（bashrc、ldconfig）
-
-- [ ] [opencv3.4./](https://blog.csdn.net/qq_58174923/article/details/120653723)    pkg-config opencv --modversion
-
-  与ubuntu20版本不匹配
-
-
-- [ ] 运行编译
-
-- [ ] 感知集成，机器控制
+**现场反馈实际问题 成因分析**![image-20231023115129090](std_record.assets/image-20231023115129090.png)
 
 
 
@@ -56,7 +41,7 @@
 
 
 
-
+![image-20231009103327290](std_record.assets/image-20231009103327290.png)
 
 
 
@@ -101,16 +86,15 @@ git checkout 399c6190c6315df6bfbcb8aaed52d006e096f2f9 modules/obstacle/sensor_ma
 git checkout  -- modules/obstacle/sensor_manager/sensor_process_alg.cpp
 
 cat /sros/log/sros.INFO | grep "card_detection.cpp:491] {task}    goal in agv world pose:" > /sros/debug_data/test.txt
-cd /d d:         
+cd /d d:   
+
+gdb
+
 ```
 
 
 
 ![image-20230926112337903](std_record.assets/image-20230926112337903.png)
-
-
-
-
 
 
 
@@ -122,11 +106,16 @@ cd /d d:
 
 
 
+北京中呈-衡阳铁路项目现场也出现点云偶发闪现 在开灯和拐弯很容易出现误报，和比亚迪项目叉车类似，这种一致性问题需要协助一下，看是否和比亚迪项目一样统一固件升级解决？
 
 
 
+测距降低对定位精度影响大吗？如果影响在接受范围内 就可以给O车配置上 新配置能解决叉车的偶发问题  讲道理o车也能解决；
 
 
 
+重构避障相机点云处理部分
 
-
+1.拆解原避障相机点云处理算法到point_cloud_process；
+2.重写算法内部参数表；
+3.自测避障输出信息和老版本结果一致；

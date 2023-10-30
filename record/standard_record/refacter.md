@@ -1,0 +1,142 @@
+### **怎样开展：**
+
+- **微重构部分**
+
+  - [ ] 搭建date_process模块，工厂模式实现各传感器处理功能；
+
+    [**初版架构**](https://www.yuque.com/guoxiaofan-vrtlz/ayng78/wp4eo2m2oob540zg)
+
+
+  - [ ] 明确边界感，对接sensor、obstacle、avoid_oba的接口
+
+    | **输入** | **消息名称**                               | 消息类型                                |
+    | -------- | ------------------------------------------ | --------------------------------------- |
+    |          | 点云（主激光雷达、避障激光雷达、避障相机） | `sros::core::base_msg_ptr`              |
+    |          | 检测框（多个BOX）                          | `SpaceRange3DS`                         |
+    |          | 传感器外参                                 |                                         |
+    |          | 机器的位姿                                 | `std::shared_ptr<slam::tf::TFOperator>` |
+    | **输出** | 障碍点信息（基于车体）                     | `std::shared_ptr<ObstacleMsg>`          |
+    |          | 障碍点信息（基于地图）                     | `std::shared_ptr<ObstacleMsg>`          |
+
+
+  - [ ] 旧版本的算法迁移，激光雷达→避障相机→感知相机特定场景避障；
+
+
+  - [ ] 测试各个功能模块和老版评估（需测试协助）；
+
+
+
+
+- **避障升级部分**
+
+  - [ ] 新功能的开发基于PCL来开发一些滤波功能，利用原生生数据结构来加快处理(kd/octree)
+
+
+  - [ ] 添加点云识别模块（叉臂、栈板、悬崖），实现自适应滤除而舍掉上层一下动态模型生成；
+
+
+  - [ ] 感知模块融合识别；
+
+    ​				
+
+- **公共开发部分**
+  - [ ] 交互和可视化
+  - [ ] 调试、离线测试数据集
+
+
+
+### **需要问的？**
+
+
+- [ ] avoid_oba 简要简介这部分功能及原理；
+- [ ] 业务与算法分离，避障模型转换为BOX形式；
+
+
+
+
+
+
+
+
+
+### **避障相机重构**
+
+**安装参数：**
+
+yaw pitch roll x y height
+
+**检测参数：**
+
+obstacle.stereo_points_min_height
+
+camera.detection_height_max
+
+camera.detection_distance_max
+
+obstacle.fixedarea_filtration_range
+
+**业务参数：**
+
+bstacle.rack_enable_filter_only_load_full
+
+obstacle.enable_remove_rack_leg
+
+obstacle.enable_fixedarea_filtration
+
+**货架参数：**
+
+rack.rack_leg_center_length
+
+rack.rack_leg_center_width
+
+rack.rack_wheel_rotate_radius
+
+**全局变量：**
+
+main.vehicle_type
+
+g_state.getVehicleHeight()
+
+g_state.rotate_value
+
+
+
+一个topic 不同相机名
+
+
+
+
+
+**避障雷达重构**
+
+
+
+**主副雷达重构**
+
+
+
+
+
+
+
+**感知相机重构**
+
+
+
+TODO LIST:
+
+- [ ] 避障激光雷达的激光名获取，主要用在方位判断   
+- [ ] TOPIC_BACK_LASER_ENABLE_PUBLISH
+
+
+
+激光处理模块（定位 避障  R2000）为什么要分开写：
+
+- [ ] 初始化参数又会臃肿一起放在里面
+- [ ] 算法放在一个文件 反而复杂了 
+- [ ] 数据类型不一致 
+
+
+
+
+
