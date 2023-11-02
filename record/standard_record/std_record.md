@@ -69,6 +69,13 @@ systemctl start ui_server  # 启动Matrix程序运行
 
 journalctl -f  # 查看实时日志
 
+# V5.7.0 及以上版本，终端查看实时日志的方式变了
+
+tail -f /sros/log/sros.INFO  # 终端查看 sros 实时日志
+
+journalctl -f  #只能查看报错信息
+
+
 ls -l /sros/log/core*   # 查看崩溃日志
 gdb /sros/bin/sros /sros/log/core-sros-1604006748.142550 # 示例， GDB查看崩溃点 敲bt等
 
@@ -119,3 +126,21 @@ gdb
 1.拆解原避障相机点云处理算法到point_cloud_process；
 2.重写算法内部参数表；
 3.自测避障输出信息和老版本结果一致；
+
+
+
+
+
+10.10.71.1
+
+watch -n 0.1 ls -htal
+
+v![image-20231101174251726](std_record.assets/image-20231101174251726.png)
+
+![image-20231101175458394](std_record.assets/image-20231101175458394.png)
+
+![image-20231101175846940](std_record.assets/image-20231101175846940.png)
+
+![image-20231102155411147](std_record.assets/image-20231102155411147.png)
+
+![image-20231102161637936](std_record.assets/image-20231102161637936.png)

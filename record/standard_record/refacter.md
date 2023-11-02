@@ -57,56 +57,6 @@
 
 
 
-
-
-### **避障相机重构**
-
-**安装参数：**
-
-yaw pitch roll x y height
-
-**检测参数：**
-
-obstacle.stereo_points_min_height
-
-camera.detection_height_max
-
-camera.detection_distance_max
-
-obstacle.fixedarea_filtration_range
-
-**业务参数：**
-
-bstacle.rack_enable_filter_only_load_full
-
-obstacle.enable_remove_rack_leg
-
-obstacle.enable_fixedarea_filtration
-
-**货架参数：**
-
-rack.rack_leg_center_length
-
-rack.rack_leg_center_width
-
-rack.rack_wheel_rotate_radius
-
-**全局变量：**
-
-main.vehicle_type
-
-g_state.getVehicleHeight()
-
-g_state.rotate_value
-
-
-
-一个topic 不同相机名
-
-
-
-
-
 **避障雷达重构**
 
 
@@ -127,6 +77,7 @@ TODO LIST:
 
 - [ ] 避障激光雷达的激光名获取，主要用在方位判断   
 - [ ] TOPIC_BACK_LASER_ENABLE_PUBLISH
+- [ ] filterLowIntenPoints   编译问题  链接错误 
 
 
 
