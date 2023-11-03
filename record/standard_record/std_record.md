@@ -97,6 +97,7 @@ cd /d d:
 
 gdb
 
+watch -n 0.1 ls -htal   实时监控文件变化情况
 ```
 
 
@@ -131,16 +132,5 @@ gdb
 
 
 
-10.10.71.1
 
-watch -n 0.1 ls -htal
 
-v![image-20231101174251726](std_record.assets/image-20231101174251726.png)
-
-![image-20231101175458394](std_record.assets/image-20231101175458394.png)
-
-![image-20231101175846940](std_record.assets/image-20231101175846940.png)
-
-![image-20231102155411147](std_record.assets/image-20231102155411147.png)
-
-![image-20231102161637936](std_record.assets/image-20231102161637936.png)
