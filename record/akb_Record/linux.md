@@ -135,7 +135,9 @@ groups
     折叠 Ctrl+Shift+[
     展开 Ctrl+Shift+]
   
-- 安装插件 bookmark、git history diff 、git history、typora、cmake  clang-Format
+- 安装插件 bookmark、git history diff 、git history、typora、cmake  clang-Format   
+
+-  **CodeGeeX**：基于人工智能驱动的，快速编写代码的代码生成工具。在插件市场就可以免费下载使用！
 
 - vscode快捷键问题 远点.号打不出来：sudo apt-get --purge remove code   还要删除主目录.congfig/.vscode才能彻底清除；
 
