@@ -83,3 +83,10 @@ TODO LIST:
 
 
 
+
+
+- [ ] 开启重构版本和旧版本
+
+W1130 15:11:16.188690 25160 stereo_camera_manager.hpp:49] oba err to get the realtime msg![image-20231204141747670](refacter.assets/image-20231204141747670.png
+
+

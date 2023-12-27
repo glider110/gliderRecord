@@ -4,6 +4,14 @@
 
 
 
+#### 机器IP
+
+```
+日本叉车 10.10.71.4
+SRP测试叉车 10.10.91.71
+1200E    
+```
+
 
 
 #### **开发调试常用**
@@ -18,7 +26,7 @@ systemctl stop sros    # 停止sros程序运行
 # 改软链接
 cd /sros/bin/
 ls -lrt
-./sros_a3be7aa-nxp  --version  # 示例，查看每一个sros文件，找出好用的历史版本
+./sros_a3be7aa-nxp  --v个sros文件，找出好用的历史版本
 ln -sf sros_a3be7aa-nxp sros # 示例，改sros软链接
 
 systemctl start sros   # 启动sros程序运行
@@ -56,6 +64,7 @@ cd /d d:
 gdb
 
 watch -n 0.1 ls -htal   实时监控文件变化情况
+vi /usr/lib/OpenNI2/Drivers/orbbec.ini  奥比驱动参数调整
 ```
 
 
@@ -82,21 +91,12 @@ watch -n 0.1 ls -htal   实时监控文件变化情况
 
 
 
-4.27.1-alpha(855940e)[neethan@4.27.x_imu] Nov 8 2023 03:03:25
+### 储备数据：
 
-/sros/bin/sros_855940e-nx
+- [ ] angle_increment......0.00311666
+- [ ] 大白避障相机 640*480 30万个点     实际256000   640 * 400  sin(1°) 的值约为 0.01745240643728351  
 
-angle_increment......0.00311666
-
-
-
-
-
-4.28.0-alpha(4236510)[develop] Nov 10 2023 06:41:04
-
-
-
-![image-20231114153258564](std_record.assets/image-20231114153258564.png)
+![image-20231212102313450](std_record.assets/image-20231212102313450.png)
 
 
 
@@ -104,12 +104,15 @@ angle_increment......0.00311666
 
 
 
-电子围栏
+**避障3.0：悬崖检测新功能需求开发**
 
-1.现场问题和开发很难做的分离；
+1.熟悉感知仓库代码架构，确定输入输出接口；
 
-2.
+2.设计悬崖检测算法及开发；
+
+3.搭建悬崖仿真环境，测试检测效果，评估性能分析；
+
+4.输出悬崖检测接口及相应文档；
 
 
 
-- 
