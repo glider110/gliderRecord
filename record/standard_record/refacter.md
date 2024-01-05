@@ -90,3 +90,16 @@ TODO LIST:
 W1130 15:11:16.188690 25160 stereo_camera_manager.hpp:49] oba err to get the realtime msg![image-20231204141747670](refacter.assets/image-20231204141747670.png
 
 
+
+
+
+### 避障3.0（新方案调研）
+
+**参考：**https://github.com/aditya-167/Lidar-Obstacle-Detection-PCL
+
+![img](refacter.assets/data2.gif)
+**参考：**https://github.com/kostaskonkk/datmo
+
+![Example experiment](refacter.assets/experiment.gif)
+
+![Example experiment](refacter.assets/output.gif)

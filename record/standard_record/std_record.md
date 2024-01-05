@@ -65,6 +65,11 @@ gdb
 
 watch -n 0.1 ls -htal   实时监控文件变化情况
 vi /usr/lib/OpenNI2/Drivers/orbbec.ini  奥比驱动参数调整
+
+#VPN 后台运行
+nohup ./cfw & disown
+
+
 ```
 
 
@@ -116,3 +121,4 @@ vi /usr/lib/OpenNI2/Drivers/orbbec.ini  奥比驱动参数调整
 
 
 
+162 172 取放货
