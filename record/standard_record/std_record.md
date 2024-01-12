@@ -4,16 +4,6 @@
 
 
 
-#### 机器IP
-
-```
-日本叉车 10.10.71.4
-SRP测试叉车 10.10.91.71
-1200E    
-```
-
-
-
 #### **开发调试常用**
 
 ```shell
@@ -22,25 +12,19 @@ ls -l /sros/bin/sros     #  查看sros可执行程序
 
 systemctl status sros  # 查看sros运行状态
 systemctl stop sros    # 停止sros程序运行
-
+systemctl start sros   # 启动sros程序运行
+systemctl status ui_server # 查看Matrix运行状态
+systemctl stop ui_server   # 停止Matrix程序运行
+systemctl start ui_server  # 启动Matrix程序运行
 # 改软链接
 cd /sros/bin/
 ls -lrt
 ./sros_a3be7aa-nxp  --v个sros文件，找出好用的历史版本
 ln -sf sros_a3be7aa-nxp sros # 示例，改sros软链接
 
-systemctl start sros   # 启动sros程序运行
-
-systemctl status ui_server # 查看Matrix运行状态
-systemctl stop ui_server   # 停止Matrix程序运行
-systemctl start ui_server  # 启动Matrix程序运行
-
-journalctl -f  # 查看实时日志
-
+journalctl -f  # 查看实时日志 #只能查看报错信息
 # V5.7.0 及以上版本，终端查看实时日志的方式变了
 tail -f /sros/log/sros.INFO  # 终端查看 sros 实时日志
-
-journalctl -f  #只能查看报错信息
 
 ls -l /sros/log/core*   # 查看崩溃日志
 gdb /sros/bin/sros /sros/log/core-sros-1604006748.142550 # 示例， GDB查看崩溃点 敲bt等
@@ -69,14 +53,9 @@ vi /usr/lib/OpenNI2/Drivers/orbbec.ini  奥比驱动参数调整
 #VPN 后台运行
 nohup ./cfw & disown
 
+#避障调试技巧
 
 ```
-
-
-
-![image-20230926112337903](std_record.assets/image-20230926112337903.png)
-
-
 
 
 
@@ -102,22 +81,6 @@ nohup ./cfw & disown
 - [ ] 大白避障相机 640*480 30万个点     实际256000   640 * 400  sin(1°) 的值约为 0.01745240643728351  
 
 ![image-20231212102313450](std_record.assets/image-20231212102313450.png)
-
-
-
-
-
-
-
-**避障3.0：悬崖检测新功能需求开发**
-
-1.熟悉感知仓库代码架构，确定输入输出接口；
-
-2.设计悬崖检测算法及开发；
-
-3.搭建悬崖仿真环境，测试检测效果，评估性能分析；
-
-4.输出悬崖检测接口及相应文档；
 
 
 

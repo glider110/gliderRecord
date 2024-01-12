@@ -122,3 +122,14 @@
 
 
 - [ ] 高反、低反、半反；
+
+
+
+### 客户3D相机成像原理介绍（1.9）
+
+![img](meeting.assets/fe6c15f90c770e4545f2b144b777855d.jpg)
+
+![3D结构光摄像头深度算法介绍_3d_41](meeting.assets/resize,m_fixed,w_1184.webp)
+
+![image-20240110092815951](meeting.assets/image-20240110092815951.png)
+
