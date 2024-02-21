@@ -96,6 +96,16 @@ https://ones.standard-robots.com:10120/project/#/team/UNrQ5Ny5/task/JzgaQh7JZVtr
 
 
 
+
+
+- 添加了3601、3602两个参数，分别是后避障雷达和两侧避障雷达过滤连续点数，默认为5，化纤丝场景酌情调整至15附近，过大会导致检测小尺寸物体减弱；
+- 其他场景建议通过3600参数关掉此功能；
+- 回归测试版本：4.33.0
+- 本地离线仿真测测试具备过滤效果；
+![image-20240117165224041](on_site_issuse.assets/image-20240117165224041.png)
+
+
+
 #### 4.办公一楼日本叉车拐弯处误避障
 
 【SROS V4.28.2】【KIOXIA】车辆转弯时空间避障相机经常误避障
@@ -176,3 +186,6 @@ https://ones.standard-robots.com:10120/project/#/team/UNrQ5Ny5/task/56pZcdYH5aaG
 #### **成因分析总结**
 
 ![image-20231023115129090](on_site_issuse.assets/image-20231023115129090.png)
+
+
+
