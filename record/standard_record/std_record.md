@@ -84,14 +84,7 @@ nohup ./cfw & disown
 
 - [ ] 162 172 取放货
 
-
-
 - [ ] 600e 向上倾斜度  能否看见地面？
-- [ ] 
-
-
-
-
 
 1.![image-20240131113154289](std_record.assets/image-20240131113154289.png)
 
@@ -101,7 +94,7 @@ nohup ./cfw & disown
 
 
 
-
+### **避障2.0后端提测问题汇总**
 
 避障2.0调试问题
 
@@ -116,7 +109,7 @@ nohup ./cfw & disown
 
 
 
-
+### 
 
 1.货架底部避障雷达旋转避障在20cm附近    stop_forward_offset？修改为0
 
