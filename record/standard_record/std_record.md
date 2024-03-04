@@ -24,7 +24,7 @@ journalctl -f  # 查看实时日志 #只能查看报错信息
 # V5.7.0 及以上版本，终端查看实时日志的方式变了
 tail -f /sros/log/sros.INFO  # 终端查看 sros 实时日志
 
-ls -l /sros/log/core*   # 查看崩溃日志
+                                                                                                                                 # 查看崩溃日志
 gdb /sros/bin/sros /sros/log/core-sros-1604006748.142550 # 示例， GDB查看崩溃点 敲bt等
 
 当Matrix不能升级，手动升级方法
@@ -82,6 +82,10 @@ nohup ./cfw & disown
 
 
 
+
+
+
+
 - [ ] 162 172 取放货
 
 - [ ] 600e 向上倾斜度  能否看见地面？
@@ -94,29 +98,3 @@ nohup ./cfw & disown
 
 
 
-### **避障2.0后端提测问题汇总**
-
-避障2.0调试问题
-
-1.5.13.0本身的深度相机的tf到策略不对，雷达正常的？
-
-2.5.116测试obstacle不发出tf对避障的影响
-
-3. 5.11.6标准版都没有相机的tf obstcle模块就没发出去![image-20240202171930538](std_record.assets/image-20240202171930538.png)
-4. ![image-20240202172957540](std_record.assets/image-20240202172957540.png)![image-20240202173958984](std_record.assets/image-20240202173958984.png)
-
-
-
-
-
-### 
-
-1.货架底部避障雷达旋转避障在20cm附近    stop_forward_offset？修改为0
-
-![image-20240221163619849](std_record.assets/image-20240221163619849.png)
-
-
-
-
-
-2.ms500后雷达近距离障碍物检测不到，数据闪现

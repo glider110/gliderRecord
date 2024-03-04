@@ -57,3 +57,22 @@ mid360 ：安装导航立柱上，居中 ，向下倾斜30°
 <img src="huawei.assets/image-20240122091530235.png" alt="image-20240122091530235" style="zoom: 67%;" />
 
 <img src="huawei.assets/image-20240122091538955.png" alt="image-20240122091538955" style="zoom:67%;" />
+
+
+
+
+
+
+
+华为框架协议O车
+
+<img src="huawei.assets/image-20240222101204549.png" alt="image-20240222101204549" style="zoom:150%;" />
+
+[**工作项**](https://standard-robots.yuque.com/hw-ee/xmsxu3/vvzuo6ei04rbsea7)
+
+- [ ] 3D避障相机避障功能开发及测试；
+- [ ] 多线激光雷法避障算法ros仿真(预处理，地面提取，障碍物聚类)；
+- [ ] mid360驱动数据接入；
+- [ ] 多线激光雷法避障算法sros集成；
+- [ ] 异常情况处理(货架黑色静电链晃动);
+- [ ] 框架协议避障指标整体测试评估及文档输出；
