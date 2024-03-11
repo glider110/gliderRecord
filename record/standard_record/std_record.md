@@ -52,7 +52,7 @@ vi /usr/lib/OpenNI2/Drivers/orbbec.ini  奥比驱动参数调整
 nohup ./cfw & disown
 
 #避障调试技巧
-
+tail -f /sros/log/sros.INFO |grep "coord"
 ```
 
 
@@ -82,19 +82,24 @@ nohup ./cfw & disown
 
 
 
+避障相机的性能指标评估**（小障碍检测）**
+
+- [ ] 静态天赋：安装高度、pitch
+- [ ] 动态天赋：车速
+
+
+
+产品相关
+
+| 型号  | 安装角度  |      |
+| ----- | --------- | ---- |
+| 600E  | 16°       |      |
+| 300UL | -32°      |      |
+| 300E  | -18.3349° |      |
 
 
 
 
-- [ ] 162 172 取放货
-
-- [ ] 600e 向上倾斜度  能否看见地面？
-
-1.![image-20240131113154289](std_record.assets/image-20240131113154289.png)
-
-1,二维码、货架正向定义？
-
-2.rack_leg_diameter
 
 
 

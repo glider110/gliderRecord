@@ -72,3 +72,23 @@
 
 ![image-20240301105342427](test_oba_avoid_2.0.assets/image-20240301105342427.png)
 
+
+
+**叉车误避障**
+
+**问题点：**
+
+- [ ] 打到叉臂内侧；
+- [ ] 中心区域（0，0）没去除掉；
+
+![image-20240306181310115](test_oba_avoid_2.0.assets/image-20240306181310115.png)
+叉臂抬升动作
+![image-20240306194918814](test_oba_avoid_2.0.assets/image-20240306194918814.png)
+
+
+
+
+
+![image-20240311105025692](test_oba_avoid_2.0.assets/image-20240311105025692.png)
+
+![image-20240308143243630](test_oba_avoid_2.0.assets/image-20240308143243630.png)
