@@ -103,3 +103,10 @@ tail -f /sros/log/sros.INFO |grep "coord"
 
 
 
+![image-20240312162853193](std_record/image-20240312162853193.png)
+
+uint64_t get_frame_beg = base::getTimeInMs();
+
+  uint64_t curr_time = base::getTimeInMs();
+
+  if ((curr_time - get_frame_beg) > 500) {
