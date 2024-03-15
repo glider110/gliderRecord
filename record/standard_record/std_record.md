@@ -110,3 +110,15 @@ uint64_t get_frame_beg = base::getTimeInMs();
   uint64_t curr_time = base::getTimeInMs();
 
   if ((curr_time - get_frame_beg) > 500) {
+
+9c05bdb
+
+
+
+![image-20240314111934488](std_record/image-20240314111934488.png)
+
+
+
+
+
+ 华为 sros -> /sros/bin/sros_c18d8f2-arm64
