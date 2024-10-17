@@ -1,3 +1,11 @@
 {
-    "title": "glider_record"
+    "title": "record",
+    "plugins": [
+        "assistant",
+        "image-zoom",
+        "audio",
+        "video",
+        "bilibili",
+        "cloud-media"
+    ]
 }
