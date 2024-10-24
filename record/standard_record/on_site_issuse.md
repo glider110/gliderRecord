@@ -114,21 +114,33 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 * 600E相机安装抬头(仰角)为负角度
 * 结论:调==高角度(即抬高相机==)↑ 带来==小障碍物的检测能力==提升↑同时提==高误避障率==↑
 
-#### [6.江门中航锂电撞车分析](https://standard-robots.yuque.com/zir4i6/cslx9z/wq0livkyqxregz82)
+#### 6.江门中航锂电撞车分析
 
 ![lQDPJxv7ByiRpynNA8DNBQCwl01jzRJbLbYF\_ymYY5MUAA\_1280\_960.jpg](on_site_issuse/1712455294632-d9d8cbf9-a1e4-4a2b-84d7-4be240d18167.jpeg)
 
-**碰撞现场回溯**
+**1.碰撞现场回溯**
 
 ​	根据现场反馈,MD20车型9号车运行时与通道里面停在停靠点的车辆4号车(静止)尾部发生碰撞,四号车叉臂高度400mm, 在碰撞过程中有减速动作,深度相机一直未检测到在停止距离内的叉臂;
 
-**通过录取sros录包功能和静态点云分析**
+**2.上位机点云测试**
+
+​	相机接入大白上位机,深度图和点云图都能清楚识别到点云,排除相机数据源的问题;
+
+![image-20240416140516397](on_site_issuse/image-20240416140516397.png)
+
+**3.排查叉臂检测高度**
+
+​	更新固件为相机常开版本,方便调试过程Matrix显示障碍物点云, 布置现场,使叉臂在深度相机正前方500mm附近, 调高叉臂到600mm,发现叉臂点云,但只能看到叉尖前沿部分的点云;
+
+![image-20240416154016865](on_site_issuse/image-20240416154016865.png)
+
+**4.通过录取sros录包功能和静态点云分析**
 
 ​	sros获取到驱动点云,点云处理后已发出数据,通过保存的静态点云分析, 驱动原始点云能看叉臂,通过拟合叉臂,发现有10°的倾斜,和标定参数给的pitch角28°不匹配;
 
 ![image-20240416153446455](on_site_issuse/image-20240416153446455.png)
 
-**确认现场安装方式**
+**4.确认现场安装方式**
 
 ![image-20240416154428487](on_site_issuse/image-20240416154428487.png)
 
@@ -196,31 +208,6 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 
 
 
-#### 10.雷达打到镜面反光导致误避障（类似mid360进入金属货架）
+10.雷达打到镜面反光导致误避障（类似mid360进入金属货架）
 
 ![微信图片_20240725155817.jpg](on_site_issuse.assets/auto-orient&e=1721947871&token=VXu2kld82Q4CEhnpUzweXRgby4RUyIfxr11qICVo9Yq1Rj8_CmnimCFwv7U55rMsXTQ.jpeg)
-
-
-
-#### 11.台达撞车事故分析
-
-小车9.19分开机，后执行运动任务（3764）到目标站点78过程中发生事故，
-
-![image-20240912160132842](on_site_issuse.assets/image-20240912160132842.png)
-
-![image-20240912162042657](on_site_issuse.assets/image-20240912162042657.png)![image-20240913102326233](on_site_issuse.assets/image-20240913102326233.png)
-
-![image-20240913102348001](on_site_issuse.assets/image-20240913102348001.png)
-
-
-
-#### [**12.一楼测试136对接避障分析**](https://ones.standard-robots.com:10120/project/#/team/UNrQ5Ny5/project/2ni3183ALTfZNzBu/component/AiDqxUcr/sprint/M9UiV3ZK/all/task/56pZcdYHNW8wI4tS)   
-
-![72139d204a6b3f66128b272761bbf87b.png](on_site_issuse.assets/auto-orient&e=1729048125&token=VXu2kld82Q4CEhnpUzweXRgby4RUyIfxr11qICVofHwDvitAMojgBvMUg7WrS8WvEhI.png)
-
-第一直觉，避障问题很容易想到调整避障宽度增量！！！  其实想一下整个避障流程 也涉及到控制和定位
-
-控制：在设计136动作时，后退矫正尽量离的远点，让路径末端的yaw和通道尽量平行，也就是进去更平滑些，采样的点的方向频率别那么大
-
-定位: 定位点是否严格正确，特别是yaw；
-
