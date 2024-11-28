@@ -10,6 +10,8 @@
 *  [avoid_obstacle_3.0](record/standard_record/avoid_obstacle_3.0.md)
 * [test](repository/test.md)
 * [2D_lidar_install](record/standard_record/2D_lidar_install.md)
+* [cartographer](record/akb_Record/cartographer.md)
+* [RobotDockingRelated](record/standard_record/RobotDockingRelated.md)
 
 ## 个人知识库
 

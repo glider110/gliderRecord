@@ -1,5 +1,3 @@
-
-
 # 避障问题汇总
 
 #### **开发调试常用**
@@ -99,8 +97,10 @@ ffmpeg -i output.mp4 -f segment -segment_time 10 -c copy -reset_timestamps 1 out
 **叉车:**
 
 - [ ] 设计同步旋转是解决什么问题?在哪些场景使用?
+
 - [ ] 车不动货架旋转的场景?
-- [ ] 
+
+  
 
 
 
@@ -150,7 +150,6 @@ ffmpeg -i output.mp4 -f segment -segment_time 10 -c copy -reset_timestamps 1 out
 3.扫到墙体是不是避障红点没在壁纸模型以内?
 
 
-eeee
 
 
 

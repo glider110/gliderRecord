@@ -203,10 +203,6 @@ max_z2 = 货架高度(rack.max_contour_height)  + 货架腿到地面（rack.bear
 
   
 
-
-
-
-
 ![image-20241022150958002](test_oba_avoid_2.0.assets/image-20241022150958002.png)
 
 ![image-20241024103910892](test_oba_avoid_2.0.assets/image-20241024103910892.png)![image-20241024103937328](test_oba_avoid_2.0.assets/image-20241024103937328.png)
