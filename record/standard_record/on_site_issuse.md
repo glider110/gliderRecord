@@ -230,3 +230,15 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 10.雷达打到镜面反光导致误避障（类似mid360进入金属货架）
 
 ![微信图片_20240725155817.jpg](on_site_issuse.assets/auto-orient&e=1721947871&token=VXu2kld82Q4CEhnpUzweXRgby4RUyIfxr11qICVo9Yq1Rj8_CmnimCFwv7U55rMsXTQ.jpeg)
+
+
+
+
+
+
+
+
+
+#### 10.陶永吉-叉车深度相机标定，精度需要9cm
+
+![image-20241202142402753](on_site_issuse.assets/image-20241202142402753.png)
