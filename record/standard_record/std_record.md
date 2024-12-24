@@ -63,19 +63,41 @@ journalctl -f  # 查看实时日志 #只能查看报错信息
 tail -f /sros/log/sros.INFO  # 终端查看 sros 实时日志
 cat sros+\(3\).INFO..info|grep -B 5 "cpp:101"
 MANUAL_RUNNING => MANUAL_PAUSED   //急停现象查看
+task 1086    //根据移动任务来查
 
 
 #查看崩溃日志
 gdb /sros/bin/sros /sros/log/core-sros-1604006748.142550 # 示例， GDB查看崩溃点 敲bt等
 
-#ffmpeg
-#视频语音提取
-ffmpeg -i 20240603_165541.mp4 -vn -acodec libmp3lame -ab 128k output_audio.mp3
-#封面裁剪
-ffmpeg -i jia.mp4 -r 1 image-%3d.jpeg 
-#视频裁剪
-ffmpeg -i output.mp4 -f segment -segment_time 10 -c copy -reset_timestamps 1 output%03d.mp4
+
+
+
 ```
+
+
+
+**#Linux的常见实用命令**
+
+```shell
+#查看有没有某个库的方法
+ls /usr/include/boost
+find -name "*glog.so"    #find -name *glog.so是不起效的
+ls /usr/include/opencv4
+ls /usr/lib | grep opencv
+find -ctime -2   find -cmin -2    #2分钟创建文件的时间 按分钟
+find -mtime -2   find -mmin -2       #2天创建文件的时间 按小时    实际测试都一样
+```
+
+
+| 方法                | 命令或工具                            | 功能描述                                                                 |
+|---------------------|---------------------------------------|--------------------------------------------------------------------------|
+| `ldd`              | `ldd <binary>`                       | 查看二进制文件所依赖的动态链接库及其路径和加载地址。                     |
+| `readelf`          | `readelf -d <binary>`                | 查看 ELF 文
+
+
+
+
+
 
 ![image-20240331120552552](std_record/image-20240331120552552.png)
 
@@ -148,7 +170,6 @@ ffmpeg -i output.mp4 -f segment -segment_time 10 -c copy -reset_timestamps 1 out
 2.小车对角线的一半到墙体还有多远?
 
 3.扫到墙体是不是避障红点没在壁纸模型以内?
-
 
 
 
