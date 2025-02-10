@@ -242,3 +242,23 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 #### 10.陶永吉-叉车深度相机标定，精度需要9cm
 
 ![image-20241202142402753](on_site_issuse.assets/image-20241202142402753.png)
+
+
+
+
+
+英飞凌
+
+
+
+![image-20250120142109730](on_site_issuse.assets/image-20250120142109730.png)
+
+![image-20250120142254972](on_site_issuse.assets/image-20250120142254972.png)
+
+
+
+
+
+![image-20250120142747509](on_site_issuse.assets/image-20250120142747509.png)
+
+![image-20250120154608644](on_site_issuse.assets/image-20250120154608644.png)

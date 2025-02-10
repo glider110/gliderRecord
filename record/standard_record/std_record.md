@@ -64,12 +64,14 @@ tail -f /sros/log/sros.INFO  # 终端查看 sros 实时日志
 cat sros+\(3\).INFO..info|grep -B 5 "cpp:101"
 MANUAL_RUNNING => MANUAL_PAUSED   //急停现象查看
 task 1086    //根据移动任务来查
+//根据任务结束来查找当前状态
+main_module.cpp:951] Path 彻底结束，目标站点1225 当前位置：Pose(-0.513062, -63.1912, 0, 0.00788541, 0.000463157, 3.12432)
 
 
 #查看崩溃日志
 gdb /sros/bin/sros /sros/log/core-sros-1604006748.142550 # 示例， GDB查看崩溃点 敲bt等
 
-
+./scripts/format.py -t release_5.33.x
 
 
 ```

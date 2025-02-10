@@ -6,7 +6,11 @@ gxf/feat_material_cart_detect_main
 
 ​    auto dev_setter = sros::core::SettingDevice::getInstance();
 
-​    sros::core::DeviceItem dev_item = s.getDeviceItemByKey("function.basic.perception.sensor.camera_1");
+检测器设计为一个矩形滑动窗口（例如y方向长度0.2，z方向高度为0.02），在该检测step高度点云遍历执行这个滑动窗口，如果检测器设计为一个矩形滑动窗口（例如y方向长度0.2，z方向高度为0.02），在该检测step高度点云遍历执行这个滑动窗口，如果背景：
+我需要识别料车料箱（都是带轮子的），用3D相机采集数据，我需要提取料车料箱的距离相机最近的下沿杠（朝着相机）的点云数据作为拟合直线的数据源
+前置条件：相机安装在小车上面，相机坐标系已经转换为基于baselink的坐标系，及前方为x，高度为z
+我的初步设计思路：
+我想先把点云投影到YOZ平面，再平面提取下沿杠，减少计算量，让后按照地面生长（z方向）高度step=0.02m间隔从0开始逐渐检测符合条件的点，现在需要设计一下检测器，    sros::core::DeviceItem dev_item = s.getDeviceItemByKey("function.basic.perception.sensor.camera_1");
 
 ​    auto item = dev_setter->getDeviceItem(img->sensor_name);
 
@@ -130,3 +134,100 @@ bolt -476     476代表agv中心到对接钩的距离 值越大车会停止在�
 #### 新优化思路
 
 - 下沿杠数据可以用由下生长的点云区域来拟合 边缘的点少且不够稳定
+
+```c++
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <set>
+#include <vector>
+#include <tuple>
+
+// 自定义比较器，用于点的排序和去重
+struct PointComparator {
+    bool operator()(const pcl::PointXYZ& a, const pcl::PointXYZ& b) const {
+        return std::tie(a.x, a.y, a.z) < std::tie(b.x, b.y, b.z);
+    }
+};
+
+/**
+ * @brief 在点云中找到每个点邻域内 x 方向最近的点，并去除重复点
+ * @param cloud 输入点云
+ * @param search_box_x 邻域框在 x 方向的长度（中心点为起点）
+ * @param search_box_y 邻域框在 y 方向的长度（中心点为起点）
+ * @param search_box_z 邻域框在 z 方向的长度（中心点为起点）
+ * @return 返回筛选后的点云
+ */
+pcl::PointCloud<pcl::PointXYZ>::Ptr filterNearestPoints(
+    const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud,
+    float search_box_x,
+    float search_box_y,
+    float search_box_z) {
+
+    pcl::PointCloud<pcl::PointXYZ>::Ptr filtered_cloud(new pcl::PointCloud<pcl::PointXYZ>());
+    std::set<pcl::PointXYZ, PointComparator> unique_points; // 用于去重
+
+    // 遍历点云中的每个点
+    for (const auto& current_point : cloud->points) {
+        float min_x_distance = std::numeric_limits<float>::max();
+        pcl::PointXYZ nearest_point;
+
+        // 遍历候选点，找到邻域内 x 方向最近的点
+        for (const auto& candidate_point : cloud->points) {
+            if (candidate_point.x == current_point.x && 
+                candidate_point.y == current_point.y && 
+                candidate_point.z == current_point.z) {
+                continue; // 跳过自身
+            }
+
+            // 判断点是否在立体框内
+            if (std::abs(candidate_point.x - current_point.x) <= search_box_x / 2 &&
+                std::abs(candidate_point.y - current_point.y) <= search_box_y / 2 &&
+                std::abs(candidate_point.z - current_point.z) <= search_box_z / 2) {
+                
+                // 更新 x 方向最近点
+                float x_distance = std::abs(candidate_point.x - current_point.x);
+                if (x_distance < min_x_distance) {
+                    min_x_distance = x_distance;
+                    nearest_point = candidate_point;
+                }
+            }
+        }
+
+        // 如果找到符合条件的点，并且没有记录过
+        if (min_x_distance != std::numeric_limits<float>::max() &&
+            unique_points.find(nearest_point) == unique_points.end()) {
+            filtered_cloud->points.push_back(nearest_point);
+            unique_points.insert(nearest_point); // 记录点用于去重
+        }
+    }
+
+    return filtered_cloud;
+}
+
+int main() {
+    // 创建输入点云
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
+    cloud->push_back(pcl::PointXYZ(0.0, 0.0, 0.0));
+    cloud->push_back(pcl::PointXYZ(0.05, 0.005, 0.01));
+    cloud->push_back(pcl::PointXYZ(0.08, 0.002, -0.01));
+    cloud->push_back(pcl::PointXYZ(0.2, 0.1, 0.1));
+
+    // 调用函数，定义邻域尺寸
+    float search_box_x = 0.1; // x方向邻域长度
+    float search_box_y = 0.01; // y方向邻域长度
+    float search_box_z = 0.02; // z方向邻域长度
+
+    pcl::PointCloud<pcl::PointXYZ>::Ptr filtered_cloud = filterNearestPoints(cloud, search_box_x, search_box_y, search_box_z);
+
+    // 输出结果
+    for (const auto& point : filtered_cloud->points) {
+        std::cout << "Filtered Point: [" << point.x << ", " << point.y << ", " << point.z << "]\n";
+    }
+
+    return 0;
+}
+
+```
+
+
+
