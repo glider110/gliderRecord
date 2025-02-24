@@ -120,3 +120,68 @@
 
 
 
+
+
+
+
+
+
+
+
+# 多货架数据协议
+
+## 1. 数据结构  
+
+### `rack` 货架信息  
+
+| 参数                     | 描述           | 数值 | 单位 | 类型    | 取值范围（如适用） |
+| ------------------------ | -------------- | ---- | ---- | ------- | ------------------ |
+| `rack_leg_center_length` | 货架腿中心长度 | 1060 | mm   | integer | -                  |
+| `rack_leg_center_width`  | 货架腿中心宽度 | 600  | mm   | integer | -                  |
+| `rack_leg_diameter`      | 货架腿直径     | 100  | mm   | integer | -                  |
+| `max_contour_length`     | 货架长度       | 1200 | mm   | integer | `[0, 2500]`        |
+| `max_contour_width`      | 货架宽度       | 600  | mm   | integer | `[0, 2500]`        |
+
+
+
+## 2. JSON 数据格式示例  
+
+```json
+{
+  "rack": {
+    "rack_leg_center_length": {
+      "description": "货架腿中心长度",
+      "value": 1060,
+      "unit": "mm",
+      "type": "integer"
+    },
+    "rack_leg_center_width": {
+      "description": "货架腿中心宽度",
+      "value": 600,
+      "unit": "mm",
+      "type": "integer"
+    },
+    "rack_leg_diameter": {
+      "description": "货架腿直径",
+      "value": 100,
+      "unit": "mm",
+      "type": "integer"
+    },
+    "max_contour_length": {
+      "description": "货架长度",
+      "value": 1200,
+      "unit": "mm",
+      "type": "integer",
+      "range": [0, 2500]
+    },
+    "max_contour_width": {
+      "description": "货架宽度",
+      "value": 600,
+      "unit": "mm",
+      "type": "integer",
+      "range": [0, 2500]
+    }
+  }
+}
+```
+

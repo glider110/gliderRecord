@@ -1,7 +1,5 @@
 #### 机器人感知方案调研
 
-
-
 [**超声波识别材质**](https://product.tdk.com.cn/zh/techlibrary/applicationnote/how-service-robots-make-sense.html)
 
 ![image-20240802164416228](perception_reserch.assets/image-20240802164416228.png)

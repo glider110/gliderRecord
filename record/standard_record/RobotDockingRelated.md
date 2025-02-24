@@ -21,3 +21,38 @@
 货架对接：
 
 不是依靠局部地图信息，而是依靠当下某次的检测的目标点和位姿调整点
+
+
+
+
+
+
+
+#### 前期验证（cartographer+fast_gicp）：
+
+envirment： ros2+ dcw2+fast_gicp
+
+envirment： ros2+ oradar+cartographer
+
+后牵引录数据：
+
+
+
+
+
+
+
+
+
+调研参考方案：
+
+（NDT + Cartographer） 使用 `ndt_mapping` 增强 Cartographer 定位
+
+RTAB-Map
+
+
+
+
+
+
+

@@ -8,3 +8,22 @@
 
 [**自主导航移动机器人 (AMR) 产业发展蓝皮书**](https://xzlrobot.yunzhan365.com/books/ktua/mobile/index.html)
 
+
+
+
+
+
+
+**[迈尔微视知识库](https://docs.mrdvs.cn/)**
+
+[**tianbot**](https://docs.tianbot.com/)
+
+
+
+
+
+
+
+### 超级好的轮子：
+
+https://app.foxglove.dev/godfery/dashboard

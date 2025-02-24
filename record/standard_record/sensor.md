@@ -27,3 +27,11 @@
 ![img](sensor.assets/v2-b7a9320d8e83d1bdf62857e174f3857e_720w.webp)![img](sensor.assets/v2-9360a0919c9b96d72197c211df41433c_720w.webp)
 
 ![image-20250122103945987](sensor.assets/image-20250122103945987.png)
+
+
+
+#### 光鉴传感器：
+
+ **Nebula400资料包：** https://drive.weixin.qq.com/s?k=ANUA-wdkABAq0HKHjZ 
+
+规格书： [Deptrum_Nebula401_规格书_v0.3.pdf](../../.topwrite/assets/Deptrum_Nebula401_规格书_v0.3.pdf) 
