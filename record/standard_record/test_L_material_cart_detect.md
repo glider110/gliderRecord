@@ -231,3 +231,4 @@ int main() {
 
 
 
+![image-20250303170629813](test_L_material_cart_detect.assets/image-20250303170629813.png)

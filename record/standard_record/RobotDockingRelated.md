@@ -48,11 +48,23 @@ envirment： ros2+ oradar+cartographer
 
 （NDT + Cartographer） 使用 `ndt_mapping` 增强 Cartographer 定位
 
-RTAB-Map
 
 
 
 
+**RTAB-Map**
+
+ros2 http://wiki.ros.org/rtabmap_ros/Tutorials
 
 
+
+https://www.ncnynl.com/archives/202407/6389.html
+
+深度相机仿真 turtle3 https://github.com/mlherd/ros2_turtlebot3_waffle_intel_realsense
+
+https://www.ncnynl.com/archives/202204/5179.html
+
+
+
+https://github.com/agilexrobotics/limo_ros2_doc/blob/master/LIMO-ROS2-humble.md
 
