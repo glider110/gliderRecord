@@ -68,3 +68,23 @@ https://www.ncnynl.com/archives/202204/5179.html
 
 https://github.com/agilexrobotics/limo_ros2_doc/blob/master/LIMO-ROS2-humble.md
 
+
+
+算法思路：
+
+https://x.com/i/grok/share/Xh32LW6wfxSv9KdwyF8xU6Qsa
+
+
+
+个人理解：‘
+
+- [ ] 直接纯点云运行rtabmap不会成功，它需要初始化odom-base的tf 这个tf需要icp_odom来发出，即为前端，后端只回环和优化map-odom的tf，不会用局部地图再匹配点云计算位姿，这个区别于cartographer的scan到submap，后端的位姿一直只用icp_odom。
+
+
+
+**静止状态前端累加**
+
+<video src="medium/icp里程计静止累加.webm"></video>
+**rtab后端更新及位姿优化**
+
+ <video src="medium/rtab后端更新及位姿优化.webm"></video>

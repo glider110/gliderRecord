@@ -150,6 +150,8 @@ echo 'source ~/turtlebot3_ws/install/setup.zsh' >> ~/.zshrc
 ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True
 ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=map
 
+ros2 topic echo /icp_odom | grep head -A 10
+
 ```
 
 
