@@ -6,7 +6,7 @@
 
 - gezebo版本：Garden、Fortress
 
-- ![image-20241226214634540](ROS2.assets/image-20241226214634540.png)
+  ![image-20241226214634540](ROS2.assets/image-20241226214634540.png)
 
   ![image-20241227101928472](ROS2.assets/image-20241227101928472.png)
 
@@ -42,10 +42,6 @@ sudo apt-get clean
 
 
 ```
-
-
-
-
 
 
 
@@ -93,16 +89,6 @@ ros2 topic pub  /turtle1/cmd_vel  geometry_msgs/msg/Twist "{linear:{x: 0.5, y: 0
 
 
 
-
-
-#### 仿真：
-
-
-
-tugbot_depot
-
-
-
 ### 对比总结
 
 | 特性               | URDF                       | SDF                             | Xacro                      |
@@ -120,8 +106,6 @@ tugbot_depot
 
 [1]: https://github.com/huangyqs123/ME5413_Final_Project?tab=readme-ov-file	"Autonomous Vehicle SLAM, Perception, and Navigation"
 
-yesterday onece  more
-
 
 
 https://app.theconstruct.ai/courses
@@ -132,25 +116,18 @@ https://app.theconstruct.ai/courses
 
 **[SDF](http://sdformat.org/spec?ver=1.11&elem=scene)**
 
-台湾纬创
+
 
 ```
 ros2 interface show nav_msgs/msg/Odometry
-ros2 topic echo /odom  查看实时
 
+ros2 topic echo /odom  查看实时
+ros2 topic echo /icp_odom | grep head -A 10
 
 echo 'source ~/turtlebot3_ws/install/setup.zsh' >> ~/.zshrc
-
-```
-
-
-
-```
-
 ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True
 ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=map
 
-ros2 topic echo /icp_odom | grep head -A 10
 
 ```
 
@@ -308,8 +285,3 @@ transform_stamped.transform.rotation.w = 1.0;
 3. **如果是机器人里程计（包含位置 + 速度信息）** → `Odometry`
 4. **如果需要进行坐标系变换（TF2 坐标变换）** → `TransformStamped`
 
-
-
-
-
-- gs

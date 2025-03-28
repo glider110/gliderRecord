@@ -93,7 +93,7 @@
 1. **[Patchwork](https://github.com/LimHyungTae/patchwork)**
 1. [**Patchwork++**](https://github.com/url-kaist/patchwork-plusplus)
 
-
+1. [地面分割：Fast Segmentation of 3D Point Clouds for Ground Vehicles](https://blog.csdn.net/lovelyaiq/article/details/118826534)
 
 
 

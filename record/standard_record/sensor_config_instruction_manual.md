@@ -1,4 +1,8 @@
-### MID360使用说明
+##  传感器上位机配置和ros配置汇总
+
+
+
+### MID360使用说明（网口）
 
 > livox的mid360目前部署在小车是通过交换机连接的，获取原始数据方式有以下三种方式：
 >
@@ -72,5 +76,16 @@ source /opt/ros/noetic/setup.sh
 
 
 
+### Oradar ms500使用说明（网口）
 
+1.std固件协议不是标准的，需要上位机修改雷达状态
 
+![image-20250328140335921](sensor_config_instruction_manual.assets/image-20250328140335921.png)
+
+2.配置本机pc手动网络配置如下
+
+ ![image-20250328140906702](sensor_config_instruction_manual.assets/image-20250328140906702.png)
+
+std的雷达的网段不是默认雷达IP为192.168.1.100，而是
+
+![image-20250328140643424](sensor_config_instruction_manual.assets/image-20250328140643424.png)

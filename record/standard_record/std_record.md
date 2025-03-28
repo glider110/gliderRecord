@@ -116,17 +116,6 @@ find -mtime -2   find -mmin -2       #2天创建文件的时间 按小时    实
 
 
 
-### AGV业务理解
-
-**叉车:**
-
-- [ ] 设计同步旋转是解决什么问题?在哪些场景使用?
-
-- [ ] 车不动货架旋转的场景?
-
-  
-
-
 
 ### SROS系统理解
 
@@ -175,14 +164,6 @@ find -mtime -2   find -mmin -2       #2天创建文件的时间 按小时    实
 
 
 
-| 候选人             | 评价                                                         |
-| ------------------ | ------------------------------------------------------------ |
-| 黄腾飞 25年应届生  | 机器人感知项目较少，技术偏动力学方向；                       |
-| 李碧富 25年应届生  | 项目较为丰富，有机器人实习经历，项目涉及点云\|图像处理，标定、三维渲染方向，模型部署； |
-| 刘能轩 2年         | 偏c++开发，感知项目集中在线激光雷达标定和点云处理（偏三角波雷法传感器算法），机器人应用相关没体现； |
-| 蒲先生 6年         | 方向较为集中在深度学习的感知，工程化部署调优能力丰富；       |
-| 朱海鹏 7年（应届） | 介绍比较笼统，其中园区无人叉车项目和我司贴合；               |
-| Tina 7年           | 方向较为集中在深度学习的感知，有实际lidar ⽬标检测模型和点云语义分割模型落地项目 |
-| 徐涛 10年          | 介绍比较简略，涉及标定和slam                                 |
+#### 系统问题汇总（必现）
 
-
+- [ ] [ROS2使用zsh无法用tab补全 ros2 指令](https://blog.csdn.net/qq_24649627/article/details/131207830?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-3-131207830-blog-132456374.235%5Ev43%5Epc_blog_bottom_relevance_base9&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-3-131207830-blog-132456374.235%5Ev43%5Epc_blog_bottom_relevance_base9&utm_relevant_index=6)
