@@ -6,9 +6,9 @@
 
 
 
-#### 一、目前识别流程
+#### 能够将框架泛化到多种不同类型的机器人上。此外，它还能够处理一个包含多种对接位置和对接模型的数据库，以适应异质环境。这项任务服务器被设计为在任务完成或电池电量低时被应用程序BT或自主应用程序调用以进行对接，一、目前识别流程
 
-
+环境适应性：包含一个数据库，能够存储和管理多种对接位置和对接模型，适应异质环境。
 
 #### 二、现状描述
 
@@ -51,6 +51,41 @@
 
 **1、自然特征目标感知：**
 
+```mermaid
+graph TD
+    %% 部署阶段
+    A[载具与AMR成功对接] --> B[拍摄对接位姿点云]
+    C[原始模板点云采集]
+    C --> D1[单帧点云]
+    C --> D2[多种帧点云-原点旋转]
+    C --> D3[第三方高精度扫描仪]
+    D1 --> E[得到原始模板点云]
+    D2 --> E
+    D3 --> E
+    B --> F
+    E --> F[将原始模板点云与传感器坐标系对齐]
+    F --> G[得到原始模板点云在传感器坐标系中的变换 T1]
+    G --> H[计算原始模板点云转换到部署模板点云]
+    
+    %% 对接阶段
+    H --> I{载具是否偏移?}
+    I -->|否| J[直接将实时点云与部署模板点云匹配]
+    I -->|是 偏移T2| K[计算变换矩阵 T3 包含载具偏移 T2]
+    J --> L[计算变换矩阵 T3]
+    K --> L
+    L --> M[通过 T3 计算载具相对于传感器的位姿]
+
+    %% 部署阶段注释
+    class A,B,C,D1,D2,D3,E,F,G,H blue;
+    %% 对接阶段注释
+    class I,J,K,L,M green;
+    
+    %% 添加说明
+    classDef blue fill:#99ccff,stroke:#333,stroke-width:2px;
+    classDef green fill:#66cc66,stroke:#333,stroke-width:2px;
+
+```
+
 ![image-20250324115635214](RobotDockingRelated_report.assets/image-20250324115635214.png)
 
 | 目标感知方式 | 单帧模版           | 多帧模版（局部地图）      | 多帧模版（高精地图）                   |
@@ -90,6 +125,30 @@
 
 
 
+```mermaid
+gantt
+    title 项目排期
+    dateFormat  YYYY-MM-DD
+    section 高精度传感器选型
+    高精度传感器选型（郭小凡、宋锦涛）           :a1, 2025-04-21, 1w
+    section 原始模板点云采集及制作
+    原始模板点云采集及制作（郭小凡）            :a2, after a1, 2w
+    section 对接仿真环境搭建
+    对接仿真环境搭建（曾志伟）                  :a3, 2025-04-21, 2w
+    section 多载具检测及分割数据集制作
+    多载具检测及分割数据集制作（曾志伟、宋锦涛） :a4, after a3, 2w
+    section 分割模型训练及部署
+    分割模型训练及部署（宋锦涛）                :a5, after a4, 3w
+    section 对接匹配算法开发及测试
+    对接匹配算法开发及测试（郭小凡）            :a6, after a2, 4w
+    section 自然特征目标感知系统集成
+    自然特征目标感知系统集成（宋锦涛、郭小凡）    :a7, after a2, 1w
+    section 局部高精度定位
+    局部高精度定位（郭小凡）                   :a9, after a2, 4w
+    section 适配4载具的自然载具的里程碑
+    适配4载具的自然载具的里程碑                :crit,active,des5,2025-06-08,5d
+```
+
 
 词汇：
 
@@ -127,4 +186,64 @@
 - [建图与导航--RTABMap之双目建图与导航](https://gitee.com/gwmunan/ros2/wikis/pages?sort_id=11078218&doc_id=4855084)
 
 - [感知组2024年终总结](https://k32rofd4qx.feishu.cn/wiki/UsqEwKZ2li5Buzk9O4McU6E8nPg)
+
+
+
+ 需求：
+
+
+
+
+
+
+
+其他
+
+模版制作：
+
+![image-20250422150653270](RobotDockingRelated_report.assets/image-20250422150653270.png)
+
+1.建模软件-stl-点云 
+
+
+
+ICP调试相关经验
+
+1. 匹配对初始位姿影响很大 、
+2. 少数配多数
+
+
+
+**相关命令汇总：**
+
+```
+ros2 service call /get_model_list gazebo_msgs/srv/GetModelList
+ros2 service call /get_entity_state gazebo_msgs/srv/GetEntityState "{name: 'waffle', reference_frame: 'world'}"
+```
+
+
+
+
+
+**遇到问题汇总：**
+
+- 匹配对初始位姿影响很大 、
+
+- 仿真载具移动下匹配位姿是否准确出现的问题
+
+  - gazebo如何修改载具的位姿
+
+    通过界面拖拽的方式（不能准确指定角度）
+
+    通过命令调整的方式
+
+    - amr_factory.world添加lib gazebo_ros_state以获取/set_entity_state服务
+    - 修改cart_model2_no_whell模型下<static>0</static>
+    - 修改cart_model2_no_whell模型下为<kinematic>1</kinematic>
+
+- 控制机器人时候发现到达目标点后 机器人的老是方向摆动停不下来（调整控制速度解决）
+
+  
+
+
 

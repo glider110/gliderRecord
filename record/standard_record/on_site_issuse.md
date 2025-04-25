@@ -262,3 +262,15 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 ![image-20250120142747509](on_site_issuse.assets/image-20250120142747509.png)
 
 ![image-20250120154608644](on_site_issuse.assets/image-20250120154608644.png)
+
+
+
+
+
+竖装奥瑞达不对
+
+![image-20250417114250968](on_site_issuse.assets/image-20250417114250968.png)
+
+实际雷达高度0.3m
+
+![image-20250417120058674](on_site_issuse.assets/image-20250417120058674.png)

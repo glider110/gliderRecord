@@ -2,3 +2,16 @@
 
 [相机和多线雷达手动标定](https://github.com/tdcsu/clm/tree/main)
 
+[**雷达人腿检测**](https://gitee.com/ncnynl/ros2_leg_detector)
+
+
+
+
+
+
+
+#### 机器人系统学习
+
+1.[**automatic addison**](https://automaticaddison.com/tutorials/)
+
+2.[**NVIDIA Isaac ROS**](https://nvidia-isaac-ros.github.io/index.html)

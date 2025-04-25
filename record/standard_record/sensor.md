@@ -35,3 +35,5 @@
  **Nebula400资料包：** https://drive.weixin.qq.com/s?k=ANUA-wdkABAq0HKHjZ 
 
 规格书： [Deptrum_Nebula401_规格书_v0.3.pdf](../../.topwrite/assets/Deptrum_Nebula401_规格书_v0.3.pdf) 
+
+![image-20250411103238849](sensor.assets/image-20250411103238849.png)
