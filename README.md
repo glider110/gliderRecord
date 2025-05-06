@@ -15,7 +15,7 @@
 
 
 
-**部署URL:**https://4v2dmeey2e.k.topthink.com/@48rmw7nb2q/record/standard_record/std_record.html
+**部署URL**:https://4v2dmeey2e.k.topthink.com/@48rmw7nb2q/record/standard_record/std_record.html
 
 
 
