@@ -1,0 +1,4 @@
+- [首页](README.md)
+- [学习资料](record/study.md)
+- [项目总结](repository/summary.md)
+- [生活管理](life_management/index.md)
