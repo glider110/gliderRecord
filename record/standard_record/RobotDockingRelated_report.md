@@ -211,6 +211,8 @@ ICP调试相关经验
 
 1. 匹配对初始位姿影响很大 、
 2. 少数配多数
+2. 实时点云的地面点云部门一定要去除。
+2. 部署点云模版的位置太近对应匹配有特别要求，所以可以专门对这块做优化；
 
 
 
@@ -220,8 +222,6 @@ ICP调试相关经验
 ros2 service call /get_model_list gazebo_msgs/srv/GetModelList
 ros2 service call /get_entity_state gazebo_msgs/srv/GetEntityState "{name: 'waffle', reference_frame: 'world'}"
 ```
-
-
 
 
 
@@ -242,6 +242,8 @@ ros2 service call /get_entity_state gazebo_msgs/srv/GetEntityState "{name: 'waff
     - 修改cart_model2_no_whell模型下为<kinematic>1</kinematic>
 
 - 控制机器人时候发现到达目标点后 机器人的老是方向摆动停不下来（调整控制速度解决）
+
+- 部署模版点云位姿时候，离对接载具太近，匹配的位姿准！
 
   
 

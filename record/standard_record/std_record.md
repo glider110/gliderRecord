@@ -70,10 +70,7 @@ main_module.cpp:951] Path 彻底结束，目标站点1225 当前位置：Pose(-0
 
 #查看崩溃日志
 gdb /sros/bin/sros /sros/log/core-sros-1604006748.142550 # 示例， GDB查看崩溃点 敲bt等
-
 ./scripts/format.py -t release_5.33.x
-
-
 ```
 
 

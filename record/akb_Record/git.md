@@ -1,3 +1,5 @@
+
+
 ### git组织结构图（系统）
 
 [git所划分成几个区域，各区域的作用以及各区域之间的联系](https://blog.csdn.net/qq_36672905/article/details/82776283)
@@ -124,6 +126,15 @@ git remote update origin --prune
 
 ```
 
+#### 双远程操作
+
+```
+git remote -v 
+git remote add backup https://gitlab.com/user/repo2.git
+git push backup main
+git push backup --all
+```
+
 ![image-20220824135303977](git.assets/image-20220824135303977.png)
 
 ### ![image-20231027141139801](git.assets/image-20231027141139801.png)
@@ -185,5 +196,7 @@ git remote update origin --prune
 3.各种文件夹备份；
 
 4.重做某一个commit，之后的代码又不想重新写；
+
+5.双远程怎么push
 
 \==**思想：你平常开发过程中能想到的和想不到的，git已经给你弄好了，只是你自己没意识到**；==

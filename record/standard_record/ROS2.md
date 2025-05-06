@@ -36,7 +36,8 @@ ros2 topic pub  /turtle1/cmd_vel  geometry_msgs/msg/Twist "{linear:{x: 0.5, y: 0
 
 异常处理情况
  pkill -9 -f gazebo  //处理加载仿真环境时候不会更新
- 
+ ros2 topic echo /icp_odom | grep head -A 10
+
 ```
 
 #### Fishbot_Course:
