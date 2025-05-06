@@ -33,34 +33,7 @@
 
 📌 所以 **knowledge** 表层意思为：“知道的状态”或“所知道的东西”，即 **“知识”**。
 
-
-
-**二、词源分析**
-
-“Knowledge” 源自古英语 **cnāwleċe**，其构成为：
-
-- **cnāwan**：表示“知道”  
-- 抽象名词后缀 **-leċe**（后来演化为 -ledge）
-
-🧠 原始意义为：  
-**the act, fact, or state of knowing**  
-（知道的行为、事实或状态）
-
----
-
-**三、“ledge” 和 “edge” 的关系**
-
-虽然两个词在拼写上相似，但：
-
-- **“ledge”** 在 knowledge 中是古英语抽象名词后缀的演化，不是 **“edge”**
-- **edge** 是“边缘”，来自不同词源，意义也完全不同
-
-📎 所以：  
-**knowledge 中的 -ledge 与 edge 并无词义联系**，只是语言演化中的巧合。
-
----
-
-**四、哲学性理解：“知识是知道的边界”**
+**二、哲学性理解：“知识是知道的边界”**
 
 ✨ 这是一个极富启发性的解释，虽然不符合词源，但在哲学上很深刻：
 
@@ -92,3 +65,5 @@
 1.[**automatic addison**](https://automaticaddison.com/tutorials/)
 
 2.[**NVIDIA Isaac ROS**](https://nvidia-isaac-ros.github.io/index.html)
+
+3.[**移动机器人多模态自主导航详解**](https://zhuanlan.zhihu.com/p/429697098)

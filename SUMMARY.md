@@ -11,10 +11,11 @@
 * [test](repository/test.md)
 * [2D_lidar_install](record/standard_record/2D_lidar_install.md)
 * [cartographer](record/akb_Record/cartographer.md)
-* [RobotDockingRelated](record/standard_record/RobotDockingRelated.md)
+* [RobotDockingRelated](record/standard_record/RobotDockingRelated_report.md)
 
 ## 个人知识库
 
+* [系统知识理论及仓库](repository/github.md)
 * [mooc\_pointclouds](repository/mooc_pointclouds.md)
 * 感知传感器汇总
   * [sensor\_dev](repository/sensor_dev.md)
