@@ -1,0 +1,1 @@
+![image-20250507112006339](robotic_sim.assets/image-20250507112006339.png)

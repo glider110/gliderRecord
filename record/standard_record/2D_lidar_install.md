@@ -61,3 +61,8 @@
 
 ==**上装后：**==    roll：0  pitch：-32  yaw：180
 
+
+
+#### 自由导航64点tof相机
+
+![image-20250507141135972](2D_lidar_install.assets/image-20250507141135972.png)
