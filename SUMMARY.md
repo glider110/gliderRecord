@@ -17,8 +17,7 @@
 
 * [系统知识理论及仓库](repository/github.md)
 * [mooc\_pointclouds](repository/mooc_pointclouds.md)
-* 感知传感器汇总
-  * [sensor\_dev](repository/sensor_dev.md)
+* [感知传感器汇总](repository/sensor_dev.md)
 * 书籍
   * [书单](repository/book.md)
   * [读书笔记](repository/book_note.md)

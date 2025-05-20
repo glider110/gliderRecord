@@ -54,16 +54,31 @@
 
 #### 优质资料
 
-[1.高翔系统《《自动驾驶中的SLAM技术》对应开源代码》](https://github.com/gaoxiang12/slam_in_autonomous_driving?tab=readme-ov-file)
+1. [高翔系统《《自动驾驶中的SLAM技术》对应开源代码》](https://github.com/gaoxiang12/slam_in_autonomous_driving?tab=readme-ov-file)
 
-[相机和多线雷达手动标定](https://github.com/tdcsu/clm/tree/main)
+2. [相机和多线雷达手动标定](https://github.com/tdcsu/clm/tree/main)
 
-[**雷达人腿检测**](https://gitee.com/ncnynl/ros2_leg_detector)
+3. [**雷达人腿检测**](https://gitee.com/ncnynl/ros2_leg_detector)
 
 #### 机器人系统学习
 
-1.[**automatic addison**](https://automaticaddison.com/tutorials/)
+1. [**automatic addison**](https://automaticaddison.com/tutorials/)
 
-2.[**NVIDIA Isaac ROS**](https://nvidia-isaac-ros.github.io/index.html)
+2. [**NVIDIA Isaac ROS**](https://nvidia-isaac-ros.github.io/index.html)
 
-3.[**移动机器人多模态自主导航详解**](https://zhuanlan.zhihu.com/p/429697098)
+3. [**移动机器人多模态自主导航详解**](https://zhuanlan.zhihu.com/p/429697098)
+
+4.  **[简达智能](https://gitee.com/gwmunan)/[ROS2学习教程](https://gitee.com/gwmunan/ros2)**
+
+
+
+#### 三维重建
+
+
+
+
+
+#### 位姿估计
+
+1. **[Awesome-Object-Pose-Estimation](https://github.com/CNJianLiu/Awesome-Object-Pose-Estimation)**
+
