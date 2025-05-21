@@ -133,6 +133,9 @@ git remote -v
 git remote add backup https://gitlab.com/user/repo2.git
 git push backup main
 git push backup --all
+
+git push <remote-name> <local-branch>:<remote-branch>
+git pull <remote-name> <remote-branch>:<local-branch>
 ```
 
 ![image-20220824135303977](git.assets/image-20220824135303977.png)
