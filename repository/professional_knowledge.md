@@ -31,11 +31,11 @@
 4. 将这些点输入神经网络预测密度和颜色
 5. 最后通过体渲染公式合成出图像像素颜色，和原图监督误差
 
-![截图 2025-06-10 09-22-36](professional_knowledge.assets/2025-06-10 09-22-36.png)
+![2025-06-10 09-22-36](professional_knowledge.assets/2025-06-10 09-22-36.png)
 
-![截图 2025-06-10 09-23-09](professional_knowledge.assets/2025-06-10 09-23-09.png)
+![2025-06-10 09-23-09](professional_knowledge.assets/2025-06-10 09-23-09.png)
 
-![截图 2025-06-10 09-26-15](professional_knowledge.assets/2025-06-10 09-26-15.png)
+![2025-06-10 09-26-15](professional_knowledge.assets/2025-06-10 09-26-15.png)
 
 **输出ply字段:**
 
