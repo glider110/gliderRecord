@@ -232,3 +232,16 @@ int main() {
 
 
 ![image-20250303170629813](test_L_material_cart_detect.assets/image-20250303170629813.png)
+
+
+
+## YKK适配三种类型载具
+
+**对接载具：**
+
+![image-20250604144126236](test_L_material_cart_detect.assets/image-20250604144126236.png)
+
+**基本信息：**
+
+高度：30cm   宽度：60-65
+

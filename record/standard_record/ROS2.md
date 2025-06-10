@@ -13,10 +13,14 @@
 
 
 - 高精度巡航对接: gazebo仿真构建工厂对接场景,模拟深度相机及雷达数据；
-
 - 高精度巡航对接:ros2环境下基于虚拟数据cartographer局部地图及导航；
 
-  
+
+
+
+![img](ROS2.assets/1f0055e54459c8294dca6686d2433904.png)
+
+
 
 #### Ros2基础命令：
 
@@ -246,3 +250,12 @@ transform_stamped.transform.rotation.w = 1.0;
 3. **如果是机器人里程计（包含位置 + 速度信息）** → `Odometry`
 4. **如果需要进行坐标系变换（TF2 坐标变换）** → `TransformStamped`
 
+
+
+
+
+## 2. 参数被命令行/launch文件覆盖
+
+- ROS2 参数优先级：命令行 > launch文件 > yaml文件 > 默认值
+
+  
