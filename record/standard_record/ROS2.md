@@ -258,4 +258,6 @@ transform_stamped.transform.rotation.w = 1.0;
 
 - ROS2 参数优先级：命令行 > launch文件 > yaml文件 > 默认值
 
+- echo $AMENT_PREFIX_PATH  
+
   
