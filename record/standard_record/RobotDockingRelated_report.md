@@ -245,6 +245,20 @@ ros2 service call /get_entity_state gazebo_msgs/srv/GetEntityState "{name: 'waff
 
 - 部署模版点云位姿时候，离对接载具太近，匹配的位姿准！
 
+- ```cmake
+  # NOTE(gxf):ROS2/colcon 的 launch 文件查找机制有时不认软链接，尤其是 launch 目录本身是软链接时
+  #必须物理拷贝 不然找不到文件 
+  install(DIRECTORY launch
+    DESTINATION share/${PROJECT_NAME}
+  )
+  ros2 启动launch不支持软链接吗？
+  ```
+
+- ```cmake
+  link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)   #这个不生效，必须后面链接指定路径
+  target_link_libraries(docking_pose_node ${PCL_LIBRARIES} stdc++fs ${CMAKE_CURRENT_SOURCE_DIR}/lib/libfast_gicp.so)
+  ```
+
   
 
 
@@ -261,3 +275,26 @@ ros2 service call /get_entity_state gazebo_msgs/srv/GetEntityState "{name: 'waff
 - 扫描设备尺寸不能太大，便于便捷部署
 - 能高效建模尺寸（1.5m立方）载具
 - 算力尽量放在扫描设备端
+
+
+
+
+
+```
+source ~/turtlebot3_ws/install/setup.zsh
+source ~/workspace/test_pkg_ws/install/setup.zsh
+
+#ROS2使用zsh无法用tab补全 ros2 指令
+source /usr/share/colcon_cd/function/colcon_cd.sh
+export _colcon_cd_root=/opt/ros/humble/
+source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.zsh
+
+eval "$(register-python-argcomplete3 ros2)"
+eval "$(register-python-argcomplete3 colcon)"
+
+
+
+export TURTLEBOT3_MODEL=waffle
+export CMAKE_ROOT=/usr/share/cmake-3.22
+```
+
