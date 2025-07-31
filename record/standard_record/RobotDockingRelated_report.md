@@ -43,9 +43,8 @@
 - 地图管理
 
   - 可用局部地图来提高对接精度；
-  
+
     
-  
 
 #### 四、初步方案：
 
@@ -163,6 +162,7 @@ gantt
 **静止状态前端累加**
 
 <video src="medium/icp里程计静止累加.webm"></video>
+
 #### **rtab后端更新及位姿优化**
 
  <video src="medium/rtab后端更新及位姿优化.webm"></video>
@@ -211,8 +211,8 @@ ICP调试相关经验
 
 1. 匹配对初始位姿影响很大 、
 2. 少数配多数
-2. 实时点云的地面点云部门一定要去除。
-2. 部署点云模版的位置太近对应匹配有特别要求，所以可以专门对这块做优化；
+3. 实时点云的地面点云部门一定要去除。
+4. 部署点云模版的位置太近对应匹配有特别要求，所以可以专门对这块做优化；
 
 
 
@@ -245,7 +245,56 @@ ros2 service call /get_entity_state gazebo_msgs/srv/GetEntityState "{name: 'waff
 
 - 部署模版点云位姿时候，离对接载具太近，匹配的位姿准！
 
+- ```cmake
+  # NOTE(gxf):ROS2/colcon 的 launch 文件查找机制有时不认软链接，尤其是 launch 目录本身是软链接时
+  #必须物理拷贝 不然找不到文件 
+  install(DIRECTORY launch
+    DESTINATION share/${PROJECT_NAME}
+  )
+  ros2 启动launch不支持软链接吗？
+  ```
+
+- ```cmake
+  link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)   #这个不生效，必须后面链接指定路径
+  target_link_libraries(docking_pose_node ${PCL_LIBRARIES} stdc++fs ${CMAKE_CURRENT_SOURCE_DIR}/lib/libfast_gicp.so)
+  ```
+
   
 
 
+
+
+
+
+
+手持式扫描仪有没有针对载具（货架、料车）等类似尺寸物体的型号推荐
+要求：
+
+- 精度毫米级 
+- 尽量不贴辅助标志
+- 扫描设备尺寸不能太大，便于便捷部署
+- 能高效建模尺寸（1.5m立方）载具
+- 算力尽量放在扫描设备端
+
+
+
+
+
+```
+source ~/turtlebot3_ws/install/setup.zsh
+source ~/workspace/test_pkg_ws/install/setup.zsh
+
+#ROS2使用zsh无法用tab补全 ros2 指令
+source /usr/share/colcon_cd/function/colcon_cd.sh
+export _colcon_cd_root=/opt/ros/humble/
+source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.zsh
+
+eval "$(register-python-argcomplete3 ros2)"
+eval "$(register-python-argcomplete3 colcon)"
+
+
+
+export TURTLEBOT3_MODEL=waffle
+export CMAKE_ROOT=/usr/share/cmake-3.22
+```
 

@@ -274,3 +274,40 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 实际雷达高度0.3m
 
 ![image-20250417120058674](on_site_issuse.assets/image-20250417120058674.png)
+
+
+
+
+
+#### **11.美国自由导航版本避障问题**
+
+[wk/fn_718_merge_to_5.39]
+
+rack 
+
+
+
+rack.rack_leg_center_length,货架腿中心长度,1470
+rack.rack_leg_center_width,货架腿中心宽度,580
+rack.rack_leg_diameter,货架腿直径,100
+rack.rack_wheel_rotate_radius,货架万向轮的旋转半径,150
+rack.enable_load_rack,当前顶升对象是否为货架,1
+rack.max_contour_length,货架长度,1580
+rack.max_contour_width,货架宽度,600
+
+现象大黑*2 大白*2  2*600E      
+
+ 大黑背负避障  
+  1.空载？暂无问题
+  2.载货？
+
+大白空载避障（不紧急）
+
+![image-20250728112233896](on_site_issuse.assets/image-20250728112233896.png)
+
+obstacle.filter_rack_pose_offset,载货状态下滤除货架长宽偏移,0.03
+obstacle.filter_rack_yaw_offset,载货同步旋转状态下滤除货架角度偏移,1.5
+
+解决方案  
+
+filter_rack_yaw_offset
