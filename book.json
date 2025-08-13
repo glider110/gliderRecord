@@ -6,6 +6,11 @@
         "audio",
         "video",
         "bilibili",
-        "cloud-media"
+        "cloud-media",
+        "highlight",
+        "image-lightbox",
+        "qingyan",
+        "copy-code",
+        "api"
     ]
 }
