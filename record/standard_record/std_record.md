@@ -87,7 +87,8 @@ find -ctime -2   find -cmin -2    #2分钟创建文件的时间 按分钟
 find -mtime -2   find -mmin -2       #2天创建文件的时间 按小时    实际测试都一样
 
 #ubuntu自带录屏+ffmpeg转换gif
-LATEST_FILE=$(ls -t *.webm 2>/dev/null | head -n1) && [ -n "$LATEST_FILE" ] && ffmpeg -i "$LATEST_FILE" -vf fps=15,scale=800:-1:flags=lanczos,palettegen palette.png && ffmpeg -i "$LATEST_FILE" -i palette.png -filter_complex "fps=15,scale=800:-1:flags=lanczos[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=5" "${LATEST_FILE%.webm}.gif" && rm palette.png && echo "生成高质量 GIF 完成：${LATEST_FILE%.webm}.gif"
+LATEST_FILE=$(ls -t *.webm 2>/dev/null | head -n1) && [ -n "$LATEST_FILE" ] && TIMESTAMP=$(date "+%Y%m%d_%H%M%S") && ffmpeg -i "$LATEST_FILE" -vf fps=15,scale=800:-1:flags=lanczos,palettegen palette.png && ffmpeg -i "$LATEST_FILE" -i palette.png -filter_complex "fps=15,scale=800:-1:flags=lanczos[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=5" "${TIMESTAMP}.gif" && rm palette.png && echo "生成高质量 GIF 完成：${TIMESTAMP}.gif"
+
 
 
 ```

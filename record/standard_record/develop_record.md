@@ -81,4 +81,6 @@ LLM PROMAT
 
 > 
 
-![录屏 08-13-25 20:53:37](develop_record.assets/11.gif)
+
+
+![20250813_212039](develop_record.assets/20250813_212039.gif)
