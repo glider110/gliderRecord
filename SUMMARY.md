@@ -2,6 +2,7 @@
 
 * 工作
   * [std\_record](record/standard_record/std_record.md)
+  * [develop_record](record/standard_record/develop_record.md)
   * [on\_site\_issuse](record/standard_record/on_site_issuse.md)
   * [linux.md](./record/akb_Record/linux.md)
   * [meeting.md](record/standard_record/meeting.md)
