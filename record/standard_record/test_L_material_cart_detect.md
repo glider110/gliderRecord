@@ -241,6 +241,8 @@ int main() {
 
 ![image-20250604144126236](test_L_material_cart_detect.assets/image-20250604144126236.png)
 
+![image-20250828165835446](test_L_material_cart_detect.assets/image-20250828165835446.png)
+
 #### **基本信息：**
 
 高度：30cm   宽度：60-65

@@ -261,12 +261,6 @@ ros2 service call /get_entity_state gazebo_msgs/srv/GetEntityState "{name: 'waff
 
   
 
-
-
-
-
-
-
 手持式扫描仪有没有针对载具（货架、料车）等类似尺寸物体的型号推荐
 要求：
 
@@ -275,8 +269,6 @@ ros2 service call /get_entity_state gazebo_msgs/srv/GetEntityState "{name: 'waff
 - 扫描设备尺寸不能太大，便于便捷部署
 - 能高效建模尺寸（1.5m立方）载具
 - 算力尽量放在扫描设备端
-
-
 
 
 
@@ -298,3 +290,4 @@ export TURTLEBOT3_MODEL=waffle
 export CMAKE_ROOT=/usr/share/cmake-3.22
 ```
 
+![image-20250828152022772](RobotDockingRelated_report.assets/image-20250828152022772.png)

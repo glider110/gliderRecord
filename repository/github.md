@@ -2,9 +2,7 @@
 
 #### 1.学习五阶段
 
-<img src="github.assets/杨振宁.jpg" alt="杨振宁" style="zoom:50%;" />
-
-
+<img src="github.assets/杨振宁.jpg" alt="image-20241213100051797" style="zoom:50%;" />
 
 - 不断修正自己的直觉才能直达事物的本质的能力
 
