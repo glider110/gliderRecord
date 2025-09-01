@@ -21,10 +21,5 @@ AGV业务素材视频
 
 ::audio{src="../.topwrite/assets/每天听本书《物流改变世界历史》裴鹏程解读 ◆ 10秒黑屏 ◆ 自动低画质低耗量 ◆ 有声书 ◆ 听书-[yt-downloaderz.com].mp3" controls="controls"}
 
-热烈的少年
 
-```[audio]
-热烈少年|https://www.gequbao.com/music/9306288
-```
 
-^
