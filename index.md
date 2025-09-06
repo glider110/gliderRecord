@@ -10,32 +10,32 @@ title: Glider Record
 ## 内容概览
 
 ### 📝 工作记录
-- [std_record](record/standard_record/std_record.html) - 标准工作记录
-- [develop_record](record/standard_record/develop_record.html) - 开发记录
-- [on_site_issuse](record/standard_record/on_site_issuse.html) - 现场问题记录
-- [linux](record/akb_Record/linux.html) - Linux相关记录
-- [meeting](record/standard_record/meeting.html) - 会议记录
-- [rack_filter](record/standard_record/rack_filter.html) - 机架过滤
-- [test_oba_avoid_2_0](record/standard_record/test_oba_avoid_2_0.html) - 避障测试2.0
-- [avoid_obstacle_3_0](record/standard_record/avoid_obstacle_3_0.html) - 避障3.0
-- [avoid_demo](repository/test.html) - 避障演示
-- [lidar_install_2D](record/standard_record/lidar_install_2D.html) - 2D激光雷达安装
-- [cartographer](record/akb_Record/cartographer.html) - 制图算法
-- [RobotDockingRelated](record/standard_record/RobotDockingRelated_report.html) - 机器人对接相关
+- [std_record](record/standard_record/std_record) - 标准工作记录
+- [develop_record](record/standard_record/develop_record) - 开发记录
+- [on_site_issuse](record/standard_record/on_site_issuse) - 现场问题记录
+- [linux](record/akb_Record/linux) - Linux相关记录
+- [meeting](record/standard_record/meeting) - 会议记录
+- [rack_filter](record/standard_record/rack_filter) - 机架过滤
+- [test_oba_avoid_2_0](record/standard_record/test_oba_avoid_2_0) - 避障测试2.0
+- [avoid_obstacle_3_0](record/standard_record/avoid_obstacle_3_0) - 避障3.0
+- [avoid_demo](repository/test) - 避障演示
+- [lidar_install_2D](record/standard_record/lidar_install_2D) - 2D激光雷达安装
+- [cartographer](record/akb_Record/cartographer) - 制图算法
+- [RobotDockingRelated](record/standard_record/RobotDockingRelated_report) - 机器人对接相关
 
 ### 📚 知识库
-- [书单](repository/book.html) - 个人书单和阅读记录
-- [读书笔记](repository/book_note.html) - 深度阅读思考
-- [系统知识理论及仓库](repository/github.html) - 代码库和项目
-- [mooc_pointclouds](repository/mooc_pointclouds.html) - 点云课程
-- [感知传感器汇总](repository/sensor_dev.html) - 传感器技术
-- [resume](repository/resume.html) - 个人简历
+- [书单](repository/book) - 个人书单和阅读记录
+- [读书笔记](repository/book_note) - 深度阅读思考
+- [系统知识理论及仓库](repository/github) - 代码库和项目
+- [mooc_pointclouds](repository/mooc_pointclouds) - 点云课程
+- [感知传感器汇总](repository/sensor_dev) - 传感器技术
+- [resume](repository/resume) - 个人简历
 
 ### 🛠️ 工具库
-- [toolkit](repository/toolkit.html) - 开发工具包
-- [isaac-sim](repository/isaac-sim-.html) - 仿真环境
-- [visualize](repository/visualize.html) - 可视化工具
-- [git](record/akb_Record/git.html) - Git使用记录
+- [toolkit](repository/toolkit) - 开发工具包
+- [isaac-sim](repository/isaac-sim-) - 仿真环境
+- [visualize](repository/visualize) - 可视化工具
+- [git](record/akb_Record/git) - Git使用记录
 
 ## 特色功能
 

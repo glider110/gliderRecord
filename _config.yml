@@ -1,4 +1,4 @@
-# Jekyll 配置 - 基于SUMMARY.md的精确构建
+# Jekyll 配置 - 简化版本
 title: Glider Record
 description: 个人工作生活文档记录
 author: Glider
@@ -12,60 +12,10 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# URL配置 - 确保生成.html扩展名
-permalink: /:path.html
-permalink_style: pretty
+# URL配置
+permalink: pretty
 
-# 只包含SUMMARY.md中指定的文件
-include:
-  # 首页和布局
-  - "index.md"
-  - "*.html"
-  - "*.css"
-  - "*.js"
-  
-  # 工作记录 - 根据SUMMARY.md
-  - "record/standard_record/std_record.md"
-  - "record/standard_record/develop_record.md"
-  - "record/standard_record/on_site_issuse.md"
-  - "record/standard_record/meeting.md"
-  - "record/standard_record/rack_filter.md"
-  - "record/standard_record/test_oba_avoid_2_0.md"
-  - "record/standard_record/avoid_obstacle_3_0.md"
-  - "record/standard_record/lidar_install_2D.md"
-  - "record/standard_record/RobotDockingRelated_report.md"
-  - "record/akb_Record/linux.md"
-  - "record/akb_Record/cartographer.md"
-  - "record/akb_Record/git.md"
-  
-  # 知识库 - 根据SUMMARY.md
-  - "repository/book.md"
-  - "repository/book_note.md"
-  - "repository/github.md"
-  - "repository/mooc_pointclouds.md"
-  - "repository/sensor_dev.md"
-  - "repository/resume.md"
-  - "repository/test.md"  # avoid_demo
-  
-  # 工具库 - 根据SUMMARY.md
-  - "repository/toolkit.md"
-  - "repository/isaac-sim-.md"
-  - "repository/visualize.md"
-  
-  # 对应的资源文件
-  - "record/**/*.assets/**"
-  - "repository/**/*.assets/**"
-  - "life_management/**/*.assets/**"
-  
-  # 图片和媒体文件
-  - "*.png"
-  - "*.jpg"
-  - "*.jpeg"
-  - "*.gif"
-  - "*.webp"
-  - "*.pdf"
-
-# 排除所有其他文件
+# 排除不需要的文件
 exclude:
   - README.md
   - package.json
@@ -86,15 +36,6 @@ exclude:
   - "**/temp_backup/**"
   - "**/node_modules/**"
   - "**/.git/**"
-  # 排除未在SUMMARY.md中列出的文件
-  - "record/sliver_record/**"
-  - "record/standard_record/*.md"
-  - "record/standard_record/*.assets"
-  - "record/akb_Record/*.md"
-  - "record/akb_Record/*.assets"
-  - "repository/*.md"
-  - "repository/*.assets"
-  - "life_management/**"
 
 # Markdown 设置
 markdown: kramdown
