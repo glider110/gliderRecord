@@ -16,9 +16,9 @@
 
 
 
-![image-20240819145216210](2D_lidar_install.assets/image-20240819145216210.png)
+![image-20240819145216210](/../../2D_lidar_install.assets/image-20240819145216210.png)
 
-![image-20240819144724540](2D_lidar_install.assets/image-20240819144724540.png)
+![image-20240819144724540](/../../2D_lidar_install.assets/image-20240819144724540.png)
 
 
 
@@ -45,7 +45,7 @@
 - 乐动和EAI的设计高度一致，以激光器的的光心定义为传感器的坐标原点，发射光线垂直于pcb版14°，相机为接收光线，挨着数据连接线，连接线在上是倒装
 - 扫描角度为顺时针，-80°到80° 160个点
 
-![image-20240819141637331](2D_lidar_install.assets/image-20240819141637331.png)<img src="2D_lidar_install.assets/image-20240819143118206.png" alt="image-20240819143118206" style="zoom:80%;" />  
+![image-20240819141637331](/../../2D_lidar_install.assets/image-20240819141637331.png)<img src="2D_lidar_install.assets/image-20240819143118206.png" alt="image-20240819143118206" style="zoom:80%;" />  
 
 
 
@@ -65,4 +65,4 @@
 
 #### 自由导航64点tof相机
 
-![image-20250507141135972](2D_lidar_install.assets/image-20250507141135972.png)
+![image-20250507141135972](/../../2D_lidar_install.assets/image-20250507141135972.png)

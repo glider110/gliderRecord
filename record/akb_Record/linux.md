@@ -151,7 +151,7 @@ groups
 
 ### **系统监控**:
 
-![image-20220104113624574](linux.assets/image-20220104113624574.png)
+![image-20220104113624574](/../../linux.assets/image-20220104113624574.png)
 
 查看内存：free -h
 

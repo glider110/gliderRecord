@@ -26,8 +26,7 @@ exclude:
   - SUMMARY.md
   - README.assets
   - temp_backup
-  - "*.assets"
-  - "**/*.assets"
+  - "**/temp_backup/**"
 
 # 包含文件 - 只处理必要的文件
 include:
@@ -35,6 +34,12 @@ include:
   - "*.html"
   - "*.css"
   - "*.js"
+  - "*.png"
+  - "*.jpg"
+  - "*.jpeg"
+  - "*.gif"
+  - "*.webp"
+  - "**/*.assets/**"
 
 # Markdown 设置
 markdown: kramdown
