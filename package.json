@@ -1,0 +1,14 @@
+{
+  "name": "glider-record",
+  "version": "1.0.0",
+  "description": "个人工作生活文档网站",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.0.0"
+  }
+}

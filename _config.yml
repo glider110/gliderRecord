@@ -1,0 +1,81 @@
+# Jekyll 配置
+title: Glider Record
+description: 个人工作生活文档记录
+author: Glider
+email: your-email@example.com
+url: "https://your-username.github.io"
+baseurl: "/48rmw7nb2q"
+
+# 插件
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 主题
+theme: minima
+
+# 排除文件
+exclude:
+  - README.md
+  - package.json
+  - fix-assets.js
+  - node_modules
+  - docs
+
+# 包含文件
+include:
+  - _pages
+
+# 集合
+collections:
+  record:
+    output: true
+    permalink: /:collection/:name/
+  repository:
+    output: true
+    permalink: /:collection/:name/
+  life_management:
+    output: true
+    permalink: /:collection/:name/
+
+# 默认设置
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "record"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "repository"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "life_management"
+    values:
+      layout: "post"
+
+# 导航
+navigation:
+  - title: 首页
+    url: /
+  - title: 工作记录
+    url: /record/
+  - title: 知识库
+    url: /repository/
+  - title: 生活管理
+    url: /life_management/
+
+# Markdown 设置
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
