@@ -12,8 +12,8 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# URL配置 - 修复链接问题
-permalink: /:path/
+# URL配置 - 确保生成.html扩展名
+permalink: /:path.html
 permalink_style: pretty
 
 # 只包含SUMMARY.md中指定的文件
@@ -73,6 +73,7 @@ exclude:
   - fix-image-paths.js
   - build-specific.sh
   - check-summary-files.js
+  - test-urls.js
   - node_modules
   - deploy.sh
   - 部署说明.md

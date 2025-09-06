@@ -1,0 +1,12 @@
+# URL重写规则 - 自动添加.html扩展名
+RewriteEngine On
+
+# 如果请求的文件不存在且没有.html扩展名，尝试添加.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.html$
+RewriteRule ^(.*)$ $1.html [L,R=301]
+
+# 确保.html文件被正确提供
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(.*)\.html$ $1.html [L]
