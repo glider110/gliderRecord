@@ -7,33 +7,33 @@ title: Glider Record
 
 > **记录之美...**
 
-<img src="/README.assets/image-20250901113145179-17566977572521.png" alt="image-20250901113145179" style="zoom:50%;" />
+![Glider Record](README.assets/image-20250901113145179-17566977572521.png)
 
 ## 内容概览
 
 ### 📝 工作记录
-- **[标准记录](record/standard_record/)**: 日常工作记录和项目总结
-- **[AKB记录](record/akb_Record/)**: 技术开发记录
-- **[Sliver记录](record/sliver_record/)**: 历史工作记录
+- [标准记录](record/standard_record/) - 日常工作记录和项目总结
+- [AKB记录](record/akb_Record/) - 技术开发记录
+- [Sliver记录](record/sliver_record/) - 历史工作记录
 
 ### 📚 知识库
-- **[书籍](repository/book)**: 个人书单和阅读记录
-- **[读书笔记](repository/book_note)**: 深度阅读思考
-- **[GitHub仓库](repository/github)**: 代码库和项目
-- **[专业知识点](repository/professional_knowledge)**: 技术知识整理
+- [书籍](repository/book) - 个人书单和阅读记录
+- [读书笔记](repository/book_note) - 深度阅读思考
+- [GitHub仓库](repository/github) - 代码库和项目
+- [专业知识点](repository/professional_knowledge) - 技术知识整理
 
 ### 🎯 生活管理
-- **[思维](life_management/思维/)**: 思维模式和认知提升
-- **[理财](life_management/理财/)**: 投资理财和行业分析
-- **[目标细化](life_management/目标细化2025)**: 年度目标规划和执行
+- [思维](life_management/思维/) - 思维模式和认知提升
+- [理财](life_management/理财/) - 投资理财和行业分析
+- [目标细化](life_management/目标细化2025) - 年度目标规划和执行
 
 ## 特色功能
 
-* ✨ 日常工作记录
-* 📖 个人知识库整理
-* 💻 开发常用代码库
-* 📊 项目记录和总结
-* 🎨 丰富的静态资源支持
+- ✨ 日常工作记录
+- 📖 个人知识库整理
+- 💻 开发常用代码库
+- 📊 项目记录和总结
+- 🎨 丰富的静态资源支持
 
 ## 使用说明
 

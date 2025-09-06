@@ -21,9 +21,9 @@ exclude:
   - package.json
   - fix-assets.js
   - node_modules
-  - docs
   - deploy.sh
   - 部署说明.md
+  - Gemfile
 
 # Markdown 设置
 markdown: kramdown
