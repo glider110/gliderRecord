@@ -24,8 +24,8 @@ exclude:
   - book.json
   - deploy.md
   - SUMMARY.md
-  - docs_backup
   - README.assets
+  - temp_backup
 
 # Markdown 设置
 markdown: kramdown
