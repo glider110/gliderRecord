@@ -12,7 +12,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# 排除文件
+# 排除文件 - 减少构建时间
 exclude:
   - README.md
   - package.json
@@ -26,6 +26,15 @@ exclude:
   - SUMMARY.md
   - README.assets
   - temp_backup
+  - "*.assets"
+  - "**/*.assets"
+
+# 包含文件 - 只处理必要的文件
+include:
+  - "*.md"
+  - "*.html"
+  - "*.css"
+  - "*.js"
 
 # Markdown 设置
 markdown: kramdown
@@ -33,3 +42,7 @@ highlighter: rouge
 kramdown:
   input: GFM
   syntax_highlighter: rouge
+
+# 构建优化
+incremental: true
+limit_posts: 50
