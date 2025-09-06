@@ -10,7 +10,6 @@ baseurl: "/gliderRecord"
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-seo-tag
 
 # 主题
 theme: minima
@@ -24,9 +23,11 @@ exclude:
   - deploy.sh
   - 部署说明.md
   - Gemfile
-  - _layouts
-  - _includes
-  - assets
+  - _pages
+  - .topwrite
+  - book.json
+  - deploy.md
+  - SUMMARY.md
 
 # Markdown 设置
 markdown: kramdown
