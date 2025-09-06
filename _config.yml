@@ -12,6 +12,10 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
+# URL配置 - 修复链接问题
+permalink: /:path/
+permalink_style: pretty
+
 # 只包含SUMMARY.md中指定的文件
 include:
   # 首页和布局
@@ -68,6 +72,7 @@ exclude:
   - fix-assets.js
   - fix-image-paths.js
   - build-specific.sh
+  - check-summary-files.js
   - node_modules
   - deploy.sh
   - 部署说明.md
