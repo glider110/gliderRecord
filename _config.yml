@@ -23,11 +23,10 @@ exclude:
   - deploy.sh
   - 部署说明.md
   - Gemfile
-  - _pages
-  - .topwrite
   - book.json
   - deploy.md
   - SUMMARY.md
+  - docs_backup
 
 # Markdown 设置
 markdown: kramdown
