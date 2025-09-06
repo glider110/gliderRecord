@@ -7,10 +7,10 @@
   * [linux.md](./record/akb_Record/linux.md)
   * [meeting.md](record/standard_record/meeting.md)
   * [rack\_filter.md](record/standard_record/rack_filter.md)
-  * [test\_oba\_avoid\_2.0.md](record/standard_record/test_oba_avoid_2.0.md)
-  * [avoid_obstacle_3.0](record/standard_record/avoid_obstacle_3.0.md)
+  * [test\_oba\_avoid\_2.0.md](record/standard_record/test_oba_avoid_2_0.md)
+  * [avoid_obstacle_3_0](record/standard_record/avoid_obstacle_3_0.md)
   * [avoid_demo](repository/test.md)
-  * [2D_lidar_install](record/standard_record/2D_lidar_install.md)
+  * [lidar_install_2D](record/standard_record/lidar_install_2D.md)
   * [cartographer](record/akb_Record/cartographer.md)
   * [RobotDockingRelated](record/standard_record/RobotDockingRelated_report.md)
 

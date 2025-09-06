@@ -4,9 +4,9 @@
 /record/standard_record/on_site_issuse /record/standard_record/on_site_issuse.html 301
 /record/standard_record/meeting /record/standard_record/meeting.html 301
 /record/standard_record/rack_filter /record/standard_record/rack_filter.html 301
-/record/standard_record/test_oba_avoid_2.0 /record/standard_record/test_oba_avoid_2.0.html 301
-/record/standard_record/avoid_obstacle_3.0 /record/standard_record/avoid_obstacle_3.0.html 301
-/record/standard_record/2D_lidar_install /record/standard_record/2D_lidar_install.html 301
+/record/standard_record/test_oba_avoid_2_0 /record/standard_record/test_oba_avoid_2_0.html 301
+/record/standard_record/avoid_obstacle_3_0 /record/standard_record/avoid_obstacle_3_0.html 301
+/record/standard_record/lidar_install_2D /record/standard_record/lidar_install_2D.html 301
 /record/standard_record/RobotDockingRelated /record/standard_record/RobotDockingRelated_report.html 301
 /record/akb_Record/linux /record/akb_Record/linux.html 301
 /record/akb_Record/cartographer /record/akb_Record/cartographer.html 301

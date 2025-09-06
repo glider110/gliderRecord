@@ -41,7 +41,7 @@
 
 ![image-20240301110341269](std_record.assets/image-20240301110341269.png)
 
-![image-20240301105342427](test_oba_avoid_2.0.assets/image-20240301105342427.png)
+![image-20240301105342427](test_oba_avoid_2_0.assets/image-20240301105342427.png)
 
 **叉车误避障**
 
@@ -50,7 +50,7 @@
 * [ ] 打到叉臂内侧；
 * [ ] 中心区域（0，0）没去除掉；
 
-![image-20240306181310115](test_oba_avoid_2.0.assets/image-20240306181310115.png)
+![image-20240306181310115](test_oba_avoid_2_0.assets/image-20240306181310115.png)
 
 
 
@@ -85,11 +85,11 @@
 
 
 叉臂抬升动作
-![image-20240306194918814](test_oba_avoid_2.0.assets/image-20240306194918814.png)
+![image-20240306194918814](test_oba_avoid_2_0.assets/image-20240306194918814.png)
 
-![image-20240311105025692](test_oba_avoid_2.0.assets/image-20240311105025692.png)
+![image-20240311105025692](test_oba_avoid_2_0.assets/image-20240311105025692.png)
 
-![image-20240308143243630](test_oba_avoid_2.0.assets/image-20240308143243630.png)
+![image-20240308143243630](test_oba_avoid_2_0.assets/image-20240308143243630.png)
 
 
 
@@ -102,7 +102,7 @@
 
   
 
-![image-20240407150424733](test_oba_avoid_2.0/image-20240407150424733.png)
+![image-20240407150424733](test_oba_avoid_2_0/image-20240407150424733.png)
 
 
 
@@ -112,9 +112,9 @@
 
 
 
-<img src="test_oba_avoid_2.0/image-20240419145417414.png" alt="image-20240419145417414" style="zoom:80%;" /><img src="test_oba_avoid_2.0/image-20240419145455675.png" alt="image-20240419145455675" style="zoom:80%;" /><img src="test_oba_avoid_2.0/image-20240419145543550.png" alt="image-20240419145543550" style="zoom:80%;" />
+<img src="test_oba_avoid_2_0/image-20240419145417414.png" alt="image-20240419145417414" style="zoom:80%;" /><img src="test_oba_avoid_2_0/image-20240419145455675.png" alt="image-20240419145455675" style="zoom:80%;" /><img src="test_oba_avoid_2_0/image-20240419145543550.png" alt="image-20240419145543550" style="zoom:80%;" />
 
-![image-20240419153234565](test_oba_avoid_2.0/image-20240419153234565.png)
+![image-20240419153234565](test_oba_avoid_2_0/image-20240419153234565.png)
 
 **没有用**
 
@@ -128,7 +128,7 @@
 
 前雷达注意 有奥瑞达(2007)和倍加福 (6060)
 
-![image-20240510152931451](test_oba_avoid_2.0.assets/image-20240510152931451.png)
+![image-20240510152931451](test_oba_avoid_2_0.assets/image-20240510152931451.png)
 
 
 
@@ -136,11 +136,11 @@
 
 - [ ] 162关闭雷达后也要发空数据,策略不会刷新然后报避障,而且点还是闪烁在动的
 
-![image-20240515091342915](test_oba_avoid_2.0.assets/image-20240515091342915.png)
+![image-20240515091342915](test_oba_avoid_2_0.assets/image-20240515091342915.png)
 
-![image-20240515150803217](test_oba_avoid_2.0.assets/image-20240515150803217.png)
+![image-20240515150803217](test_oba_avoid_2_0.assets/image-20240515150803217.png)
 
-![image-20240515154033112](test_oba_avoid_2.0.assets/image-20240515154033112.png)
+![image-20240515154033112](test_oba_avoid_2_0.assets/image-20240515154033112.png)
 
 
 
@@ -148,21 +148,21 @@
 
 车体尺寸：长950mm 宽635mm 高250mm        1460 930
 
-![image-20240524164358964](test_oba_avoid_2.0.assets/image-20240524164358964.png)
+![image-20240524164358964](test_oba_avoid_2_0.assets/image-20240524164358964.png)
 
-![image-20240524160238304](test_oba_avoid_2.0.assets/image-20240524160238304.png)
+![image-20240524160238304](test_oba_avoid_2_0.assets/image-20240524160238304.png)
 
-![image-20240524160611098](test_oba_avoid_2.0.assets/image-20240524160611098.png)
+![image-20240524160611098](test_oba_avoid_2_0.assets/image-20240524160611098.png)
 
-![image-20240524163938022](test_oba_avoid_2.0.assets/image-20240524163938022.png)
+![image-20240524163938022](test_oba_avoid_2_0.assets/image-20240524163938022.png)
 
-![image-20240528112358173](test_oba_avoid_2.0.assets/image-20240528112358173.png)
+![image-20240528112358173](test_oba_avoid_2_0.assets/image-20240528112358173.png)
 
 rack:1460 1229
 
 
 
-![image-20240528150246273](test_oba_avoid_2.0.assets/image-20240528150246273.png)
+![image-20240528150246273](test_oba_avoid_2_0.assets/image-20240528150246273.png)
 
 
 
@@ -179,7 +179,7 @@ rack:1460 1229
 - 410动作理解
 - 平行背负还是垂直背负，部署要怎么的？
 
-![image-20240625100428942](test_oba_avoid_2.0.assets/image-20240625100428942.png)
+![image-20240625100428942](test_oba_avoid_2_0.assets/image-20240625100428942.png)
 
 
 
@@ -203,6 +203,6 @@ max_z2 = 货架高度(rack.max_contour_height)  + 货架腿到地面（rack.bear
 
   
 
-![image-20241022150958002](test_oba_avoid_2.0.assets/image-20241022150958002.png)
+![image-20241022150958002](test_oba_avoid_2_0.assets/image-20241022150958002.png)
 
-![image-20241024103910892](test_oba_avoid_2.0.assets/image-20241024103910892.png)![image-20241024103937328](test_oba_avoid_2.0.assets/image-20241024103937328.png)
+![image-20241024103910892](test_oba_avoid_2_0.assets/image-20241024103910892.png)![image-20241024103937328](test_oba_avoid_2_0.assets/image-20241024103937328.png)

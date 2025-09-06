@@ -16,10 +16,10 @@ title: Glider Record
 - [linux](record/akb_Record/linux.html) - Linux相关记录
 - [meeting](record/standard_record/meeting.html) - 会议记录
 - [rack_filter](record/standard_record/rack_filter.html) - 机架过滤
-- [test_oba_avoid_2.0](record/standard_record/test_oba_avoid_2.0.html) - 避障测试2.0
-- [avoid_obstacle_3.0](record/standard_record/avoid_obstacle_3.0.html) - 避障3.0
+- [test_oba_avoid_2_0](record/standard_record/test_oba_avoid_2_0.html) - 避障测试2.0
+- [avoid_obstacle_3_0](record/standard_record/avoid_obstacle_3_0.html) - 避障3.0
 - [avoid_demo](repository/test.html) - 避障演示
-- [2D_lidar_install](record/standard_record/2D_lidar_install.html) - 2D激光雷达安装
+- [lidar_install_2D](record/standard_record/lidar_install_2D.html) - 2D激光雷达安装
 - [cartographer](record/akb_Record/cartographer.html) - 制图算法
 - [RobotDockingRelated](record/standard_record/RobotDockingRelated_report.html) - 机器人对接相关
 
