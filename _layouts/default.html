@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% seo %}
+    <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+    {% feed_meta %}
+  </head>
+  <body>
+    <div class="container">
+      <header class="site-header">
+        <h1 class="site-title"><a href="{{ "/" | relative_url }}">{{ site.title | escape }}</a></h1>
+        <p class="site-description">{{ site.description | escape }}</p>
+      </header>
+
+      <main id="content" class="main-content" role="main">
+        {{ content }}
+      </main>
+
+      <footer class="site-footer">
+        <p>&copy; {{ site.time | date: '%Y' }} {{ site.author | escape }}. All rights reserved.</p>
+        <p>Powered by <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

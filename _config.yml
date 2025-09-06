@@ -10,9 +10,7 @@ baseurl: "/gliderRecord"
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-
-# 主题
-theme: minima
+  - jekyll-seo-tag
 
 # 排除文件
 exclude:
@@ -27,6 +25,7 @@ exclude:
   - deploy.md
   - SUMMARY.md
   - docs_backup
+  - README.assets
 
 # Markdown 设置
 markdown: kramdown

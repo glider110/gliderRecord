@@ -1,0 +1,205 @@
+/* 基础样式 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* 头部样式 */
+.site-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 2.5em;
+  font-weight: 300;
+}
+
+.site-title a {
+  color: white;
+  text-decoration: none;
+}
+
+.site-title a:hover {
+  text-decoration: underline;
+}
+
+.site-description {
+  margin: 10px 0 0;
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+/* 主要内容区域 */
+.main-content {
+  padding: 40px 30px;
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #34495e;
+  border-bottom: 1px solid #ecf0f1;
+  padding-bottom: 5px;
+}
+
+/* 列表样式 */
+ul, ol {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+/* 链接样式 */
+a {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* 引用样式 */
+blockquote {
+  border-left: 4px solid #3498db;
+  margin: 20px 0;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  font-style: italic;
+}
+
+/* 代码样式 */
+code {
+  background-color: #f1f2f6;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 20px;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* 图片样式 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 分隔线 */
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, #3498db, #9b59b6);
+  margin: 30px 0;
+}
+
+/* 页脚样式 */
+.site-footer {
+  background-color: #34495e;
+  color: #bdc3c7;
+  padding: 30px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.site-footer p {
+  margin: 5px 0;
+}
+
+.site-footer a {
+  color: #3498db;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  
+  .site-header {
+    padding: 20px 15px;
+  }
+  
+  .site-title {
+    font-size: 2em;
+  }
+  
+  .main-content {
+    padding: 20px 15px;
+  }
+  
+  h1 {
+    font-size: 1.8em;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+  }
+}
+
+/* 特殊效果 */
+.main-content h1:first-child {
+  margin-top: 0;
+}
+
+/* 卡片样式 */
+.feature-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
