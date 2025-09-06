@@ -1,8 +1,3 @@
----
-layout: default
-title: Glider Record
----
-
 # Glider Record
 
 > **记录之美...**
