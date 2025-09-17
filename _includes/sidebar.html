@@ -1,0 +1,15 @@
+{% assign nav = site.data.navigation %}
+<nav class="side-nav">
+  {% for section in nav %}
+    <div class="nav-section">
+      <h3 class="nav-title" id="{{ section.title | slugify }}">{{ section.title }}</h3>
+      <ul>
+      {% for item in section.items %}
+        <li>
+          <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</nav>

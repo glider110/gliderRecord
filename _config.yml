@@ -1,0 +1,51 @@
+title: gliderRecord
+# GitHub Pages 站点地址设置（项目页）
+url: "https://glider110.github.io"
+baseurl: "/gliderRecord"
+
+# 让 Jekyll 处理所有 Markdown 文件而无需前言区（front matter）
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-titles-from-headings
+  - jekyll-default-layout
+  - jekyll-relative-links
+  - jekyll-readme-index
+
+# 兼容 GitHub Pages 的安全白名单插件（Actions 构建可使用，Pages 内建环境亦支持）
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# 自动从一级/二级标题提取页面标题
+titles_from_headings:
+  enabled: true
+  strip_title: true
+  collections: true
+
+# 相对链接处理（让 repo 内相对路径图片/链接在站点内可用）
+relative_links:
+  enabled: true
+  collections: true
+
+# 默认布局，未带 front matter 的 md 也会应用
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: default
+
+# 读取 README 作为首页（无需创建 index.md）
+readme_index:
+  enabled: true
+  remove_originals: false
+  with_frontmatter: false
+
+exclude:
+  - node_modules
+  - vendor
+  - .github
+
+# 站点导航数据文件
+navigation_data: _data/navigation.yml
