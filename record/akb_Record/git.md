@@ -78,7 +78,7 @@ $ git checkout commit_然后在git checkout -b 新分支
 git commit --amend -m "新的修改提交信息"
 ```
 
-#### 切换问题，stash解决
+#### 一：切换问题，stash解决
 
 ```shell
 git stash
@@ -111,6 +111,27 @@ git push origin --delete gxf/refactor_pointcloud_process
 git remote update origin --prune
 ```
 
+#### 二：切换问题，worktree解决
+
+```shell
+# 切换到新工作目录
+cd ../hotfix-work
+
+# 在这里进行你的紧急修复
+# 编辑文件...
+git add .
+git commit -m "Fix: 修复紧急 bug"
+git push origin hotfix
+
+# 完成工作后，你可以切换回原来的工作目录
+cd ../your-original-project
+
+# 确保你不在要移除的目录中
+git worktree remove ../hotfix-work
+```
+
+
+
 #### 秋林network\_clinet上传新开的gitlab仓库
 
 ```shell
@@ -125,6 +146,10 @@ git remote update origin --prune
  
 
 ```
+
+
+
+
 
 #### 双远程操作
 

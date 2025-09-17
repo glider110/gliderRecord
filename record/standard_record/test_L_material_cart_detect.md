@@ -1,5 +1,7 @@
 ## L型超低矮
 
+![image-20250917174043335](test_L_material_cart_detect.assets/image-20250917174043335.png)
+
 gxf/feat_material_cart_detect_main
 
  sudo chown -R gxf:gxf .   
@@ -256,4 +258,28 @@ int main() {
 **方案二：**L型下沿杠思路，找到轮子区域的在直线最近的端点
 
 **方案三：**以手柄为特征来找端点
+
+
+
+
+
+
+
+
+
+## CARTER料箱
+
+**对接载具：**两墩面和三顿面共存（无轮）
+
+![image-20250917173413859](test_L_material_cart_detect.assets/image-20250917173413859.png)
+
+**对接车型：**MP15
+
+**开发分支：**
+
+
+
+
+
+
 
