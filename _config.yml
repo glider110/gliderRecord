@@ -7,9 +7,6 @@ baseurl: "/gliderRecord"
 plugins:
   - jekyll-optional-front-matter
   - jekyll-titles-from-headings
-  - jekyll-default-layout
-  - jekyll-relative-links
-  - jekyll-readme-index
 
 # 兼容 GitHub Pages 的安全白名单插件（Actions 构建可使用，Pages 内建环境亦支持）
 markdown: kramdown
@@ -35,6 +32,7 @@ defaults:
       type: "pages"
     values:
       layout: default
+      render_with_liquid: false
 
 # 读取 README 作为首页（无需创建 index.md）
 readme_index:
@@ -46,6 +44,9 @@ exclude:
   - node_modules
   - vendor
   - .github
+  - life_management/**
+  - README.assets/**
+  - **/*.pdf
 
 # 站点导航数据文件
 navigation_data: _data/navigation.yml
