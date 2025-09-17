@@ -39,6 +39,7 @@ exclude:
   - README.assets/**
   - **/*.pdf
   - record/akb_Record/Tof_TestReport.
+  - Gemfile
+  - Gemfile.lock
 
-# 站点导航数据文件
-navigation_data: _data/navigation.yml
+# 导航数据位于 _data/navigation.yml（Jekyll 默认会加载 _data/*，无需额外配置）
