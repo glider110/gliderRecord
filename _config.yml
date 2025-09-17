@@ -20,10 +20,6 @@ titles_from_headings:
   strip_title: true
   collections: true
 
-# 相对链接处理（让 repo 内相对路径图片/链接在站点内可用）
-relative_links:
-  enabled: true
-  collections: true
 
 # 默认布局，未带 front matter 的 md 也会应用
 defaults:
@@ -34,11 +30,6 @@ defaults:
       layout: default
       render_with_liquid: false
 
-# 读取 README 作为首页（无需创建 index.md）
-readme_index:
-  enabled: true
-  remove_originals: false
-  with_frontmatter: false
 
 exclude:
   - node_modules
@@ -47,6 +38,7 @@ exclude:
   - life_management/**
   - README.assets/**
   - **/*.pdf
+  - record/akb_Record/Tof_TestReport.
 
 # 站点导航数据文件
 navigation_data: _data/navigation.yml
