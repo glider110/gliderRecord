@@ -66,3 +66,26 @@
 #### 自由导航64点tof相机
 
 ![image-20250507141135972](2D_lidar_install.assets/image-20250507141135972.png)
+
+
+
+
+
+
+
+1200E
+
+![image-20250919150036385](2D_lidar_install.assets/image-20250919150036385.png)
+
+
+
+
+
+![image-20250919150821762](2D_lidar_install.assets/image-20250919150821762.png)
+
+![image-20250919161910284](2D_lidar_install.assets/image-20250919161910284.png)
+
+
+
+雷达：
+
