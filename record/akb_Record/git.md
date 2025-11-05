@@ -114,20 +114,44 @@ git remote update origin --prune
 #### 二：切换问题，worktree解决
 
 ```shell
-# 切换到新工作目录
+git worktree list
+# 1. 在主目录创建 hotfix worktree
+cd ~/project/main
+git worktree add ../hotfix-work -b hotfix/urgent-fix
+
+# 2. 切换并修复
 cd ../hotfix-work
-
-# 在这里进行你的紧急修复
-# 编辑文件...
+# 修复 bug...
 git add .
-git commit -m "Fix: 修复紧急 bug"
-git push origin hotfix
+git commit -m "fix: 修复紧急问题"
+git push origin hotfix/urgent-fix
 
-# 完成工作后，你可以切换回原来的工作目录
-cd ../your-original-project
+# 3. 回到主目录继续开发
+cd ../main
 
-# 确保你不在要移除的目录中
+# 4. 如果 hotfix 已合并，清理 worktree
 git worktree remove ../hotfix-work
+git branch -d hotfix/urgent-fix  # 删除本地分支
+```
+
+### git restore 
+
+```shell
+# 基本操作
+git restore <file>                    # 丢弃工作区修改
+git restore --staged <file>           # 取消暂存
+
+# 指定来源
+git restore --source=<commit> <file>  # 从 commit 恢复
+git restore --source=<branch> <file>  # 从分支恢复
+
+# 批量操作
+git restore .                         # 恢复所有文件
+git restore '*.js'                    # 恢复特定类型
+git restore src/                      # 恢复目录
+
+# 交互式
+git restore -p <file>                 # 交互式恢复
 ```
 
 
@@ -167,9 +191,9 @@ git pull <remote-name> <remote-branch>:<local-branch>
 
 ### ![image-20231027141139801](git.assets/image-20231027141139801.png)
 
-### 难点：
+### param难点：
 
-* merge  rebase 区别 以及和cherry pick
+* parammerge  rebase 区别 以及和cherry pick
 
 * pull fetch  区别
 
@@ -226,5 +250,7 @@ git pull <remote-name> <remote-branch>:<local-branch>
 4.重做某一个commit，之后的代码又不想重新写；
 
 5.双远程怎么push
+
+6.子仓库的Head变更  git restore
 
 \==**思想：你平常开发过程中能想到的和想不到的，git已经给你弄好了，只是你自己没意识到**；==
