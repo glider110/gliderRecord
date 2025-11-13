@@ -1,0 +1,30 @@
+{
+  "name": "glider-record",
+  "version": "1.0.0",
+  "description": "个人工作记录和知识库",
+  "main": "index.html",
+  "scripts": {
+    "dev": "docsify serve .",
+    "serve": "docsify serve .",
+    "build": "echo 'Docsify 不需要构建，直接使用源文件'",
+    "preview": "docsify serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glider110/gliderRecord.git"
+  },
+  "keywords": [
+    "docsify",
+    "documentation",
+    "knowledge-base"
+  ],
+  "author": "glider110",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/glider110/gliderRecord/issues"
+  },
+  "homepage": "https://glider110.github.io/gliderRecord/",
+  "devDependencies": {
+    "docsify-cli": "^4.4.4"
+  }
+}

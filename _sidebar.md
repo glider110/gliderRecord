@@ -40,8 +40,3 @@
   * [docker](repository/docker.md)
   
   * [llm_prompt](record/standard_record/llm_prompt.md)
-  
-    
-
-
-
