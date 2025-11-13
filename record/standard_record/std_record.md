@@ -104,7 +104,7 @@ cd /home/std/视频/录屏 &&  LATEST_FILE=$(ls -t *.webm 2>/dev/null | head -n1
 
 
 
-![image-20240331120552552](std_record/image-20240331120552552.png)
+![image-20240331120552552](.std_record/image-20240331120552552.png)
 
 #### Matrix使用汇总:
 

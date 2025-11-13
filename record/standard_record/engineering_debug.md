@@ -4,7 +4,7 @@
 
 **问题描述：**
 
-![image-20231103112054659](engineering_debug.assets/image-20231103112054659.png)
+![image-20231103112054659](.engineering_debug.assets/image-20231103112054659.png)
 
 **结论：**    void transformPointsToRobot(const StdPoints &input_points, StdPoints &output_points);误删没有在子类定义
 
@@ -16,11 +16,11 @@
 
 **问题描述：**重构三个避障雷达时候，出现原版本和重构版本的输出不一致情况，且程序==偶发==崩溃，gdb调试的位置不一致；
 
-<img src="engineering_debug.assets/image-20231101175458394.png" alt="image-20231101175458394" style="zoom:50%;" />
+<img src=".engineering_debug.assets/image-20231101175458394.png" alt="image-20231101175458394" style="zoom:50%;" />
 
-<img src="engineering_debug.assets/image-20231101175846940.png" alt="image-20231101175846940" style="zoom:50%;" />
+<img src=".engineering_debug.assets/image-20231101175846940.png" alt="image-20231101175846940" style="zoom:50%;" />
 
-<img src="engineering_debug.assets/image-20231102161637936.png" alt="image-20231102161637936" style="zoom:50%;" />
+<img src=".engineering_debug.assets/image-20231102161637936.png" alt="image-20231102161637936" style="zoom:50%;" />
 
 
 

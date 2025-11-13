@@ -16,9 +16,9 @@
 
 
 
-![image-20240819145216210](2D_lidar_install.assets/image-20240819145216210.png)
+![image-20240819145216210](.2D_lidar_install.assets/image-20240819145216210.png)
 
-![image-20240819144724540](2D_lidar_install.assets/image-20240819144724540.png)
+![image-20240819144724540](.2D_lidar_install.assets/image-20240819144724540.png)
 
 
 
@@ -28,13 +28,13 @@
 
 
 
-<img src="2D_lidar_install.assets/image-20240819135819279.png" alt="image-20240819135819279" style="zoom:25%;" /><img src="2D_lidar_install.assets/image-20240819135840652.png" alt="image-20240819135840652" style="zoom:25%;" /><img src="2D_lidar_install.assets/image-20240819135945931.png" alt="image-20240819135945931" style="zoom:25%;" />
+<img src=".2D_lidar_install.assets/image-20240819135819279.png" alt="image-20240819135819279" style="zoom:25%;" /><img src=".2D_lidar_install.assets/image-20240819135840652.png" alt="image-20240819135840652" style="zoom:25%;" /><img src=".2D_lidar_install.assets/image-20240819135945931.png" alt="image-20240819135945931" style="zoom:25%;" />
 
 
 
 **规格书上定义的坐标系：**
 
-<img src="2D_lidar_install.assets/image-20240819140055814.png" alt="image-20240819140055814" style="zoom:80%;" />
+<img src=".2D_lidar_install.assets/image-20240819140055814.png" alt="image-20240819140055814" style="zoom:80%;" />
 
 
 
@@ -45,7 +45,7 @@
 - 乐动和EAI的设计高度一致，以激光器的的光心定义为传感器的坐标原点，发射光线垂直于pcb版14°，相机为接收光线，挨着数据连接线，连接线在上是倒装
 - 扫描角度为顺时针，-80°到80° 160个点
 
-![image-20240819141637331](2D_lidar_install.assets/image-20240819141637331.png)<img src="2D_lidar_install.assets/image-20240819143118206.png" alt="image-20240819143118206" style="zoom:80%;" />  
+![image-20240819141637331](.2D_lidar_install.assets/image-20240819141637331.png)<img src=".2D_lidar_install.assets/image-20240819143118206.png" alt="image-20240819143118206" style="zoom:80%;" />  
 
 
 
@@ -65,7 +65,7 @@
 
 #### 自由导航64点tof相机
 
-![image-20250507141135972](2D_lidar_install.assets/image-20250507141135972.png)
+![image-20250507141135972](.2D_lidar_install.assets/image-20250507141135972.png)
 
 
 
@@ -75,15 +75,15 @@
 
 1200E
 
-![image-20250919150036385](2D_lidar_install.assets/image-20250919150036385.png)
+![image-20250919150036385](.2D_lidar_install.assets/image-20250919150036385.png)
 
 
 
 
 
-![image-20250919150821762](2D_lidar_install.assets/image-20250919150821762.png)
+![image-20250919150821762](.2D_lidar_install.assets/image-20250919150821762.png)
 
-![image-20250919161910284](2D_lidar_install.assets/image-20250919161910284.png)
+![image-20250919161910284](.2D_lidar_install.assets/image-20250919161910284.png)
 
 
 

@@ -45,7 +45,7 @@ git remote add origin git@gitee.com:aktof/pcl_library.git
 git push -u origin master
 ```
 
-![image-20210913110754055](git.assets/image-20210913110754055.png)
+![image-20210913110754055](.git.assets/image-20210913110754055.png)
 
 一些命令：
 
@@ -187,9 +187,9 @@ git push <remote-name> <local-branch>:<remote-branch>
 git pull <remote-name> <remote-branch>:<local-branch>
 ```
 
-![image-20220824135303977](git.assets/image-20220824135303977.png)
+![image-20220824135303977](.git.assets/image-20220824135303977.png)
 
-### ![image-20231027141139801](git.assets/image-20231027141139801.png)
+### ![image-20231027141139801](.git.assets/image-20231027141139801.png)
 
 ### param难点：
 

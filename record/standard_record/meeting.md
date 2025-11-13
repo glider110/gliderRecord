@@ -105,17 +105,17 @@
 
 * [ ] 自然光什么波段都有，如果是大工场，卤素灯基本不会受影响；
 
-  ![image-20231103103637798](meeting.assets/image-20231103103637798.png)
+  ![image-20231103103637798](.meeting.assets/image-20231103103637798.png)
 
 * [ ] 高反、低反、半反；
 
 ### 客户3D相机成像原理介绍（1.9）
 
-![img](meeting.assets/fe6c15f90c770e4545f2b144b777855d.jpg)
+![img](.meeting.assets/fe6c15f90c770e4545f2b144b777855d.jpg)
 
-![3D结构光摄像头深度算法介绍\_3d\_41](meeting.assets/resize,m_fixed,w_1184.webp)
+![3D结构光摄像头深度算法介绍\_3d\_41](.meeting.assets/resize,m_fixed,w_1184.webp)
 
-![image-20240110092815951](meeting.assets/image-20240110092815951.png)
+![image-20240110092815951](.meeting.assets/image-20240110092815951.png)
 
 ### 华为项目出差（1.23）
 
@@ -174,11 +174,11 @@
 * [ ] 优势:多机hub稳定性, 室外深度成像
 * [ ] 类似:精度(1.5%), 飞点,盲区40cm
 
-![image-20240426141332758](meeting/image-20240426141332758.png)
+![image-20240426141332758](.meeting/image-20240426141332758.png)
 
-![image-20240430115611627](meeting/image-20240430115611627.png)
+![image-20240430115611627](.meeting/image-20240430115611627.png)
 
-![image-20240430115712329](meeting.assets/image-20240430115712329.png)
+![image-20240430115712329](.meeting.assets/image-20240430115712329.png)
 
 
 
@@ -207,4 +207,4 @@
 
 1.gemini 室外 人型机器人 导航避障 星尘宇树
 
-2.tof 芯片（索尼 三星 松下影像）国内做光学系统 模组 标定   （欧非舜宇歌尔微迈尔微视）![image-20250401145239443](meeting.assets/image-20250401145239443.png)
+2.tof 芯片（索尼 三星 松下影像）国内做光学系统 模组 标定   （欧非舜宇歌尔微迈尔微视）![image-20250401145239443](.meeting.assets/image-20250401145239443.png)

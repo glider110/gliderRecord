@@ -8,7 +8,7 @@
 
 ​	~~3.执行力模型：总分 内容模块    数据  算法  测试验证   打包接口融合~~
 
-<img src="OPT_FLOW.assets/webwxgetmsgimg.jpeg" alt="webwxgetmsgimg" style="zoom: 33%;" />
+<img src=".OPT_FLOW.assets/webwxgetmsgimg.jpeg" alt="webwxgetmsgimg" style="zoom: 33%;" />
 
 问题：地图不准 1.地图外延 2.地图倾斜（纯惯导下碰撞导yaw角误差变大，延墙做的不好）
 
@@ -100,4 +100,4 @@ scp -r /tmp/glider /home/admins/opticl
 - **[SLAM | 视觉SLAM中的前端：视觉里程计与回环检测](https://blog.csdn.net/sinat_17456165/article/details/106760600?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-3.pc_relevant_paycolumn_v2&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-3.pc_relevant_paycolumn_v2&utm_relevant_index=6)**
 - **[VIO（1）—— 概述与基础知识](https://www.guyuehome.com/28260)**
 
-![img](OPT_FLOW.assets/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oKf5b2x55Sf,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center.jpeg)
+![img](.OPT_FLOW.assets/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5oKf5b2x55Sf,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center.jpeg)

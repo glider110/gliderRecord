@@ -1,4 +1,4 @@
-![image-20250507112006339](robotic_sim.assets/image-20250507112006339.png)
+![image-20250507112006339](.robotic_sim.assets/image-20250507112006339.png)
 
 
 
@@ -8,7 +8,7 @@
 
 
 
-![image-20250617214633059](robotic_sim.assets/image-20250617214633059.png)
+![image-20250617214633059](.robotic_sim.assets/image-20250617214633059.png)
 
 
 

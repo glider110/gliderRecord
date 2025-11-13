@@ -2,7 +2,7 @@
 
 ### 悬崖检测
 
-![image-20250326094901227](develop_record.assets/image-20250326094901227.png)
+![image-20250326094901227](.develop_record.assets/image-20250326094901227.png)
 
 ### 高精度特征里程计对接
 
@@ -47,19 +47,19 @@
 
 **池哥方案：语义分割+点云生成**
 
-![image-20250821103245405](develop_record.assets/image-20250821103245405.png)
+![image-20250821103245405](.develop_record.assets/image-20250821103245405.png)
 
 ### 自由导航插齿识别（短期方案）
 
 **雷达信标方案**：
 
-![image](develop_record.assets/image.png)
+![image](.develop_record.assets/image.png)
 
-![image-20250822161650168](develop_record.assets/image-20250822161650168.png)
+![image-20250822161650168](.develop_record.assets/image-20250822161650168.png)
 
 **深度相机信标方案**：
 
-![image-20250828150753555](develop_record.assets/image-20250828150753555.png)
+![image-20250828150753555](.develop_record.assets/image-20250828150753555.png)
 
 ### 自由导航黑色栈板识别
 
@@ -71,15 +71,15 @@
 > 2. 侧边tof按照位置fov没有看到比避障模型之前的点云；
 > 3. 货架的长度；
 
-![image-20250821102215547](develop_record.assets/image-20250821102215547.png)
+![image-20250821102215547](.develop_record.assets/image-20250821102215547.png)
 
-![20250808-141108](develop_record.assets/20250808-141108.jpg)
+![20250808-141108](.develop_record.assets/20250808-141108.jpg)
 
 **其中一个解决办法：实时检测栈板及填充栈板 规划记忆栈板边缘后进行绕障**
 
-![20250813\_212039](develop_record.assets/20250813_212039.gif)
+![20250813\_212039](.develop_record.assets/20250813_212039.gif)
 
-![20250816\_192109](develop_record.assets/20250816_192109.gif)
+![20250816\_192109](.develop_record.assets/20250816_192109.gif)
 
 **pipline**：
 
@@ -97,7 +97,7 @@
 
 问题1：半径滤波滤掉少量点
 
-![image-20250824160121844](develop_record.assets/image-20250824160121844.png)
+![image-20250824160121844](.develop_record.assets/image-20250824160121844.png)
 
 解决1：oba\_laser\_range\_min改为10  min\_continous\_oba\_back\_scan\_size改为0
 
@@ -107,7 +107,7 @@
 * 半径滤波滤掉问题  oba\_laser\_range\_min改为10  min\_continous\_oba\_back\_scan\_size改为0
 * 点云文件时间戳命名
 
-![image-20250825150141054](develop_record.assets/image-20250825150141054.png)
+![image-20250825150141054](.develop_record.assets/image-20250825150141054.png)
 
 **自由导航感知参数说明**
 

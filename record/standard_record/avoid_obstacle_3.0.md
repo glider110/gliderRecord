@@ -19,12 +19,12 @@
 
 **参考：**https://github.com/aditya-167/Lidar-Obstacle-Detection-PCL
 
-![img](refacter.assets/data2.gif)
+![img](.refacter.assets/data2.gif)
 **参考：**https://github.com/kostaskonkk/datmo
 
-![Example experiment](refacter.assets/experiment.gif)
+![Example experiment](.refacter.assets/experiment.gif)
 
-![Example experiment](refacter.assets/output.gif)
+![Example experiment](.refacter.assets/output.gif)
 
 
 

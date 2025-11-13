@@ -6,9 +6,9 @@
 
 - gezebo版本：Garden、Fortress
 
-  ![image-20241226214634540](ROS2.assets/image-20241226214634540.png)
+  ![image-20241226214634540](.ROS2.assets/image-20241226214634540.png)
 
-  ![image-20241227101928472](ROS2.assets/image-20241227101928472.png)
+  ![image-20241227101928472](.ROS2.assets/image-20241227101928472.png)
 
 
 
@@ -18,7 +18,7 @@
 
 
 
-![img](ROS2.assets/1f0055e54459c8294dca6686d2433904.png)
+![img](.ROS2.assets/1f0055e54459c8294dca6686d2433904.png)
 
 
 

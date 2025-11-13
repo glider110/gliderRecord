@@ -16,13 +16,13 @@
 
 **蒙特卡洛发生器**
 
-![image-20241213100051797](book_note.assets/image-20241213100051797.png)
+![image-20241213100051797](.book_note.assets/image-20241213100051797.png)
 
 《[美国四百年](https://book.douban.com/review/14381392/)》
 
 1. 经济危机解释：和血液循环一样 产品过剩 不流通 导致各环节堵塞
 
-   ![image-20250214171015057](book_note.assets/image-20250214171015057.png)
+   ![image-20250214171015057](.book_note.assets/image-20250214171015057.png)
 
 2. 现在的ai行业 可以类比电气时代 互联网时代
 

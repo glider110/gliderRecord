@@ -60,5 +60,5 @@
 
 - [ ] 启动slam位姿漂移
 
-  ![0](AK-SDK.assets/0.bmp)
+  ![0](.AK-SDK.assets/0.bmp)
 
