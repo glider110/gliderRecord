@@ -161,11 +161,17 @@ gantt
 
 **静止状态前端累加**
 
-<video src="medium/icp里程计静止累加.webm"></video>
+<video controls width="100%" style="max-width: 800px;">
+  <source src="record/standard_record/medium/icp里程计静止累加.webm" type="video/webm">
+  您的浏览器不支持视频播放。
+</video>
 
 #### **rtab后端更新及位姿优化**
 
- <video src="medium/rtab后端更新及位姿优化.webm"></video>
+<video controls width="100%" style="max-width: 800px;">
+  <source src="record/standard_record/medium/rtab后端更新及位姿优化.webm" type="video/webm">
+  您的浏览器不支持视频播放。
+</video>
 
 
 
