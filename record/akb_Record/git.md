@@ -1,6 +1,6 @@
 
 
-### git组织结构图（系统）
+# git（系统）
 
 [git所划分成几个区域，各区域的作用以及各区域之间的联系](https://blog.csdn.net/qq_36672905/article/details/82776283)
 
@@ -45,11 +45,9 @@ git remote add origin git@gitee.com:aktof/pcl_library.git
 git push -u origin master
 ```
 
-![image-20210913110754055](.git.assets/image-20210913110754055.png)
 
-一些命令：
 
-#### [查看log](https://blog.csdn.net/chenpuzhen/article/details/92084229?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link\&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link)
+### [查看log](https://blog.csdn.net/chenpuzhen/article/details/92084229?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link\&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link)
 
 ```shell
 $ git log
@@ -65,7 +63,7 @@ git stash list
 git stash show
 ```
 
-#### [Git回滚代码到某个commit](https://www.cnblogs.com/hukuangjie/p/11369434.html)
+### [Git回滚代码到某个commit](https://www.cnblogs.com/hukuangjie/p/11369434.html)
 
 ```shell
 回退命令：
@@ -78,7 +76,7 @@ $ git checkout commit_然后在git checkout -b 新分支
 git commit --amend -m "新的修改提交信息"
 ```
 
-#### 一：切换问题，stash解决
+### 一：切换问题，stash解决
 
 ```shell
 git stash
@@ -111,7 +109,7 @@ git push origin --delete gxf/refactor_pointcloud_process
 git remote update origin --prune
 ```
 
-#### 二：切换问题，worktree解决
+### 二：切换问题，worktree解决
 
 ```shell
 git worktree list
@@ -156,7 +154,7 @@ git restore -p <file>                 # 交互式恢复
 
 
 
-#### 秋林network\_clinet上传新开的gitlab仓库
+### 秋林network\_clinet上传新开的gitlab仓库
 
 ```shell
 1961  git diff --cached 
@@ -173,9 +171,7 @@ git restore -p <file>                 # 交互式恢复
 
 
 
-
-
-#### 双远程操作
+### 双远程操作
 
 ```
 git remote -v 
@@ -187,9 +183,26 @@ git push <remote-name> <local-branch>:<remote-branch>
 git pull <remote-name> <remote-branch>:<local-branch>
 ```
 
-![image-20220824135303977](.git.assets/image-20220824135303977.png)
 
-### ![image-20231027141139801](.git.assets/image-20231027141139801.png)
+
+### submodule:
+
+```zsh
+git submodule status
+git submodule update --init --recursive  # 初始化并拉取所有层级子模块
+git submodule status  # 查看每个子模块当前指向的 commit 状态
+git submodule sync --recursive  # 让 .gitmodules 的 URL 生效
+
+git submodule update --remote  # 更新全部子模块到其远端默认分支最新 commit
+git submodule update --remote <path>  # 仅更新某一个
+git add <path> && git commit -m "update submodule"  # 提交主仓库的指针变化
+
+git submodule add <repo-url> <path>  # 添加子模块并写入 .gitmodules
+
+
+```
+
+
 
 ### param难点：
 
@@ -238,6 +251,10 @@ git pull <remote-name> <remote-branch>:<local-branch>
 * revert: 回滚到上一个版本
 * Modify:
 * Delete:
+
+
+
+
 
 ### 实战场景：
 
