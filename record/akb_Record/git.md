@@ -6,7 +6,7 @@
 
 #### [远程获取仓库到一个新branch上(详解git fetch和git pull区别)](https://blog.csdn.net/Javammf/article/details/125539790)
 
-![img](https://img2020.cnblogs.com/blog/816762/202112/816762-20211230093656491-1101724228.jpg)
+![img](.git.assets/816762-20211230093656491-1101724228.jpg)
 
 ### 简易的命令行入门教程(案例):
 
