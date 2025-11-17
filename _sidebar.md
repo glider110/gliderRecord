@@ -28,19 +28,12 @@
 
 * 工具库
   * [toolkit](repository/toolkit.md)
-  
   * [isaac-sim](repository/isaac-sim-.md)
-  
   * [gazebo](repository/gazebo.md)  
-  
   * [visualize](repository/visualize.md) 
-  
   * [git.md](record/akb_Record/git.md)  
-  
   * [docker](repository/docker.md) 
-  
   * [llm_prompt](record/standard_record/llm_prompt.md)
-  
   * [sensor_dev](repository/sensor_dev.md)
   
     
