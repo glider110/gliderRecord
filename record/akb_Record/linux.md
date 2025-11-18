@@ -1,6 +1,6 @@
-## LINUX效率工具：
+# LINUX效率工具：
 
-### **linux相关命令**：
+## **linux相关命令**：
 
 * 查看编译库是否存在某个函数 objdump  -tT libakWireDetector.so | grep detectCarpetFromPairLine
 
@@ -43,6 +43,8 @@
 * 条件查找：egrep “啊|呕”
 
 * Linux三剑客： grep sed awk
+
+* du -h -d 1
 
 * 文件处理：
 
@@ -114,7 +116,7 @@ groups
  1976  docker exec -it ak_sdk /bin/bash
 ```
 
-### vscode技巧:
+## vscode技巧:
 
 * 快捷键：
   * ctrl+shif+P .vscode/c\_cpp\_properties.json//配置编辑器能获取的路径
@@ -134,8 +136,6 @@ groups
 
 * 安装插件 bookmark、git history diff 、git history、typora、cmake  clang-Format
 
-* **CodeGeeX**：基于人工智能驱动的，快速编写代码的代码生成工具。在插件市场就可以免费下载使用！
-
 * vscode快捷键问题 远点.号打不出来：sudo apt-get --purge remove code   还要删除主目录.congfig/.vscode才能彻底清除；
 
 * 调到定义F12
@@ -149,7 +149,7 @@ groups
   如果你想删除一整行代码，只需将光标移至该行，再使用组合键“Ctrl+L”来完成剪切操作，而无需选择整行。
   组合键“Ctrl+Enter”：在当前行的上面插入一个空行；
 
-### **系统监控**:
+## **系统监控**:
 
 ![image-20220104113624574](.linux.assets/image-20220104113624574.png)
 
@@ -163,7 +163,7 @@ groups
 
 查看函数：nm  libakPerceptionInterface.so  -D |awk '{if($2 == "T"){print $3}}'
 
-### **快捷键**：
+## 系统**快捷键**：
 
 ```shell
 应用场景：gedit typora vscde terminate 软件开发基本会安装这种约定俗成的规则
@@ -198,4 +198,3 @@ CTRL+H 打开隐藏文件
 
 ```
 
-^
