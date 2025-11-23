@@ -40,4 +40,4 @@
   * [llm_prompt](record/standard_record/llm_prompt.md)
   * [sensor_dev](repository/sensor_dev.md)
   
-    
+   [Morph_AI_Lib.pdf](resource_docs/pdf/Morph_AI_Lib.pdf) 
