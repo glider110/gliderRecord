@@ -422,8 +422,12 @@
         renderer: {
           code: function(code, lang) {
             if (lang === 'pdf') {
-              // 处理 PDF 嵌入
-              return `<div class="pdf-viewer-container"><iframe src="${code}" width="100%" height="800px" frameborder="0"></iframe></div>`;
+              // 直接嵌入 PDF，使用浏览器原生查看器
+              return `<div class="pdf-viewer-container">
+                <iframe src="${code.trim()}" width="100%" height="1000px" frameborder="0" 
+                        style="border: 2px solid #e0e0e0; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+                </iframe>
+              </div>`;
             }
             return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${code}</code></pre>`;
           }
