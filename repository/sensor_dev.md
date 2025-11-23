@@ -109,3 +109,4 @@ llll
 
  [ScepterSoftware&MorphAI相机编程指南.pdf](../resource_docs/pdf/ScepterSoftware&MorphAI相机编程指南.pdf) 
 
+ [Morph_AI_Lib.pdf](../resource_docs/pdf/Morph_AI_Lib.pdf) 
