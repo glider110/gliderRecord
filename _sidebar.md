@@ -18,12 +18,14 @@
 
 * ## 知识库
   
-  * [书单](repository/book.md)
+  * [书单](resource_docs/book.md)
+  * [书单2](repository/book.md)
   * [读书笔记](repository/book_note.md)
   * [系统知识理论及仓库](repository/github.md)
   * [mooc\_pointclouds](repository/mooc_pointclouds.md)
   * [感知传感器汇总](repository/sensor_dev.md)
   * [resume](repository/resume.md)
+  * 
 
 
 
@@ -39,4 +41,3 @@
   * [docker](repository/docker.md) 
   * [llm_prompt](record/standard_record/llm_prompt.md)
   * [sensor_dev](repository/sensor_dev.md)
- 
