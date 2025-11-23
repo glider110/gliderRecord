@@ -421,6 +421,10 @@
         smartypants: true,
         renderer: {
           code: function(code, lang) {
+            if (lang === 'pdf') {
+              // 处理 PDF 嵌入
+              return `<div class="pdf-viewer-container"><iframe src="${code}" width="100%" height="800px" frameborder="0"></iframe></div>`;
+            }
             return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${code}</code></pre>`;
           }
         }
@@ -470,11 +474,5 @@
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-docker.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-git.min.js"></script>
-  
-  <!-- PDF.js Library -->
-  <script src="//cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-  
-  <!-- PDF Embed Plugin -->
-  <script src="//cdn.jsdelivr.net/npm/docsify-pdf-embed-plugin@1.1.1/src/docsify-pdf-embed.js"></script>
 </body>
 </html>
