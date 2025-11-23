@@ -1,9 +1,17 @@
- [《美国四百年：冒险、创新与财富塑造的历史》布·斯里尼瓦桑【文字版_PDF电子书_下载】.pdf](pdf/《美国四百年：冒险、创新与财富塑造的历史》布·斯里尼瓦桑【文字版_PDF电子书_下载】.pdf) 
+# 📚 书籍资源
 
- [Morph AI Lib编程指南.pdf](pdf/Morph AI Lib编程指南.pdf) 
+## 技术文档
 
- [ScepterSoftware&MorphAI相机编程指南.pdf](pdf/ScepterSoftware&MorphAI相机编程指南.pdf) 
+- [Morph_AI_Lib编程指南.pdf](https://github.com/glider110/gliderRecord/raw/docs/resource_docs/pdf/Morph_AI_Lib编程指南.pdf) 📖
+  - 在线预览：[查看](https://github.com/glider110/gliderRecord/blob/docs/resource_docs/pdf/Morph_AI_Lib编程指南.pdf)
 
- [Morph_AI_Lib编程指南.pdf](pdf/Morph_AI_Lib编程指南.pdf) 
+- [ScepterSoftware&MorphAI相机编程指南.pdf](https://github.com/glider110/gliderRecord/raw/docs/resource_docs/pdf/ScepterSoftware&MorphAI相机编程指南.pdf) 📖
+  - 在线预览：[查看](https://github.com/glider110/gliderRecord/blob/docs/resource_docs/pdf/ScepterSoftware&MorphAI相机编程指南.pdf)
 
- [美国四百年.pdf](pdf/美国四百年.pdf) 
+- [避障用户手册_O_v1_0_20241014.pdf](https://github.com/glider110/gliderRecord/raw/docs/resource_docs/pdf/避障用户手册_O_v1_0_20241014.pdf) 📖
+  - 在线预览：[查看](https://github.com/glider110/gliderRecord/blob/docs/resource_docs/pdf/避障用户手册_O_v1_0_20241014.pdf)
+
+## 书籍
+
+- [《美国四百年》.pdf](https://github.com/glider110/gliderRecord/raw/docs/resource_docs/pdf/美国四百年.pdf) 📚
+  - 在线预览：[查看](https://github.com/glider110/gliderRecord/blob/docs/resource_docs/pdf/美国四百年.pdf) 
