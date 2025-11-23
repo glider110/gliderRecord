@@ -1,0 +1,3 @@
+[submodule "resource_docs"]
+	path = resource_docs
+	url = git@github.com:glider110/resource_docs.git
