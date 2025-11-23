@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>gliderRecord - 个人技术知识库</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="个人工作记录和知识库">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="keywords" content="技术文档,知识库,工作记录">
+  
+  <!-- Docsify 主题 - 默认使用 Simple 主题 -->
+  <link rel="stylesheet" id="docsify-theme" href="//cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+  
+  <!-- Font Awesome 图标库 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css">
+  
+  <style>
+    :root {
+      --theme-color: #42b983;
+      --theme-color-dark: #2c8460;
+    }
+    
+    /* 侧边栏样式增强 */
+    .sidebar {
+      padding-top: 10px;
+      border-right: 1px solid #eee;
+    }
+    
+    .sidebar-nav > ul > li > a {
+      font-weight: 600;
+      margin: 0;
+      padding: 8px 0;
+    }
+    
+    /* 主题切换器样式 */
+    .theme-switcher {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      transition: all 0.3s ease;
+    }
+    
+    .theme-switcher:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+    
+    .theme-switcher label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    
+    .theme-switcher select {
+      width: 200px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 2px solid rgba(255,255,255,0.3);
+      background: rgba(255, 255, 255, 0.95);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .theme-switcher select:hover {
+      border-color: rgba(255,255,255,0.6);
+      background: white;
+    }
+    
+    .theme-switcher select:focus {
+      outline: none;
+      border-color: white;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+    
+    /* 返回顶部按钮 */
+    .back-to-top {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      z-index: 999;
+      width: 45px;
+      height: 45px;
+      background: var(--theme-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background: var(--theme-color-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    
+    /* 进度条样式 */
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      z-index: 9999;
+      transition: width 0.3s ease;
+    }
+    
+    /* 内容区域美化 */
+    .markdown-section {
+      max-width: 900px;
+      padding: 30px 45px 40px;
+    }
+    
+    /* 标题样式增强 */
+    .markdown-section h1 {
+      border-bottom: 3px solid var(--theme-color);
+      padding-bottom: 10px;
+      margin-top: 30px;
+    }
+    
+    .markdown-section h2 {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 8px;
+      margin-top: 25px;
+    }
+    
+    .markdown-section h3 {
+      padding-left: 10px;
+      border-left: 4px solid var(--theme-color);
+      margin-top: 20px;
+    }
+    
+    /* 代码块样式增强 */
+    .markdown-section pre {
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    /* 链接样式 */
+    .markdown-section a {
+      color: var(--theme-color);
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s;
+    }
+    
+    .markdown-section a:hover {
+      border-bottom-color: var(--theme-color);
+    }
+    
+    /* 表格样式 */
+    .markdown-section table {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    /* 引用块样式 */
+    .markdown-section blockquote {
+      border-left: 4px solid var(--theme-color);
+      background: #f8f9fa;
+      padding: 15px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+    
+    /* 提示框样式 */
+    .markdown-section .tip,
+    .markdown-section .warn,
+    .markdown-section .danger {
+      padding: 12px 24px 12px 50px;
+      border-radius: 8px;
+      position: relative;
+      margin: 20px 0;
+    }
+    
+    .markdown-section .tip::before,
+    .markdown-section .warn::before,
+    .markdown-section .danger::before {
+      position: absolute;
+      left: 15px;
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 18px;
+    }
+    
+    .markdown-section .tip {
+      background: #e8f5e9;
+      border-left: 4px solid #4caf50;
+    }
+    
+    .markdown-section .tip::before {
+      content: "\f058";
+      color: #4caf50;
+    }
+    
+    .markdown-section .warn {
+      background: #fff3e0;
+      border-left: 4px solid #ff9800;
+    }
+    
+    .markdown-section .warn::before {
+      content: "\f071";
+      color: #ff9800;
+    }
+    
+    .markdown-section .danger {
+      background: #ffebee;
+      border-left: 4px solid #f44336;
+    }
+    
+    .markdown-section .danger::before {
+      content: "\f06a";
+      color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">加载中...</div>
+  
+  <!-- 阅读进度条 -->
+  <div class="progress" id="progress"></div>
+  
+  <!-- 返回顶部按钮 -->
+  <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+  
+  <!-- 主题切换器 -->
+  <div class="theme-switcher">
+    <label for="themeSelector"><i class="fas fa-palette"></i> 选择主题</label>
+    <select id="themeSelector" onchange="switchTheme(this.value)">
+      <optgroup label="🎨 官方主题">
+        <option value="vue">Vue - 绿色清新</option>
+        <option value="buble">Buble - 紫色优雅</option>
+        <option value="dark">Dark - 暗色护眼</option>
+        <option value="pure">Pure - 极简纯净</option>
+        <option value="dolphin">Dolphin - 蓝色海洋</option>
+      </optgroup>
+      <optgroup label="✨ 高级主题">
+        <option value="simple">Simple - 现代简约</option>
+        <option value="simple-dark">Simple Dark - 暗黑模式</option>
+        <option value="defaults">Defaults - 经典风格</option>
+      </optgroup>
+    </select>
+  </div>
+  
+  <script>
+    // 主题配置
+    const themes = {
+      // 官方主题
+      'vue': '//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css',
+      'buble': '//cdn.jsdelivr.net/npm/docsify@4/lib/themes/buble.css',
+      'dark': '//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dark.css',
+      'pure': '//cdn.jsdelivr.net/npm/docsify@4/lib/themes/pure.css',
+      'dolphin': '//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dolphin.css',
+      // Themeable 主题
+      'simple': '//cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css',
+      'simple-dark': '//cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css',
+      'defaults': '//cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-defaults.css'
+    };
+    
+    // 主题切换功能
+    function switchTheme(themeName) {
+      const link = document.getElementById('docsify-theme');
+      if (link && themes[themeName]) {
+        link.href = themes[themeName];
+        localStorage.setItem('selectedTheme', themeName);
+        
+        // 添加切换动画
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+          document.body.style.transition = 'opacity 0.3s';
+          document.body.style.opacity = '1';
+        }, 50);
+      }
+    }
+    
+    // 返回顶部功能
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    // 阅读进度条
+    function updateProgress() {
+      const progress = document.getElementById('progress');
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = window.scrollY;
+      const percentage = (scrolled / scrollHeight) * 100;
+      progress.style.width = percentage + '%';
+      
+      // 显示/隐藏返回顶部按钮
+      const backToTop = document.getElementById('backToTop');
+      if (scrolled > 300) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    }
+    
+    // 加载保存的主题
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('selectedTheme') || 'simple';
+      const selector = document.getElementById('themeSelector');
+      if (selector) {
+        selector.value = savedTheme;
+        switchTheme(savedTheme);
+      }
+      
+      // 监听滚动事件
+      window.addEventListener('scroll', updateProgress);
+      updateProgress();
+    });
+  </script>
+  
+  <script>
+    window.$docsify = {
+      name: '<i class="fas fa-book"></i> gliderRecord',
+      repo: 'glider110/gliderRecord',
+      loadSidebar: true,
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+      subMaxLevel: 3,
+      auto2top: true,
+      homepage: 'README.md',
+      
+      // 封面页配置
+      coverpage: false,
+      
+      // Logo
+      logo: '',
+      
+      // Themeable 配置
+      themeable: {
+        readyTransition: true,
+        responsiveTables: true
+      },
+      
+      // 搜索配置
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '🔍 搜索文档',
+        noData: '😕 未找到结果',
+        depth: 6,
+        hideOtherSidebarContent: false
+      },
+      
+      // 代码复制配置
+      copyCode: {
+        buttonText: '<i class="fas fa-copy"></i> 复制',
+        errorText: '❌ 错误',
+        successText: '✅ 已复制'
+      },
+      
+      // 分页配置
+      pagination: {
+        previousText: '<i class="fas fa-chevron-left"></i> 上一页',
+        nextText: '下一页 <i class="fas fa-chevron-right"></i>',
+        crossChapter: true,
+        crossChapterText: true
+      },
+      
+      
+      // Tabs 插件配置
+      tabs: {
+        persist: true,
+        sync: true,
+        theme: 'classic',
+        tabComments: true,
+        tabHeadings: true
+      },
+      
+      // 代码高亮主题
+      markdown: {
+        smartypants: true,
+        renderer: {
+          code: function(code, lang) {
+            return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${code}</code></pre>`;
+          }
+        }
+      },
+      
+
+    }
+  </script>
+  <!-- Docsify 核心 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  
+  <!-- Docsify Themeable - 高级主题支持 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+  
+  <!-- 搜索插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  
+  <!-- Emoji 支持 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  
+  <!-- 外链脚本 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
+  
+  <!-- 复制代码插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  
+  <!-- 分页插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  
+  <!-- Tabs 插件 - 标签页支持 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+  
+  <!-- 图片缩放插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  
+  <!-- 代码高亮 - Prism.js -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-cpp.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-c.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-docker.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-git.min.js"></script>
+</body>
+</html>
