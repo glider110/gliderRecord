@@ -14,6 +14,25 @@
   <!-- Font Awesome 图标库 -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css">
   
+  <!-- PDF.js 样式 -->
+  <style>
+    .pdf-viewer-container {
+      width: 100%;
+      height: 800px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 20px 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+    
+    .pdf-viewer-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+  
   <style>
     :root {
       --theme-color: #42b983;
@@ -451,5 +470,11 @@
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-docker.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-git.min.js"></script>
+  
+  <!-- PDF.js Library -->
+  <script src="//cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  
+  <!-- PDF Embed Plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-pdf-embed-plugin@1.1.1/src/docsify-pdf-embed.js"></script>
 </body>
 </html>
