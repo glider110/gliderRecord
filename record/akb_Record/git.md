@@ -15,6 +15,7 @@ Git 全局设置:
 ```
 git config --global user.name "郭小凡"
 git config --global user.email "guoxiaofan@standard-robots.com"
+git config --global user.email "1"
 ```
 
 生成秘钥放在远程服务器 免密登录：
