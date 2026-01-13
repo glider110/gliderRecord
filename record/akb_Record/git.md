@@ -21,8 +21,16 @@ git config --global user.email "1"
 生成秘钥放在远程服务器 免密登录：
 
 ```
+免密代码库
 ssh-keygen -t rsa -C "guoxiaofan@standard-robots.com"
-cat id_rsa.pub 
+cat ~/.ssh/id_rsa.pub 
+
+免密ssh
+ssh-keygen -t rsa -b 4096
+ssh-copy-id gxf@10.10.16.58
+
+
+
 ```
 
 创建 git 仓库:
@@ -271,4 +279,4 @@ git submodule add <repo-url> <path>  # 添加子模块并写入 .gitmodules
 
 6.子仓库的Head变更  git restore
 
-\==**思想：你平常开发过程中能想到的和想不到的，git已经给你弄好了，只是你自己没意识到**；==
+\==**思想：你平常开发过程中能想到的和想不到的，git已经给你弄好了，只是你自己没意识到*

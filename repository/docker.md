@@ -138,7 +138,7 @@ sudo systemctl restart docker    # 重启 Docker 服务
 
 ## 感知开发桌面
 
-> 集成感知所需的开发环境：Ubunru22.04+Humble+VNC+ZSH+VNC+拼音+跨平台复制粘贴
+> 集成感知所需的开发环境：Ubunru22.04+Humble+Opencv4.5+VNC+ZSH+VNC+拼音+跨平台复制粘贴
 
 ```
 docker run -d \
@@ -159,5 +159,29 @@ docker run -d \
 http://10.10.70.2:6080/
 http://localhost:6080/
 http://127.0.0.1:6080/
+
+
+docker run -d \
+  --name perception-desktop-v3 \
+  --network=host \
+  --privileged \
+  -v /dev:/dev \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v ~/docker_ws:/home/ubuntu/docker_ws \
+  -v ~/project:/home/ubuntu/project \
+  -v ~/workspace/:/home/ubuntu/workspace \
+  -v ~/docker_persist/home_ubuntu:/home/ubuntu \
+  -e VNC_RESOLUTION=1920x1080 \
+  -e VNC_PASSWORD=1 \
+  -e http_proxy=http://127.0.0.1:7890 \
+  -e https_proxy=http://127.0.0.1:7890 \
+  -e all_proxy=socks5://127.0.0.1:7890 \
+  perception-desktop:v3
+
+http://10.10.70.2:6080/
+http://localhost:6080/
+http://127.0.0.1:6080/
+
+
 ```
 

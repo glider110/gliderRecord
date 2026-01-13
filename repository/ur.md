@@ -76,3 +76,32 @@ step3：监控末端位姿
 ## 总结
 
 - 
+
+
+
+## 手眼标定
+
+```
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_link tool0 &
+ros2 run tf2_ros static_transform_publisher 0 0 0.05 0 0 0 camera_color_optical_frame aruco_marker_frame &
+ros2 launch easy_handeye2 calibrate.launch.py name:=ur16e_test calibration_type:=eye_in_hand tracking_base_frame:=camera_color_optical_frame tracking_marker_frame:=aruco_marker_frame robot_base_frame:=base_link robot_effector_frame:=tool0
+
+
+gnome-terminal --tab --title="ArUco System" -- zsh -c "cd /home/std/workspace/ur_ws && source activate_ur_env.sh && ros2 launch launch/handeye_calibration/dabai_dcw2_aruco_complete.launch.py use_rviz:=false; exec zsh"
+
+
+ros-humble-aruco-markers 
+
+
+gnome-terminal --tab --title="DCW2 + ArUco Markers" -- zsh -c "cd /home/std/workspace/ur_ws && source activate_ur_env.sh && ros2 launch launch/handeye_calibration/dabai_dcw2_aruco_complete.launch.py use_rviz:=true; exec zsh"
+
+gnome-terminal --tab --title="UR16e Robot Driver" -- zsh -c "cd /home/std/workspace/ur_ws && source install/setup.zsh && ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur16e robot_ip:=192.168.56.2 kinematics_params_file:=/home/std/ur16e_calibration.yaml; exec zsh"
+
+gnome-terminal --tab --title="Hand-Eye Calibration GUI" -- zsh -c "cd /home/std/workspace/ur_ws && source install/setup.zsh && ros2 launch easy_handeye2 calibrate.launch.py name:=ur16e_eye_in_hand calibration_type:=eye_in_hand tracking_base_frame:=camera_color_optical_frame tracking_marker_frame:=aruco_marker_0 robot_base_frame:=base_link robot_effector_frame:=tool0; exec zsh"
+
+//发布节点
+gnome-terminal --tab --title="Hand-Eye Publisher" -- zsh -c "cd /home/std/workspace/ur_ws && source install/setup.zsh && ros2 launch easy_handeye2 publish.launch.py name:=ur16e_eye_in_hand; exec zsh" &
+
+timeout 5s ros2 topic echo /aruco/markers --once
+```
+
