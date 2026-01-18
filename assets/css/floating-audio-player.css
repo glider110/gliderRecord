@@ -3,12 +3,12 @@
 .floating-audio-player {
   position: fixed;
   right: 20px;
-  bottom: 20px;
-  width: 350px;
+  bottom: 170px;  /* 调整到主题选择器上方 (主题选择器高度约140px + 20px间距) */
+  width: 230px;   /* 与主题选择器保持相同宽度 (200px内容 + 30px padding) */
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  z-index: 9999;
+  border-radius: 12px;  /* 与主题选择器保持一致 */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);  /* 与主题选择器保持一致 */
+  z-index: 1001;  /* 略高于主题选择器(1000)，但不过高 */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -111,22 +111,22 @@
 
 /* 当前播放信息 */
 .current-track {
-  padding: 20px;
+  padding: 12px 15px;  /* 减小内边距 */
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;  /* 减小间距 */
   background: linear-gradient(to bottom, rgba(102, 126, 234, 0.05) 0%, transparent 100%);
 }
 
 .track-cover {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
+  width: 45px;  /* 减小封面尺寸 */
+  height: 45px;
+  border-radius: 8px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  font-size: 22px;  /* 相应减小图标 */
   flex-shrink: 0;
   animation: rotate 20s linear infinite;
   animation-play-state: paused;
@@ -147,7 +147,7 @@
 }
 
 .track-name {
-  font-size: 16px;
+  font-size: 14px;  /* 减小字体 */
   font-weight: 600;
   color: #333;
   white-space: nowrap;
@@ -157,7 +157,7 @@
 }
 
 .track-artist {
-  font-size: 14px;
+  font-size: 12px;  /* 减小字体 */
   color: #666;
   white-space: nowrap;
   overflow: hidden;
@@ -166,7 +166,7 @@
 
 /* 进度条 */
 .progress-section {
-  padding: 0 20px 15px;
+  padding: 0 15px 12px;  /* 减小内边距 */
 }
 
 .progress-bar-container {
@@ -213,19 +213,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 15px 20px;
+  gap: 8px;  /* 减小按钮间距 */
+  padding: 12px 15px;  /* 减小内边距 */
   border-top: 1px solid #f0f0f0;
 }
 
 .control-btn {
-  width: 40px;
-  height: 40px;
+  width: 32px;  /* 减小按钮尺寸 */
+  height: 32px;
   border: none;
   border-radius: 50%;
   background: #f5f5f5;
   color: #667eea;
-  font-size: 18px;
+  font-size: 14px;  /* 减小图标 */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -244,11 +244,11 @@
 }
 
 .play-pause-btn {
-  width: 50px;
-  height: 50px;
+  width: 42px;  /* 减小播放按钮 */
+  height: 42px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  font-size: 22px;
+  font-size: 18px;  /* 播放按钮图标 */
 }
 
 .play-pause-btn:hover {
@@ -257,7 +257,7 @@
 
 /* 音量控制 */
 .volume-section {
-  padding: 0 20px 15px;
+  padding: 0 15px 12px;  /* 减小内边距 */
 }
 
 .volume-range {
@@ -292,14 +292,14 @@
 /* 播放列表 */
 .playlist-section {
   border-top: 1px solid #f0f0f0;
-  max-height: 250px;
+  max-height: 180px;  /* 减小列表高度 */
   overflow-y: auto;
 }
 
 .playlist-header {
-  padding: 12px 20px;
+  padding: 10px 15px;  /* 减小内边距 */
   background: #f8f9fa;
-  font-size: 14px;
+  font-size: 13px;  /* 减小字体 */
   font-weight: 600;
   color: #333;
   display: flex;
@@ -312,14 +312,14 @@
 
 .playlist-count {
   color: #999;
-  font-size: 13px;
+  font-size: 12px;  /* 减小字体 */
 }
 
 .playlist-item {
-  padding: 12px 20px;
+  padding: 10px 15px;  /* 减小内边距 */
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;  /* 减小间距 */
   cursor: pointer;
   transition: all 0.2s;
   border-bottom: 1px solid #f5f5f5;
@@ -335,7 +335,7 @@
 }
 
 .playlist-item-icon {
-  font-size: 20px;
+  font-size: 18px;  /* 减小图标 */
   flex-shrink: 0;
 }
 
@@ -345,7 +345,7 @@
 }
 
 .playlist-item-title {
-  font-size: 14px;
+  font-size: 13px;  /* 减小字体 */
   font-weight: 500;
   color: #333;
   white-space: nowrap;
@@ -360,7 +360,7 @@
 }
 
 .playlist-item-artist {
-  font-size: 12px;
+  font-size: 11px;  /* 减小字体 */
   color: #999;
   white-space: nowrap;
   overflow: hidden;
@@ -368,7 +368,7 @@
 }
 
 .playlist-item-indicator {
-  font-size: 16px;
+  font-size: 14px;  /* 减小图标 */
   color: #667eea;
   display: none;
   animation: pulse 1.5s ease-in-out infinite;
@@ -401,9 +401,16 @@
 @media (max-width: 768px) {
   .floating-audio-player {
     width: calc(100vw - 40px);
-    max-width: 350px;
+    max-width: 230px;  /* 保持与桌面版相同 */
     right: 20px;
-    bottom: 20px;
+    bottom: 170px;  /* 保持在主题选择器上方 */
+  }
+  
+  /* 在移动端如果空间不足，可以调整位置 */
+  @media (max-height: 600px) {
+    .floating-audio-player {
+      bottom: 20px;  /* 小屏幕时放到底部 */
+    }
   }
 }
 
