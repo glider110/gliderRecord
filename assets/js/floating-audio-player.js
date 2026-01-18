@@ -358,6 +358,20 @@ class FloatingAudioPlayer {
     });
   }
 
+  // 公共方法：从外部调用播放指定索引的歌曲
+  playTrackByIndex(index) {
+    if (index >= 0 && index < this.playlist.length) {
+      this.loadTrack(index);
+      this.play();
+      // 如果播放器是最小化的，展开它
+      if (this.isMinimized) {
+        this.expand();
+      }
+    } else {
+      console.error('Invalid track index:', index);
+    }
+  }
+
   minimize() {
     this.isMinimized = true;
     this.dom.minimized.style.display = 'flex';

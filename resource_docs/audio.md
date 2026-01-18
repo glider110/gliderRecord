@@ -41,7 +41,7 @@
 ## 🎼 播放列表
 
 <div class="music-grid">
-  <div class="music-card">
+  <div class="music-card" onclick="playTrack(0)" style="cursor: pointer;">
     <div class="music-icon">🎵</div>
     <div class="music-info">
       <h3>理想三旬</h3>
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <div class="music-card">
+  <div class="music-card" onclick="playTrack(1)" style="cursor: pointer;">
     <div class="music-icon">🎵</div>
     <div class="music-info">
       <h3>走歌人</h3>
@@ -59,6 +59,73 @@
     </div>
   </div>
 </div>
+
+<script>
+  // 播放指定曲目
+  function playTrack(index) {
+    // 检查是否有悬浮播放器实例
+    if (window.audioPlayer) {
+      window.audioPlayer.playTrackByIndex(index);
+      
+      // 显示提示
+      const trackNames = ['理想三旬', '走歌人'];
+      showNotification(`正在播放: ${trackNames[index]}`);
+    } else {
+      showNotification('播放器未加载，请刷新页面重试');
+    }
+  }
+
+  // 显示通知
+  function showNotification(message) {
+    // 移除旧通知
+    const oldNotification = document.querySelector('.play-notification');
+    if (oldNotification) {
+      oldNotification.remove();
+    }
+
+    // 创建新通知
+    const notification = document.createElement('div');
+    notification.className = 'play-notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    // 3秒后自动移除
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      setTimeout(() => notification.remove(), 300);
+    }, 3000);
+  }
+</script>
+
+<style>
+  /* 播放通知样式 */
+  .play-notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    font-size: 16px;
+    font-weight: 600;
+    z-index: 10000;
+    animation: slideIn 0.3s ease-out;
+    transition: opacity 0.3s;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(400px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+</style>
 
 ---
 
