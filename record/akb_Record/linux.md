@@ -198,3 +198,22 @@ CTRL+H 打开隐藏文件
 
 ```
 
+## linux基础操作
+
+```
+# 1. 创建用户（-m 创建家目录，-s 指定shell）
+sudo useradd -m -s /bin/bash godfery
+# 2. 设置密码
+sudo passwd godfery
+# 输入两次密码
+# 3. 添加到 sudo 组（获得管理员权限）
+sudo usermod -aG sudo godfery
+# 4. 添加到 adm 组（查看日志权限）
+sudo usermod -aG adm godfery
+# 5. 验证创建成功
+id godfery
+groups godfery
+
+
+```
+

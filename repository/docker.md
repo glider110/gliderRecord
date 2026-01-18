@@ -29,6 +29,11 @@ List of all the used Docker commands during the exercises.
 #### Remove a running container
     docker rm robotics_essentials_ros2
 
+```
+docker commit 7333e9e91190 perception-desktop:v2
+
+```
+
 
 
 ## 2.保存和迁移Docker容器环境
@@ -48,6 +53,7 @@ docker commit robotics_essentials_ros2 my_ros2_image:latest
 ```bash
 # 将镜像保存为tar文件
 docker save my_ros2_image:latest > my_ros2_image.tar
+docker save perception-desktop:v2 -o perception-desktop-v2.tar
 ```
 
 #### 2. 在新环境中使用
@@ -74,27 +80,6 @@ docker load < my_ros2_image.tar
 docker compose -f docker-compose-saved.yaml up -d
 ```
 
-#### 3. 注意事项
-
-#### 保存的内容包括
-- 所有安装的软件包
-- 环境变量设置
-- 用户配置
-- 工作空间中的代码
-- 其他修改
-
-#### 不包含的内容
-- 挂载的卷（如exercises_ws/src）中的内容
-- 容器运行时的临时文件
-
-#### 最佳实践
-1. 定期保存镜像以备份重要更改
-2. 给镜像添加有意义的标签
-3. 记录镜像的版本和主要更改
-4. 在新环境中测试镜像的完整性
-
-#### 4. 镜像优化（可选）
-
 #### 减小镜像体积
 ```bash
 # 导出容器为tar文件
@@ -120,7 +105,18 @@ docker ps
 docker exec -it robotics_essentials_ros2 bash
 ```
 
+---
 
+## 3. 清理悬空镜像（dangling images）
+
+悬空镜像通常是 `<none>:<none>`，使用以下方式清理：
+
+### 查看悬空镜像
+```bash
+docker images -f "dangling=true"
+docker image prune -f
+docker image prune -a
+```
 
 ## 3.网络问题
 
@@ -136,9 +132,56 @@ Environment="NO_PROXY=localhost, 127.0.0.0/8, ::1"
 镜像源加速
 sudo gedit  /etc/docker/daemon.json
 
-
-
 sudo systemctl daemon-reload     # 重新加载 systemd 配置（如果修改了 systemd 相关配置）
 sudo systemctl restart docker    # 重启 Docker 服务
+```
+
+## 感知开发桌面
+
+> 集成感知所需的开发环境：Ubunru22.04+Humble+Opencv4.5+VNC+ZSH+VNC+拼音+跨平台复制粘贴
+
+```
+docker run -d \
+  --name perception-desktop-base_test1 \
+  --network=host \
+  --privileged \
+  -v /dev:/dev \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v ~/docker_ws:/home/ubuntu/workspace \
+  -v ~/docker_persist/home_ubuntu:/home/ubuntu \
+  -e VNC_RESOLUTION=1920x1080 \
+  -e VNC_PASSWORD=1 \
+  -e http_proxy=http://127.0.0.1:7890 \
+  -e https_proxy=http://127.0.0.1:7890 \
+  -e all_proxy=socks5://127.0.0.1:7890 \
+  perception-desktop:v1
+
+http://10.10.70.2:6080/
+http://localhost:6080/
+http://127.0.0.1:6080/
+
+
+docker run -d \
+  --name perception-desktop-v3 \
+  --network=host \
+  --privileged \
+  -v /dev:/dev \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v ~/docker_ws:/home/ubuntu/docker_ws \
+  -v ~/project:/home/ubuntu/project \
+  -v ~/workspace/:/home/ubuntu/workspace \
+  -v ~/docker_persist/home_ubuntu:/home/ubuntu \
+  -e VNC_RESOLUTION=1920x1080 \
+  -e VNC_PASSWORD=1 \
+  -e http_proxy=http://127.0.0.1:7890 \
+  -e https_proxy=http://127.0.0.1:7890 \
+  -e all_proxy=socks5://127.0.0.1:7890 \
+  perception-desktop:v3
+
+http://10.10.70.2:6080/
+http://localhost:6080/
+http://127.0.0.1:6080/
+
+
 ```
 
