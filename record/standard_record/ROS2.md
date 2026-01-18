@@ -1,4 +1,4 @@
-环` `境配置：
+环境配置：
 
 - 系统 ：Ubuntu 22.04.2 LTS
 
@@ -192,7 +192,10 @@ odom_msg.twist.twist.angular.z = 0.1;
 ❌ 限制
 
 - **占用数据带宽较大**
+
 - 仅适用于 **机器人运动估计**
+
+  
 
 ------
 
@@ -254,10 +257,16 @@ transform_stamped.transform.rotation.w = 1.0;
 
 
 
-## 2. 参数被命令行/launch文件覆盖
+#### 2. 参数被命令行/launch文件覆盖
 
 - ROS2 参数优先级：命令行 > launch文件 > yaml文件 > 默认值
 
 - echo $AMENT_PREFIX_PATH  
 
   
+
+## 问题汇总：
+
+- [ ] 感知仓库包含ros1和ros2情况下，colcon build无效情况；
+
+![image-20251119160106751](.ROS2.assets/image-20251119160106751.png)
