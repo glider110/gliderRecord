@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF 在线阅读器</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f7fa;
+      color: #40464f;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #4870ac 0%, #5b8bc4 100%);
+      color: white;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .pdf-viewer-wrapper {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .pdf-controls {
+      background: white;
+      padding: 15px 20px;
+      border-bottom: 1px solid #e3e8f0;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-controls button {
+      padding: 8px 16px;
+      background: #4870ac;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .pdf-controls button:hover {
+      background: #3a5a8a;
+    }
+
+    .pdf-controls button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .page-info {
+      font-size: 14px;
+      color: #4870ac;
+      font-weight: 500;
+    }
+
+    .pdf-canvas-container {
+      width: 100%;
+      overflow-x: auto;
+      background: #525659;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 800px;
+    }
+
+    .pdf-canvas-container canvas {
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      max-width: 100%;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: white;
+      font-size: 18px;
+    }
+
+    .error {
+      text-align: center;
+      padding: 60px 20px;
+      color: #e74c3c;
+    }
+
+    .pdf-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .pdf-item {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 12px rgba(72, 112, 172, 0.1);
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .pdf-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(72, 112, 172, 0.15);
+    }
+
+    .pdf-item-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .pdf-item-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #4870ac;
+      margin-bottom: 8px;
+    }
+
+    .pdf-item-path {
+      font-size: 12px;
+      color: #95a5a6;
+      word-break: break-all;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #4870ac;
+      margin: 40px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e3e8f0;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #4870ac;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📚 PDF 在线阅读器</h1>
+  </div>
+
+  <div class="container">
+    <a href="resource_docs/book.md" class="back-link">← 返回文档库</a>
+
+    <div class="pdf-viewer-wrapper">
+      <div class="pdf-controls">
+        <button onclick="prevPage()" id="prevBtn">上一页</button>
+        <button onclick="nextPage()" id="nextBtn">下一页</button>
+        <button onclick="zoomIn()">放大</button>
+        <button onclick="zoomOut()">缩小</button>
+        <span class="page-info" id="pageInfo">请选择PDF文件</span>
+        <button onclick="toggleFullscreen()" id="fullscreenBtn">全屏</button>
+      </div>
+      <div class="pdf-canvas-container" id="canvasContainer">
+        <div class="loading">请从下方列表选择PDF文件，或拖拽PDF文件到此区域</div>
+      </div>
+    </div>
+
+    <div id="pdfLibrary"></div>
+  </div>
+
+  <script>
+    // PDF.js 配置
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    let pdfDoc = null;
+    let pageNum = 1;
+    let pageRendering = false;
+    let pageNumPending = null;
+    let scale = 1.5;
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext('2d');
+
+    const canvasContainer = document.getElementById('canvasContainer');
+    const pageInfo = document.getElementById('pageInfo');
+
+    // PDF 文件列表
+    const pdfFiles = [
+      {
+        category: '📖 技术文档',
+        files: [
+          { name: 'Morph AI Lib 编程指南', path: 'resource_docs/pdf/Morph_AI_Lib编程指南.pdf' },
+          { name: 'ScepterSoftware&MorphAI相机编程指南', path: 'resource_docs/pdf/ScepterSoftware&MorphAI相机编程指南.pdf' },
+          { name: '避障用户手册', path: 'resource_docs/pdf/避障用户手册_O_v1_0_20241014.pdf' }
+        ]
+      },
+      {
+        category: '📚 书籍',
+        files: [
+          { name: '美国四百年', path: 'resource_docs/pdf/book/美国四百年.pdf' },
+          { name: '小米创业思考', path: 'resource_docs/pdf/book/小米创业思考.pdf' },
+          { name: '目录版README', path: 'resource_docs/pdf/book/README_目录版.pdf' }
+        ]
+      },
+      {
+        category: '🎓 PCL 课程',
+        files: [
+          { name: '第1章：概述', path: 'resource_docs/pdf/pcl_course/【三维点云第1章】概述.pdf' },
+          { name: '第1章课件', path: 'resource_docs/pdf/pcl_course/【三维点云第1章】课件.pdf' },
+          { name: '第2章课件', path: 'resource_docs/pdf/pcl_course/【三维点云第2章】课件.pdf' },
+          { name: '第3章课件', path: 'resource_docs/pdf/pcl_course/【三维点云第3章】课件.pdf' },
+          { name: '第4章课件', path: 'resource_docs/pdf/pcl_course/【三维点云第4章】课件.pdf' },
+          { name: '第5章课件', path: 'resource_docs/pdf/pcl_course/【三维点云第5章】课件.pdf' },
+          { name: '第6章课件', path: 'resource_docs/pdf/pcl_course/【三维点云第6章】课件.pdf' }
+        ]
+      },
+      {
+        category: '📡 传感器文档',
+        files: [
+          { name: 'NextVPU深度相机规格书', path: 'resource_docs/pdf/sensor/NextVPU深度相机规格书.pdf' },
+          { name: 'VL53L8CH ToF传感器', path: 'resource_docs/pdf/sensor/vl53l8ch.pdf' },
+          { name: '大白DCW-DW', path: 'resource_docs/pdf/sensor/对外版DaBai DCW-DW Datasheet V2.5.pdf' },
+          { name: 'LDROBOT LD07V', path: 'resource_docs/pdf/sensor/LDROBOT_LD07V_数据手册_v1.4 20211115.pdf' },
+          { name: 'TOFSense-M用户手册', path: 'resource_docs/pdf/sensor/TOFSense-M_User_Manual_V3.0_zh.pdf' },
+          { name: '大白DCW2-DW2', path: 'resource_docs/pdf/sensor/DaBai DCW2-DW2简明Datasheet(1).pdf' },
+          { name: 'TOFSense-M数据手册', path: 'resource_docs/pdf/sensor/TOFSense-M_Datasheet_V3.0_zh.pdf' },
+          { name: 'AnyEye XD1Q前向避障', path: 'resource_docs/pdf/sensor/AnyEye_XD1Q_DS(前向避障)_V1.3.pdf' },
+          { name: 'Deptrum Nebula401', path: 'resource_docs/pdf/sensor/Deptrum_Nebula401_规格书_v0.3.pdf' },
+          { name: 'A31R50深度相机', path: 'resource_docs/pdf/sensor/A31R50 3D深度相机规格书V1.3-2022-5.pdf' }
+        ]
+      }
+    ];
+
+    // 渲染PDF库
+    function renderPDFLibrary() {
+      const library = document.getElementById('pdfLibrary');
+      let html = '';
+
+      pdfFiles.forEach(category => {
+        html += `<h2 class="section-title">${category.category}</h2>`;
+        html += '<div class="pdf-list">';
+
+        category.files.forEach(file => {
+          html += `
+            <div class="pdf-item" onclick='loadPDF("${file.path}")'>
+              <div class="pdf-item-icon">📄</div>
+              <div class="pdf-item-title">${file.name}</div>
+              <div class="pdf-item-path">${file.path}</div>
+            </div>
+          `;
+        });
+
+        html += '</div>';
+      });
+
+      library.innerHTML = html;
+    }
+
+    // 加载PDF
+    async function loadPDF(url) {
+      try {
+        canvasContainer.innerHTML = '<div class="loading">正在加载PDF...</div>';
+
+        const loadingTask = pdfjsLib.getDocument(url);
+        pdfDoc = await loadingTask.promise;
+        pageNum = 1;
+
+        canvasContainer.innerHTML = '';
+        canvasContainer.appendChild(canvas);
+
+        renderPage(pageNum);
+        updatePageInfo();
+      } catch (error) {
+        console.error('Error loading PDF:', error);
+        canvasContainer.innerHTML = `<div class="error">加载PDF失败: ${error.message}<br>请检查文件路径: ${url}</div>`;
+      }
+    }
+
+    // 渲染页面
+    function renderPage(num) {
+      pageRendering = true;
+
+      pdfDoc.getPage(num).then(function(page) {
+        const viewport = page.getViewport({scale: scale});
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+        };
+
+        const renderTask = page.render(renderContext);
+
+        renderTask.promise.then(function() {
+          pageRendering = false;
+
+          if (pageNumPending !== null) {
+            renderPage(pageNumPending);
+            pageNumPending = null;
+          }
+        });
+      });
+
+      updatePageInfo();
+    }
+
+    // 队列渲染
+    function queueRenderPage(num) {
+      if (pageRendering) {
+        pageNumPending = num;
+      } else {
+        renderPage(num);
+      }
+    }
+
+    // 上一页
+    function prevPage() {
+      if (!pdfDoc || pageNum <= 1) return;
+      pageNum--;
+      queueRenderPage(pageNum);
+    }
+
+    // 下一页
+    function nextPage() {
+      if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
+      pageNum++;
+      queueRenderPage(pageNum);
+    }
+
+    // 放大
+    function zoomIn() {
+      if (!pdfDoc) return;
+      scale += 0.25;
+      queueRenderPage(pageNum);
+    }
+
+    // 缩小
+    function zoomOut() {
+      if (!pdfDoc || scale <= 0.5) return;
+      scale -= 0.25;
+      queueRenderPage(pageNum);
+    }
+
+    // 更新页面信息
+    function updatePageInfo() {
+      if (pdfDoc) {
+        pageInfo.textContent = `第 ${pageNum} / ${pdfDoc.numPages} 页`;
+        document.getElementById('prevBtn').disabled = pageNum <= 1;
+        document.getElementById('nextBtn').disabled = pageNum >= pdfDoc.numPages;
+      }
+    }
+
+    // 全屏切换
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        canvasContainer.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // 拖拽上传
+    canvasContainer.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    canvasContainer.addEventListener('drop', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === 'application/pdf') {
+        const fileURL = URL.createObjectURL(file);
+        loadPDF(fileURL);
+      }
+    });
+
+    // 键盘快捷键
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        nextPage();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        prevPage();
+      } else if (e.key === '+' || e.key === '=') {
+        zoomIn();
+      } else if (e.key === '-') {
+        zoomOut();
+      }
+    });
+
+    // 从URL参数获取PDF路径
+    function getPDFParam() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('pdf');
+    }
+
+    // 初始化
+    renderPDFLibrary();
+
+    // 如果URL中有pdf参数，自动加载
+    const pdfParam = getPDFParam();
+    if (pdfParam) {
+      loadPDF(pdfParam);
+    }
+  </script>
+</body>
+</html>
