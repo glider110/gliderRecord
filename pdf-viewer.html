@@ -495,9 +495,11 @@
 
       let html = '';
       
-      items.forEach(item => {
+      items.forEach((item, index) => {
         const title = item.title || '无标题';
-        html += `<div class="outline-item level-${level}" onclick="goToOutlineItem('${item.dest}', ${JSON.stringify(item).replace(/'/g, "&apos;")})">`;
+        const itemId = `outline-item-${level}-${index}`;
+        
+        html += `<div class="outline-item level-${level}" id="${itemId}" data-dest-type="${typeof item.dest}" data-item-index="${index}">`;
         html += `<span>${'▸'.repeat(level - 1)} ${title}</span>`;
         html += `</div>`;
 
@@ -508,22 +510,52 @@
 
       if (level === 1) {
         outlineContainer.innerHTML = html;
+        
+        // 为所有目录项添加点击事件
+        items.forEach((item, index) => {
+          const element = document.getElementById(`outline-item-1-${index}`);
+          if (element) {
+            element.addEventListener('click', function(e) {
+              goToOutlineItem(item, e.currentTarget);
+            });
+          }
+        });
+        
+        // 递归为子项添加事件
+        addOutlineItemEvents(items, 1);
       }
 
       return html;
     }
 
-    // 跳转到目录项
-    async function goToOutlineItem(dest, item) {
-      try {
-        let destArray = dest;
-
-        // 如果dest是字符串，需要通过getDestination获取
-        if (typeof dest === 'string') {
-          destArray = await pdfDoc.getDestination(dest);
+    // 递归为目录项添加点击事件
+    function addOutlineItemEvents(items, level) {
+      items.forEach((item, index) => {
+        const element = document.getElementById(`outline-item-${level}-${index}`);
+        if (element) {
+          element.addEventListener('click', function(e) {
+            e.stopPropagation();
+            goToOutlineItem(item, e.currentTarget);
+          });
         }
 
-        if (destArray) {
+        if (item.items && item.items.length > 0) {
+          addOutlineItemEvents(item.items, level + 1);
+        }
+      });
+    }
+
+    // 跳转到目录项
+    async function goToOutlineItem(item, element) {
+      try {
+        let destArray = item.dest;
+
+        // 如果dest是字符串，需要通过getDestination获取
+        if (typeof item.dest === 'string') {
+          destArray = await pdfDoc.getDestination(item.dest);
+        }
+
+        if (destArray && Array.isArray(destArray) && destArray.length > 0) {
           // 获取目标页面引用
           const pageRef = destArray[0];
           const pageIndex = await pdfDoc.getPageIndex(pageRef);
@@ -536,17 +568,23 @@
           document.querySelectorAll('.outline-item').forEach(el => {
             el.classList.remove('active');
           });
-          event.currentTarget.classList.add('active');
+          if (element) {
+            element.classList.add('active');
+          }
 
           // 在小屏幕上自动关闭侧边栏
           if (window.innerWidth <= 768) {
             toggleSidebar();
           }
+          
+          console.log(`成功跳转到第 ${pageNum} 页: ${item.title}`);
+        } else {
+          console.warn('无效的目录项目标:', item);
+          alert(`无法跳转到 "${item.title}"`);
         }
       } catch (error) {
-        console.error('Error navigating to outline item:', error);
-        // 如果无法解析目标，尝试使用标题搜索
-        alert('无法跳转到此章节');
+        console.error('Error navigating to outline item:', error, item);
+        alert(`跳转失败: ${error.message || '未知错误'}`);
       }
     }
 
