@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悬浮音频播放器示例</title>
+  <link rel="stylesheet" href="floating-audio-player.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    .demo-btn {
+      padding: 15px 30px;
+      background: white;
+      color: #667eea;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 10px 10px 10px 0;
+      transition: all 0.3s;
+    }
+
+    .demo-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .feature-list {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 15px;
+      margin: 30px 0;
+    }
+
+    .feature-list h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .feature-list li {
+      font-size: 16px;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+
+    .back-link:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateX(-5px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">← 返回首页</a>
+
+    <h1>🎵 悬浮音频播放器</h1>
+    
+    <p>
+      这是一个悬浮式的音频播放器，会固定在页面右下角，不影响页面浏览。
+      播放器会自动加载音频列表，支持播放控制、进度调节、音量控制等功能。
+    </p>
+
+    <div>
+      <button class="demo-btn" onclick="player.show(); player.expand();">显示播放器</button>
+      <button class="demo-btn" onclick="player.minimize();">最小化播放器</button>
+      <button class="demo-btn" onclick="player.close();">关闭播放器</button>
+    </div>
+
+    <div class="feature-list">
+      <h2>✨ 主要特性</h2>
+      <ul>
+        <li>🎵 <strong>悬浮设计</strong> - 固定在页面右下角，不影响内容浏览</li>
+        <li>▶️ <strong>完整控制</strong> - 播放、暂停、上一首、下一首</li>
+        <li>📊 <strong>进度条</strong> - 点击进度条快速跳转，实时显示播放时间</li>
+        <li>🔊 <strong>音量控制</strong> - 滑动调节音量大小</li>
+        <li>🔁 <strong>播放模式</strong> - 列表循环、单曲循环、随机播放、顺序播放</li>
+        <li>📋 <strong>播放列表</strong> - 显示所有歌曲，点击切换播放</li>
+        <li>💡 <strong>最小化功能</strong> - 最小化后只显示小图标，节省空间</li>
+        <li>🎨 <strong>美观界面</strong> - 渐变色设计，旋转动画效果</li>
+        <li>📱 <strong>响应式</strong> - 完美适配移动设备</li>
+      </ul>
+    </div>
+
+    <div class="feature-list">
+      <h2>📝 使用说明</h2>
+      <ul>
+        <li>播放器会自动显示在页面右下角</li>
+        <li>点击播放列表中的歌曲可以切换播放</li>
+        <li>点击进度条可以快速跳转到指定位置</li>
+        <li>点击音量按钮可以显示/隐藏音量控制</li>
+        <li>点击播放模式按钮可以切换不同的播放模式</li>
+        <li>点击最小化按钮可以收起播放器，节省空间</li>
+        <li>点击关闭按钮可以隐藏播放器</li>
+      </ul>
+    </div>
+
+    <div class="feature-list">
+      <h2>🔧 集成到你的页面</h2>
+      <p>在任何页面中添加以下代码即可使用：</p>
+      <pre style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; overflow-x: auto;">
+&lt;!-- 引入样式 --&gt;
+&lt;link rel="stylesheet" href="floating-audio-player.css"&gt;
+
+&lt;!-- 引入脚本 --&gt;
+&lt;script src="floating-audio-player.js"&gt;&lt;/script&gt;
+
+&lt;!-- 初始化播放器 --&gt;
+&lt;script&gt;
+  const player = new FloatingAudioPlayer({
+    playlist: [
+      {
+        title: '理想三旬',
+        artist: '陈鸿宇',
+        src: 'resource_docs/audio/理想三旬 - 陈鸿宇.mp3'
+      },
+      {
+        title: '走歌人',
+        artist: '暗杠',
+        src: 'resource_docs/audio/走歌人 - 暗杠.mp3'
+      }
+    ]
+  });
+&lt;/script&gt;
+      </pre>
+    </div>
+  </div>
+
+  <!-- 引入播放器 -->
+  <script src="floating-audio-player.js"></script>
+  <script>
+    // 初始化播放器
+    const player = new FloatingAudioPlayer({
+      playlist: [
+        {
+          title: '理想三旬',
+          artist: '陈鸿宇',
+          src: 'resource_docs/audio/理想三旬 - 陈鸿宇.mp3'
+        },
+        {
+          title: '走歌人',
+          artist: '暗杠',
+          src: 'resource_docs/audio/走歌人 - 暗杠.mp3'
+        }
+      ]
+    });
+
+    // 页面加载完成后展开播放器
+    window.addEventListener('load', () => {
+      player.expand();
+    });
+  </script>
+</body>
+</html>
