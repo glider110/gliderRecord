@@ -7,7 +7,7 @@
 ## 🎧 在线播放器
 
 <div class="audio-player-section">
-  <a href="https://glider110.github.io/gliderRecord/audio-player.html" class="audio-player-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/assets/pages/audio-player-demo.html" class="audio-player-card" target="_blank">
     <div class="audio-player-icon">🎵</div>
     <div class="audio-player-content">
       <h2>打开音乐播放器</h2>

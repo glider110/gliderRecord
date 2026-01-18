@@ -71,7 +71,7 @@
     * [工作记录(三)](record/sliver_record/工作记录(三).md)
     * [工作记录(四)](record/sliver_record/工作记录(四).md)
     * [工作记录(五)](record/sliver_record/工作记录(五).md)
-    * [工作记录(六)](record/sliver_record/工作记录(六)) 
+    * [工作记录(六)](record/sliver_record/工作记录(六))
     * [工作记录(七)](record/sliver_record/工作记录(七).md)
     * [工作记录(衔接版)](record/sliver_record/工作记录(衔接版).md)
     * [基于散斑双目三维系统开发](record/sliver_record/基于散斑双目三维系统开发.md)
@@ -138,6 +138,7 @@
 * **🔗 资源文档**
 
   * [书单](resource_docs/book.md)
+  * 
   * [PDF阅读器](pdf-viewer.html)
   * [传感器开发](resource_docs/sensor_dev.md)
 * **⚙️ 项目相关**

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>悬浮音频播放器示例</title>
-  <link rel="stylesheet" href="floating-audio-player.css">
+  <link rel="stylesheet" href="../css/floating-audio-player.css">
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -87,7 +87,7 @@
 </head>
 <body>
   <div class="container">
-    <a href="index.html" class="back-link">← 返回首页</a>
+    <a href="../../index.html" class="back-link">← 返回首页</a>
 
     <h1>🎵 悬浮音频播放器</h1>
     
@@ -162,7 +162,7 @@
   </div>
 
   <!-- 引入播放器 -->
-  <script src="floating-audio-player.js"></script>
+  <script src="../js/floating-audio-player.js"></script>
   <script>
     // 初始化播放器
     const player = new FloatingAudioPlayer({
@@ -170,12 +170,12 @@
         {
           title: '理想三旬',
           artist: '陈鸿宇',
-          src: 'resource_docs/audio/理想三旬 - 陈鸿宇.mp3'
+          src: '../../resource_docs/audio/理想三旬 - 陈鸿宇.mp3'
         },
         {
           title: '走歌人',
           artist: '暗杠',
-          src: 'resource_docs/audio/走歌人 - 暗杠.mp3'
+          src: '../../resource_docs/audio/走歌人 - 暗杠.mp3'
         }
       ]
     });
