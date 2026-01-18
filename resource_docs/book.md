@@ -7,22 +7,22 @@
 ## 📖 技术文档
 
 <div class="pdf-grid">
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/Morph_AI_Lib编程指南.pdf" class="pdf-card" target="_blank">
-    <div class="pdf-card-icon">📖</div>
-    <div class="pdf-card-title">Morph AI Lib 编程指南</div>
-    <div class="pdf-card-desc">AI库编程开发文档</div>
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/AnyEye_XD1Q_DS(前向避障)_V1.3.pdf" class="pdf-card" target="_blank">
+    <div class="pdf-card-icon">�</div>
+    <div class="pdf-card-title">AnyEye XD1Q 避障</div>
+    <div class="pdf-card-desc">前向避障系统规格书 v1.3</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/ScepterSoftware&MorphAI相机编程指南.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/NextVPU深度相机规格书.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📷</div>
-    <div class="pdf-card-title">ScepterSoftware&MorphAI相机编程指南</div>
-    <div class="pdf-card-desc">相机软件开发文档</div>
+    <div class="pdf-card-title">NextVPU深度相机</div>
+    <div class="pdf-card-desc">深度相机规格说明书</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/避障用户手册_O_v1_0_20241014.pdf" class="pdf-card" target="_blank">
-    <div class="pdf-card-icon">🚧</div>
-    <div class="pdf-card-title">避障用户手册</div>
-    <div class="pdf-card-desc">避障系统使用说明 v1.0</div>
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/vl53l8ch.pdf" class="pdf-card" target="_blank">
+    <div class="pdf-card-icon">�</div>
+    <div class="pdf-card-title">VL53L8CH</div>
+    <div class="pdf-card-desc">ToF传感器数据手册</div>
   </a>
 </div>
 
@@ -31,19 +31,19 @@
 ## 📚 书籍推荐
 
 <div class="pdf-grid">
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/book/美国四百年.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/book/美国四百年.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">🇺🇸</div>
     <div class="pdf-card-title">美国四百年</div>
     <div class="pdf-card-desc">美国历史发展脉络</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/book/小米创业思考.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/book/小米创业思考.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📱</div>
     <div class="pdf-card-title">小米创业思考</div>
     <div class="pdf-card-desc">雷军创业回忆录</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/book/README_目录版.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/book/README_目录版.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📋</div>
     <div class="pdf-card-title">目录版README</div>
     <div class="pdf-card-desc">文档目录索引</div>
@@ -57,43 +57,43 @@
 ### 三维点云处理课程
 
 <div class="pdf-grid">
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第1章】概述.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第1章】概述.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📄</div>
     <div class="pdf-card-title">第1章：概述</div>
     <div class="pdf-card-desc">点云基础概念与介绍</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第1章】课件.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第1章】课件.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📊</div>
     <div class="pdf-card-title">第1章课件</div>
     <div class="pdf-card-desc">课程PPT材料</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第2章】课件.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第2章】课件.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📊</div>
     <div class="pdf-card-title">第2章课件</div>
     <div class="pdf-card-desc">课程PPT材料</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第3章】课件.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第3章】课件.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📊</div>
     <div class="pdf-card-title">第3章课件</div>
     <div class="pdf-card-desc">课程PPT材料</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第4章】课件.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第4章】课件.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📊</div>
     <div class="pdf-card-title">第4章课件</div>
     <div class="pdf-card-desc">课程PPT材料</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第5章】课件.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第5章】课件.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📊</div>
     <div class="pdf-card-title">第5章课件</div>
     <div class="pdf-card-desc">课程PPT材料</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第6章】课件.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/pcl_course/【三维点云第6章】课件.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📊</div>
     <div class="pdf-card-title">第6章课件</div>
     <div class="pdf-card-desc">课程PPT材料</div>
@@ -105,61 +105,61 @@
 ## 📡 传感器规格书
 
 <div class="pdf-grid">
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/sensor/NextVPU深度相机规格书.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/NextVPU深度相机规格书.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📷</div>
     <div class="pdf-card-title">NextVPU深度相机</div>
     <div class="pdf-card-desc">规格说明书</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/sensor/vl53l8ch.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/vl53l8ch.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📏</div>
     <div class="pdf-card-title">VL53L8CH</div>
     <div class="pdf-card-desc">ToF传感器数据手册</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/sensor/对外版DaBai DCW-DW Datasheet V2.5.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/对外版DaBai DCW-DW Datasheet V2.5.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📷</div>
     <div class="pdf-card-title">大白DCW-DW</div>
     <div class="pdf-card-desc">对外版数据手册</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/sensor/LDROBOT_LD07V_数据手册_v1.4 20211115.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/LDROBOT_LD07V_数据手册_v1.4 20211115.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">🔦</div>
     <div class="pdf-card-title">LDROBOT LD07V</div>
     <div class="pdf-card-desc">激光雷达数据手册</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/sensor/TOFSense-M_User_Manual_V3.0_zh.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/TOFSense-M_User_Manual_V3.0_zh.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📖</div>
     <div class="pdf-card-title">TOFSense-M</div>
     <div class="pdf-card-desc">用户手册</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/sensor/DaBai DCW2-DW2简明Datasheet(1).pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/DaBai DCW2-DW2简明Datasheet(1).pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📷</div>
     <div class="pdf-card-title">大白DCW2-DW2</div>
     <div class="pdf-card-desc">简明数据手册</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/sensor/TOFSense-M_Datasheet_V3.0_zh.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/TOFSense-M_Datasheet_V3.0_zh.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📋</div>
     <div class="pdf-card-title">TOFSense-M</div>
     <div class="pdf-card-desc">数据手册</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/sensor/AnyEye_XD1Q_DS(前向避障)_V1.3.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/AnyEye_XD1Q_DS(前向避障)_V1.3.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">👁️</div>
     <div class="pdf-card-title">AnyEye XD1Q</div>
     <div class="pdf-card-desc">前向避障规格书</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/sensor/Deptrum_Nebula401_规格书_v0.3.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/Deptrum_Nebula401_规格书_v0.3.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📷</div>
     <div class="pdf-card-title">Deptrum Nebula401</div>
     <div class="pdf-card-desc">规格说明书</div>
   </a>
 
-  <a href="../pdf-viewer.html?pdf=resource_docs/pdf/sensor/A31R50 3D深度相机规格书V1.3-2022-5.pdf" class="pdf-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/pdf-viewer.html?pdf=resource_docs/pdf/sensor/A31R50 3D深度相机规格书V1.3-2022-5.pdf" class="pdf-card" target="_blank">
     <div class="pdf-card-icon">📷</div>
     <div class="pdf-card-title">A31R50 3D深度相机</div>
     <div class="pdf-card-desc">规格说明书</div>
