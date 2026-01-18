@@ -379,16 +379,8 @@
     const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
     const outlineContainer = document.getElementById('outlineContainer');
 
-    // PDF 文件列表
+    // PDF文件库
     const pdfFiles = [
-      {
-        category: '📖 技术文档',
-        files: [
-          { name: 'Morph AI Lib 编程指南', path: '../../resource_docs/pdf/Morph_AI_Lib编程指南.pdf' },
-          { name: 'ScepterSoftware&MorphAI相机编程指南', path: '../../resource_docs/pdf/ScepterSoftware&MorphAI相机编程指南.pdf' },
-          { name: '避障用户手册', path: '../../resource_docs/pdf/避障用户手册_O_v1_0_20241014.pdf' }
-        ]
-      },
       {
         category: '📚 书籍',
         files: [
@@ -413,15 +405,20 @@
         category: '📡 传感器文档',
         files: [
           { name: 'NextVPU深度相机规格书', path: '../../resource_docs/pdf/sensor/NextVPU深度相机规格书.pdf' },
+          { name: 'NextVPU Feynman M1系列', path: '../../resource_docs/pdf/sensor/NextVPU Feynman M1系列智能深度相机规格书 -V1.5-2023-9-28..111.pdf' },
           { name: 'VL53L8CH ToF传感器', path: '../../resource_docs/pdf/sensor/vl53l8ch.pdf' },
           { name: '大白DCW-DW', path: '../../resource_docs/pdf/sensor/对外版DaBai DCW-DW Datasheet V2.5.pdf' },
+          { name: '大白DCW2-DW2', path: '../../resource_docs/pdf/sensor/DaBai DCW2-DW2简明Datasheet(1).pdf' },
           { name: 'LDROBOT LD07V', path: '../../resource_docs/pdf/sensor/LDROBOT_LD07V_数据手册_v1.4 20211115.pdf' },
           { name: 'TOFSense-M用户手册', path: '../../resource_docs/pdf/sensor/TOFSense-M_User_Manual_V3.0_zh.pdf' },
-          { name: '大白DCW2-DW2', path: '../../resource_docs/pdf/sensor/DaBai DCW2-DW2简明Datasheet(1).pdf' },
           { name: 'TOFSense-M数据手册', path: '../../resource_docs/pdf/sensor/TOFSense-M_Datasheet_V3.0_zh.pdf' },
           { name: 'AnyEye XD1Q前向避障', path: '../../resource_docs/pdf/sensor/AnyEye_XD1Q_DS(前向避障)_V1.3.pdf' },
+          { name: 'AnyEye XD1Q-S1规格书', path: '../../resource_docs/pdf/sensor/AnyEye_XD1Q-S1_规格书_V1.1.pdf' },
           { name: 'Deptrum Nebula401', path: '../../resource_docs/pdf/sensor/Deptrum_Nebula401_规格书_v0.3.pdf' },
-          { name: 'A31R50深度相机', path: '../../resource_docs/pdf/sensor/A31R50 3D深度相机规格书V1.3-2022-5.pdf' }
+          { name: 'A31R50深度相机', path: '../../resource_docs/pdf/sensor/A31R50 3D深度相机规格书V1.3-2022-5.pdf' },
+          { name: 'YDLIDAR GS2数据手册', path: '../../resource_docs/pdf/sensor/YDLIDAR GS2 数据手册 V1.5(808nm)-Beta(211125).pdf' },
+          { name: '蓝海LDS-E300-E激光雷达', path: '../../resource_docs/pdf/sensor/(蓝海)LDS-E300-E激光雷达使用说明书 V1.2.pdf' },
+          { name: '兴颂激光雷达', path: '../../resource_docs/pdf/sensor/兴颂激光雷达.pdf' }
         ]
       }
     ];
@@ -456,7 +453,15 @@
       try {
         canvasContainer.innerHTML = '<div class="loading">正在加载PDF...</div>';
 
-        const loadingTask = pdfjsLib.getDocument(url);
+        // 转换路径：如果URL以 resource_docs/ 开头，添加 ../../ 前缀
+        let pdfPath = url;
+        if (url.startsWith('resource_docs/')) {
+          pdfPath = '../../' + url;
+        }
+
+        console.log('Loading PDF from:', pdfPath);
+        
+        const loadingTask = pdfjsLib.getDocument(pdfPath);
         pdfDoc = await loadingTask.promise;
         pageNum = 1;
 
@@ -470,7 +475,7 @@
         updatePageInfo();
       } catch (error) {
         console.error('Error loading PDF:', error);
-        canvasContainer.innerHTML = `<div class="error">加载PDF失败: ${error.message}<br>请检查文件路径: ${url}</div>`;
+        canvasContainer.innerHTML = `<div class="error">加载PDF失败: ${error.message}<br>原始路径: ${url}<br>转换后路径: ${pdfPath || url}</div>`;
       }
     }
 
