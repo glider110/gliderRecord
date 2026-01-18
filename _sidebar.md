@@ -138,7 +138,7 @@
 * **🔗 资源文档**
 
   * [书单](resource_docs/book.md)
-  * 
+  * [听书](resource_docs/audio.md)
   * [PDF阅读器](pdf-viewer.html)
   * [传感器开发](resource_docs/sensor_dev.md)
 * **⚙️ 项目相关**

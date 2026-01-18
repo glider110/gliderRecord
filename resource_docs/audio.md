@@ -7,11 +7,25 @@
 ## 🎧 在线播放器
 
 <div class="audio-player-section">
-  <a href="https://glider110.github.io/gliderRecord/assets/pages/audio-player-demo.html" class="audio-player-card" target="_blank">
+  <a href="https://glider110.github.io/gliderRecord/assets/pages/audio-player-local.html" class="audio-player-card" target="_blank">
+    <div class="audio-player-icon">📁</div>
+    <div class="audio-player-content">
+      <h2>本地音频播放器</h2>
+      <p>支持拖拽或选择本地音频文件播放</p>
+      <div class="features">
+        <span class="feature-tag">📁 文件选择</span>
+        <span class="feature-tag">🎯 拖拽上传</span>
+        <span class="feature-tag">📋 播放列表</span>
+        <span class="feature-tag">⚡ 即时播放</span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://glider110.github.io/gliderRecord/assets/pages/audio-player-demo.html" class="audio-player-card" target="_blank" style="margin-top: 20px;">
     <div class="audio-player-icon">🎵</div>
     <div class="audio-player-content">
-      <h2>打开音乐播放器</h2>
-      <p>支持播放列表、进度控制、音量调节等功能</p>
+      <h2>在线音乐播放器</h2>
+      <p>播放预设的在线音乐列表</p>
       <div class="features">
         <span class="feature-tag">▶️ 播放控制</span>
         <span class="feature-tag">📋 播放列表</span>
