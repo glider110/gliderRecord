@@ -41,7 +41,7 @@
 ## 🎼 播放列表
 
 <div class="music-grid">
-  <div class="music-card" onclick="playTrack(0)" style="cursor: pointer;">
+  <div class="music-card" onclick="window.playTrack(0)" style="cursor: pointer;">
     <div class="music-icon">🎵</div>
     <div class="music-info">
       <h3>理想三旬</h3>
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <div class="music-card" onclick="playTrack(1)" style="cursor: pointer;">
+  <div class="music-card" onclick="window.playTrack(1)" style="cursor: pointer;">
     <div class="music-icon">🎵</div>
     <div class="music-info">
       <h3>走歌人</h3>
@@ -61,74 +61,83 @@
 </div>
 
 <script>
-  // 播放指定曲目
-  function playTrack(index) {
-    console.log('播放曲目被调用，索引:', index);
-    
-    // 等待播放器加载
-    const tryPlay = () => {
-      // 检查是否有悬浮播放器实例
-      if (window.audioPlayer) {
-        console.log('找到播放器实例，开始播放');
-        try {
-          window.audioPlayer.playTrackByIndex(index);
-          
-          // 显示提示
-          const trackNames = ['理想三旬', '走歌人'];
-          showNotification(`正在播放: ${trackNames[index]}`);
-        } catch (error) {
-          console.error('播放出错:', error);
-          showNotification('播放失败: ' + error.message);
-        }
-      } else {
-        console.log('播放器未加载，等待中...');
-        // 播放器还没加载，等待一下再试
-        setTimeout(() => {
-          if (window.audioPlayer) {
-            tryPlay();
-          } else {
-            showNotification('播放器加载中，请稍后再试');
+  // 确保函数在全局作用域中
+  (function() {
+    // 播放指定曲目
+    window.playTrack = function(index) {
+      console.log('播放曲目被调用，索引:', index);
+      
+      // 等待播放器加载
+      const tryPlay = () => {
+        // 检查是否有悬浮播放器实例
+        if (window.audioPlayer) {
+          console.log('找到播放器实例，开始播放');
+          try {
+            window.audioPlayer.playTrackByIndex(index);
+            
+            // 显示提示
+            const trackNames = ['理想三旬', '走歌人'];
+            window.showNotification(`正在播放: ${trackNames[index]}`);
+          } catch (error) {
+            console.error('播放出错:', error);
+            window.showNotification('播放失败: ' + error.message);
           }
-        }, 500);
+        } else {
+          console.log('播放器未加载，等待中...');
+          // 播放器还没加载，等待一下再试
+          setTimeout(() => {
+            if (window.audioPlayer) {
+              tryPlay();
+            } else {
+              window.showNotification('播放器加载中，请稍后再试');
+            }
+          }, 500);
+        }
+      };
+      
+      tryPlay();
+    };
+
+    // 显示通知
+    window.showNotification = function(message) {
+      console.log('显示通知:', message);
+      
+      // 移除旧通知
+      const oldNotification = document.querySelector('.play-notification');
+      if (oldNotification) {
+        oldNotification.remove();
       }
+
+      // 创建新通知
+      const notification = document.createElement('div');
+      notification.className = 'play-notification';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      // 3秒后自动移除
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
     };
     
-    tryPlay();
-  }
-
-  // 显示通知
-  function showNotification(message) {
-    console.log('显示通知:', message);
-    
-    // 移除旧通知
-    const oldNotification = document.querySelector('.play-notification');
-    if (oldNotification) {
-      oldNotification.remove();
-    }
-
-    // 创建新通知
-    const notification = document.createElement('div');
-    notification.className = 'play-notification';
-    notification.textContent = message;
-    document.body.appendChild(notification);
-
-    // 3秒后自动移除
-    setTimeout(() => {
-      notification.style.opacity = '0';
-      setTimeout(() => notification.remove(), 300);
-    }, 3000);
-  }
-  
-  // 调试：监听播放器加载
-  window.addEventListener('load', () => {
-    setTimeout(() => {
+    // 调试：监听播放器加载
+    const checkPlayer = () => {
       if (window.audioPlayer) {
         console.log('✅ 播放器已加载，播放列表:', window.audioPlayer.playlist);
       } else {
-        console.warn('⚠️ 播放器未找到');
+        console.log('⏳ 播放器尚未加载，继续等待...');
+        setTimeout(checkPlayer, 500);
       }
-    }, 1000);
-  });
+    };
+    
+    // 页面加载后检查
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkPlayer);
+    } else {
+      checkPlayer();
+    }
+  })();
 </script>
 
 <style>
