@@ -362,30 +362,44 @@ class FloatingAudioPlayer {
 
   // 公共方法：从外部调用播放指定索引的歌曲
   playTrackByIndex(index) {
+    console.log('=== playTrackByIndex 被调用 ===');
+    console.log('请求播放索引:', index);
+    console.log('播放列表长度:', this.playlist.length);
+    console.log('当前索引:', this.currentIndex);
+    
     if (index >= 0 && index < this.playlist.length) {
-      console.log('playTrackByIndex called with index:', index);
+      const track = this.playlist[index];
+      console.log('将要播放:', track.title, '-', track.artist);
+      console.log('音频源:', track.src);
+      
       this.loadTrack(index);
       
       // 使用 play() 而不是直接调用 audio.play()，确保触发 onPlay 事件
+      console.log('开始播放音频...');
       const playPromise = this.audio.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
-            console.log('播放成功，索引:', index);
+            console.log('✅ 播放成功！索引:', index, '歌曲:', track.title);
             this.isPlaying = true;
             this.updatePlaylistHighlight();  // 确保更新高亮
           })
           .catch(error => {
-            console.error('播放失败:', error);
+            console.error('❌ 播放失败:', error);
+            console.error('错误详情:', error.message);
+            console.error('音频源:', this.audio.src);
+            alert('播放失败: ' + error.message);
           });
       }
       
       // 如果播放器是最小化的，展开它
       if (this.isMinimized) {
+        console.log('展开播放器');
         this.expand();
       }
     } else {
-      console.error('Invalid track index:', index);
+      console.error('❌ 无效的曲目索引:', index, '播放列表长度:', this.playlist.length);
+      alert('无效的曲目索引: ' + index);
     }
   }
 

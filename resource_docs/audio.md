@@ -63,20 +63,43 @@
 <script>
   // 播放指定曲目
   function playTrack(index) {
-    // 检查是否有悬浮播放器实例
-    if (window.audioPlayer) {
-      window.audioPlayer.playTrackByIndex(index);
-      
-      // 显示提示
-      const trackNames = ['理想三旬', '走歌人'];
-      showNotification(`正在播放: ${trackNames[index]}`);
-    } else {
-      showNotification('播放器未加载，请刷新页面重试');
-    }
+    console.log('播放曲目被调用，索引:', index);
+    
+    // 等待播放器加载
+    const tryPlay = () => {
+      // 检查是否有悬浮播放器实例
+      if (window.audioPlayer) {
+        console.log('找到播放器实例，开始播放');
+        try {
+          window.audioPlayer.playTrackByIndex(index);
+          
+          // 显示提示
+          const trackNames = ['理想三旬', '走歌人'];
+          showNotification(`正在播放: ${trackNames[index]}`);
+        } catch (error) {
+          console.error('播放出错:', error);
+          showNotification('播放失败: ' + error.message);
+        }
+      } else {
+        console.log('播放器未加载，等待中...');
+        // 播放器还没加载，等待一下再试
+        setTimeout(() => {
+          if (window.audioPlayer) {
+            tryPlay();
+          } else {
+            showNotification('播放器加载中，请稍后再试');
+          }
+        }, 500);
+      }
+    };
+    
+    tryPlay();
   }
 
   // 显示通知
   function showNotification(message) {
+    console.log('显示通知:', message);
+    
     // 移除旧通知
     const oldNotification = document.querySelector('.play-notification');
     if (oldNotification) {
@@ -95,6 +118,17 @@
       setTimeout(() => notification.remove(), 300);
     }, 3000);
   }
+  
+  // 调试：监听播放器加载
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (window.audioPlayer) {
+        console.log('✅ 播放器已加载，播放列表:', window.audioPlayer.playlist);
+      } else {
+        console.warn('⚠️ 播放器未找到');
+      }
+    }, 1000);
+  });
 </script>
 
 <style>
