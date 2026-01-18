@@ -174,6 +174,148 @@
     .back-link:hover {
       text-decoration: underline;
     }
+
+    /* 目录侧边栏 */
+    .pdf-sidebar {
+      position: fixed;
+      left: -320px;
+      top: 80px;
+      width: 300px;
+      height: calc(100vh - 80px);
+      background: white;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.1);
+      transition: left 0.3s;
+      z-index: 99;
+      overflow-y: auto;
+      border-right: 1px solid #e3e8f0;
+    }
+
+    .pdf-sidebar.open {
+      left: 0;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 2px solid #e3e8f0;
+      background: linear-gradient(135deg, #4870ac 0%, #5b8bc4 100%);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sidebar-header h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .sidebar-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+    }
+
+    .sidebar-close:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .outline-container {
+      padding: 15px;
+    }
+
+    .outline-item {
+      padding: 8px 12px;
+      margin: 4px 0;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s;
+      font-size: 14px;
+      color: #40464f;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .outline-item:hover {
+      background: #f0f4f8;
+      color: #4870ac;
+    }
+
+    .outline-item.active {
+      background: #e8f0f8;
+      color: #4870ac;
+      font-weight: 600;
+    }
+
+    .outline-item.level-1 {
+      padding-left: 12px;
+    }
+
+    .outline-item.level-2 {
+      padding-left: 28px;
+      font-size: 13px;
+    }
+
+    .outline-item.level-3 {
+      padding-left: 44px;
+      font-size: 12px;
+    }
+
+    .outline-empty {
+      padding: 40px 20px;
+      text-align: center;
+      color: #95a5a6;
+      font-size: 14px;
+    }
+
+    .toggle-sidebar-btn {
+      position: fixed;
+      left: 20px;
+      top: 100px;
+      z-index: 98;
+      background: #4870ac;
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(72, 112, 172, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.3s;
+    }
+
+    .toggle-sidebar-btn:hover {
+      background: #3a5a8a;
+      transform: scale(1.1);
+    }
+
+    .toggle-sidebar-btn.sidebar-open {
+      left: 320px;
+    }
+
+    @media (max-width: 768px) {
+      .pdf-sidebar {
+        width: 280px;
+        left: -280px;
+      }
+
+      .toggle-sidebar-btn.sidebar-open {
+        left: 280px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -184,12 +326,29 @@
   <div class="container">
     <a href="resource_docs/book.md" class="back-link">← 返回文档库</a>
 
+    <!-- 目录侧边栏 -->
+    <div class="pdf-sidebar" id="pdfSidebar">
+      <div class="sidebar-header">
+        <h3>📑 目录</h3>
+        <button class="sidebar-close" onclick="toggleSidebar()">×</button>
+      </div>
+      <div class="outline-container" id="outlineContainer">
+        <div class="outline-empty">暂无目录</div>
+      </div>
+    </div>
+
+    <!-- 切换目录按钮 -->
+    <button class="toggle-sidebar-btn" id="toggleSidebarBtn" onclick="toggleSidebar()">
+      ☰
+    </button>
+
     <div class="pdf-viewer-wrapper">
       <div class="pdf-controls">
         <button onclick="prevPage()" id="prevBtn">上一页</button>
         <button onclick="nextPage()" id="nextBtn">下一页</button>
         <button onclick="zoomIn()">放大</button>
         <button onclick="zoomOut()">缩小</button>
+        <button onclick="toggleSidebar()" id="toggleOutlineBtn">📑 目录</button>
         <span class="page-info" id="pageInfo">请选择PDF文件</span>
         <button onclick="toggleFullscreen()" id="fullscreenBtn">全屏</button>
       </div>
@@ -212,9 +371,13 @@
     let scale = 1.5;
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext('2d');
+    let outline = null;
 
     const canvasContainer = document.getElementById('canvasContainer');
     const pageInfo = document.getElementById('pageInfo');
+    const pdfSidebar = document.getElementById('pdfSidebar');
+    const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+    const outlineContainer = document.getElementById('outlineContainer');
 
     // PDF 文件列表
     const pdfFiles = [
@@ -300,12 +463,97 @@
         canvasContainer.innerHTML = '';
         canvasContainer.appendChild(canvas);
 
+        // 加载目录
+        await loadOutline();
+
         renderPage(pageNum);
         updatePageInfo();
       } catch (error) {
         console.error('Error loading PDF:', error);
         canvasContainer.innerHTML = `<div class="error">加载PDF失败: ${error.message}<br>请检查文件路径: ${url}</div>`;
       }
+    }
+
+    // 加载PDF目录
+    async function loadOutline() {
+      try {
+        outline = await pdfDoc.getOutline();
+        if (outline && outline.length > 0) {
+          renderOutline(outline);
+        } else {
+          outlineContainer.innerHTML = '<div class="outline-empty">此PDF无目录</div>';
+        }
+      } catch (error) {
+        console.error('Error loading outline:', error);
+        outlineContainer.innerHTML = '<div class="outline-empty">目录加载失败</div>';
+      }
+    }
+
+    // 渲染目录
+    function renderOutline(items, level = 1) {
+      if (!items) return '';
+
+      let html = '';
+      
+      items.forEach(item => {
+        const title = item.title || '无标题';
+        html += `<div class="outline-item level-${level}" onclick="goToOutlineItem('${item.dest}', ${JSON.stringify(item).replace(/'/g, "&apos;")})">`;
+        html += `<span>${'▸'.repeat(level - 1)} ${title}</span>`;
+        html += `</div>`;
+
+        if (item.items && item.items.length > 0) {
+          html += renderOutline(item.items, level + 1);
+        }
+      });
+
+      if (level === 1) {
+        outlineContainer.innerHTML = html;
+      }
+
+      return html;
+    }
+
+    // 跳转到目录项
+    async function goToOutlineItem(dest, item) {
+      try {
+        let destArray = dest;
+
+        // 如果dest是字符串，需要通过getDestination获取
+        if (typeof dest === 'string') {
+          destArray = await pdfDoc.getDestination(dest);
+        }
+
+        if (destArray) {
+          // 获取目标页面引用
+          const pageRef = destArray[0];
+          const pageIndex = await pdfDoc.getPageIndex(pageRef);
+          
+          // 跳转到对应页面
+          pageNum = pageIndex + 1;
+          queueRenderPage(pageNum);
+
+          // 高亮当前目录项
+          document.querySelectorAll('.outline-item').forEach(el => {
+            el.classList.remove('active');
+          });
+          event.currentTarget.classList.add('active');
+
+          // 在小屏幕上自动关闭侧边栏
+          if (window.innerWidth <= 768) {
+            toggleSidebar();
+          }
+        }
+      } catch (error) {
+        console.error('Error navigating to outline item:', error);
+        // 如果无法解析目标，尝试使用标题搜索
+        alert('无法跳转到此章节');
+      }
+    }
+
+    // 切换侧边栏
+    function toggleSidebar() {
+      pdfSidebar.classList.toggle('open');
+      toggleSidebarBtn.classList.toggle('sidebar-open');
     }
 
     // 渲染页面
