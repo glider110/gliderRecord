@@ -303,12 +303,14 @@ class FloatingAudioPlayer {
     this.isPlaying = true;
     this.dom.playPauseBtn.textContent = '⏸';
     this.dom.trackCover.classList.add('playing');
+    this.updatePlaylistHighlight();  // 更新播放列表高亮
   }
 
   onPause() {
     this.isPlaying = false;
     this.dom.playPauseBtn.textContent = '▶';
     this.dom.trackCover.classList.remove('playing');
+    this.updatePlaylistHighlight();  // 更新播放列表高亮
   }
 
   onTrackEnded() {
@@ -361,8 +363,23 @@ class FloatingAudioPlayer {
   // 公共方法：从外部调用播放指定索引的歌曲
   playTrackByIndex(index) {
     if (index >= 0 && index < this.playlist.length) {
+      console.log('playTrackByIndex called with index:', index);
       this.loadTrack(index);
-      this.play();
+      
+      // 使用 play() 而不是直接调用 audio.play()，确保触发 onPlay 事件
+      const playPromise = this.audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('播放成功，索引:', index);
+            this.isPlaying = true;
+            this.updatePlaylistHighlight();  // 确保更新高亮
+          })
+          .catch(error => {
+            console.error('播放失败:', error);
+          });
+      }
+      
       // 如果播放器是最小化的，展开它
       if (this.isMinimized) {
         this.expand();
