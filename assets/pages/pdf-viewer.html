@@ -49,12 +49,13 @@
 
     .pdf-controls {
       background: white;
-      padding: 15px 20px;
+      padding: 20px;
       border-bottom: 1px solid #e3e8f0;
       display: flex;
       align-items: center;
       gap: 15px;
       flex-wrap: wrap;
+      justify-content: space-between;
     }
 
     .pdf-controls button {
@@ -88,59 +89,81 @@
     .progress-container {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       flex: 1;
-      max-width: 400px;
+      max-width: 500px;
+      min-width: 250px;
+      margin: 0 15px;
     }
 
     .progress-slider {
       flex: 1;
-      height: 4px;
+      height: 6px;
       background: #e3e8f0;
-      border-radius: 2px;
+      border-radius: 3px;
       outline: none;
       cursor: pointer;
       -webkit-appearance: none;
       appearance: none;
+      min-width: 200px;
     }
 
     .progress-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background: #4870ac;
       cursor: pointer;
       transition: all 0.3s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
     .progress-slider::-webkit-slider-thumb:hover {
       background: #3a5a8a;
       transform: scale(1.2);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
 
     .progress-slider::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background: #4870ac;
       cursor: pointer;
       border: none;
       transition: all 0.3s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
     .progress-slider::-moz-range-thumb:hover {
       background: #3a5a8a;
       transform: scale(1.2);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
 
     .progress-slider::-moz-range-track {
       width: 100%;
-      height: 4px;
+      height: 6px;
       background: #e3e8f0;
-      border-radius: 2px;
+      border-radius: 3px;
       border: none;
+    }
+
+    .progress-slider:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .progress-slider:disabled::-webkit-slider-thumb {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .progress-slider:disabled::-moz-range-thumb {
+      background: #ccc;
+      cursor: not-allowed;
     }
 
     .progress-info {
@@ -148,6 +171,29 @@
       color: #666;
       min-width: 60px;
       text-align: center;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .pdf-controls {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+      }
+      
+      .pdf-controls > div {
+        justify-content: center;
+      }
+      
+      .progress-container {
+        order: 2;
+        margin: 0;
+        max-width: none;
+      }
+      
+      .page-info {
+        text-align: center;
+      }
     }
 
     .pdf-canvas-container {
@@ -410,8 +456,10 @@
 
     <div class="pdf-viewer-wrapper">
       <div class="pdf-controls">
-        <button onclick="prevPage()" id="prevBtn">上一页</button>
-        <button onclick="nextPage()" id="nextBtn">下一页</button>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button onclick="prevPage()" id="prevBtn">上一页</button>
+          <button onclick="nextPage()" id="nextBtn">下一页</button>
+        </div>
         
         <!-- 进度滑块 -->
         <div class="progress-container">
@@ -419,11 +467,13 @@
           <input type="range" id="progressSlider" class="progress-slider" min="1" max="1" value="1" disabled>
         </div>
         
-        <span class="page-info" id="pageInfo">请选择PDF文件</span>
-        <button onclick="zoomIn()">放大</button>
-        <button onclick="zoomOut()">缩小</button>
-        <button onclick="toggleSidebar()" id="toggleOutlineBtn">📑 目录</button>
-        <button onclick="toggleFullscreen()" id="fullscreenBtn">全屏</button>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="page-info" id="pageInfo">请选择PDF文件</span>
+          <button onclick="zoomIn()">放大</button>
+          <button onclick="zoomOut()">缩小</button>
+          <button onclick="toggleSidebar()" id="toggleOutlineBtn">📑 目录</button>
+          <button onclick="toggleFullscreen()" id="fullscreenBtn">全屏</button>
+        </div>
       </div>
       <div class="pdf-canvas-container" id="canvasContainer">
         <div class="loading">请从下方列表选择PDF文件，或拖拽PDF文件到此区域</div>
