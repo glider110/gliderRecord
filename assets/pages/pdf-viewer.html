@@ -49,13 +49,12 @@
 
     .pdf-controls {
       background: white;
-      padding: 20px;
+      padding: 15px 20px;
       border-bottom: 1px solid #e3e8f0;
       display: flex;
       align-items: center;
       gap: 15px;
       flex-wrap: wrap;
-      justify-content: space-between;
     }
 
     .pdf-controls button {
@@ -83,117 +82,6 @@
       font-size: 14px;
       color: #4870ac;
       font-weight: 500;
-    }
-
-    /* 进度滑块样式 */
-    .progress-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex: 1;
-      max-width: 500px;
-      min-width: 250px;
-      margin: 0 15px;
-    }
-
-    .progress-slider {
-      flex: 1;
-      height: 6px;
-      background: #e3e8f0;
-      border-radius: 3px;
-      outline: none;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-      min-width: 200px;
-    }
-
-    .progress-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #4870ac;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .progress-slider::-webkit-slider-thumb:hover {
-      background: #3a5a8a;
-      transform: scale(1.2);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-
-    .progress-slider::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #4870ac;
-      cursor: pointer;
-      border: none;
-      transition: all 0.3s;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .progress-slider::-moz-range-thumb:hover {
-      background: #3a5a8a;
-      transform: scale(1.2);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-
-    .progress-slider::-moz-range-track {
-      width: 100%;
-      height: 6px;
-      background: #e3e8f0;
-      border-radius: 3px;
-      border: none;
-    }
-
-    .progress-slider:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .progress-slider:disabled::-webkit-slider-thumb {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    .progress-slider:disabled::-moz-range-thumb {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    .progress-info {
-      font-size: 12px;
-      color: #666;
-      min-width: 60px;
-      text-align: center;
-    }
-
-    /* 响应式设计 */
-    @media (max-width: 768px) {
-      .pdf-controls {
-        flex-direction: column;
-        gap: 15px;
-        align-items: stretch;
-      }
-      
-      .pdf-controls > div {
-        justify-content: center;
-      }
-      
-      .progress-container {
-        order: 2;
-        margin: 0;
-        max-width: none;
-      }
-      
-      .page-info {
-        text-align: center;
-      }
     }
 
     .pdf-canvas-container {
@@ -436,7 +324,7 @@
   </div>
 
   <div class="container">
-    <a href="../../index.html#/resource_docs/book" class="back-link">← 返回文档库</a>
+    <a href="../../resource_docs/book.md" class="back-link">← 返回文档库</a>
 
     <!-- 目录侧边栏 -->
     <div class="pdf-sidebar" id="pdfSidebar">
@@ -456,24 +344,13 @@
 
     <div class="pdf-viewer-wrapper">
       <div class="pdf-controls">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <button onclick="prevPage()" id="prevBtn">上一页</button>
-          <button onclick="nextPage()" id="nextBtn">下一页</button>
-        </div>
-        
-        <!-- 进度滑块 -->
-        <div class="progress-container">
-          <span class="progress-info" id="progressInfo">-/-</span>
-          <input type="range" id="progressSlider" class="progress-slider" min="1" max="1" value="1" disabled>
-        </div>
-        
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <span class="page-info" id="pageInfo">请选择PDF文件</span>
-          <button onclick="zoomIn()">放大</button>
-          <button onclick="zoomOut()">缩小</button>
-          <button onclick="toggleSidebar()" id="toggleOutlineBtn">📑 目录</button>
-          <button onclick="toggleFullscreen()" id="fullscreenBtn">全屏</button>
-        </div>
+        <button onclick="prevPage()" id="prevBtn">上一页</button>
+        <button onclick="nextPage()" id="nextBtn">下一页</button>
+        <button onclick="zoomIn()">放大</button>
+        <button onclick="zoomOut()">缩小</button>
+        <button onclick="toggleSidebar()" id="toggleOutlineBtn">📑 目录</button>
+        <span class="page-info" id="pageInfo">请选择PDF文件</span>
+        <button onclick="toggleFullscreen()" id="fullscreenBtn">全屏</button>
       </div>
       <div class="pdf-canvas-container" id="canvasContainer">
         <div class="loading">请从下方列表选择PDF文件，或拖拽PDF文件到此区域</div>
@@ -599,14 +476,6 @@
       } catch (error) {
         console.error('Error loading PDF:', error);
         canvasContainer.innerHTML = `<div class="error">加载PDF失败: ${error.message}<br>原始路径: ${url}<br>转换后路径: ${pdfPath || url}</div>`;
-        
-        // 重置滑块状态
-        const progressSlider = document.getElementById('progressSlider');
-        const progressInfo = document.getElementById('progressInfo');
-        progressSlider.disabled = true;
-        progressSlider.max = 1;
-        progressSlider.value = 1;
-        progressInfo.textContent = '-/-';
       }
     }
 
@@ -802,14 +671,6 @@
         pageInfo.textContent = `第 ${pageNum} / ${pdfDoc.numPages} 页`;
         document.getElementById('prevBtn').disabled = pageNum <= 1;
         document.getElementById('nextBtn').disabled = pageNum >= pdfDoc.numPages;
-        
-        // 更新进度滑块
-        const progressSlider = document.getElementById('progressSlider');
-        const progressInfo = document.getElementById('progressInfo');
-        progressSlider.max = pdfDoc.numPages;
-        progressSlider.value = pageNum;
-        progressSlider.disabled = false;
-        progressInfo.textContent = `${pageNum}/${pdfDoc.numPages}`;
       }
     }
 
@@ -849,24 +710,6 @@
         zoomIn();
       } else if (e.key === '-') {
         zoomOut();
-      }
-    });
-
-    // 进度滑块事件监听器
-    document.getElementById('progressSlider').addEventListener('input', function(e) {
-      const targetPage = parseInt(e.target.value);
-      if (targetPage !== pageNum && pdfDoc) {
-        pageNum = targetPage;
-        queueRenderPage(pageNum);
-      }
-    });
-
-    // 进度滑块实时更新显示（拖动时）
-    document.getElementById('progressSlider').addEventListener('change', function(e) {
-      const targetPage = parseInt(e.target.value);
-      if (targetPage !== pageNum && pdfDoc) {
-        pageNum = targetPage;
-        queueRenderPage(pageNum);
       }
     });
 

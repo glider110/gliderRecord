@@ -176,3 +176,8 @@ flowchart TD
 1. https://www.youtube.com/watch?v=zshAly6fUhY
 
 [llm_easy_go](https://chatgpt.com/c/692d0100-8100-8321-a821-d07f3e14ce59)
+
+
+
+
+
