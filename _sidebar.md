@@ -45,7 +45,6 @@
     * [Gazebo](repository/gazebo.md)
     * [可视化工具](repository/visualize.md)
     * [Rerun](repository/rerun.md)
-    * [传感器开发](repository/sensor_dev.md)
   * **理论知识**
 
     * [系统知识理论及仓库](repository/github.md)
@@ -55,6 +54,11 @@
     * [书单](repository/book.md)
     * [读书笔记](repository/book_note.md)
     * [简历](repository/resume.md)
+* **🔗 资源文档**
+
+  * [书单](resource_docs/book.md)
+  * [听书](resource_docs/audio.md)
+  * [传感器开发](resource_docs/sensor_dev.md)
 * **⚙️ 项目相关**
 
   * [部署文档](DEPLOY.md)
