@@ -4,30 +4,6 @@
 
 ---
 
-## 📖 技术文档
-
-<div class="pdf-grid">
-  <a href="https://glider110.github.io/gliderRecord/assets/pages/pdf-viewer.html?pdf=resource_docs/pdf/sensor/AnyEye_XD1Q_DS(前向避障)_V1.3.pdf" class="pdf-card" target="_blank">
-    <div class="pdf-card-icon">�</div>
-    <div class="pdf-card-title">AnyEye XD1Q 避障</div>
-    <div class="pdf-card-desc">前向避障系统规格书 v1.3</div>
-  </a>
-
-  <a href="https://glider110.github.io/gliderRecord/assets/pages/pdf-viewer.html?pdf=resource_docs/pdf/sensor/NextVPU深度相机规格书.pdf" class="pdf-card" target="_blank">
-    <div class="pdf-card-icon">📷</div>
-    <div class="pdf-card-title">NextVPU深度相机</div>
-    <div class="pdf-card-desc">深度相机规格说明书</div>
-  </a>
-
-  <a href="https://glider110.github.io/gliderRecord/assets/pages/pdf-viewer.html?pdf=resource_docs/pdf/sensor/vl53l8ch.pdf" class="pdf-card" target="_blank">
-    <div class="pdf-card-icon">�</div>
-    <div class="pdf-card-title">VL53L8CH</div>
-    <div class="pdf-card-desc">ToF传感器数据手册</div>
-  </a>
-</div>
-
----
-
 ## 📚 书籍推荐
 
 <div class="pdf-grid">

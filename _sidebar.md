@@ -60,7 +60,6 @@
 
   * [书单](resource_docs/book.md)
   * [听书](resource_docs/audio.md)
-  * [传感器开发](resource_docs/sensor_dev.md)
 * **⚙️ 项目相关**
 
   * [部署文档](DEPLOY.md)

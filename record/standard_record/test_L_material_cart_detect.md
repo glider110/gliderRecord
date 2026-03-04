@@ -416,7 +416,15 @@ I0925 15:03:25.379350 173803 detection_base.cpp:162] {action-task} sendResultMsg
 I0925 15:03:25.379534 173791 action_189.cpp:108] result: 1
 ```
 
+**如果检测失败：**
+![image-20260304141359531](.test_L_material_cart_detect.assets/image-20260304141359531.png)
 
+```shell
+失败：
+base_action.cpp:103] {exec-error} 413503 result_value action failed
+成功：
+calc_dst_3d_pose, 
+```
 
 
 
@@ -432,4 +440,8 @@ I0925 15:03:25.379534 173791 action_189.cpp:108] result: 1
 
 2. 同时导出sros.INFO和 /sros/log/data/文件夹以material_cart.log命名的文件
 
-   
+
+
+**前端调整同时兼容识别9类载具**
+
+![image-20260304113325227](.test_L_material_cart_detect.assets/image-20260304113325227.png)
