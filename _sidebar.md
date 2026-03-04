@@ -45,6 +45,8 @@
     * [Gazebo](repository/gazebo.md)
     * [可视化工具](repository/visualize.md)
     * [Rerun](repository/rerun.md)
+    * [算力平台](repository/computing_platform.md)
+    * [RGB-D 深度相机](repository/rgbd_camera.md)
   * **理论知识**
 
     * [系统知识理论及仓库](repository/github.md)
