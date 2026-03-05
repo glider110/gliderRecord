@@ -58,8 +58,8 @@
     * [简历](repository/resume.md)
 * **🔗 资源文档**
 
-  * [书单](resource_docs/book.md)
-  * [听书](resource_docs/audio.md)
+  * [阅读器](resource_docs/book.md)
+  * [播放器](resource_docs/audio.md)
 * **⚙️ 项目相关**
 
   * [部署文档](DEPLOY.md)
