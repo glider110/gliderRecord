@@ -6,7 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="个人工作记录和知识库">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta name="keywords" content="技术文档,知识库,工作记录">
+  <meta name="keywords" content="技术文档,知识库,工作记录,机器人,ROS2,AGV,避障,激光雷达,C++,Python">
+  <meta name="author" content="glider110">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <!-- Docsify 主题 - 默认使用 Simple 主题 -->
   <link rel="stylesheet" id="docsify-theme" href="//cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
@@ -81,16 +85,38 @@
       }
     }
 
+    /* 全局字体 */
+    body, .markdown-section {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
     /* 页面加载动画 */
     body {
       animation: fadeInUp 0.6s ease-out;
     }
 
+    /* 侧边栏 brand 区域 */
+    .app-name {
+      padding: 18px 16px 14px;
+      background: linear-gradient(135deg, #4870ac 0%, #5b8bc4 100%);
+      border-radius: 0 0 12px 12px;
+      margin: 0 8px 12px;
+      box-shadow: 0 4px 12px rgba(72,112,172,0.25);
+    }
+
+    .app-name a {
+      color: #ffffff !important;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+      text-decoration: none !important;
+    }
+
     /* 侧边栏样式增强 */
     .sidebar {
-      padding-top: 10px;
+      padding-top: 0;
       border-right: 1px solid #eee;
-      background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+      background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%);
     }
 
     .sidebar-nav > ul > li > a {
@@ -220,12 +246,11 @@
     
     /* 内容区域美化 - Lapis 风格 */
     .markdown-section {
-      max-width: 950px;
-      padding: 30px 45px 40px;
-      font-size: 1.1rem;
-      line-height: 1.6;
+      max-width: 960px;
+      padding: 30px 48px 60px;
+      font-size: 1.05rem;
+      line-height: 1.8;
       color: var(--lapis-text);
-      text-align: justify;
     }
 
     /* 标题样式 - Lapis 风格 */
@@ -278,15 +303,38 @@
       font-weight: 400;
     }
     
-    /* 代码块样式 - Lapis 风格 */
+    /* 代码块样式 - Mac 风格头部 */
     .markdown-section pre {
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
       position: relative;
       overflow: hidden;
       margin: 20px 0;
-      background: var(--lapis-block-bg);
-      padding: 1.2rem 0.8rem;
+      background: #1e1e2e;
+      padding: 2.8rem 1rem 1.2rem;
+    }
+
+    .markdown-section pre::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 36px;
+      background: #2a2a3e;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .markdown-section pre::after {
+      content: '●  ●  ●';
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .markdown-section pre > code {
+      color: #cdd6f4;
     }
 
     .markdown-section code {
@@ -790,7 +838,6 @@
       html: true,
       
       // 封面页配置
-      coverpage: true,
       coverpage: ['/', '/_coverpage.md'],
       
       // Logo

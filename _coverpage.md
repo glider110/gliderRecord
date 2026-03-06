@@ -1,25 +1,22 @@
-# <i class="fas fa-book"></i> gliderRecord
+# <i class="fas fa-robot"></i> gliderRecord
 
-> 📚 个人技术知识库 & 工作记录系统
+> 🤖 机器人工程师的个人技术知识库 · 工作记录 · 持续成长
 
-[GitHub](https://github.com/glider110/gliderRecord)
-[开始阅读](#首页)
-
----
-
-![](https://img.shields.io/badge/Docsify-4.4.4-42b983)
-![](https://img.shields.io/badge/Theme-Simple-purple)
-![](https://img.shields.io/badge/Status-Active-success)
+[<i class="fab fa-github"></i> GitHub](https://github.com/glider110/gliderRecord)
+[<i class="fas fa-rocket"></i> 开始探索 →](#首页)
 
 ---
 
-## 📂 内容分类
-
-- **工作记录** - 项目开发笔记和技术总结
-- **知识库** - 系统化的技术文档
-- **生活管理** - 个人成长和效率提升
-- **工具文档** - 常用工具和命令参考
+![Docsify](https://img.shields.io/badge/Docsify-4.x-42b983?logo=docsify)
+![ROS2](https://img.shields.io/badge/ROS2-Humble-22314E?logo=ros)
+![C++](https://img.shields.io/badge/C++-17%2F20-00599C?logo=c%2B%2B)
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python)
+![AGV](https://img.shields.io/badge/AGV-避障%20%7C%20激光雷达-4870ac)
+![Status](https://img.shields.io/badge/Status-持续更新中-success)
 
 ---
 
-*持续更新中...* ![更新中](https://img.shields.io/badge/更新中-🔥-orange)
+- 💼 **工作记录** — 避障系统、传感器、对接报告、现场调试
+- 📚 **知识仓库** — Docker、Git、ROS2、仿真工具、RGB-D 相机
+- 🔗 **资源文档** — PDF 阅读器、音乐播放器
+- ⚙️ **项目相关** — 部署文档与配置说明
