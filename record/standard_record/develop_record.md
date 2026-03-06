@@ -4,6 +4,10 @@
 
 ![image-20250326094901227](.develop_record.assets/image-20250326094901227.png)
 
+### 隐叉感知雷达避障开发
+
+![image-20260305164602383](.develop_record.assets/image-20260305164602383.png)
+
 ### 高精度特征里程计对接
 
 **问题**
