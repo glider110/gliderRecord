@@ -304,37 +304,52 @@
     }
     
     /* 代码块样式 - Mac 风格头部 */
-    .markdown-section pre {
+    .markdown-section pre,
+    .markdown-section pre[data-lang] {
       border-radius: 10px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.08);
       position: relative;
       overflow: hidden;
       margin: 20px 0;
-      background: #1e1e2e;
-      padding: 2.8rem 1rem 1.2rem;
+      background: #3a5170;
+      padding: 0 !important;
     }
 
-    .markdown-section pre::before {
+    .markdown-section pre::before,
+    .markdown-section pre[data-lang]::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 36px;
-      background: #2a2a3e;
+      background-color: #456289;
       border-radius: 10px 10px 0 0;
+      z-index: 10;
+      background-image: 
+        radial-gradient(circle closest-side at 50% 50%, #fc625d 100%, transparent),
+        radial-gradient(circle closest-side at 50% 50%, #fdbc40 100%, transparent),
+        radial-gradient(circle closest-side at 50% 50%, #35cd4b 100%, transparent);
+      background-size: 12px 12px;
+      background-position: 15px 12px, 35px 12px, 55px 12px;
+      background-repeat: no-repeat;
     }
 
-    .markdown-section pre::after {
-      content: '●  ●  ●';
-      position: absolute;
+    /* Docsify language label */
+    .markdown-section pre[data-lang]::after {
+      z-index: 11;
       top: 10px;
-      left: 14px;
-      font-size: 13px;
-      letter-spacing: 4px;
-      color: rgba(255,255,255,0.25);
+      right: 15px;
+      color: #7a9cc6;
+      font-weight: 500;
+      font-size: 0.8rem;
     }
 
-    .markdown-section pre > code {
-      color: #cdd6f4;
+    .markdown-section pre > code,
+    .markdown-section pre[data-lang] > code {
+      color: #dce4ef;
+      display: block;
+      padding: 3.5rem 1.5rem 1.5rem !important;
+      overflow-x: auto;
+      background: transparent;
     }
 
     .markdown-section code {
@@ -345,11 +360,6 @@
       border-radius: 3px;
       background: var(--lapis-block-bg);
       font-family: 'JetBrains Mono', 'Courier New', monospace;
-    }
-
-    .markdown-section pre code {
-      background: transparent;
-      padding: 0;
     }
 
     /* 代码块复制按钮样式 - Lapis 风格 */
