@@ -20,6 +20,8 @@
 
 ![image-20240819145216210](.2D_lidar_install.assets/image-20240819145216210.png)
 
+![image-20260317114602356](.2D_lidar_install.assets/image-20260317114602356.png)
+
 ![image-20240819144724540](.2D_lidar_install.assets/image-20240819144724540.png)
 
 

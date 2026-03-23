@@ -330,7 +330,7 @@ I0930 15:08:17.192534 487504 is_tree_not_in_cancel.cpp:10] tick IsTreeNotInCance
 I0930 15:08:17.192620 487504 is_fork_tip_and_root_collison_not_trigger.cpp:11] tick IsForkTipAndRootCollisonNotTrigger
 I0930 15:08:17.192781 487504 is_fork_tip_and_root_collison_not_trigger.cpp:21] IsForkTipAndRootCollisonNotTrigger success
 I0930 15:08:17.192831 487504 pallet_detect_node.cpp:118] FAILURE
-I0930 15:08:17.192854 487504 pallet_detect_node.cpp:23] onStart
+I0930 15:08:17.19 2854 487504 pallet_detect_node.cpp:23] onStart
 I0930 15:08:17.192945 487504 pallet_detect_node.cpp:63] last_detect_ticket_: 2
 I0930 15:08:17.193470 487516 perception_manager_module.cpp:228] {action-task} onDetectCommandMsg: cmd:106 pose:1.16,2.25,-1.57079 goal_id,-1
 I0930 15:08:17.193572 487516 perception_manager_module.cpp:276] {action-task} undefined command load command
@@ -445,3 +445,5 @@ calc_dst_3d_pose,
 **前端调整同时兼容识别9类载具**
 
 ![image-20260304113325227](.test_L_material_cart_detect.assets/image-20260304113325227.png)
+
+![image-20260307105821790](.test_L_material_cart_detect.assets/image-20260307105821790.png)

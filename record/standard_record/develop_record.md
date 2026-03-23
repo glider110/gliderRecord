@@ -142,11 +142,11 @@
 
 
 
+### V型板对接
 
+![image-20260319113212994](.develop_record.assets/image-20260319113212994.png)
 
-
-
-
+![20260319_161011](.develop_record.assets/20260319_161011.gif)
 
 
 
