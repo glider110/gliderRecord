@@ -156,7 +156,7 @@ struct PointComparator {
  * @param cloud 输入点云
  * @param search_box_x 邻域框在 x 方向的长度（中心点为起点）
  * @param search_box_y 邻域框在 y 方向的长度（中心点为起点）
- * @param search_box_z 邻域框在 z 方向的长度（中心点为起点）
+ * @param search_box检测目标_z 邻域框在 z 方向的长度（中心点为起点）
  * @return 返回筛选后的点云
  */
 pcl::PointCloud<pcl::PointXYZ>::Ptr filterNearestPoints(

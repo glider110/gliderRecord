@@ -91,6 +91,8 @@ find -mtime -2   find -mmin -2       #2天创建文件的时间 按小时    实
 #ubuntu自带录屏+ffmpeg转换gif
 cd /home/std/视频/录屏 &&  LATEST_FILE=$(ls -t *.webm 2>/dev/null | head -n1) && [ -n "$LATEST_FILE" ] && TIMESTAMP=$(date "+%Y%m%d_%H%M%S") && ffmpeg -i "$LATEST_FILE" -vf fps=15,scale=800:-1:flags=lanczos,palettegen palette.png && ffmpeg -i "$LATEST_FILE" -i palette.png -filter_complex "fps=15,scale=800:-1:flags=lanczos[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=5" "${TIMESTAMP}.gif" && rm palette.png && echo "生成高质量 GIF 完成：${TIMESTAMP}.gif"
 
+
+
 拿到一个新盒子的基本操作
 lsb_release -a
 lscpu
