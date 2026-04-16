@@ -54,7 +54,6 @@
   * **阅读与笔记**
 
     * [书单](repository/book.md)
-    * [读书笔记](repository/book_note.md)
     * [简历](repository/resume.md)
 * **🔗 资源文档**
 

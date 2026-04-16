@@ -18,7 +18,7 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "resource_docs/book.md",
+                    "file": "repository/book.md",
                     "mode": "source",
                     "source": false,
                     "backlinks": false
@@ -219,8 +219,17 @@
       "terminal:Open terminal": false
     }
   },
-  "active": "155de9608b70c298",
+  "active": "24ed996f1d9dea7f",
   "lastOpenFiles": [
+    "repository/book_note.md",
+    "repository/book.md",
+    "life_management/目标细化2020.md",
+    "life_management/目标细化2021.md",
+    "life_management/目标细化2022.md",
+    "life_management/目标细化2024.md",
+    "life_management/目标细化2025.md",
+    "life_management/目标细化2026.md",
+    "resource_docs/book.md",
     "resource_docs/audio.md",
     "_coverpage.md",
     "_sidebar.md",
@@ -247,18 +256,9 @@
     "record/standard_record/easy_go.md",
     "record/standard_record/lidar_process.md",
     "record/standard_record/standard_perception.md",
-    "record/standard_record/test_L_material_cart_detect.md",
-    "record/standard_record/sensor_config_instruction_manual.md",
-    "record/standard_record/semantic_map_design.md",
-    "record/standard_record/on_site_issuse.md",
-    "repository/ur.md",
-    "repository/resume.md",
-    "repository/professional_knowledge.md",
     "未命名 1.base",
     "未命名 2.base",
-    "2026-04-15.md",
     "未命名 4.base",
-    "未命名 3.base",
-    "record/standard_record/test_oba_avoid_2.0.md"
+    "未命名 3.base"
   ]
 }
