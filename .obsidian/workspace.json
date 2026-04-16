@@ -11,14 +11,12 @@
             "id": "72626996b4c5c648",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "video",
               "state": {
-                "file": "record/standard_record/2D_lidar_install.md",
-                "mode": "preview",
-                "source": false
+                "file": "assets/video/icp里程计静止累加.webm"
               },
               "icon": "lucide-file",
-              "title": "2D_lidar_install"
+              "title": "icp里程计静止累加"
             }
           }
         ]
@@ -182,6 +180,14 @@
   },
   "active": "72626996b4c5c648",
   "lastOpenFiles": [
+    "assets/README.md",
+    "assets/image/life_management/理财/中观-行业公司/医药行业/17607753e974f363fd8ae7d3.jpg!800-16503340284881.jpg",
+    "assets/image/life_management/理财/中观-行业公司/医药行业/17607753fd34f383fe2c2412.jpg!800.jpg",
+    "assets/image/life_management/理财/中观-行业公司/风电行业/image-20211118180258826.png",
+    "assets/image/life_management/理财/心脑血管/image-20250316211912875-17421311557321.png",
+    "assets/image/life_management/理财/心脑血管/image-20250316211912875.png",
+    "record/standard_record/engineering_debug.md",
+    "record/standard_record/2D_lidar_install.md",
     "record/standard_record/avoid_obstacle_2.0.md",
     "record/standard_record/avoid_obstacle_3.0.md",
     "record/standard_record/develop_record.md",
@@ -192,7 +198,6 @@
     "record/standard_record/sensor_config_instruction_manual.md",
     "record/standard_record/semantic_map_design.md",
     "record/standard_record/on_site_issuse.md",
-    "record/standard_record/engineering_debug.md",
     "repository/ur.md",
     "repository/resume.md",
     "repository/professional_knowledge.md",
