@@ -7,7 +7,7 @@
 
 ---
 
-![Docsify](https://img.shields.io/badge/Docsify-4.x-42b983?logo=docsify)
+![Docsify|76](https://img.shields.io/badge/Docsify-4.x-42b983?logo=docsify)
 ![ROS2](https://img.shields.io/badge/ROS2-Humble-22314E?logo=ros)
 ![C++](https://img.shields.io/badge/C++-17%2F20-00599C?logo=c%2B%2B)
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python)

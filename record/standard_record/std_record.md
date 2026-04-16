@@ -77,7 +77,7 @@ gdb /sros/bin/sros /sros/log/core-sros-1604006748.142550 # 示例， GDB查看�
 
 
 
-**#Linux的常见实用命令**
+**Linux的常见实用命令**
 
 ```shell
 #查看有没有某个库的方法

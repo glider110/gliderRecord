@@ -3,15 +3,15 @@
   "global-search": true,
   "switcher": true,
   "graph": true,
-  "backlink": true,
+  "backlink": false,
   "canvas": true,
-  "outgoing-link": true,
+  "outgoing-link": false,
   "tag-pane": true,
   "footnotes": false,
   "properties": true,
   "page-preview": true,
   "daily-notes": true,
-  "templates": true,
+  "templates": false,
   "note-composer": true,
   "command-palette": true,
   "slash-command": false,
@@ -28,6 +28,6 @@
   "file-recovery": true,
   "publish": false,
   "sync": true,
-  "bases": true,
-  "webviewer": false
+  "bases": false,
+  "webviewer": true
 }
