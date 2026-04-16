@@ -1,0 +1,13 @@
+{
+  "sourceType": "github",
+  "source": "github",
+  "url": "https://github.com/kepano/obsidian-skills",
+  "repo": "kepano/obsidian-skills",
+  "ref": null,
+  "subpath": "skills/defuddle",
+  "installSource": "kepano/obsidian-skills/skills/defuddle",
+  "skillName": "defuddle",
+  "scope": "legacy",
+  "installedAt": "2026-04-16T14:33:22.068Z",
+  "updatedAt": "2026-04-16T14:33:22.068Z"
+}

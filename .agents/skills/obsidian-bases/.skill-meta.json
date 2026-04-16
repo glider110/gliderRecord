@@ -1,0 +1,13 @@
+{
+  "sourceType": "github",
+  "source": "github",
+  "url": "https://github.com/kepano/obsidian-skills",
+  "repo": "kepano/obsidian-skills",
+  "ref": null,
+  "subpath": "skills/obsidian-bases",
+  "installSource": "kepano/obsidian-skills/skills/obsidian-bases",
+  "skillName": "obsidian-bases",
+  "scope": "legacy",
+  "installedAt": "2026-04-16T14:33:22.069Z",
+  "updatedAt": "2026-04-16T14:33:22.069Z"
+}
