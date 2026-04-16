@@ -1,0 +1,43 @@
+{
+	"nodes":[
+		{"id":"a1b2c3d4e5f67890","type":"text","text":"# Claude 每日限制（2026）\n**Free / Pro / Max 到底重置什么**\n\n核心：不是固定 token 数，而是重置规则 + 动态容量","x":-300,"y":-520,"width":700,"height":120,"color":"6"},
+		{"id":"b2c3d4e5f6789012","type":"text","text":"## 常见误区\n\n追一个“Claude 每天到底多少 token”的神秘数字。\n\n官方**从未公开**一个适用于 Free/Pro/Max 的统一每日 token 配额。\n\n先分清自己在哪套系统里，再决定下一步。","x":-1100,"y":-300,"width":420,"height":220,"color":"1"},
+		{"id":"c3d4e5f678901234","type":"text","text":"## 真正的公开合同\n\n**= 5 小时 session 重置 + 周限制 + 动态容量**\n\n- 体感容量受对话长度、附件、工具、模型、当前负载影响\n- claude.ai / Claude Code / Claude Desktop **共享同一池使用量**\n- “token limit” 这个说法常把几套不同系统压成一个问题","x":-300,"y":-300,"width":700,"height":220,"color":"4"},
+		{"id":"d4e5f67890123456","type":"text","text":"### Free\n\n**基于 session 的使用限制**\n\n- 每 **5 小时重置**\n- 无公开消息数/token 数\n- 可用量随负载波动\n- Web search / fetch 另有日级限制\n\n_适合轻负载，不适合稳定重负载_","x":-1200,"y":0,"width":400,"height":280,"color":"3"},
+		{"id":"e5f6789012345678","type":"text","text":"### Pro\n\n高峰期每个 session **至少为 Free 的 5 倍**\n\n- 5 小时 session 重置\n- **+ 按周 all-model 限制**\n- 实际量仍取决于工作负载\n\n_重度使用者的合理默认，但不是固定日额度_","x":-750,"y":0,"width":400,"height":280,"color":"2"},
+		{"id":"789012345678abcd","type":"text","text":"### ⚠ 共享使用量陷阱\n\nclaude.ai、Claude Code、Claude Desktop **共享同一池**。\n\n白天网页端做了长对话，晚上 Claude Code 干重活——\n\n不是系统变了，是你在多表面同时消耗同一池资源。","x":150,"y":0,"width":400,"height":280,"color":"1"},
+		{"id":"89012345678abcde","type":"text","text":"## 三套系统：不要混为一谈\n“token limit” 在现实里至少指向三套完全不同的系统","x":-300,"y":340,"width":700,"height":90,"color":"6"},
+		{"id":"9012345678abcdef","type":"text","text":"### ① 消费者使用限制\n\n**衡量**：你还有多少套餐使用量\n\n**合同**：5 小时重置、周限制、动态容量\n\n**常见错**：当成固定每日 token 表\n\n→ 回答：我什么时候该等重置/升级？","x":-1100,"y":470,"width":420,"height":260,"color":"2"},
+		{"id":"012345678abcdef0","type":"text","text":"### ② 上下文窗口\n\n**衡量**：Claude 一次能装多少上下文\n\n**合同**：付费套餐通常 **200K**\n\n**常见错**：把 200K 当成今天的可用额度\n\n→ 回答：这一次会话能塞多少文本？","x":-640,"y":470,"width":420,"height":260,"color":"3"},
+		{"id":"12345678abcdef01","type":"text","text":"### ③ API 计费与速率限制\n\n**衡量**：API 请求如何收费与限流\n\n**合同**：token 定价、速率桶、消费上限\n\n**常见错**：以为 Pro / Max 自带 API 预算\n\n→ 回答：我的 API 成本与吞吐怎么算？","x":-180,"y":470,"width":420,"height":260,"color":"5"},
+		{"id":"2345678abcdef012","type":"text","text":"## 撞到限制后，下一步怎么选\n先确认在哪套系统里，再选动作","x":-300,"y":800,"width":700,"height":90,"color":"6"},
+		{"id":"345678abcdef0123","type":"text","text":"### Free 撞限制\n\n先看工作负载，不要先追 folklore 配额。\n\n1. 等下一次 5 小时重置\n2. 缩短当前会话\n3. 减少附件/搜索/长链接抓取\n\n**若反复打断工作**：Free 已不匹配你的模式 → 升级","x":-1200,"y":930,"width":440,"height":220,"color":"3"},
+		{"id":"45678abcdef01234","type":"text","text":"### Pro 撞限制\n\n判断这是不是 **持续性** 中断。\n\n- 偶尔爆发 → 开 **extra usage**，通常比上 Max 划算\n- 已稳定打断有价值的工作 → 升级 Max\n\n一次撞上不等于该升级。","x":-730,"y":930,"width":440,"height":220,"color":"2"},
+		{"id":"5678abcdef012345","type":"text","text":"### Max 仍撞限制\n\n不要第一反应认定官方失约。\n\n更可能的解释：\n- 本周跨多表面使用异常重\n- 对话更长、文件更多\n- 其实在做自动化工作负载\n\n自动化负载 → 更适合 API 计费","x":-260,"y":930,"width":440,"height":220,"color":"4"},
+		{"id":"678abcdef0123456","type":"text","text":"### 其实是另一套系统\n\n**Claude Code 问题** → 看 /status、/cost、共享用量、认证路径（Claude Code 用量指南）\n\n**API token 问题** → Console credits、token 定价、速率限制（API 免费额度指南）\n\nPro / Max **不是** API 预算。","x":210,"y":930,"width":440,"height":220,"color":"5"},
+		{"id":"78abcdef01234567","type":"text","text":"## 🎯 只记三件事\n\n1. **5 小时重置** 比 folklore 配额更重要\n2. **周限制** 比大多数人想象中更重要\n3. “token limit” 很多时候其实是在问 **另一套系统**\n\n> 适合就等重置；偶尔爆发就开额外用量；稳定打断工作就升级；另一套系统的问题就换到对应兄弟页。","x":-450,"y":1230,"width":900,"height":240,"color":"6"},
+		{"id":"8abcdef012345678","type":"link","url":"https://blog.laozhang.ai/zh/posts/claude-daily-limit","x":500,"y":1230,"width":420,"height":160},
+		{"id":"9bcdef0123456789","type":"file","file":"Clippings/Claude 每日限制（2026）：Free、Pro 和 Max 到底重置什么.md","x":-970,"y":1230,"width":460,"height":160},
+		{"id":"f67890123456789a","type":"text","text":"### Max\n\n- Max 5x = **$100 / 月**（Pro 的 5 倍）\n- Max 20x = **$200 / 月**（Pro 的 20 倍）\n- 仍有周限制，官方保留额外限制空间\n\n_是“更大的消费级容量”，**不是无限量**_","x":-300,"y":20,"width":400,"height":280,"color":"4"}
+	],
+	"edges":[
+		{"id":"e001aaaa11111111","fromNode":"a1b2c3d4e5f67890","fromSide":"bottom","toNode":"c3d4e5f678901234","toSide":"top"},
+		{"id":"e002aaaa22222222","fromNode":"a1b2c3d4e5f67890","fromSide":"bottom","toNode":"b2c3d4e5f6789012","toSide":"top","color":"1","label":"误区"},
+		{"id":"e003aaaa33333333","fromNode":"c3d4e5f678901234","fromSide":"bottom","toNode":"d4e5f67890123456","toSide":"top"},
+		{"id":"e004aaaa44444444","fromNode":"c3d4e5f678901234","fromSide":"bottom","toNode":"e5f6789012345678","toSide":"top"},
+		{"id":"e005aaaa55555555","fromNode":"c3d4e5f678901234","fromSide":"bottom","toNode":"f67890123456789a","toSide":"top"},
+		{"id":"e006aaaa66666666","fromNode":"c3d4e5f678901234","fromSide":"bottom","toNode":"789012345678abcd","toSide":"top","color":"1"},
+		{"id":"e007aaaa77777777","fromNode":"f67890123456789a","fromSide":"bottom","toNode":"89012345678abcde","toSide":"top","label":"但要先分清系统"},
+		{"id":"e008aaaa88888888","fromNode":"89012345678abcde","fromSide":"bottom","toNode":"9012345678abcdef","toSide":"top"},
+		{"id":"e009aaaa99999999","fromNode":"89012345678abcde","fromSide":"bottom","toNode":"012345678abcdef0","toSide":"top"},
+		{"id":"e010bbbb11111111","fromNode":"89012345678abcde","fromSide":"bottom","toNode":"12345678abcdef01","toSide":"top"},
+		{"id":"e011bbbb22222222","fromNode":"9012345678abcdef","fromSide":"bottom","toNode":"2345678abcdef012","toSide":"top","label":"走动作分支"},
+		{"id":"e012bbbb33333333","fromNode":"2345678abcdef012","fromSide":"bottom","toNode":"345678abcdef0123","toSide":"top"},
+		{"id":"e013bbbb44444444","fromNode":"2345678abcdef012","fromSide":"bottom","toNode":"45678abcdef01234","toSide":"top"},
+		{"id":"e014bbbb55555555","fromNode":"2345678abcdef012","fromSide":"bottom","toNode":"5678abcdef012345","toSide":"top"},
+		{"id":"e015bbbb66666666","fromNode":"2345678abcdef012","fromSide":"bottom","toNode":"678abcdef0123456","toSide":"top"},
+		{"id":"e016bbbb77777777","fromNode":"12345678abcdef01","fromSide":"bottom","toNode":"678abcdef0123456","toSide":"top","color":"5","label":"直接去对应兄弟页"},
+		{"id":"e017bbbb88888888","fromNode":"45678abcdef01234","fromSide":"bottom","toNode":"78abcdef01234567","toSide":"top","color":"6"},
+		{"id":"e018bbbb99999999","fromNode":"5678abcdef012345","fromSide":"bottom","toNode":"78abcdef01234567","toSide":"top","color":"6"}
+	]
+}
