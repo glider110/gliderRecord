@@ -10,37 +10,23 @@
           {
             "id": "c6aa69b15326d38f",
             "type": "tabs",
-            "dimension": 73.43453510436433,
+            "dimension": 37.70180436847104,
             "children": [
               {
                 "id": "24ed996f1d9dea7f",
                 "type": "leaf",
                 "state": {
-                  "type": "markdown",
+                  "type": "canvas",
                   "state": {
-                    "file": "repository/book.md",
-                    "mode": "source",
-                    "source": false,
-                    "backlinks": false
-                  },
-                  "icon": "lucide-file",
-                  "title": "book"
-                }
-              },
-              {
-                "id": "1e4e6c74983537ea",
-                "type": "leaf",
-                "state": {
-                  "type": "terminal:documentation",
-                  "state": {
-                    "terminal:documentation": {
-                      "data": "# Terminal for Obsidian [![release](https://img.shields.io/github/v/release/polyipseity/obsidian-terminal)][latest release] [![Obsidian downloads](https://img.shields.io/badge/dynamic/json?logo=Obsidian&color=%238b6cef&label=downloads&query=$[\"terminal\"].downloads&url=https://raw.githubusercontent.com/obsidianmd/obsidian-releases/master/community-plugin-stats.json)][community plugin] [![Python](https://img.shields.io/badge/Python-≥3.9-gold?labelColor=blue&logo=Python&logoColor=white)][Python]\n\n[Buy Me a Coffee]: https://buymeacoffee.com/polyipseity\n[Buy Me a Coffee/embed]: https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=polyipseity&button_colour=40DCA5&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00\n[Obsidian]: https://obsidian.md/\n[Python]: https://python.org/downloads/\n[changelog]: https://github.com/polyipseity/obsidian-terminal/blob/main/CHANGELOG.md\n[community plugin]: https://obsidian.md/plugins?id=terminal\n[latest release]: https://github.com/polyipseity/obsidian-terminal/releases/latest\n[repository]: https://github.com/polyipseity/obsidian-terminal\n[trailer]: https://raw.githubusercontent.com/polyipseity/obsidian-terminal/main/assets/trailer.png\n[related]: https://github.com/polyipseity/obsidian-monorepo\n\nIntegrate consoles, shells, and terminals inside [Obsidian].\n\n[![Buy Me a Coffee/embed]][Buy Me a Coffee]\n\n__[Repository] · [Changelog] · [Community plugin] · [Related] · [Features](#features) · [Installation](#installation) · [Usage](#usage) · [Contributing](#contributing) · [Security](#security)__\n\n![Trailer]\n\nFor first time users, read the [installation](#installation) section first!\n\nThis file is automatically opened on first install. You can reopen it in settings or command palette.\n\n## Features\n\n- Start external terminals from Obsidian.\n- Integrate terminals into Obsidian.\n- Has an emulated developer console usable on all platforms.\n- Supports multiple terminal profiles.\n- Has built-in keyboard shortcuts.\n- Automatically save and restore integrated terminal history.\n- Find in terminal.\n- Save terminal history as file.\n- Customize terminal appearance.\n\n## Installation\n\n1. Install plugin.\n    - Community plugins\n        1. Install the [plugin][community plugin] from community plugins directly.\n    - Manual\n        1. Create directory `terminal` under `.obsidian/plugins` of your vault.\n        2. Place `manifest.json`, `main.js`, and `styles.css` from the [latest release] into the directory.\n    - Building (rolling)\n        1. Clone this repository, including its submodules.\n        2. Install `pnpm` (preferred) or `npm`. See <https://pnpm.io/installation> for pnpm.\n        3. Run `pnpm install` in the root directory (`npm install` is an acceptable fallback).\n        4. Run `pnpm obsidian:install <vault directory>` in the root directory (`npm run obsidian:install <vault directory>` is an acceptable fallback).\n    - [Obsidian42 - BRAT](https://obsidian.md/plugins?id=obsidian42-brat) (rolling)\n        - See [their readme](https://github.com/TfTHacker/obsidian42-brat#readme).\n2. (optional for Windows, recommended) Install Python and dependencies.\n    1. Install [Python] 3.9 or above.\n    2. (Windows only) Run `pip3 install psutil==5.9.5 pywinctl==0.0.50 typing_extensions==4.7.1`. <!-- Update `README.md`, `dependabot.yml`, `magic.ts`, and `pyproject.toml` together. -->\n    3. Configure Python executable in profile settings. Press the \"Check\" button to validate the Python configuration. Each profile needs to be configured separately.\n3. Enable plugin.\n4. (optional) Configure plugin settings.\n\n## Usage\n\n- To start a new external or integrated terminal\n  - Ribbon\n      1. Click on the `Open terminal` ribbon.\n      2. Opens the default terminal if you have set up one. Otherwise, choose the desired profile.\n  - Context menu\n      1. Right-click on files, folders, or tab headers.\n      2. Choose the desired action \\(and profile\\).\n  - Command palette\n      1. Press `Ctrl`+`P` or click on the `Open command palette` ribbon next to the left window border.\n      2. Choose the desired action \\(and profile\\).\n  - Select profile modal\n      1. Choose the desired profile. Press `Ctrl` to edit the profile before use. The item `(Temporary profile)` starts a terminal with a temporary profile.\n- To save and restore integrated terminal history\n    1. Keep the terminal open when exiting Obsidian.\n    2. Terminal history will be restored next time Obsidian is opened.\n- Additional actions\n  - Includes\n    - Clear terminal: \\(1\\), \\(4\\)\n    - Copy terminal: \\(1\\)\n    - Edit terminal: \\(1\\)\n    - Export, import, or edit settings: \\(2\\), \\(3\\)\n    - Find in terminal: \\(1\\), \\(4\\)\n    - Open documentation: \\(2\\), \\(3\\)\n    - Restart terminal: \\(1\\)\n    - Save terminal history: \\(1\\)\n  - Available by\n    - \\(1\\) Right-click on tab header/`More options`\n    - \\(2\\) Open settings\n    - \\(3\\) Open command palette\n    - \\(4\\) Use keyboard shortcuts\n\n### Keyboard shortcuts\n\nThe keyboard shortcuts can be customized in hotkeys settings.\n\n<!-- markdownlint-disable-next-line MD036 -->\n__Global__\n\n- Toggle focus on last terminal: `Ctrl`+`Shift`+`` ` ``\n  - Focus on last terminal: \\(unbound; useful if you want separate keys for focus and unfocus\\)\n\n<!-- markdownlint-disable-next-line MD036 -->\n__Terminal is focused__\n\nWhen a terminal is focused, other keyboard shortcuts \\(including Obsidian and plugin hotkeys\\) are disabled. Only the following keyboard shortcuts work. Thus you can ignore Obsidian complaining about conflicting keys for the following keyboard shortcuts.\n\n- Clear terminal: `Ctrl`+`Shift`+`K`, `Command`+`Shift`+`K` \\(Apple\\)\n- Close terminal: `Ctrl`+`Shift`+`W`, `Command`+`Shift`+`W` \\(Apple\\)\n- Find in terminal: `Ctrl`+`Shift`+`F`, `Command`+`Shift`+`F` \\(Apple\\)\n- Toggle focus on last terminal: `Ctrl`+`Shift`+`` ` `` \\(same as above\\)\n  - Unfocus terminal: \\(unbound; useful if you want separate keys for focus and unfocus\\)\n\n### Theming\n\nTheming is possible. However, there is no user-friendly interface for now.\n\n1. Open the profile editing modal.\n2. Click on the `Edit` button labeled `Data`. It should open up a new modal in which there is a large textbox.\n3. Notice `terminalOptions` in the text area labeled `Data`. Refer to the [`xterm.js` documentation](https://github.com/xtermjs/xterm.js/blob/master/typings/xterm.d.ts#L26) (`ITerminalOptions`) to set the options. Nested objects may need to be used.\n   - You can also configure global defaults via the plugin settings page (see `Profile defaults`). Those options act as a fallback for every profile unless a profile explicitly overrides them.\n4. Save the profile. Changes should apply immediately.\n\n### Profiles\n\nThis plugin comes with several profile presets that you can reference.\n\nWhen setting up a terminal profile, you need to distinguish between shells and terminal emulators. (Search online if needed.) Generally, integrated profiles only work with shells while external ones only work with terminal emulators.\n\n#### Examples\n\n<!-- markdownlint-disable-next-line MD036 -->\n__Shells__\n\n- Bash: `bash --login`\n- Bourne shell: `sh`\n- Command Prompt: `cmd`\n- Dash: `dash`\n- Git Bash: `<Git installation>\\bin\\bash.exe --login` (e.g. `C:\\Program Files\\Git\\bin\\bash.exe`)\n- PowerShell Core: `pwsh`\n- Windows PowerShell: `powershell`\n- Windows Subsystem for Linux: `wsl` or `wsl -d <distribution name>`\n- Z shell: `zsh --login`\n\n<!-- markdownlint-disable-next-line MD036 -->\n__Terminal emulators__\n\n- Command Prompt: `cmd`\n- GNOME Terminal: `gnome-terminal`\n- Konsole: `konsole`\n- Terminal (macOS): `/System/Applications/Utilities/Terminal.app/Contents/macOS/Terminal \"$PWD\"`\n- Windows Terminal: `wt`\n- iTerm2: `/Applications/iTerm.app/Contents/MacOS/iTerm2 \"$PWD\"`\n- xterm: `xterm`\n\n### Miscellaneous\n\nThis plugin patches `require` so that `require(\"obsidian\")` and other Obsidian modules work in the developer console. It is toggleable as `Expose internal modules` in settings.\n\nIn the developer console, a context variable `$$` is passed into the code, which can be used to dynamically change terminal options.\n\nThe full API is available from [`src/@types/obsidian-terminal.ts`](src/%40types/obsidian-terminal.ts).\n\n### Troubleshooting\n\n- Is the plugin useful on mobile?\n  - Compared to on desktop, it is much less useful. The only use for it for now is opening a developer console on mobile.\n- Why do hotkeys not work?\n  - If the terminal is in focus, all Obsidian hotkeys are disabled so that you can type special characters into the terminal. You can unfocus the terminal by pressing `Ctrl`+`Shift`+`` ` ``, then you can use Obsidian hotkeys again.\n\n## Contributing\n\nContributions are welcome!\n\n### Changesets\n\nThis project uses [`changesets`](https://github.com/changesets/changesets) to manage the changelog. When creating a pull request, please [add a changeset](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md#adding-changesets) describing the changes. Add multiple changesets if your pull request changes several things. End each changeset with `([PR number](PR link) by [author username](author link))`. For example, the newly created file under the directory `.changeset` should look like:\n\n```Markdown\n---\n\"example\": patch\n---\n\nThis is an example change. ([GH#1](https://github.com/ghost/example/pull/1) by [@ghost](https://github.com/ghost))\n```\n\n### Linting, Commit, and Hooks\n\nThis project uses the following tools to ensure code and commit quality:\n\n- __ESLint__: Linting for TypeScript/JavaScript. Run with `pnpm run check` (lint only) or `pnpm run fix` (auto-fix lint issues).\n- __Prettier__: Code formatting. Run with `pnpm run format` (format all files) or `pnpm run format:check` (check formatting only).\n- __markdownlint__: Lints Markdown files. Run with `pnpm run markdownlint` or auto-fix with `pnpm run markdownlint:fix`.\n- __commitlint__: Enforces conventional commit messages. Used automatically on commit via Husky.\n- __husky__: Manages Git hooks. Pre-commit runs `lint-staged` and pre-push runs commitlint.\n- __lint-staged__: Runs linters on staged files. Markdown files are auto-fixed before commit.\n\n> __Lint-staged note:__ The lint-staged configuration (`.lintstagedrc.mjs`) invokes formatter/linter binaries directly (for example `prettier --write`, `eslint --cache --fix`, `markdownlint-cli2 --fix`) so that the list of staged files is passed through to the tool. Invoking these via `npm run` would prevent lint-staged from forwarding filenames and cause the tool to operate on its default glob (or the entire repo). Use `pnpm run format` to format the entire repository when needed.\n\nTo set up locally:\n\n1. Run `pnpm install` to install dependencies and set up hooks.\n2. On commit, staged Markdown files will be linted and auto-fixed.\n3. Commit messages are checked for conventional format.\n\nYou can manually run:\n\n- `pnpm run check` — lint all code (no formatting)\n- `pnpm run fix` — auto-fix lint issues (no formatting)\n- `pnpm run format` — format all code with Prettier\n- `pnpm run format:check` — check formatting with Prettier\n- `pnpm run markdownlint` — check all Markdown files\n- `pnpm run markdownlint:fix` — auto-fix Markdown files\n- `pnpm run commitlint` — check commit messages in range\n\nConfiguration files:\n\n- `.eslintrc.*` or `eslint.config.mjs` — ESLint rules\n- `.prettierrc` — Prettier rules\n- `.prettierignore` — Prettier ignore patterns\n- `.markdownlint.jsonc` — markdownlint rules\n- `.commitlintrc.js` — commitlint config\n- `.husky/` — Git hooks\n\n### Testing\n\nThis repository uses __Vitest__ for fast unit tests. Tests live under `tests/` and should be named `*.spec.ts` or `*.spec.js`.\n\n- Run locally (non-interactive, coverage): `pnpm test` or `npm run test` (runs `vitest run --coverage`).\n- Run locally (interactive / watch): `pnpm run test:watch` or `npm run test:watch`.\n- Git hooks: The pre-push hook runs `npm run test` (see `.husky/pre-push`) and will block pushes if tests fail; using `pnpm test` locally is equivalent.\n\nSee `vitest.config.mts` for minimal config and further instructions.\n\n### Todos\n\nThe todos here, ordered alphabetically, are things planned for the plugin. There are no guarantees that they will be completed. However, we are likely to accept contributions for them.\n\n- Connect to remote shells.\n- Detect sandboxed environment and notify users.\n- External link confirmation.\n- Filter console log by severity in the developer console.\n- Indicate that the terminal resizer has crashed or is disabled.\n- Shared terminal tabs.\n- Vim mode switch.\n\n### Translating\n\nSee [`assets/locales/README.md`](assets/locales/README.md).\n\n## Security\n\nWe hope that there will never be any security vulnerabilities, but unfortunately it does happen. Please [report](#reporting-a-vulnerability) them!\n\n### Supported versions\n\n| Version  | Supported |\n| -------- | --------- |\n| rolling  | ✅        |\n| latest   | ✅        |\n| outdated | ❌        |\n\n### Reporting a vulnerability\n\nPlease report a vulnerability by opening an new issue. We will get back to you as soon as possible.\n",
-                      "displayTextI18nKey": "translation:generic.documentations.readme",
-                      "iconI18nKey": "asset:generic.documentations.readme-icon"
+                    "file": "Clippings/Claude 每日限制（2026）：Free、Pro 和 Max 到底重置什么.canvas",
+                    "viewState": {
+                      "x": 3.7474662563154197,
+                      "y": -193.63980374445737,
+                      "zoom": 0.046975581074291894
                     }
                   },
-                  "icon": "file-question",
-                  "title": "Readme"
+                  "icon": "lucide-layout-dashboard",
+                  "title": "Claude 每日限制（2026）：Free、Pro 和 Max 到底重置什么"
                 }
               }
             ]
@@ -48,17 +34,17 @@
           {
             "id": "3a49ad2bfa0582f4",
             "type": "tabs",
-            "dimension": 26.56546489563567,
+            "dimension": 62.29819563152896,
             "children": [
               {
-                "id": "98c19c7432cefda1",
+                "id": "0f122ddd6d87fb99",
                 "type": "leaf",
                 "pinned": true,
                 "state": {
                   "type": "terminal:terminal",
                   "state": {
                     "terminal:terminal": {
-                      "cwd": "/home/std/project/gliderRecord/",
+                      "cwd": "/home/godfery/project/gliderRecord",
                       "focus": false,
                       "profile": {
                         "args": [],
@@ -87,10 +73,51 @@
                   },
                   "pinned": true,
                   "icon": "terminal",
-                  "title": "终端：sh"
+                  "title": "终端：godfery@godfery:~/project/gliderRecord"
+                }
+              },
+              {
+                "id": "f929de3ae50139a6",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/home/godfery/project/gliderRecord",
+                      "focus": false,
+                      "profile": {
+                        "args": [],
+                        "executable": "/bin/sh",
+                        "followTheme": true,
+                        "name": "",
+                        "platforms": {
+                          "linux": true
+                        },
+                        "pythonExecutable": "python3",
+                        "restoreHistory": false,
+                        "rightClickAction": "copyPaste",
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {
+                          "documentOverride": null
+                        },
+                        "type": "integrated",
+                        "useWin32Conhost": true
+                      },
+                      "serial": null
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "terminal",
+                  "title": "终端：✳ Claude每日限制重置总结"
                 }
               }
-            ]
+            ],
+            "currentTab": 1
           }
         ],
         "direction": "horizontal"
@@ -125,7 +152,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "[\"description\"]",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -202,12 +229,34 @@
               "icon": "lucide-list",
               "title": "大纲"
             }
+          },
+          {
+            "id": "a6327a663aa4a328",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {},
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
+            }
+          },
+          {
+            "id": "edf0d49adaf90066",
+            "type": "leaf",
+            "state": {
+              "type": "claudian-view",
+              "state": {},
+              "icon": "bot",
+              "title": "Claudian"
+            }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 439.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -216,13 +265,34 @@
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "command-palette:打开命令面板": false,
-      "terminal:Open terminal": false
+      "terminal:Open terminal": false,
+      "claudian:Open Claudian": false
     }
   },
-  "active": "24ed996f1d9dea7f",
+  "active": "f929de3ae50139a6",
   "lastOpenFiles": [
-    "repository/book_note.md",
+    "Clippings/Claude 每日限制（2026）：Free、Pro 和 Max 到底重置什么.canvas",
+    "Clippings/Claude 每日限制（2026）：Free、Pro 和 Max 到底重置什么.md",
+    "Clippings/Claude 每日限制（2026）：Free、Pro 和 Max 到底重置什么.canvas.tmp.248805.1776357335443",
+    "AI/chatgpt/obsidian-知识管理系统-69de549d.md",
+    "AI/chatgpt/1岁半摔跤处理-69de07a3.md",
+    "AI/chatgpt",
+    "AI",
+    "record/sliver_record/自研3D相机平台搭建评估报告.md",
+    "Clippings",
+    "record/standard_record/avoid_obstacle_3.0.md",
+    "record/standard_record/easy_go.md",
+    "record/sliver_record/扫地机器人双目视觉识别障碍物.md",
+    "record/sliver_record/工作记录(一).md",
+    "record/sliver_record/扫地机器人.md",
+    "record/sliver_record/工作记录(三).md",
+    "record/sliver_record/深度学习的障碍物检测算法开发.md",
+    "record/sliver_record/工作记录(七).md",
+    "DEPLOY.md",
+    "README.md",
+    "_sidebar.md",
     "repository/book.md",
+    "repository/book_note.md",
     "life_management/目标细化2020.md",
     "life_management/目标细化2021.md",
     "life_management/目标细化2022.md",
@@ -231,31 +301,15 @@
     "life_management/目标细化2026.md",
     "resource_docs/book.md",
     "resource_docs/audio.md",
-    "_coverpage.md",
-    "_sidebar.md",
-    "README.md",
-    "DEPLOY.md",
-    "2026-04-16.md",
     "未命名 1.canvas",
     "未命名.canvas",
-    "record/standard_record/ROS2.md",
-    "record/standard_record/std_record.md",
     "未命名.base",
     "assets/video/icp里程计静止累加.webm",
-    "assets/README.md",
     "assets/image/life_management/理财/中观-行业公司/医药行业/17607753e974f363fd8ae7d3.jpg!800-16503340284881.jpg",
     "assets/image/life_management/理财/中观-行业公司/医药行业/17607753fd34f383fe2c2412.jpg!800.jpg",
     "assets/image/life_management/理财/中观-行业公司/风电行业/image-20211118180258826.png",
     "assets/image/life_management/理财/心脑血管/image-20250316211912875-17421311557321.png",
     "assets/image/life_management/理财/心脑血管/image-20250316211912875.png",
-    "record/standard_record/engineering_debug.md",
-    "record/standard_record/2D_lidar_install.md",
-    "record/standard_record/avoid_obstacle_2.0.md",
-    "record/standard_record/avoid_obstacle_3.0.md",
-    "record/standard_record/develop_record.md",
-    "record/standard_record/easy_go.md",
-    "record/standard_record/lidar_process.md",
-    "record/standard_record/standard_perception.md",
     "未命名 1.base",
     "未命名 2.base",
     "未命名 4.base",
