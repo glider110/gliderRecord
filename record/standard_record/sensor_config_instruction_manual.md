@@ -27,7 +27,7 @@ sudo ifconfig enp2s0 192.168.1.50 //将enp6s0换成雷达和电脑的以太网�
 
 或者在设置中修改以太网ip
 
-![在这里插入图片描述](.huawei.assets/25eebe0bb54447acb189e2781bd8808d.png#pic_center)
+![在这里插入图片描述](../../assets/image/record/standard_record/huawei/25eebe0bb54447acb189e2781bd8808d.png#pic_center)
 
 #### 1.Livox Viewer2使用方式
 
@@ -36,7 +36,7 @@ sudo ifconfig enp2s0 192.168.1.50 //将enp6s0换成雷达和电脑的以太网�
 - IP配好后会刷新Lidar List
 - 通过界面设置可以查询到Lidar IP
 
-![image-20240304174732532](.huawei.assets/image-20240304174732532.png)
+![image-20240304174732532](../../assets/image/record/standard_record/huawei/image-20240304174732532.png)
 
 
 
@@ -66,7 +66,7 @@ source /opt/ros/noetic/setup.sh
 
 - 更改livox_ros_driver2/config/MID360_config.json文件内参数
 
-![在这里插入图片描述](.huawei.assets/cb252462185b47a1a0db0dced62e7b7b.png#pic_center)
+![在这里插入图片描述](../../assets/image/record/standard_record/huawei/cb252462185b47a1a0db0dced62e7b7b.png#pic_center)
 
 
 
@@ -80,12 +80,12 @@ source /opt/ros/noetic/setup.sh
 
 1.std固件协议不是标准的，需要上位机修改雷达状态
 
-![image-20250328140335921](.sensor_config_instruction_manual.assets/image-20250328140335921.png)
+![image-20250328140335921](../../assets/image/record/standard_record/sensor_config_instruction_manual/image-20250328140335921.png)
 
 2.配置本机pc手动网络配置如下
 
- ![image-20250328140906702](.sensor_config_instruction_manual.assets/image-20250328140906702.png)
+ ![image-20250328140906702](../../assets/image/record/standard_record/sensor_config_instruction_manual/image-20250328140906702.png)
 
 std的雷达的网段不是默认雷达IP为192.168.1.100，而是
 
-![image-20250328140643424](.sensor_config_instruction_manual.assets/image-20250328140643424.png)
+![image-20250328140643424](../../assets/image/record/standard_record/sensor_config_instruction_manual/image-20250328140643424.png)

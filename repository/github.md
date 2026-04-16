@@ -16,7 +16,7 @@
 
 - 奥卡姆剃刀、
 
-![image-20250625170619853](.github.assets/11.jpg)
+![image-20250625170619853](../assets/image/repository/github/11.jpg)
 
 
 

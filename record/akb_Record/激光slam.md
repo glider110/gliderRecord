@@ -17,7 +17,7 @@
 
 - 项目要求时间节点
 
-![464211860](.激光slam.assets/464211860.jpg)
+![464211860](../../assets/image/record/akb_Record/激光slam/464211860.jpg)
 
 - 补习内容:
   - 资料?
@@ -46,11 +46,11 @@
 
 - 编译第三方库
 
-![image-20220216104713316](.激光slam.assets/image-20220216104713316.png)
+![image-20220216104713316](../../assets/image/record/akb_Record/激光slam/image-20220216104713316.png)
 
 - 库文件glib
 
-  ![image-20220216134450330](.激光slam.assets/image-20220216134450330.png)
+  ![image-20220216134450330](../../assets/image/record/akb_Record/激光slam/image-20220216134450330.png)
 
   ```shell
   strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC 
@@ -64,7 +64,7 @@
 
 
 
-<img src=".激光slam.assets/image-20220420175526177.png" alt="image-20220420175526177" style="zoom: 67%;" /><img src=".激光slam.assets/image-20220420175615807.png" alt="image-20220420175615807" style="zoom:67%;" />
+<img src="../../assets/image/record/akb_Record/激光slam/image-20220420175526177.png" alt="../../assets/image/record/akb_Record/激光slam/image-20220420175615807.png" alt="image-20220420175615807" style="zoom:67%;" />
 
 W0805 18:11:32.829422  1061 local_trajectory_builder_2d.cc:223] Dropped empty horizontal range data.
 

@@ -10,13 +10,13 @@
 
 
 
-![image-20250625170619853](.isaac-sim-.assets/image-20250625170619853.png)
+![image-20250625170619853](../assets/image/repository/isaac-sim-/image-20250625170619853.png)
 
 - #### **docker运行（ubuntu22.04）），发现NVIDIA Container Toolkit不能调用底层的库**
 
-  ![image-20250626151428611](.isaac-sim-.assets/image-20250626151428611.png)
+  ![image-20250626151428611](../assets/image/repository/isaac-sim-/image-20250626151428611.png)
 
-  ![image-20250626151510225](.isaac-sim-.assets/image-20250626151510225.png)
+  ![image-20250626151510225](../assets/image/repository/isaac-sim-/image-20250626151510225.png)
 
   配置了 `nvidia-container-toolkit` 和 Docker runtime，但是仍然报错：
 
@@ -37,7 +37,7 @@
 
 - #### **驱动和库不匹配问题**
 
-  ![image-20250725095036560](.isaac-sim-.assets/image-20250725095036560.png)
+  ![image-20250725095036560](../assets/image/repository/isaac-sim-/image-20250725095036560.png)
 
   ```
   sudo apt purge nvidia*
@@ -66,7 +66,7 @@ to the PKG_CONFIG_PATH environment variable
 No package 'xorg-server' found
 New X configuration file written to '/etc/X11/xorg.conf'
 
-![image-20250725173233715](.isaac-sim-.assets/image-20250725173233715.png)
+![image-20250725173233715](../assets/image/repository/isaac-sim-/image-20250725173233715.png)
 
 - #### **运行ros2brige 雷达ros2话题插件启动不了（相机数据正常）**
 
@@ -77,9 +77,9 @@ New X configuration file written to '/etc/X11/xorg.conf'
 
 当前：
 
-![image-20250728142900414](.isaac-sim-.assets/image-20250728142900414.png)
+![image-20250728142900414](../assets/image/repository/isaac-sim-/image-20250728142900414.png)
 
-![image-20250728142924142](.isaac-sim-.assets/image-20250728142924142.png)
+![image-20250728142924142](../assets/image/repository/isaac-sim-/image-20250728142924142.png)
 
 
 

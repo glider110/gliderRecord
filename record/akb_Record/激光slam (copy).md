@@ -2,23 +2,23 @@
 
 
 
-![2022-12-7-14-15-2](.激光slam.assets/2022-12-7-14-15-2.bmp)
+![2022-12-7-14-15-2](../../assets/image/record/akb_Record/激光slam/2022-12-7-14-15-2.bmp)
 
-![](.激光slam.assets/image-20221207145410487.png)
+![](../../assets/image/record/akb_Record/激光slam/image-20221207145410487.png)
 
-![image-20221207145415552](.激光slam.assets/image-20221207145415552.png)
-
-
-
-![2022-12-7-15-9-57](.激光slam.assets/2022-12-7-15-9-57.bmp)
+![image-20221207145415552](../../assets/image/record/akb_Record/激光slam/image-20221207145415552.png)
 
 
 
-![image-20221207161735740](.激光slam.assets/image-20221207161735740.png)
+![2022-12-7-15-9-57](../../assets/image/record/akb_Record/激光slam/2022-12-7-15-9-57.bmp)
 
-![image-20221207161744761](.激光slam.assets/image-20221207161744761.png)
 
-![image-20221207161749561](.激光slam.assets/image-20221207161749561.png)
+
+![image-20221207161735740](../../assets/image/record/akb_Record/激光slam/image-20221207161735740.png)
+
+![image-20221207161744761](../../assets/image/record/akb_Record/激光slam/image-20221207161744761.png)
+
+![image-20221207161749561](../../assets/image/record/akb_Record/激光slam/image-20221207161749561.png)
 
 
 
@@ -26,17 +26,17 @@
 
 
 
-![image-20221207170446535](激光slam (copy).assets/image-20221207170446535.png)
+![image-20221207170446535](../../assets/image/record/akb_Record/激光slam (copy)/image-20221207170446535.png)
 
 
 
 case4:
 
-![image-20221213143125399](激光slam (copy).assets/image-20221213143125399.png)
+![image-20221213143125399](../../assets/image/record/akb_Record/激光slam (copy)/image-20221213143125399.png)
 
-![image-20221214103619929](激光slam (copy).assets/image-20221214103619929.png)
+![image-20221214103619929](../../assets/image/record/akb_Record/激光slam (copy)/image-20221214103619929.png)
 
-![image-20221214103707608](激光slam (copy).assets/image-20221214103707608.png)
+![image-20221214103707608](../../assets/image/record/akb_Record/激光slam (copy)/image-20221214103707608.png)
 
 ```c++
 void Update(data_type::Pose &slam_pose,
@@ -93,15 +93,15 @@ void Update(data_type::Pose &slam_pose,
 
 
 
-![image-20230104174126882](激光slam (copy).assets/image-20230104174126882.png)
+![image-20230104174126882](../../assets/image/record/akb_Record/激光slam (copy)/image-20230104174126882.png)
 
-<img src="激光slam (copy).assets/image-20230104110148104.png" alt="image-20230104110148104" style="zoom:200%;" />
+<img src="../../assets/image/record/akb_Record/激光slam (copy)/image-20230104110148104.png" alt="image-20230104110148104" style="zoom:200%;" />
 
 加入odom地图容易叠图,表现轻微叠,地图边界残影,墙体变厚;
 
 
 
-![image-20230104172224104](激光slam (copy).assets/image-20230104172224104.png)
+![image-20230104172224104](../../assets/image/record/akb_Record/激光slam (copy)/image-20230104172224104.png)
 
 
 

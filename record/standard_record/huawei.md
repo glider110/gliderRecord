@@ -1,4 +1,4 @@
-![image-20240129104218477](.huawei.assets/image-20240129104218477.png)
+![image-20240129104218477](../../assets/image/record/standard_record/huawei/image-20240129104218477.png)
 
 ## **方案一**
 
@@ -18,7 +18,7 @@ mid360 ：居中,    1200mm高度，竖直安装；
 
 多线激光雷达会侧边扫描360, 处于车左右侧近距离也可以扫描的到（人脚），避障相机则不行；
 
-<img src=".huawei.assets/image-20240130155657103.png" alt="image-20240130155657103" style="zoom:80%;" />
+<img src="../../assets/image/record/standard_record/huawei/image-20240130155657103.png" alt="image-20240130155657103" style="zoom:80%;" />
 
 
 
@@ -42,7 +42,7 @@ mid360 ：安装导航立柱上，居中 ，向下倾斜30°
 
 车体上部分盲区太多，导航立柱前方探测不到，需要格外加相机补盲，优势是两个相机向下倾斜安装增加了小障碍物的检测能力；
 
-<img src=".huawei.assets/image-20240130155908779.png" alt="image-20240130155908779" style="zoom:80%;" />
+<img src="../../assets/image/record/standard_record/huawei/image-20240130155908779.png" alt="image-20240130155908779" style="zoom:80%;" />
 
 
 
@@ -52,9 +52,9 @@ mid360 ：安装导航立柱上，居中 ，向下倾斜30°
 
 #### mid360避障
 
-<img src=".huawei.assets/image-20240122091530235.png" alt="image-20240122091530235" style="zoom: 67%;" />
+<img src="../../assets/image/record/standard_record/huawei/image-20240122091530235.png" alt="image-20240122091530235" style="zoom: 67%;" />
 
-<img src=".huawei.assets/image-20240122091538955.png" alt="image-20240122091538955" style="zoom:67%;" />
+<img src="../../assets/image/record/standard_record/huawei/image-20240122091538955.png" alt="image-20240122091538955" style="zoom:67%;" />
 
 
 
@@ -62,7 +62,7 @@ mid360 ：安装导航立柱上，居中 ，向下倾斜30°
 
 华为框架协议O车
 
-<img src=".huawei.assets/image-20240222101204549.png" alt="image-20240222101204549" style="zoom:150%;" />
+<img src="../../assets/image/record/standard_record/huawei/image-20240222101204549.png" alt="image-20240222101204549" style="zoom:150%;" />
 
 [**工作项**](https://standard-robots.yuque.com/hw-ee/xmsxu3/vvzuo6ei04rbsea7)
 
@@ -126,7 +126,7 @@ mid360 ：安装导航立柱上，居中 ，向下倾斜30°
 
 <img src=".huawei/image-20240417143627701.png" alt="image-20240417143627701" style="zoom:80%;" /><img src=".huawei/image-20240417143709000.png" alt="image-20240417143709000" style="zoom:67%;" />
 
-![image-20240618171505740](.huawei.assets/image-20240618171505740.png)![image-20240620095916839](.huawei.assets/image-20240620095916839.png)
+![image-20240618171505740](../../assets/image/record/standard_record/huawei/image-20240618171505740.png)![image-20240620095916839](../../assets/image/record/standard_record/huawei/image-20240620095916839.png)
 
 ==**目前存在两个问题：**==
 
@@ -146,5 +146,5 @@ mid360 ：安装导航立柱上，居中 ，向下倾斜30°
 
 注意：雷达基于极坐标过滤最好为原始点云 由于华为雷达安装有25°   
 
-![image-20240902112236232](.huawei.assets/image-20240902112236232.png)
+![image-20240902112236232](../../assets/image/record/standard_record/huawei/image-20240902112236232.png)
 

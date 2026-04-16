@@ -1,6 +1,6 @@
 ## L型超低矮
 
-![image-20250917174043335](.test_L_material_cart_detect.assets/image-20250917174043335.png)
+![image-20250917174043335](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20250917174043335.png)
 
 gxf/feat_material_cart_detect_main
 
@@ -18,7 +18,7 @@ gxf/feat_material_cart_detect_main
 
 root@rk3399-yocto:~# tail -f /sros/log/sros.INFO | grep "pallet in global pose" I0414 12:56:08.840185 479604 action_167.cpp:74] pallet in global pose : Pose(-1.30999, 0.34204, 0, 0, 0, 3.15419)
 
-![image-20241104160444762](.test_L_material_cart_detect.assets/image-20241104160444762.png)
+![image-20241104160444762](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20241104160444762.png)
 
 
 
@@ -38,7 +38,7 @@ I0414 13:09:31.500059 686914 material_cart_detection.cpp:213] Average T_hole_in_
 
 91ddc461db9f236a809c4c0a56e14aadecc94dbc
 
-![image-20241105170816315](.test_L_material_cart_detect.assets/image-20241105170816315.png)
+![image-20241105170816315](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20241105170816315.png)
 
 
 
@@ -54,7 +54,7 @@ L型车长1500 车宽700
 
   tail -f /sros/log/sros.INFO | grep "cluster\|the pose in sensor" | tee -a a.txt
 
-cd /sros/log/data/ && tail -f /sros/log/sros.INFO | grep "cluster\|the pose in sensor" | tee  a.txt![image-20241107142855562](.test_L_material_cart_detect.assets/image-20241107142855562.png)
+cd /sros/log/data/ && tail -f /sros/log/sros.INFO | grep "cluster\|the pose in sensor" | tee  a.txt![image-20241107142855562](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20241107142855562.png)
 
 action 顶升 192-8-19
 
@@ -68,7 +68,7 @@ action 顶升 192-8-19
 
 **载具情况：**
 
-![_sros_log_data_QRcode_detection](.test_L_material_cart_detect.assets/_sros_log_data_QRcode_detection.png)
+![_sros_log_data_QRcode_detection](../../assets/image/record/standard_record/test_L_material_cart_detect/_sros_log_data_QRcode_detection.png)
 
 
 
@@ -127,7 +127,7 @@ bolt -476     476代表agv中心到对接钩的距离 值越大车会停止在�
 
 - [x] 边界不干净，需要半径过滤后再提取边界（倾斜大和金属材质会导致拍到另一侧的点云）
 
-  ![glider_2024-12-23_1033](.test_L_material_cart_detect.assets/glider_2024-12-23_1033.png)
+  ![glider_2024-12-23_1033](../../assets/image/record/standard_record/test_L_material_cart_detect/glider_2024-12-23_1033.png)
 
 
 
@@ -233,7 +233,7 @@ int main() {
 
 
 
-![image-20250303170629813](.test_L_material_cart_detect.assets/image-20250303170629813.png)
+![image-20250303170629813](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20250303170629813.png)
 
 
 
@@ -241,9 +241,9 @@ int main() {
 
 #### **对接载具：**
 
-![image-20250604144126236](.test_L_material_cart_detect.assets/image-20250604144126236.png)
+![image-20250604144126236](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20250604144126236.png)
 
-![image-20250828165835446](.test_L_material_cart_detect.assets/image-20250828165835446.png)
+![image-20250828165835446](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20250828165835446.png)
 
 #### **基本信息：**
 
@@ -271,7 +271,7 @@ int main() {
 
 **对接载具：**两墩面和三顿面共存（无轮）
 
-![image-20250917173413859](.test_L_material_cart_detect.assets/image-20250917173413859.png)
+![image-20250917173413859](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20250917173413859.png)
 
 
 
@@ -286,7 +286,7 @@ int main() {
 - 多载具数量多且结构差异较大 是否考虑参数和载具绑定（通过部署对接位置）；
 - 模版匹配方案也需要绑定载具；
 
-![2025-09-29_20-35](.test_L_material_cart_detect.assets/2025-09-29_20-35.png)
+![2025-09-29_20-35](../../assets/image/record/standard_record/test_L_material_cart_detect/2025-09-29_20-35.png)
 
 目前sros定义的对接载具方向：货架对接面垂直指向车体
 
@@ -417,7 +417,7 @@ I0925 15:03:25.379534 173791 action_189.cpp:108] result: 1
 ```
 
 **如果检测失败：**
-![image-20260304141359531](.test_L_material_cart_detect.assets/image-20260304141359531.png)
+![image-20260304141359531](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20260304141359531.png)
 
 ```shell
 失败：
@@ -432,7 +432,7 @@ calc_dst_3d_pose,
 
 1. ssh工具进入  找到material_cart_detect_params.yaml文件
 
-   ![image-20250925191308415](.test_L_material_cart_detect.assets/image-20250925191308415.png)
+   ![image-20250925191308415](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20250925191308415.png)
 
    打开enable_pointcloud_save: "true"    # 是否保存点云数据到文件
 
@@ -444,6 +444,6 @@ calc_dst_3d_pose,
 
 **前端调整同时兼容识别9类载具**
 
-![image-20260304113325227](.test_L_material_cart_detect.assets/image-20260304113325227.png)
+![image-20260304113325227](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20260304113325227.png)
 
-![image-20260307105821790](.test_L_material_cart_detect.assets/image-20260307105821790.png)
+![image-20260307105821790](../../assets/image/record/standard_record/test_L_material_cart_detect/image-20260307105821790.png)

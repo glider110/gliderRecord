@@ -2,7 +2,7 @@
 
 > #### 自然特征巡航对接 = 自然特征目标感知 + 局部高精度定位 + 自由导航
 
-![image-20250324095115886](.RobotDockingRelated_report.assets/image-20250324095115886.png)
+![image-20250324095115886](../../assets/image/record/standard_record/RobotDockingRelated_report/image-20250324095115886.png)
 
 
 
@@ -14,7 +14,7 @@
 
 - 不同传感器和不同载具都要调整算法参数和算法流程，没有做到对接载具的自适应。
 
-![image-20250324120332387](.RobotDockingRelated_report.assets/image-20250324120332387.png)
+![image-20250324120332387](../../assets/image/record/standard_record/RobotDockingRelated_report/image-20250324120332387.png)
 
 - 对接定位走偏依赖二维码和信标等tag标准辅助定位。
 - 对接动作
@@ -85,7 +85,7 @@ graph TD
 
 ```
 
-![image-20250324115635214](.RobotDockingRelated_report.assets/image-20250324115635214.png)
+![image-20250324115635214](../../assets/image/record/standard_record/RobotDockingRelated_report/image-20250324115635214.png)
 
 | 目标感知方式 | 单帧模版           | 多帧模版（局部地图）      | 多帧模版（高精地图）                   |
 | ------------ | ------------------ | ------------------------- | -------------------------------------- |
@@ -96,7 +96,7 @@ graph TD
 
 **2、自然特征里程计：**
 
-![image-20250324145732741](.RobotDockingRelated_report.assets/image-20250324145732741.png)
+![image-20250324145732741](../../assets/image/record/standard_record/RobotDockingRelated_report/image-20250324145732741.png)
 
 
 
@@ -110,7 +110,7 @@ graph TD
 
 #### 五、开发平台
 
-![image-20250324150724327](.RobotDockingRelated_report.assets/image-20250324150724327.png)
+![image-20250324150724327](../../assets/image/record/standard_record/RobotDockingRelated_report/image-20250324150724327.png)
 
 #### 六、前期验证
 
@@ -207,7 +207,7 @@ gantt
 
 模版制作：
 
-![image-20250422150653270](.RobotDockingRelated_report.assets/image-20250422150653270.png)
+![image-20250422150653270](../../assets/image/record/standard_record/RobotDockingRelated_report/image-20250422150653270.png)
 
 1.建模软件-stl-点云 
 
@@ -296,4 +296,4 @@ export TURTLEBOT3_MODEL=waffle
 export CMAKE_ROOT=/usr/share/cmake-3.22
 ```
 
-![image-20250828152022772](.RobotDockingRelated_report.assets/image-20250828152022772.png)
+![image-20250828152022772](../../assets/image/record/standard_record/RobotDockingRelated_report/image-20250828152022772.png)

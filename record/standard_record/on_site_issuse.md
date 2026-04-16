@@ -22,7 +22,7 @@
 
 * oradar 1512  mian 2505  sick 240
 
-* ![image-20230926200129188](.on_site_issuse.assets/image-20230926200129188.png)
+* ![image-20230926200129188](../../assets/image/record/standard_record/on_site_issuse/image-20230926200129188.png)
 
 * 555 原始代码加log
 
@@ -52,18 +52,18 @@
 * 业务端：前进过程可以暂时关闭后侧避障功能；
 * 产品端：同时用三个SICK, 替换后侧ORADAR避障雷达。
 
-![image-20231009103327290](.on_site_issuse.assets/image-20231009103327290.png)
+![image-20231009103327290](../../assets/image/record/standard_record/on_site_issuse/image-20231009103327290.png)
 
 #### 2.**芜湖中电偶发避障问题**
 
 \#61312 【芜湖中达电子1期】2号车行驶时误报障碍
 <https://ones.standard-robots.com:10120/project/#/team/UNrQ5Ny5/task/JzgaQh7JZVtrtnOD>
 
-![333318051ce264103962c73719920e77](.on_site_issuse.assets/333318051ce264103962c73719920e77.png)
+![333318051ce264103962c73719920e77](../../assets/image/record/standard_record/on_site_issuse/333318051ce264103962c73719920e77.png)
 
-![C40212B9-A0D4-478b-9C8A-30A4D817DBAB](.on_site_issuse.assets/C40212B9-A0D4-478b-9C8A-30A4D817DBAB.png)
+![C40212B9-A0D4-478b-9C8A-30A4D817DBAB](../../assets/image/record/standard_record/on_site_issuse/C40212B9-A0D4-478b-9C8A-30A4D817DBAB.png)
 
-![unknown](.on_site_issuse.assets/unknown.jpg)
+![unknown](../../assets/image/record/standard_record/on_site_issuse/unknown.jpg)
 
 本质：召回率和准确率的问题
 
@@ -79,7 +79,7 @@
 * 其他场景建议通过3600参数关掉此功能；
 * 回归测试版本：4.33.0
 * 本地离线仿真测测试具备过滤效果；
-  ![image-20240117165224041](.on_site_issuse.assets/image-20240117165224041.png)
+  ![image-20240117165224041](../../assets/image/record/standard_record/on_site_issuse/image-20240117165224041.png)
 
 #### 4.办公一楼日本叉车拐弯处误避障
 
@@ -87,7 +87,7 @@
 
 \-0.999739 ; -0.022854 ; 0.000000
 
-![image-20231122173139817](.on_site_issuse.assets/image-20231122173139817.png)
+![image-20231122173139817](../../assets/image/record/standard_record/on_site_issuse/image-20231122173139817.png)
 
 pitch:33.6   (平面标定)
 
@@ -167,7 +167,7 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 
 #### 7.CPU占用太高需下采样对检测能力的影响分析
 
-![image-20231208114809032](.on_site_issuse.assets/image-20231208114809032.png)
+![image-20231208114809032](../../assets/image/record/standard_record/on_site_issuse/image-20231208114809032.png)
 
 视野FOV：80 \* 62
 
@@ -203,11 +203,11 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 
 和确认现场发生事故时间为5.28-20.21分，花篮跌落被深度相机检测到，离跌落最近的一次减速MANUAL_RUNNING => MANUAL_RUNNING_SLOW检测时间为
 
-![image-20240617155016784](.on_site_issuse.assets/image-20240617155016784.png)
+![image-20240617155016784](../../assets/image/record/standard_record/on_site_issuse/image-20240617155016784.png)
 
 离跌落最近的一次停止动作为
 
-![image-20240617155717948](.on_site_issuse.assets/image-20240617155717948.png)
+![image-20240617155717948](../../assets/image/record/standard_record/on_site_issuse/image-20240617155717948.png)
 
 在跌落之前1个小时以内没发现有障碍物在落在停止区导致的急停问题
 
@@ -219,9 +219,9 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 
 
 
-![image-20240711161537808](.on_site_issuse.assets/image-20240711161537808.png)
+![image-20240711161537808](../../assets/image/record/standard_record/on_site_issuse/image-20240711161537808.png)
 
-![image-20240711161621196](.on_site_issuse.assets/image-20240711161621196.png)
+![image-20240711161621196](../../assets/image/record/standard_record/on_site_issuse/image-20240711161621196.png)
 
  90  -110
 
@@ -229,7 +229,7 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 
 10.雷达打到镜面反光导致误避障（类似mid360进入金属货架）
 
-![微信图片_20240725155817.jpg](.on_site_issuse.assets/auto-orient&e=1721947871&token=VXu2kld82Q4CEhnpUzweXRgby4RUyIfxr11qICVo9Yq1Rj8_CmnimCFwv7U55rMsXTQ.jpeg)
+![微信图片_20240725155817.jpg](../../assets/image/record/standard_record/on_site_issuse/auto-orient&e=1721947871&token=VXu2kld82Q4CEhnpUzweXRgby4RUyIfxr11qICVo9Yq1Rj8_CmnimCFwv7U55rMsXTQ.jpeg)
 
 
 
@@ -241,7 +241,7 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 
 #### 10.陶永吉-叉车深度相机标定，精度需要9cm
 
-![image-20241202142402753](.on_site_issuse.assets/image-20241202142402753.png)
+![image-20241202142402753](../../assets/image/record/standard_record/on_site_issuse/image-20241202142402753.png)
 
 
 
@@ -251,17 +251,17 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 
 
 
-![image-20250120142109730](.on_site_issuse.assets/image-20250120142109730.png)
+![image-20250120142109730](../../assets/image/record/standard_record/on_site_issuse/image-20250120142109730.png)
 
-![image-20250120142254972](.on_site_issuse.assets/image-20250120142254972.png)
-
-
+![image-20250120142254972](../../assets/image/record/standard_record/on_site_issuse/image-20250120142254972.png)
 
 
 
-![image-20250120142747509](.on_site_issuse.assets/image-20250120142747509.png)
 
-![image-20250120154608644](.on_site_issuse.assets/image-20250120154608644.png)
+
+![image-20250120142747509](../../assets/image/record/standard_record/on_site_issuse/image-20250120142747509.png)
+
+![image-20250120154608644](../../assets/image/record/standard_record/on_site_issuse/image-20250120154608644.png)
 
 
 
@@ -269,11 +269,11 @@ pitch:32.8（(默认)   roll:0   左侧一米附近必现
 
 竖装奥瑞达不对
 
-![image-20250417114250968](.on_site_issuse.assets/image-20250417114250968.png)
+![image-20250417114250968](../../assets/image/record/standard_record/on_site_issuse/image-20250417114250968.png)
 
 实际雷达高度0.3m
 
-![image-20250417120058674](.on_site_issuse.assets/image-20250417120058674.png)
+![image-20250417120058674](../../assets/image/record/standard_record/on_site_issuse/image-20250417120058674.png)
 
 
 
@@ -303,7 +303,7 @@ rack.max_contour_width,货架宽度,600
 
 大白空载避障（不紧急）
 
-![image-20250728112233896](.on_site_issuse.assets/image-20250728112233896.png)
+![image-20250728112233896](../../assets/image/record/standard_record/on_site_issuse/image-20250728112233896.png)
 
 obstacle.filter_rack_pose_offset,载货状态下滤除货架长宽偏移,0.03
 obstacle.filter_rack_yaw_offset,载货同步旋转状态下滤除货架角度偏移,1.5

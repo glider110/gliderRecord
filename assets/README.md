@@ -6,14 +6,13 @@
 
 ```
 assets/
+├── audio/                  # 音频资源
 ├── css/                    # 样式文件
-│   └── floating-audio-player.css   # 悬浮音频播放器样式
+├── image/                  # Markdown 图片资源
 ├── js/                     # JavaScript 脚本
-│   └── floating-audio-player.js    # 悬浮音频播放器逻辑
-└── pages/                  # HTML 页面
-    ├── audio-player.html          # 完整音频播放器页面
-    ├── audio-player-demo.html     # 悬浮播放器演示页面
-    └── pdf-viewer.html            # PDF 在线阅读器
+├── pages/                  # HTML 页面
+├── pdf/                    # PDF 资源
+└── video/                  # 视频资源
 ```
 
 ## 🎵 音频播放器
@@ -22,7 +21,7 @@ assets/
 - **文件**: `css/floating-audio-player.css` + `js/floating-audio-player.js`
 - **功能**: 可集成到任何页面的悬浮式音频播放器
 - **位置**: 固定在页面右下角
-- **特性**: 
+- **特性**:
   - 最小化/展开切换
   - 完整播放控制
   - 进度条和音量控制
@@ -77,19 +76,23 @@ assets/
 ## 📝 维护说明
 
 ### 添加新的音频文件
-1. 将音频文件放入 `resource_docs/audio/` 目录
+1. 将音频文件放入 `assets/audio/` 目录
 2. 在播放器初始化代码中添加音频信息：
 ```javascript
 {
   title: '歌曲名',
   artist: '艺术家',
-  src: 'resource_docs/audio/文件名.mp3'
+  src: 'assets/audio/文件名.mp3'
 }
 ```
 
 ### 添加新的 PDF 文件
-1. 将 PDF 文件放入 `resource_docs/pdf/` 对应分类目录
+1. 将 PDF 文件放入 `assets/pdf/` 对应分类目录
 2. 在 `resource_docs/book.md` 中添加链接卡片
+
+### 添加 Markdown 配图
+1. 将图片放入 `assets/image/` 下与 Markdown 对应的分类目录
+2. 图片目录名与 Markdown 文件名保持一致
 
 ## 🎨 样式定制
 

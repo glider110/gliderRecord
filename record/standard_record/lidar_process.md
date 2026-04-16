@@ -1,6 +1,6 @@
 
 
-![`](.lidar_process.assets/image-20231023115129090.png)
+![`](../../assets/image/record/standard_record/lidar_process/image-20231023115129090.png)
 
 #### **噪点思路：**
 
@@ -14,7 +14,7 @@
 
 斜着打的方案
 
-![image-20240704135136489](.lidar_process.assets/image-20240704135136489.png)
+![image-20240704135136489](../../assets/image/record/standard_record/lidar_process/image-20240704135136489.png)
 
 #### **参考资料：**
 

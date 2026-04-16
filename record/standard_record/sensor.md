@@ -16,17 +16,17 @@
 
 蓝海雷达         BLUESEA     ip: 192.168.71.200  udp port: 6543/6668
 
-兴颂雷达         HINSON      ip: 192.168.71.100  udp port: 8080   ![image-20231009104212371](.sensor.assets/image-20231009104212371.png)<https://standard-robots.yuque.com/group-rd/ktockm/akvq0k4tzcm3yxt0#et57>
+兴颂雷达         HINSON      ip: 192.168.71.100  udp port: 8080   ![image-20231009104212371](../../assets/image/record/standard_record/sensor/image-20231009104212371.png)<https://standard-robots.yuque.com/group-rd/ktockm/akvq0k4tzcm3yxt0#et57>
 
 [定位雷达传感器对比](https://blog.csdn.net/tiancailx/article/details/110141867)
 
-![img](.sensor.assets/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpYW5jYWlseA==,size_16,color_FFFFFF,t_70#pic_center.png)
+![img](../../assets/image/record/standard_record/sensor/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpYW5jYWlseA==,size_16,color_FFFFFF,t_70#pic_center.png)
 
 #### [解密多径干扰：ToF相机面临的最大挑战与解决之道](https://zhuanlan.zhihu.com/p/645861136)
 
-![img](.sensor.assets/v2-b7a9320d8e83d1bdf62857e174f3857e_720w.webp)![img](.sensor.assets/v2-9360a0919c9b96d72197c211df41433c_720w.webp)
+![img](../../assets/image/record/standard_record/sensor/v2-b7a9320d8e83d1bdf62857e174f3857e_720w.webp)![img](../../assets/image/record/standard_record/sensor/v2-9360a0919c9b96d72197c211df41433c_720w.webp)
 
-![image-20250122103945987](.sensor.assets/image-20250122103945987.png)
+![image-20250122103945987](../../assets/image/record/standard_record/sensor/image-20250122103945987.png)
 
 
 
@@ -34,6 +34,6 @@
 
  **Nebula400资料包：** https://drive.weixin.qq.com/s?k=ANUA-wdkABAq0HKHjZ 
 
-规格书： [Deptrum_Nebula401_规格书_v0.3.pdf](../../assets/Deptrum_Nebula401_规格书_v0.3.pdf) 
+规格书： [Deptrum_Nebula401_规格书_v0.3.pdf](../../assets/pdf/sensor/Deptrum_Nebula401_规格书_v0.3.pdf) 
 
-![image-20250411103238849](.sensor.assets/image-20250411103238849.png)
+![image-20250411103238849](../../assets/image/record/standard_record/sensor/image-20250411103238849.png)

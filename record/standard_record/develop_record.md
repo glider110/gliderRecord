@@ -2,11 +2,11 @@
 
 ### 悬崖检测
 
-![image-20250326094901227](.develop_record.assets/image-20250326094901227.png)
+![image-20250326094901227](../../assets/image/record/standard_record/develop_record/image-20250326094901227.png)
 
 ### 隐叉感知雷达避障开发
 
-![image-20260305164602383](.develop_record.assets/image-20260305164602383.png)
+![image-20260305164602383](../../assets/image/record/standard_record/develop_record/image-20260305164602383.png)
 
 ### 高精度特征里程计对接
 
@@ -51,19 +51,19 @@
 
 **池哥方案：语义分割+点云生成**
 
-![image-20250821103245405](.develop_record.assets/image-20250821103245405.png)
+![image-20250821103245405](../../assets/image/record/standard_record/develop_record/image-20250821103245405.png)
 
 ### 自由导航插齿识别（短期方案）
 
 **雷达信标方案**：
 
-![image](.develop_record.assets/image.png)
+![image](../../assets/image/record/standard_record/develop_record/image.png)
 
-![image-20250822161650168](.develop_record.assets/image-20250822161650168.png)
+![image-20250822161650168](../../assets/image/record/standard_record/develop_record/image-20250822161650168.png)
 
 **深度相机信标方案**：
 
-![image-20250828150753555](.develop_record.assets/image-20250828150753555.png)
+![image-20250828150753555](../../assets/image/record/standard_record/develop_record/image-20250828150753555.png)
 
 ### 自由导航黑色栈板识别
 
@@ -75,15 +75,15 @@
 > 2. 侧边tof按照位置fov没有看到比避障模型之前的点云；
 > 3. 货架的长度；
 
-![image-20250821102215547](.develop_record.assets/image-20250821102215547.png)
+![image-20250821102215547](../../assets/image/record/standard_record/develop_record/image-20250821102215547.png)
 
-![20250808-141108](.develop_record.assets/20250808-141108.jpg)
+![20250808-141108](../../assets/image/record/standard_record/develop_record/20250808-141108.jpg)
 
 **其中一个解决办法：实时检测栈板及填充栈板 规划记忆栈板边缘后进行绕障**
 
-![20250813\_212039](.develop_record.assets/20250813_212039.gif)
+![20250813\_212039](../../assets/image/record/standard_record/develop_record/20250813_212039.gif)
 
-![20250816\_192109](.develop_record.assets/20250816_192109.gif)
+![20250816\_192109](../../assets/image/record/standard_record/develop_record/20250816_192109.gif)
 
 **pipline**：
 
@@ -101,7 +101,7 @@
 
 问题1：半径滤波滤掉少量点
 
-![image-20250824160121844](.develop_record.assets/image-20250824160121844.png)
+![image-20250824160121844](../../assets/image/record/standard_record/develop_record/image-20250824160121844.png)
 
 解决1：oba\_laser\_range\_min改为10  min\_continous\_oba\_back\_scan\_size改为0
 
@@ -111,7 +111,7 @@
 * 半径滤波滤掉问题  oba\_laser\_range\_min改为10  min\_continous\_oba\_back\_scan\_size改为0
 * 点云文件时间戳命名
 
-![image-20250825150141054](.develop_record.assets/image-20250825150141054.png)
+![image-20250825150141054](../../assets/image/record/standard_record/develop_record/image-20250825150141054.png)
 
 **自由导航感知参数说明**
 
@@ -144,9 +144,9 @@
 
 ### V型板对接
 
-![image-20260319113212994](.develop_record.assets/image-20260319113212994.png)
+![image-20260319113212994](../../assets/image/record/standard_record/develop_record/image-20260319113212994.png)
 
-![20260319_161011](.develop_record.assets/20260319_161011.gif)
+![20260319_161011](../../assets/image/record/standard_record/develop_record/20260319_161011.gif)
 
 
 
@@ -164,4 +164,4 @@
 
 
 
-![image-20260401113127925](.develop_record.assets/image-20260401113127925.png)
+![image-20260401113127925](../../assets/image/record/standard_record/develop_record/image-20260401113127925.png)

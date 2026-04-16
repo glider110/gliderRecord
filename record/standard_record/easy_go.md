@@ -71,7 +71,7 @@ flowchart TD
 
 
 
-<img src=".easy_go.assets/image-20251216174857103.png" alt="image-20251216174857103" style="zoom:50%;" />
+<img src="../../assets/image/record/standard_record/easy_go/image-20251216174857103.png" alt="image-20251216174857103" style="zoom:50%;" />
 
 ## 自由导航架构：
 

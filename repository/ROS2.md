@@ -17,7 +17,7 @@
 
 - [ ] 感知仓库包含ros1和ros2情况下，colcon build无效情况；
 
-![image-20251119160106751](.ROS2.assets/image-20251119160106751.png)
+![image-20251119160106751](../assets/image/repository/ROS2/image-20251119160106751.png)
 
 source /opt/ros/humble/setup.zsh && cd /home/std/workspace/standard_perception/example-ros2 && colcon build --base-paths src --packages-select bin2ros --cmake-args -DCMAKE_BUILD_TYPE=Release
 

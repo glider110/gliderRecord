@@ -19,7 +19,7 @@
 
 内参：相机投影模型来反推出光线
 
-![image-20250516104246655](.professional_knowledge.assets/image-20250516104246655.png)
+![image-20250516104246655](../assets/image/repository/professional_knowledge/image-20250516104246655.png)
 
 你用一张图像喂给 NeRF：
 
@@ -29,11 +29,11 @@
 4. 将这些点输入神经网络预测密度和颜色
 5. 最后通过体渲染公式合成出图像像素颜色，和原图监督误差
 
-![2025-06-10 09-22-36](.professional_knowledge.assets/2025-06-10 09-22-36.png)
+![2025-06-10 09-22-36](../assets/image/repository/professional_knowledge/2025-06-10 09-22-36.png)
 
-![2025-06-10 09-23-09](.professional_knowledge.assets/2025-06-10 09-23-09.png)
+![2025-06-10 09-23-09](../assets/image/repository/professional_knowledge/2025-06-10 09-23-09.png)
 
-![2025-06-10 09-26-15](.professional_knowledge.assets/2025-06-10 09-26-15.png)
+![2025-06-10 09-26-15](../assets/image/repository/professional_knowledge/2025-06-10 09-26-15.png)
 
 **输出ply字段:**
 

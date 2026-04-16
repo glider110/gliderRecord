@@ -35,40 +35,40 @@ PCL交叉编译文档
    - cd pcl-pcl-1.9.1&&mkdir build
    - configure弹出以下窗口
 
-   ![2021-08-07 11-05-39 的屏幕截图](.pcl交叉编译.assets/2021-08-07 11-05-39 的屏幕截图.jpg)
+   ![2021-08-07 11-05-39 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-07 11-05-39 的屏幕截图.jpg)
 
    - 配置工具链信息
 
-     ![2021-08-07 11-05-49 的屏幕截图](.pcl交叉编译.assets/2021-08-07 11-05-49 的屏幕截图-16283060578991.png)
+     ![2021-08-07 11-05-49 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-07 11-05-49 的屏幕截图-16283060578991.png)
    - 缺少CMAKE_MAKE_PROGRAM的值 Search搜索 填加值/usr/bin/make
 
-     ![2021-08-07 11-06-01 的屏幕截图](.pcl交叉编译.assets/2021-08-07 11-06-01 的屏幕截图-16283065336892.png)
+     ![2021-08-07 11-06-01 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-07 11-06-01 的屏幕截图-16283065336892.png)
 
-     ![2021-08-07 11-06-49 的屏幕截图](.pcl交叉编译.assets/2021-08-07 11-06-49 的屏幕截图-16283065494983.png)
+     ![2021-08-07 11-06-49 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-07 11-06-49 的屏幕截图-16283065494983.png)
    - 缺少eigen库 交叉编译链工具有 就不用编译 直接链接到目录即可
 
-     ![2021-08-07 11-07-08 的屏幕截图](.pcl交叉编译.assets/2021-08-07 11-07-08 的屏幕截图.png)    	![2021-08-07 11-24-34 的屏幕截图](.pcl交叉编译.assets/2021-08-07 11-24-34 的屏幕截图-16283069143055.png)
+     ![2021-08-07 11-07-08 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-07 11-07-08 的屏幕截图.png)    	![2021-08-07 11-24-34 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-07 11-24-34 的屏幕截图-16283069143055.png)
    - 缺少flann 先编译flann再处理pcl
 
-     ![2021-08-07 11-27-15 的屏幕截图](.pcl交叉编译.assets/2021-08-07 11-27-15 的屏幕截图.png)pcl
+     ![2021-08-07 11-27-15 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-07 11-27-15 的屏幕截图.png)pcl
 3. **编译flann**
 
    - 和前面一样 进入flann源码 mkdir build 配置工具链
    
    - missing: PKG_CONFIG_EXECUTABLE （再工具链里面找）
    
-     ![2021-08-07 11-35-38 的屏幕截图](.pcl交叉编译.assets/2021-08-07 11-35-38 的屏幕截图.png)
+     ![2021-08-07 11-35-38 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-07 11-35-38 的屏幕截图.png)
    
-     ![2021-08-07 11-39-47 的屏幕截图](.pcl交叉编译.assets/2021-08-07 11-39-47 的屏幕截图.png)
+     ![2021-08-07 11-39-47 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-07 11-39-47 的屏幕截图.png)
      
-   - 如过缺少liblz4库 编译后放在工具链对应的include和lib文件夹里![2021-08-06 20-06-11 的屏幕截图](.pcl交叉编译.assets/2021-08-06 20-06-11 的屏幕截图.png)
+   - 如过缺少liblz4库 编译后放在工具链对应的include和lib文件夹里![2021-08-06 20-06-11 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-06 20-06-11 的屏幕截图.png)
    
      ./rk3326-cross-compile-toolchain/host/aarch64-buildroot-linux-gnu/sysroot/usr/include/lz4hc.h
      ./rk3326-cross-compile-toolchain/host/aarch64-buildroot-linux-gnu/sysroot/usr/include/lz4.h
    
    - 把liblz4.pc   /opt/rockchip-cc-tools/host/aarch64-buildroot-linux-gnu/sysroot/usr/lib/pkgconfig/liblz4.pc
    
-   - 需要cmake_ar 不然静态库不能编译；![image-20211015160810018](.pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/image-20211015160810018.png)
+   - 需要cmake_ar 不然静态库不能编译；![image-20211015160810018](../../assets/image/record/akb_Record/pcl交叉编译/image-20211015160810018.png)
    
    - 修改安装路径为源码同级的文件夹：flann_install
    
@@ -80,7 +80,7 @@ PCL交叉编译文档
    - 按照缺少的库编译（选择性编译）
    
 
-  ![img](.pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/lALPDgQ9zk8d_VTNAWvNA3k_889_363.png)
+  ![img](../../assets/image/record/akb_Record/pcl交叉编译/lALPDgQ9zk8d_VTNAWvNA3k_889_363.png)
 
    - 编译配置，运行下面代码
    
@@ -101,11 +101,11 @@ PCL交叉编译文档
    
    - build对象勾选如下图：
    
-     ![img](.pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/lALPDiCpw3VFLVk7zQK6_698_59.png)
+     ![img](../../assets/image/record/akb_Record/pcl交叉编译/lALPDiCpw3VFLVk7zQK6_698_59.png)
    
 
-​                                                           ![img](.pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/lALPDhJzyOI6x83M9c0CsQ_689_245.png)
-   - ![2021-08-07 14-09-52 的屏幕截图](.pcl交叉编译.assets/2021-08-07 14-09-52 的屏幕截图.png)
+​                                                           ![img](../../assets/image/record/akb_Record/pcl交叉编译/lALPDhJzyOI6x83M9c0CsQ_689_245.png)
+   - ![2021-08-07 14-09-52 的屏幕截图](../../assets/image/record/akb_Record/pcl交叉编译/2021-08-07 14-09-52 的屏幕截图.png)
    - CMAKE-BUILD-TYPE设置为release    减少耗时
    - 修改安装路径为源码同级的文件夹：pcl_install
    - make -j8 && make install
@@ -122,7 +122,7 @@ PCL交叉编译文档
 
 PCL必须依赖的库：Boost, Eigen, FLANN   可选：OpenNI2, Qhull,
 
-​												![image-20211018160009690](.pcl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.assets/image-20211018160009690.png)
+​												![image-20211018160009690](../../assets/image/record/akb_Record/pcl交叉编译/image-20211018160009690.png)
 
 ![img](https://images2015.cnblogs.com/blog/976394/201702/976394-20170225151323366-734164749.png)
 

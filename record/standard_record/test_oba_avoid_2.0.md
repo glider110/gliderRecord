@@ -1,6 +1,6 @@
 ## 避障2.0后端提测问题汇总
 
-* [ ] 5.13.0本身的深度相机的tf到策略不对，雷达正常的？ 5.116测试obstacle不发出tf对避障的影响![image-20240202171930538](.std_record.assets/image-20240202171930538.png)
+* [ ] 5.13.0本身的深度相机的tf到策略不对，雷达正常的？ 5.116测试obstacle不发出tf对避障的影响![image-20240202171930538](../../assets/image/record/standard_record/std_record/image-20240202171930538.png)
 
 * [ ] 货架底部避障雷达旋转避障在20cm附近    stop\_forward\_offset？修改为0
 
@@ -10,19 +10,19 @@
 
 * [ ] 加入凯哥的分支后出现避障点不在避障模型以内；
 
-![image-20240226145139087](.std_record.assets/image-20240226145139087.png)
+![image-20240226145139087](../../assets/image/record/standard_record/std_record/image-20240226145139087.png)
 
 * [ ] 相机远处打到地面左右不一致（标定问题不准）
 
-![image-20240226153154849](.std_record.assets/image-20240226153154849.png)
+![image-20240226153154849](../../assets/image/record/standard_record/std_record/image-20240226153154849.png)
 
-![image-20240227155201835](.std_record.assets/image-20240227155201835.png)
+![image-20240227155201835](../../assets/image/record/standard_record/std_record/image-20240227155201835.png)
 
 3. 3d相机视野显示的点云输出的部分
 4. 手动模式也有避障模式，排查问题时候可以开手动模式去复现一下
 5. 高度滤波：如果高于车高一点 可能误避障 原因是
 
-![image-20240228102552134](.std_record.assets/image-20240228102552134.png)
+![image-20240228102552134](../../assets/image/record/standard_record/std_record/image-20240228102552134.png)
 
 
 
@@ -35,13 +35,13 @@
 
 ​    output\_points = points\_in\_sensor;
 
-![image-20240301101714531](.std_record.assets/image-20240301101714531.png)
+![image-20240301101714531](../../assets/image/record/standard_record/std_record/image-20240301101714531.png)
 
-![image-20240229171132505](.std_record.assets/image-20240229171132505.png)
+![image-20240229171132505](../../assets/image/record/standard_record/std_record/image-20240229171132505.png)
 
-![image-20240301110341269](.std_record.assets/image-20240301110341269.png)
+![image-20240301110341269](../../assets/image/record/standard_record/std_record/image-20240301110341269.png)
 
-![image-20240301105342427](.test_oba_avoid_2.0.assets/image-20240301105342427.png)
+![image-20240301105342427](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240301105342427.png)
 
 **叉车误避障**
 
@@ -50,7 +50,7 @@
 * [ ] 打到叉臂内侧；
 * [ ] 中心区域（0，0）没去除掉；
 
-![image-20240306181310115](.test_oba_avoid_2.0.assets/image-20240306181310115.png)
+![image-20240306181310115](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240306181310115.png)
 
 
 
@@ -85,11 +85,11 @@
 
 
 叉臂抬升动作
-![image-20240306194918814](.test_oba_avoid_2.0.assets/image-20240306194918814.png)
+![image-20240306194918814](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240306194918814.png)
 
-![image-20240311105025692](.test_oba_avoid_2.0.assets/image-20240311105025692.png)
+![image-20240311105025692](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240311105025692.png)
 
-![image-20240308143243630](.test_oba_avoid_2.0.assets/image-20240308143243630.png)
+![image-20240308143243630](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240308143243630.png)
 
 
 
@@ -128,7 +128,7 @@
 
 前雷达注意 有奥瑞达(2007)和倍加福 (6060)
 
-![image-20240510152931451](.test_oba_avoid_2.0.assets/image-20240510152931451.png)
+![image-20240510152931451](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240510152931451.png)
 
 
 
@@ -136,11 +136,11 @@
 
 - [ ] 162关闭雷达后也要发空数据,策略不会刷新然后报避障,而且点还是闪烁在动的
 
-![image-20240515091342915](.test_oba_avoid_2.0.assets/image-20240515091342915.png)
+![image-20240515091342915](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240515091342915.png)
 
-![image-20240515150803217](.test_oba_avoid_2.0.assets/image-20240515150803217.png)
+![image-20240515150803217](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240515150803217.png)
 
-![image-20240515154033112](.test_oba_avoid_2.0.assets/image-20240515154033112.png)
+![image-20240515154033112](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240515154033112.png)
 
 
 
@@ -148,21 +148,21 @@
 
 车体尺寸：长950mm 宽635mm 高250mm        1460 930
 
-![image-20240524164358964](.test_oba_avoid_2.0.assets/image-20240524164358964.png)
+![image-20240524164358964](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240524164358964.png)
 
-![image-20240524160238304](.test_oba_avoid_2.0.assets/image-20240524160238304.png)
+![image-20240524160238304](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240524160238304.png)
 
-![image-20240524160611098](.test_oba_avoid_2.0.assets/image-20240524160611098.png)
+![image-20240524160611098](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240524160611098.png)
 
-![image-20240524163938022](.test_oba_avoid_2.0.assets/image-20240524163938022.png)
+![image-20240524163938022](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240524163938022.png)
 
-![image-20240528112358173](.test_oba_avoid_2.0.assets/image-20240528112358173.png)
+![image-20240528112358173](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240528112358173.png)
 
 rack:1460 1229
 
 
 
-![image-20240528150246273](.test_oba_avoid_2.0.assets/image-20240528150246273.png)
+![image-20240528150246273](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240528150246273.png)
 
 
 
@@ -179,7 +179,7 @@ rack:1460 1229
 - 410动作理解
 - 平行背负还是垂直背负，部署要怎么的？
 
-![image-20240625100428942](.test_oba_avoid_2.0.assets/image-20240625100428942.png)
+![image-20240625100428942](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20240625100428942.png)
 
 
 
@@ -203,6 +203,6 @@ max_z2 = 货架高度(rack.max_contour_height)  + 货架腿到地面（rack.bear
 
   
 
-![image-20241022150958002](.test_oba_avoid_2.0.assets/image-20241022150958002.png)
+![image-20241022150958002](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20241022150958002.png)
 
-![image-20241024103910892](.test_oba_avoid_2.0.assets/image-20241024103910892.png)![image-20241024103937328](.test_oba_avoid_2.0.assets/image-20241024103937328.png)
+![image-20241024103910892](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20241024103910892.png)![image-20241024103937328](../../assets/image/record/standard_record/test_oba_avoid_2.0/image-20241024103937328.png)
