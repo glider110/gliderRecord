@@ -10,9 +10,7 @@
   </header>
 
   <main class="resume-document">
-    <img src="assets/resume/page-1.png" alt="郭小凡简历第 1 页" />
-    <img src="assets/resume/page-2.png" alt="郭小凡简历第 2 页" loading="lazy" />
-    <img src="assets/resume/page-3.png" alt="郭小凡简历第 3 页" loading="lazy" />
+    <iframe src="assets/resume/2026-9-18.pdf#toolbar=0&navpanes=0&scrollbar=0" title="郭小凡简历 PDF"></iframe>
   </main>
 
   <a class="resume-back" href="#/">返回 gliderRecord 首页</a>
