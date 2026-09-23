@@ -26,3 +26,5 @@
 ![现场墙体场景](../assets/images/obstacle-2.0/cases/wall-obstacle-scene.png)
 
 ![地图中的墙体障碍](../assets/images/obstacle-2.0/cases/wall-obstacle-map.png)
+
+<video controls preload="metadata" style="width: 100%; max-width: 960px; border-radius: 8px;" src="../assets/videos/obstacle-2.0/obstacle-2.0-demo.mov"></video>
