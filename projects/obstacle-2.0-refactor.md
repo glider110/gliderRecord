@@ -14,3 +14,15 @@
 - 提供更清晰的避障调试信息，缩短问题定位时间。
 - 提供避障参数的 3D 可视化交互设置方式，提高部署效率。
 - 提供按避障场景复用的参数设置方式，支持不同车型快速落地。
+
+![叉车避障模型过大](../assets/images/obstacle-2.0/cases/forklift-model-too-large.png)
+
+![墙体避障点云](../assets/images/obstacle-2.0/cases/wall-obstacle-pointcloud.png)
+
+![墙体避障俯视图](../assets/images/obstacle-2.0/cases/wall-obstacle-top-view.png)
+
+![墙体避障区域](../assets/images/obstacle-2.0/cases/wall-obstacle-region.png)
+
+![现场墙体场景](../assets/images/obstacle-2.0/cases/wall-obstacle-scene.png)
+
+![地图中的墙体障碍](../assets/images/obstacle-2.0/cases/wall-obstacle-map.png)
