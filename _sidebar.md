@@ -30,6 +30,9 @@
   * [L材质车检测测试](record/standard_record/test_L_material_cart_detect.md)
   * [C++](record/standard_record/C++.md)
   * [ROS2](record/standard_record/ROS2.md)
+* **🧩 项目案例**
+
+  * [避障2.0系统重构](projects/obstacle-2.0-refactor.md)
 * **📚 知识仓库**
 
   * **编程与开发**
