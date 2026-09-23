@@ -33,6 +33,10 @@
 * **🧩 项目案例**
 
   * [避障2.0系统重构](projects/obstacle-2.0-refactor.md)
+  * [物流机器人感知对接系统](projects/docking-system.md)
+  * [机器人数据采集项目](projects/data-collection.md)
+  * [通用相机自动标定系统](projects/camera-calibration.md)
+  * [EasyGo 行人跟随系统](projects/person-following.md)
 * **📚 知识仓库**
 
   * **编程与开发**
