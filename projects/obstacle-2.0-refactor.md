@@ -10,8 +10,6 @@
 
 ![避障点云与调试信息](../assets/images/obstacle-2.0/obstacle-points.png)
 
-![避障参数配置](../assets/images/obstacle-2.0/parameter-config.png)
-
 ![避障区域编辑](../assets/images/obstacle-2.0/region-config.png)
 
 ## 项目目标
