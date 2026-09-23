@@ -2,8 +2,6 @@
 
 > 项目案例：面向 AMR 多车型交付的避障系统升级与重构。本文根据飞书《避障系统 2.0 使用说明书》整理，保留原始操作流程和现场配置要点。
 
-原始文档：[飞书《避障系统 2.0 使用说明书》](https://k32rofd4qx.feishu.cn/wiki/I579wE7hliOUDHk9hz2c2PbdnFh)
-
 ## 核心界面
 
 ![车型模型与避障距离配置](../assets/images/obstacle-2.0/vehicle-model.png)
