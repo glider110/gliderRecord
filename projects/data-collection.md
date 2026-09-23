@@ -11,5 +11,3 @@
 ## 现场素材
 
 <video controls preload="metadata" style="width: 100%; max-width: 960px;" src="../assets/projects/data-collection/collection-demo.mp4"></video>
-
-<video controls preload="metadata" style="width: 100%; max-width: 960px;" src="../assets/projects/data-collection/collection-demo-source.mov"></video>
