@@ -3,12 +3,12 @@
 .floating-audio-player {
   position: fixed;
   right: 20px;
-  bottom: 170px;  /* 调整到主题选择器上方 (主题选择器高度约140px + 20px间距) */
-  width: 230px;   /* 与主题选择器保持相同宽度 (200px内容 + 30px padding) */
+  bottom: 20px;
+  width: 230px;
   background: white;
-  border-radius: 12px;  /* 与主题选择器保持一致 */
+  border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);  /* 与主题选择器保持一致 */
-  z-index: 1001;  /* 略高于主题选择器(1000)，但不过高 */
+  z-index: 1001;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -403,7 +403,7 @@
     width: calc(100vw - 40px);
     max-width: 230px;  /* 保持与桌面版相同 */
     right: 20px;
-    bottom: 170px;  /* 保持在主题选择器上方 */
+    bottom: 20px;
   }
   
   /* 在移动端如果空间不足，可以调整位置 */

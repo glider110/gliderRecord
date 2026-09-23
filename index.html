@@ -47,7 +47,6 @@
     body.resume-route .github-corner,
     body.resume-route .progress,
     body.resume-route .back-to-top,
-    body.resume-route .theme-switcher,
     body.resume-route .floating-audio-player {
       display: none !important;
     }
@@ -300,57 +299,6 @@
     .sidebar-nav ul li a:hover::before {
       opacity: 1;
       left: -18px;
-    }
-    
-    /* 主题切换器样式 */
-    .theme-switcher {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-      transition: all 0.3s ease;
-    }
-    
-    .theme-switcher:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
-    }
-    
-    .theme-switcher label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 13px;
-      font-weight: bold;
-      color: white;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    }
-    
-    .theme-switcher select {
-      width: 200px;
-      padding: 10px 12px;
-      border-radius: 6px;
-      border: 2px solid rgba(255,255,255,0.3);
-      background: rgba(255, 255, 255, 0.95);
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.3s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    .theme-switcher select:hover {
-      border-color: rgba(255,255,255,0.6);
-      background: white;
-    }
-    
-    .theme-switcher select:focus {
-      outline: none;
-      border-color: white;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
     }
     
     /* 返回顶部按钮 */
@@ -843,28 +791,6 @@
   <!-- 返回顶部按钮 -->
   <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
     <i class="fas fa-arrow-up"></i>
-  </div>
-  
-  <!-- 主题切换器 -->
-  <div class="theme-switcher">
-    <label for="themeSelector"><i class="fas fa-palette"></i> 选择主题</label>
-    <select id="themeSelector" onchange="switchTheme(this.value)">
-      <optgroup label="🎨 官方主题">
-        <option value="vue">Vue - 绿色清新</option>
-        <option value="buble">Buble - 紫色优雅</option>
-        <option value="dark">Dark - 暗色护眼</option>
-        <option value="pure">Pure - 极简纯净</option>
-        <option value="dolphin">Dolphin - 蓝色海洋</option>
-      </optgroup>
-      <optgroup label="✨ 高级主题">
-        <option value="simple">Simple - 现代简约</option>
-        <option value="simple-dark">Simple Dark - 暗黑模式</option>
-        <option value="defaults">Defaults - 经典风格</option>
-      </optgroup>
-    </select>
-    <div id="lastUpdate" style="margin-top: 10px; font-size: 11px; color: rgba(255,255,255,0.85); text-align: center;">
-      <i class="fas fa-clock"></i> <span id="updateTime"></span>
-    </div>
   </div>
   
   <script>
