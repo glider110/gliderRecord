@@ -1,0 +1,75 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="关于机器人感知、工程实践与学习方法的持续整理。"><meta name="theme-color" content="#f5f4ef"><title>PyTorch、ONNX 与 TensorRT 部署链路 · Godfery 知识札记</title><link rel="stylesheet" href="./assets/site.css"><link rel="stylesheet" href="./katex/katex.min.css"></head><body class="is-article"><div id="reading-progress"></div><a class="skip" href="#content">跳到正文</a><header><a class="brand" href="./index.html"><span class="brand-mark">g.</span><span>Godfery 知识札记<small>THINK · BUILD · CONNECT</small></span></a><div class="header-links"><a href="./index.html">知识首页</a><button id="graph-open" type="button">◌ 知识图谱</button><button id="theme" type="button" aria-label="切换深浅主题">◐</button><button id="menu" type="button" aria-expanded="false">目录</button></div></header><div class="layout"><aside class="navigation"><p class="nav-caption">EXPLORE THE NOTES</p><label class="search-label" for="search">搜索知识库 <kbd>/</kbd></label><input id="search" type="search" placeholder="输入一个问题或关键词…"><div id="results" aria-live="polite"></div><nav><section><h3>视觉与深度感知</h3><a href="./stereo-depth.html">双目深度估计流程</a><a href="./stereo-matching.html">传统双目立体匹配算法</a><a href="./tof-principles.html">iToF 与 dToF 测距原理</a></section><section><h3>点云与机器人基础</h3><a href="./3d-reconstruction.html">三维重建与位姿估计</a><a href="./lidar-denoising.html">激光雷达噪点与去噪</a><a href="./robot-reinforcement-learning.html">机器人强化学习</a></section><section><h3>工程工具与模型部署</h3><a href="./model-deployment.html">PyTorch、ONNX 与 TensorRT 部署链路</a><a href="./git-workflow.html">Git 工作流速查</a></section><section><h3>AI 学习与知识管理</h3><a href="./knowledge-management.html">Obsidian 知识管理方法论</a><a href="./ai-assisted-learning.html">AI辅助专题学习方法</a></section></nav><div class="nav-note"><span class="status-dot"></span>持续整理，慢慢连接。<p>从真实的问题出发，留下可以复用的思考。</p></div></aside><main id="content"><div class="article-breadcrumb"><a href="./index.html">知识首页</a><span>/</span>工程工具与模型部署</div><div class="article-meta"><span class="pill">工程工具与模型部署</span><span>约 3 分钟阅读</span><span>整理于 2026-04-17</span></div><article><h1 id="pytorch%E3%80%81onnx-%E4%B8%8E-tensorrt-%E9%83%A8%E7%BD%B2%E9%93%BE%E8%B7%AF" tabindex="-1" data-source-line="1,2"><a class="header-anchor" href="#pytorch%E3%80%81onnx-%E4%B8%8E-tensorrt-%E9%83%A8%E7%BD%B2%E9%93%BE%E8%B7%AF">§</a> PyTorch、ONNX 与 TensorRT 部署链路</h1>
+<p data-source-line="3,4">深度学习模型在工程上通常要经历“训练框架 -&gt; 中间格式 -&gt; 硬件优化运行时”三段式落地，而不是直接把训练代码搬到设备上运行。</p>
+<h2 id="%E4%B8%89%E8%80%85%E5%88%86%E5%B7%A5" tabindex="-1" data-source-line="5,6"><a class="header-anchor" href="#%E4%B8%89%E8%80%85%E5%88%86%E5%B7%A5">§</a> 三者分工</h2>
+<table data-source-line="7,12">
+<thead>
+<tr>
+<th>组件</th>
+<th>角色</th>
+<th>产物</th>
+<th>关注点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PyTorch</td>
+<td>训练框架、模型定义</td>
+<td><code>.pt</code> / <code>.pth</code></td>
+<td>灵活性、开发效率</td>
+</tr>
+<tr>
+<td>ONNX</td>
+<td>中间表示格式</td>
+<td><code>.onnx</code></td>
+<td>互操作性、标准化</td>
+</tr>
+<tr>
+<td>TensorRT</td>
+<td>推理优化器与运行时</td>
+<td><code>.engine</code> / <code>.plan</code></td>
+<td>低延迟、高吞吐</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%E6%A0%87%E5%87%86%E6%B5%81%E7%A8%8B" tabindex="-1" data-source-line="13,14"><a class="header-anchor" href="#%E6%A0%87%E5%87%86%E6%B5%81%E7%A8%8B">§</a> 标准流程</h2>
+<pre class="mermaid-block" data-source-line="15,21"><code class="language-mermaid">flowchart LR
+    A[PyTorch 训练模型] --&gt; B[导出 ONNX]
+    B --&gt; C[TensorRT 编译优化]
+    C --&gt; D[NVIDIA GPU 部署运行]
+</code></pre>
+<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89-onnx" tabindex="-1" data-source-line="22,23"><a class="header-anchor" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89-onnx">§</a> 为什么要有 ONNX</h2>
+<p data-source-line="24,25">ONNX 的价值不是“跑得更快”，而是把模型从训练框架里解耦出来：</p>
+<ul data-source-line="26,30">
+<li>让 PyTorch 训练产物能进入统一部署链路</li>
+<li>降低训练环境与部署环境之间的耦合</li>
+<li>为 TensorRT、RKNN、NCNN 等后续优化器提供稳定输入</li>
+</ul>
+<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88-tensorrt-%E9%80%82%E5%90%88-jetson" tabindex="-1" data-source-line="30,31"><a class="header-anchor" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-tensorrt-%E9%80%82%E5%90%88-jetson">§</a> 为什么 TensorRT 适合 Jetson</h2>
+<p data-source-line="32,33">TensorRT 的核心价值是针对 NVIDIA GPU 做激进优化：</p>
+<ul data-source-line="34,38">
+<li>层融合，减少 kernel 启动和内存访问</li>
+<li>FP16 / INT8 量化，提高速度和能效</li>
+<li>自动为当前硬件挑选更优 kernel</li>
+</ul>
+<p data-source-line="38,39">这意味着在 Jetson AGX Orin 这类平台上，TensorRT 往往比直接跑原始框架推理更适合量产部署。</p>
+<h2 id="%E4%B8%8E-rknn-%2F-ncnn-%E7%9A%84%E5%85%B3%E7%B3%BB" tabindex="-1" data-source-line="40,41"><a class="header-anchor" href="#%E4%B8%8E-rknn-%2F-ncnn-%E7%9A%84%E5%85%B3%E7%B3%BB">§</a> 与 RKNN / NCNN 的关系</h2>
+<ul data-source-line="42,46">
+<li>TensorRT：绑定 NVIDIA GPU</li>
+<li>RKNN：绑定 Rockchip NPU</li>
+<li>NCNN：更偏通用、轻量、跨平台 CPU/Vulkan 推理</li>
+</ul>
+<p data-source-line="46,47">因此模型部署路线通常由目标硬件决定：</p>
+<ul data-source-line="48,52">
+<li>Jetson：PyTorch -&gt; ONNX -&gt; TensorRT</li>
+<li>RK3588：PyTorch -&gt; ONNX -&gt; RKNN</li>
+<li>通用移动端 / CPU：PyTorch -&gt; ONNX / 自定义转换 -&gt; NCNN</li>
+</ul>
+<h2 id="%E5%B7%A5%E7%A8%8B%E5%88%A4%E6%96%AD" tabindex="-1" data-source-line="52,53"><a class="header-anchor" href="#%E5%B7%A5%E7%A8%8B%E5%88%A4%E6%96%AD">§</a> 工程判断</h2>
+<p data-source-line="54,55">如果项目目标是机器人或 AMR 的高性能边缘推理，真正要对比的往往不是“模型能不能跑”，而是：</p>
+<ol data-source-line="56,60">
+<li>部署后时延是否满足控制周期</li>
+<li>INT8 / FP16 量化后精度退化是否可接受</li>
+<li>工具链是否与目标平台绑定过深</li>
+</ol>
+<p data-source-line="60,61">这些问题比单纯比较 TOPS 更接近真实工程决策。</p>
+</article><section class="article-end"><span>READ · THINK · TRY</span><p>把这篇笔记，带回一个真实问题里。</p></section><nav class="adjacent"><a href="./robot-reinforcement-learning.html"><small>上一篇 →</small><strong>机器人强化学习</strong></a><a href="./git-workflow.html"><small>下一篇 →</small><strong>Git 工作流速查</strong></a></nav></main><aside class="toc"><p>ON THIS PAGE / 本页目录</p><a href="#%E4%B8%89%E8%80%85%E5%88%86%E5%B7%A5">三者分工</a><a href="#%E6%A0%87%E5%87%86%E6%B5%81%E7%A8%8B">标准流程</a><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89-onnx">为什么要有 ONNX</a><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88-tensorrt-%E9%80%82%E5%90%88-jetson">为什么 TensorRT 适合 Jetson</a><a href="#%E4%B8%8E-rknn-%2F-ncnn-%E7%9A%84%E5%85%B3%E7%B3%BB">与 RKNN / NCNN 的关系</a><a href="#%E5%B7%A5%E7%A8%8B%E5%88%A4%E6%96%AD">工程判断</a><a href="#">回到顶部 ↑</a><div class="reading-note">阅读只是起点。<br>理解，发生在验证之后。</div></aside></div><footer><a class="brand-footer" href="./index.html">g. / Godfery</a><span>让零散的经验，成为彼此连接的知识。</span><span>机器人感知 · 工程实践 · 学习方法</span></footer><dialog id="graph-dialog"><button id="graph-close" type="button">关闭 ✕</button><h2>知识之间的连接</h2><p>拖动节点、滚轮缩放，点击阅读文章</p><svg id="graph-svg" aria-label="文章知识图谱"></svg></dialog><script type="module" src="./assets/site.js"></script></body></html>

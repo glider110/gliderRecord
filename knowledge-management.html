@@ -1,0 +1,76 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="关于机器人感知、工程实践与学习方法的持续整理。"><meta name="theme-color" content="#f5f4ef"><title>Obsidian 知识管理方法论 · Godfery 知识札记</title><link rel="stylesheet" href="./assets/site.css"><link rel="stylesheet" href="./katex/katex.min.css"></head><body class="is-article"><div id="reading-progress"></div><a class="skip" href="#content">跳到正文</a><header><a class="brand" href="./index.html"><span class="brand-mark">g.</span><span>Godfery 知识札记<small>THINK · BUILD · CONNECT</small></span></a><div class="header-links"><a href="./index.html">知识首页</a><button id="graph-open" type="button">◌ 知识图谱</button><button id="theme" type="button" aria-label="切换深浅主题">◐</button><button id="menu" type="button" aria-expanded="false">目录</button></div></header><div class="layout"><aside class="navigation"><p class="nav-caption">EXPLORE THE NOTES</p><label class="search-label" for="search">搜索知识库 <kbd>/</kbd></label><input id="search" type="search" placeholder="输入一个问题或关键词…"><div id="results" aria-live="polite"></div><nav><section><h3>视觉与深度感知</h3><a href="./stereo-depth.html">双目深度估计流程</a><a href="./stereo-matching.html">传统双目立体匹配算法</a><a href="./tof-principles.html">iToF 与 dToF 测距原理</a></section><section><h3>点云与机器人基础</h3><a href="./3d-reconstruction.html">三维重建与位姿估计</a><a href="./lidar-denoising.html">激光雷达噪点与去噪</a><a href="./robot-reinforcement-learning.html">机器人强化学习</a></section><section><h3>工程工具与模型部署</h3><a href="./model-deployment.html">PyTorch、ONNX 与 TensorRT 部署链路</a><a href="./git-workflow.html">Git 工作流速查</a></section><section><h3>AI 学习与知识管理</h3><a href="./knowledge-management.html">Obsidian 知识管理方法论</a><a href="./ai-assisted-learning.html">AI辅助专题学习方法</a></section></nav><div class="nav-note"><span class="status-dot"></span>持续整理，慢慢连接。<p>从真实的问题出发，留下可以复用的思考。</p></div></aside><main id="content"><div class="article-breadcrumb"><a href="./index.html">知识首页</a><span>/</span>AI 学习与知识管理</div><div class="article-meta"><span class="pill">AI 学习与知识管理</span><span>约 3 分钟阅读</span><span>整理于 2026-04-17</span></div><article><h1 id="obsidian-%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86%E6%96%B9%E6%B3%95%E8%AE%BA" tabindex="-1" data-source-line="1,2"><a class="header-anchor" href="#obsidian-%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86%E6%96%B9%E6%B3%95%E8%AE%BA">§</a> Obsidian 知识管理方法论</h1>
+<p data-source-line="3,4">Obsidian 的核心范式不是&quot;记笔记&quot;，而是<strong>构建个人知识图谱</strong>。每一篇 Markdown 文件是节点，双向链接是边，Graph View 是图谱的可视化入口。</p>
+<h2 id="%E6%96%B9%E6%B3%95%E8%AE%BA%E6%A0%B8%E5%BF%83%EF%BC%9A%E9%93%BE%E6%8E%A5%E4%BC%98%E5%85%88%E4%BA%8E%E5%B1%82%E7%BA%A7" tabindex="-1" data-source-line="5,6"><a class="header-anchor" href="#%E6%96%B9%E6%B3%95%E8%AE%BA%E6%A0%B8%E5%BF%83%EF%BC%9A%E9%93%BE%E6%8E%A5%E4%BC%98%E5%85%88%E4%BA%8E%E5%B1%82%E7%BA%A7">§</a> 方法论核心：链接优先于层级</h2>
+<p data-source-line="7,8">传统笔记系统（文件夹/标签）用<strong>层级</strong>组织知识，Obsidian 用<strong>网络</strong>。区别在于：</p>
+<ul data-source-line="9,12">
+<li>层级迫使你在创建时就决定归属，知识必须属于某一个分支</li>
+<li>网络允许一个概念同时被多个上下文引用，反映真实的认知结构</li>
+</ul>
+<p data-source-line="12,13">对感知工程师而言：<code>相关知识</code> 可以同时被&quot;传感器融合&quot;和&quot;代价地图生成&quot;引用，无需复制内容。</p>
+<h2 id="%E5%B7%A5%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%BA%93%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%94%A8%E6%B3%95" tabindex="-1" data-source-line="14,15"><a class="header-anchor" href="#%E5%B7%A5%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%BA%93%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%94%A8%E6%B3%95">§</a> 工程知识库的四种用法</h2>
+<h3 id="1.-%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3%E4%B8%AD%E5%BF%83" tabindex="-1" data-source-line="16,17"><a class="header-anchor" href="#1.-%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3%E4%B8%AD%E5%BF%83">§</a> 1. 算法设计文档中心</h3>
+<pre><code>perception/
+├── data_structure.md     ← 数据结构定义
+├── pipeline.md           ← 算法流水线
+└── modules/
+     ├── fusion.md
+     ├── tracking.md
+     └── bev.md
+</code></pre>
+<p data-source-line="28,29">用 <code>[[]]</code> 链接模块间依赖，形成可导航的架构文档，替代散落在代码注释里的设计意图。</p>
+<h3 id="2.-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95%EF%BC%88%E7%BB%93%E6%9E%84%E5%8C%96%E6%97%A5%E5%BF%97%EF%BC%89" tabindex="-1" data-source-line="30,31"><a class="header-anchor" href="#2.-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95%EF%BC%88%E7%BB%93%E6%9E%84%E5%8C%96%E6%97%A5%E5%BF%97%EF%BC%89">§</a> 2. 实验记录（结构化日志）</h3>
+<p data-source-line="32,33">每次实验一个文件，固定模板：数据集、模型、参数、结果、问题、下一步。比纯文本日志多出的价值：可以把实验记录反向引用到相关算法页面，形成&quot;这个结论从哪来&quot;的追溯链。</p>
+<h3 id="3.-%E6%A6%82%E5%BF%B5%E7%9F%A5%E8%AF%86%E7%BD%91%E7%BB%9C" tabindex="-1" data-source-line="34,35"><a class="header-anchor" href="#3.-%E6%A6%82%E5%BF%B5%E7%9F%A5%E8%AF%86%E7%BD%91%E7%BB%9C">§</a> 3. 概念知识网络</h3>
+<pre><code>[激光雷达噪点与去噪](./lidar-denoising.html) → 相关知识 → [三维重建与位姿估计](./3d-reconstruction.html) → 相关知识
+</code></pre>
+<p data-source-line="40,41">每个概念独立成页，页面之间形成可遍历的知识图谱。Graph View 会暴露你&quot;知道但没连接&quot;的知识孤岛。</p>
+<h3 id="4.-%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE%EF%BC%88mermaid%EF%BC%89" tabindex="-1" data-source-line="42,43"><a class="header-anchor" href="#4.-%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE%EF%BC%88mermaid%EF%BC%89">§</a> 4. 系统架构图（Mermaid）</h3>
+<p data-source-line="44,45">直接在 Markdown 里写 Mermaid 图，无需切换工具：</p>
+<pre class="mermaid-block" data-source-line="46,52"><code class="language-mermaid">flowchart LR
+    RGBD[RGBD 相机] --&gt; Fusion[传感器融合]
+    Fusion --&gt; BEV[BEV 特征图]
+    BEV --&gt; Costmap[代价地图]
+</code></pre>
+<h2 id="%E4%B8%8E%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%9A%E4%BD%8D%E5%88%86%E5%B7%A5" tabindex="-1" data-source-line="53,54"><a class="header-anchor" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%9A%E4%BD%8D%E5%88%86%E5%B7%A5">§</a> 与其他工具的定位分工</h2>
+<table data-source-line="55,61">
+<thead>
+<tr>
+<th>工具</th>
+<th>定位</th>
+<th>与 Obsidian 的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相关知识</td>
+<td>知识图谱 / 长期沉淀</td>
+<td>主系统</td>
+</tr>
+<tr>
+<td>Typora</td>
+<td>Markdown 编辑器 / 写作</td>
+<td>可替换为 Obsidian 内置编辑</td>
+</tr>
+<tr>
+<td>Notion</td>
+<td>协作文档 / 产品管理</td>
+<td>不重叠，团队协作用</td>
+</tr>
+<tr>
+<td>Git</td>
+<td>版本控制</td>
+<td>Obsidian vault 直接纳入 Git</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%E5%AE%9E%E6%96%BD%E8%B7%AF%E5%BE%84%EF%BC%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%89%88%EF%BC%89" tabindex="-1" data-source-line="62,63"><a class="header-anchor" href="#%E5%AE%9E%E6%96%BD%E8%B7%AF%E5%BE%84%EF%BC%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%89%88%EF%BC%89">§</a> 实施路径（工程师版）</h2>
+<ol data-source-line="64,70">
+<li>新建 vault，按上述目录结构初始化</li>
+<li>安装插件：Git（自动提交）、Dataview（查询）、Excalidraw（草图）</li>
+<li>为现有设计文档逐步补充 <code>[[]]</code> 链接</li>
+<li>每次实验用统一模板记录，链接到相关概念页</li>
+<li>每周查看 Graph View，主动连接孤岛节点</li>
+</ol>
+<h2 id="%E4%B8%8E%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%85%B3%E7%B3%BB" tabindex="-1" data-source-line="70,71"><a class="header-anchor" href="#%E4%B8%8E%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%85%B3%E7%B3%BB">§</a> 与专题学习的关系</h2>
+<p data-source-line="72,73">笔记库不应只保存 AI 的摘要。针对一个新主题，先把“专家共同模型、核心分歧、诊断题、错题和最小验证任务”沉淀为一页领域地图，再将阅读材料和实验记录链接回来。这样知识库同时保存结论、证据和失败路径，后续复习时可以从问题重新检索，而不是重新浏览全文。具体闭环见 <a href="./ai-assisted-learning.html">AI辅助专题学习方法</a>。</p>
+</article><section class="article-end"><span>READ · THINK · TRY</span><p>把这篇笔记，带回一个真实问题里。</p></section><nav class="adjacent"><a href="./git-workflow.html"><small>上一篇 →</small><strong>Git 工作流速查</strong></a><a href="./ai-assisted-learning.html"><small>下一篇 →</small><strong>AI辅助专题学习方法</strong></a></nav></main><aside class="toc"><p>ON THIS PAGE / 本页目录</p><a href="#%E6%96%B9%E6%B3%95%E8%AE%BA%E6%A0%B8%E5%BF%83%EF%BC%9A%E9%93%BE%E6%8E%A5%E4%BC%98%E5%85%88%E4%BA%8E%E5%B1%82%E7%BA%A7">方法论核心：链接优先于层级</a><a href="#%E5%B7%A5%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%BA%93%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%94%A8%E6%B3%95">工程知识库的四种用法</a><a href="#1.-%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3%E4%B8%AD%E5%BF%83">1. 算法设计文档中心</a><a href="#2.-%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95%EF%BC%88%E7%BB%93%E6%9E%84%E5%8C%96%E6%97%A5%E5%BF%97%EF%BC%89">2. 实验记录（结构化日志）</a><a href="#3.-%E6%A6%82%E5%BF%B5%E7%9F%A5%E8%AF%86%E7%BD%91%E7%BB%9C">3. 概念知识网络</a><a href="#4.-%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE%EF%BC%88mermaid%EF%BC%89">4. 系统架构图（Mermaid）</a><a href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%9A%E4%BD%8D%E5%88%86%E5%B7%A5">与其他工具的定位分工</a><a href="#%E5%AE%9E%E6%96%BD%E8%B7%AF%E5%BE%84%EF%BC%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%89%88%EF%BC%89">实施路径（工程师版）</a><a href="#%E4%B8%8E%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%85%B3%E7%B3%BB">与专题学习的关系</a><a href="#">回到顶部 ↑</a><div class="reading-note">阅读只是起点。<br>理解，发生在验证之后。</div></aside></div><footer><a class="brand-footer" href="./index.html">g. / Godfery</a><span>让零散的经验，成为彼此连接的知识。</span><span>机器人感知 · 工程实践 · 学习方法</span></footer><dialog id="graph-dialog"><button id="graph-close" type="button">关闭 ✕</button><h2>知识之间的连接</h2><p>拖动节点、滚轮缩放，点击阅读文章</p><svg id="graph-svg" aria-label="文章知识图谱"></svg></dialog><script type="module" src="./assets/site.js"></script></body></html>

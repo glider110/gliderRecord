@@ -1,0 +1,154 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="关于机器人感知、工程实践与学习方法的持续整理。"><meta name="theme-color" content="#f5f4ef"><title>Git 工作流速查 · Godfery 知识札记</title><link rel="stylesheet" href="./assets/site.css"><link rel="stylesheet" href="./katex/katex.min.css"></head><body class="is-article"><div id="reading-progress"></div><a class="skip" href="#content">跳到正文</a><header><a class="brand" href="./index.html"><span class="brand-mark">g.</span><span>Godfery 知识札记<small>THINK · BUILD · CONNECT</small></span></a><div class="header-links"><a href="./index.html">知识首页</a><button id="graph-open" type="button">◌ 知识图谱</button><button id="theme" type="button" aria-label="切换深浅主题">◐</button><button id="menu" type="button" aria-expanded="false">目录</button></div></header><div class="layout"><aside class="navigation"><p class="nav-caption">EXPLORE THE NOTES</p><label class="search-label" for="search">搜索知识库 <kbd>/</kbd></label><input id="search" type="search" placeholder="输入一个问题或关键词…"><div id="results" aria-live="polite"></div><nav><section><h3>视觉与深度感知</h3><a href="./stereo-depth.html">双目深度估计流程</a><a href="./stereo-matching.html">传统双目立体匹配算法</a><a href="./tof-principles.html">iToF 与 dToF 测距原理</a></section><section><h3>点云与机器人基础</h3><a href="./3d-reconstruction.html">三维重建与位姿估计</a><a href="./lidar-denoising.html">激光雷达噪点与去噪</a><a href="./robot-reinforcement-learning.html">机器人强化学习</a></section><section><h3>工程工具与模型部署</h3><a href="./model-deployment.html">PyTorch、ONNX 与 TensorRT 部署链路</a><a href="./git-workflow.html">Git 工作流速查</a></section><section><h3>AI 学习与知识管理</h3><a href="./knowledge-management.html">Obsidian 知识管理方法论</a><a href="./ai-assisted-learning.html">AI辅助专题学习方法</a></section></nav><div class="nav-note"><span class="status-dot"></span>持续整理，慢慢连接。<p>从真实的问题出发，留下可以复用的思考。</p></div></aside><main id="content"><div class="article-breadcrumb"><a href="./index.html">知识首页</a><span>/</span>工程工具与模型部署</div><div class="article-meta"><span class="pill">工程工具与模型部署</span><span>约 6 分钟阅读</span><span>整理于 2026-04-17</span></div><article><h1 id="git-%E5%B7%A5%E4%BD%9C%E6%B5%81%E9%80%9F%E6%9F%A5" tabindex="-1" data-source-line="1,2"><a class="header-anchor" href="#git-%E5%B7%A5%E4%BD%9C%E6%B5%81%E9%80%9F%E6%9F%A5">§</a> Git 工作流速查</h1>
+<h2 id="%E5%9F%BA%E7%A1%80%E7%8A%B6%E6%80%81%E6%9F%A5%E7%9C%8B" tabindex="-1" data-source-line="3,4"><a class="header-anchor" href="#%E5%9F%BA%E7%A1%80%E7%8A%B6%E6%80%81%E6%9F%A5%E7%9C%8B">§</a> 基础状态查看</h2>
+<pre><code class="language-shell">git log / git reflog              # 提交历史
+git diff                          # 未提交修改（详细）
+git status                        # 未提交修改（简洁）
+git branch -a                     # 所有本地+远程分支
+git remote -v                     # 查看远程地址
+git config --global --list        # 全局配置（system/global/local 三级）
+</code></pre>
+<h2 id="%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80" tabindex="-1" data-source-line="14,15"><a class="header-anchor" href="#%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80">§</a> 版本回退</h2>
+<pre><code class="language-shell">git reset --hard HEAD^            # 回退到上个版本
+git reset --hard HEAD~3           # 回退3次提交
+git reset --hard &lt;commit_id&gt;      # 回退到指定commit
+git checkout &lt;commit&gt; -b &lt;branch&gt; # 从历史commit创建新分支
+git commit --amend -m &quot;新信息&quot;     # 修改最后一次commit信息（仅限最后一次）
+</code></pre>
+<h2 id="stash%EF%BC%9A%E4%B8%B4%E6%97%B6%E4%BF%9D%E5%AD%98%EF%BC%88%E5%88%87%E6%8D%A2%E5%9C%BA%E6%99%AF%EF%BC%89" tabindex="-1" data-source-line="24,25"><a class="header-anchor" href="#stash%EF%BC%9A%E4%B8%B4%E6%97%B6%E4%BF%9D%E5%AD%98%EF%BC%88%E5%88%87%E6%8D%A2%E5%9C%BA%E6%99%AF%EF%BC%89">§</a> stash：临时保存（切换场景）</h2>
+<pre><code class="language-shell">git stash save &quot;描述&quot;    # 临时储藏工作区
+git stash list           # 查看储藏列表
+git stash show -p        # 查看差异
+git stash pop            # 恢复并删除最新储藏
+git stash apply          # 恢复但保留储藏
+git stash drop/clear     # 删除/清空
+</code></pre>
+<p data-source-line="35,36"><strong>适用场景</strong>：代码写到一半，临时需要切换分支但还达不到一次commit要求。</p>
+<h2 id="worktree%EF%BC%9A%E5%90%8C%E6%97%B6%E6%93%8D%E4%BD%9C%E5%A4%9A%E4%B8%AA%E5%88%86%E6%94%AF" tabindex="-1" data-source-line="37,38"><a class="header-anchor" href="#worktree%EF%BC%9A%E5%90%8C%E6%97%B6%E6%93%8D%E4%BD%9C%E5%A4%9A%E4%B8%AA%E5%88%86%E6%94%AF">§</a> worktree：同时操作多个分支</h2>
+<pre><code class="language-shell">git worktree list
+
+# 创建独立工作目录处理紧急bug
+git worktree add ../hotfix-work -b hotfix/urgent-fix
+cd ../hotfix-work
+# 修复、提交、推送...
+git push origin hotfix/urgent-fix
+
+# 回主目录继续开发
+cd ../main
+
+# 清理（hotfix合并后）
+git worktree remove ../hotfix-work
+git branch -d hotfix/urgent-fix
+</code></pre>
+<p data-source-line="56,57"><strong>适用场景</strong>：需要同时操作两个分支（如主线开发同时处理hotfix），避免stash+切换的繁琐。</p>
+<h2 id="git-restore%EF%BC%9A%E6%81%A2%E5%A4%8D%E6%96%87%E4%BB%B6" tabindex="-1" data-source-line="58,59"><a class="header-anchor" href="#git-restore%EF%BC%9A%E6%81%A2%E5%A4%8D%E6%96%87%E4%BB%B6">§</a> git restore：恢复文件</h2>
+<pre><code class="language-shell">git restore &lt;file&gt;                   # 丢弃工作区修改
+git restore --staged &lt;file&gt;          # 取消暂存
+git restore --source=&lt;commit&gt; &lt;file&gt; # 从历史commit恢复指定文件
+git restore .                        # 恢复所有
+git restore '*.cpp'                  # 批量恢复（按模式）
+git restore -p &lt;file&gt;                # 交互式选择
+</code></pre>
+<h2 id="%E8%BF%9C%E7%A8%8B%E4%B8%8E%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C" tabindex="-1" data-source-line="69,70"><a class="header-anchor" href="#%E8%BF%9C%E7%A8%8B%E4%B8%8E%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C">§</a> 远程与分支操作</h2>
+<pre><code class="language-shell"># 删除远程分支
+git push origin --delete &lt;branch&gt;
+git remote update origin --prune    # 同步本地远程分支列表
+
+# 切换到远程分支
+git checkout -b develop origin/develop
+
+# fetch+对比（不merge）
+git fetch origin master:tmp
+git diff tmp
+git merge tmp
+git branch -d tmp
+
+# 双远程
+git remote add backup https://xxx.git
+git push backup main
+git push backup --all
+</code></pre>
+<h2 id="submodule%EF%BC%9A%E7%AE%A1%E7%90%86%E5%AD%90%E6%A8%A1%E5%9D%97" tabindex="-1" data-source-line="91,92"><a class="header-anchor" href="#submodule%EF%BC%9A%E7%AE%A1%E7%90%86%E5%AD%90%E6%A8%A1%E5%9D%97">§</a> submodule：管理子模块</h2>
+<pre><code class="language-shell"># 初始化（克隆含子模块的仓库时）
+git submodule update --init --recursive
+
+# 查看状态
+git submodule status
+
+# 更新所有子模块到远端最新
+git submodule update --remote
+
+# 更新指定子模块
+git submodule update --remote &lt;path&gt;
+
+# 提交主仓库的指针变化
+git add &lt;path&gt; &amp;&amp; git commit -m &quot;update submodule&quot;
+
+# 添加子模块
+git submodule add &lt;repo-url&gt; &lt;path&gt;
+</code></pre>
+<h2 id="commit-%E8%A7%84%E8%8C%83" tabindex="-1" data-source-line="113,114"><a class="header-anchor" href="#commit-%E8%A7%84%E8%8C%83">§</a> Commit 规范</h2>
+<table data-source-line="115,126">
+<thead>
+<tr>
+<th>前缀</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feat</code></td>
+<td>新功能</td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td>Bug修复</td>
+</tr>
+<tr>
+<td><code>refactor</code></td>
+<td>代码重构（无新功能/bugfix）</td>
+</tr>
+<tr>
+<td><code>perf</code></td>
+<td>性能优化</td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td>文档变更</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td>格式调整（不影响逻辑）</td>
+</tr>
+<tr>
+<td><code>test</code></td>
+<td>测试用例</td>
+</tr>
+<tr>
+<td><code>chore</code></td>
+<td>构建流程/依赖变更</td>
+</tr>
+<tr>
+<td><code>revert</code></td>
+<td>回滚</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ssh-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95" tabindex="-1" data-source-line="127,128"><a class="header-anchor" href="#ssh-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95">§</a> SSH 免密登录</h2>
+<pre><code class="language-shell"># 免密代码库
+ssh-keygen -t rsa -C &quot;your@email.com&quot;
+cat ~/.ssh/id_rsa.pub  # 复制到 GitLab/GitHub
+
+# 免密 SSH 到指定服务器
+ssh-keygen -t rsa -b 4096
+ssh-copy-id user@&lt;server-ip&gt;
+</code></pre>
+<blockquote data-source-line="139,140">
+<p>优先用 SSH 而非 HTTPS，避免频繁输密码。</p>
+</blockquote>
+<h2 id="%E5%90%88%E5%B9%B6%E5%A4%9A%E6%AC%A1-commit-%E4%B8%BA%E4%B8%80%E6%AC%A1" tabindex="-1" data-source-line="141,142"><a class="header-anchor" href="#%E5%90%88%E5%B9%B6%E5%A4%9A%E6%AC%A1-commit-%E4%B8%BA%E4%B8%80%E6%AC%A1">§</a> 合并多次 commit 为一次</h2>
+<pre><code class="language-shell">git reset --soft &lt;target_commit_id&gt;   # 把多次commit内容回到暂存区
+# 切换到目标分支
+git commit -m &quot;合并的提交信息&quot;
+</code></pre>
+<p data-source-line="149,150"><strong>用于</strong>：把分支A的几次提交整合为一次，cherry-pick到分支B。</p>
+</article><section class="article-end"><span>READ · THINK · TRY</span><p>把这篇笔记，带回一个真实问题里。</p></section><nav class="adjacent"><a href="./model-deployment.html"><small>上一篇 →</small><strong>PyTorch、ONNX 与 TensorRT 部署链路</strong></a><a href="./knowledge-management.html"><small>下一篇 →</small><strong>Obsidian 知识管理方法论</strong></a></nav></main><aside class="toc"><p>ON THIS PAGE / 本页目录</p><a href="#%E5%9F%BA%E7%A1%80%E7%8A%B6%E6%80%81%E6%9F%A5%E7%9C%8B">基础状态查看</a><a href="#%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80">版本回退</a><a href="#stash%EF%BC%9A%E4%B8%B4%E6%97%B6%E4%BF%9D%E5%AD%98%EF%BC%88%E5%88%87%E6%8D%A2%E5%9C%BA%E6%99%AF%EF%BC%89">stash：临时保存（切换场景）</a><a href="#worktree%EF%BC%9A%E5%90%8C%E6%97%B6%E6%93%8D%E4%BD%9C%E5%A4%9A%E4%B8%AA%E5%88%86%E6%94%AF">worktree：同时操作多个分支</a><a href="#git-restore%EF%BC%9A%E6%81%A2%E5%A4%8D%E6%96%87%E4%BB%B6">git restore：恢复文件</a><a href="#%E8%BF%9C%E7%A8%8B%E4%B8%8E%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C">远程与分支操作</a><a href="#submodule%EF%BC%9A%E7%AE%A1%E7%90%86%E5%AD%90%E6%A8%A1%E5%9D%97">submodule：管理子模块</a><a href="#commit-%E8%A7%84%E8%8C%83">Commit 规范</a><a href="#ssh-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95">SSH 免密登录</a><a href="#%E5%90%88%E5%B9%B6%E5%A4%9A%E6%AC%A1-commit-%E4%B8%BA%E4%B8%80%E6%AC%A1">合并多次 commit 为一次</a><a href="#">回到顶部 ↑</a><div class="reading-note">阅读只是起点。<br>理解，发生在验证之后。</div></aside></div><footer><a class="brand-footer" href="./index.html">g. / Godfery</a><span>让零散的经验，成为彼此连接的知识。</span><span>机器人感知 · 工程实践 · 学习方法</span></footer><dialog id="graph-dialog"><button id="graph-close" type="button">关闭 ✕</button><h2>知识之间的连接</h2><p>拖动节点、滚轮缩放，点击阅读文章</p><svg id="graph-svg" aria-label="文章知识图谱"></svg></dialog><script type="module" src="./assets/site.js"></script></body></html>

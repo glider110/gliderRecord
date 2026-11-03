@@ -1,0 +1,95 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="关于机器人感知、工程实践与学习方法的持续整理。"><meta name="theme-color" content="#f5f4ef"><title>传统双目立体匹配算法 · Godfery 知识札记</title><link rel="stylesheet" href="./assets/site.css"><link rel="stylesheet" href="./katex/katex.min.css"></head><body class="is-article"><div id="reading-progress"></div><a class="skip" href="#content">跳到正文</a><header><a class="brand" href="./index.html"><span class="brand-mark">g.</span><span>Godfery 知识札记<small>THINK · BUILD · CONNECT</small></span></a><div class="header-links"><a href="./index.html">知识首页</a><button id="graph-open" type="button">◌ 知识图谱</button><button id="theme" type="button" aria-label="切换深浅主题">◐</button><button id="menu" type="button" aria-expanded="false">目录</button></div></header><div class="layout"><aside class="navigation"><p class="nav-caption">EXPLORE THE NOTES</p><label class="search-label" for="search">搜索知识库 <kbd>/</kbd></label><input id="search" type="search" placeholder="输入一个问题或关键词…"><div id="results" aria-live="polite"></div><nav><section><h3>视觉与深度感知</h3><a href="./stereo-depth.html">双目深度估计流程</a><a href="./stereo-matching.html">传统双目立体匹配算法</a><a href="./tof-principles.html">iToF 与 dToF 测距原理</a></section><section><h3>点云与机器人基础</h3><a href="./3d-reconstruction.html">三维重建与位姿估计</a><a href="./lidar-denoising.html">激光雷达噪点与去噪</a><a href="./robot-reinforcement-learning.html">机器人强化学习</a></section><section><h3>工程工具与模型部署</h3><a href="./model-deployment.html">PyTorch、ONNX 与 TensorRT 部署链路</a><a href="./git-workflow.html">Git 工作流速查</a></section><section><h3>AI 学习与知识管理</h3><a href="./knowledge-management.html">Obsidian 知识管理方法论</a><a href="./ai-assisted-learning.html">AI辅助专题学习方法</a></section></nav><div class="nav-note"><span class="status-dot"></span>持续整理，慢慢连接。<p>从真实的问题出发，留下可以复用的思考。</p></div></aside><main id="content"><div class="article-breadcrumb"><a href="./index.html">知识首页</a><span>/</span>视觉与深度感知</div><div class="article-meta"><span class="pill">视觉与深度感知</span><span>约 3 分钟阅读</span><span>整理于 2026-09-22</span></div><article><h1 id="%E4%BC%A0%E7%BB%9F%E5%8F%8C%E7%9B%AE%E7%AB%8B%E4%BD%93%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95" tabindex="-1" data-source-line="1,2"><a class="header-anchor" href="#%E4%BC%A0%E7%BB%9F%E5%8F%8C%E7%9B%AE%E7%AB%8B%E4%BD%93%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95">§</a> 传统双目立体匹配算法</h1>
+<p data-source-line="3,4">前置流程见 <a href="./stereo-depth.html">双目深度估计流程</a>。区分两个层级：匹配代价决定“像不像”，匹配框架决定“如何结合证据求视差”。</p>
+<h2 id="%E5%8C%B9%E9%85%8D%E4%BB%A3%E4%BB%B7%E4%B8%8E%E6%8F%8F%E8%BF%B0%E5%8F%98%E6%8D%A2" tabindex="-1" data-source-line="5,6"><a class="header-anchor" href="#%E5%8C%B9%E9%85%8D%E4%BB%A3%E4%BB%B7%E4%B8%8E%E6%8F%8F%E8%BF%B0%E5%8F%98%E6%8D%A2">§</a> 匹配代价与描述变换</h2>
+<table data-source-line="7,15">
+<thead>
+<tr>
+<th>名称</th>
+<th>思路</th>
+<th>边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SAD / SSD</td>
+<td>窗口内灰度差的绝对值和 / 平方和</td>
+<td>简单；对亮度差敏感，SSD 更强调大残差</td>
+</tr>
+<tr>
+<td>NCC / ZNCC</td>
+<td>比较窗口相关性；ZNCC 先去均值并归一化</td>
+<td>ZNCC 可抵抗一定线性亮度变化；低纹理时不可靠</td>
+</tr>
+<tr>
+<td>Census + Hamming</td>
+<td>比较邻点与中心点亮度大小，编码后比不同位数</td>
+<td>对保持局部灰度顺序的变化鲁棒；弱纹理仍有歧义</td>
+</tr>
+<tr>
+<td>Rank</td>
+<td>用邻域灰度排名代替原始亮度</td>
+<td>对单调亮度变化较鲁棒</td>
+</tr>
+<tr>
+<td>Birchfield–Tomasi（BT）</td>
+<td>考虑像素间插值后的灰度差</td>
+<td>减轻采样位置不同带来的差异</td>
+</tr>
+<tr>
+<td>Mutual Information（MI）</td>
+<td>利用左右灰度的统计依赖</td>
+<td>原始 SGM 论文采用的代价之一</td>
+</tr>
+</tbody>
+</table>
+<p data-source-line="16,17">SAD 本身也包含窗口求和，因此在实现中，代价与局部聚合可能合并。</p>
+<h2 id="%E5%8C%B9%E9%85%8D%E6%A1%86%E6%9E%B6" tabindex="-1" data-source-line="18,19"><a class="header-anchor" href="#%E5%8C%B9%E9%85%8D%E6%A1%86%E6%9E%B6">§</a> 匹配框架</h2>
+<table data-source-line="20,28">
+<thead>
+<tr>
+<th>类别</th>
+<th>代表</th>
+<th>核心机制 / 主要限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>局部匹配</td>
+<td>BM（块匹配）</td>
+<td>窗口代价 + WTA；快，但窗口跨深度边缘会混合前后景</td>
+</tr>
+<tr>
+<td>自适应局部匹配</td>
+<td>ASW、Cross-based / CBCA、引导滤波代价聚合</td>
+<td>按颜色、距离或支持区域聚合；更保边，但依赖图像线索</td>
+</tr>
+<tr>
+<td>扫描线优化</td>
+<td>DP</td>
+<td>沿扫描线动态规划；可求特定一维能量最优解，缺少跨行约束易出条纹</td>
+</tr>
+<tr>
+<td>半全局匹配</td>
+<td>SGM、SGBM</td>
+<td>多方向路径优化后汇总代价；折中精度与开销</td>
+</tr>
+<tr>
+<td>全局优化</td>
+<td>Graph Cuts、Belief Propagation</td>
+<td>优化整图数据项与平滑项；通常开销较大，不等于保证全局最优</td>
+</tr>
+<tr>
+<td>平面假设搜索</td>
+<td>PatchMatch Stereo</td>
+<td>随机搜索与传播局部视差平面；适于表示倾斜表面，依赖初始化及迭代</td>
+</tr>
+</tbody>
+</table>
+<p data-source-line="29,30">上述类别不是严格互斥，各模块可以组合。稀疏匹配另有 SIFT / ORB 特征检测描述、描述子匹配、几何约束和三角测量管线；它不直接产生完整稠密深度图。</p>
+<h2 id="bm-%E4%B8%8E-sgm" tabindex="-1" data-source-line="31,32"><a class="header-anchor" href="#bm-%E4%B8%8E-sgm">§</a> BM 与 SGM</h2>
+<p data-source-line="33,34">BM：左图取小窗口，沿右图同一行枚举视差，选择代价最小的位置。窗口太小容易歧义，太大容易抹掉细小物体和边缘。</p>
+<p data-source-line="35,36">SGM：在外观代价之外，加入邻近视差变化的惩罚。<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">P_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq> 惩罚相邻视差差 1，<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">P_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq> 惩罚更大的跳变，通常 <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub><mo>&gt;</mo><msub><mi>P</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">P_2&gt;P_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq>。沿多个方向分别用动态规划累计路径代价，再汇总选视差。这是二维全局优化的近似，不是精确求解。</p>
+<p data-source-line="37,38">可组合 Census + SGM，但 SGM 不绑定 Census。OpenCV StereoSGBM 使用 BT 代价并包含块匹配和预后处理，不能称为原始 SGM 的完全复现。</p>
+<h2 id="%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%AA%8C%E8%AF%81%E9%A1%BA%E5%BA%8F" tabindex="-1" data-source-line="39,40"><a class="header-anchor" href="#%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%AA%8C%E8%AF%81%E9%A1%BA%E5%BA%8F">§</a> 学习与验证顺序</h2>
+<p data-source-line="41,42">理解 SAD + BM 后，再理解 Census、SGM 的路径递推与平滑惩罚，最后研究全局优化和 PatchMatch。实际比较时保持校正图、视差范围和评测掩码一致，联合报告误差、覆盖率、耗时与内存。</p>
+</article><section class="article-end"><span>READ · THINK · TRY</span><p>把这篇笔记，带回一个真实问题里。</p></section><nav class="adjacent"><a href="./stereo-depth.html"><small>上一篇 →</small><strong>双目深度估计流程</strong></a><a href="./tof-principles.html"><small>下一篇 →</small><strong>iToF 与 dToF 测距原理</strong></a></nav></main><aside class="toc"><p>ON THIS PAGE / 本页目录</p><a href="#%E5%8C%B9%E9%85%8D%E4%BB%A3%E4%BB%B7%E4%B8%8E%E6%8F%8F%E8%BF%B0%E5%8F%98%E6%8D%A2">匹配代价与描述变换</a><a href="#%E5%8C%B9%E9%85%8D%E6%A1%86%E6%9E%B6">匹配框架</a><a href="#bm-%E4%B8%8E-sgm">BM 与 SGM</a><a href="#%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%AA%8C%E8%AF%81%E9%A1%BA%E5%BA%8F">学习与验证顺序</a><a href="#">回到顶部 ↑</a><div class="reading-note">阅读只是起点。<br>理解，发生在验证之后。</div></aside></div><footer><a class="brand-footer" href="./index.html">g. / Godfery</a><span>让零散的经验，成为彼此连接的知识。</span><span>机器人感知 · 工程实践 · 学习方法</span></footer><dialog id="graph-dialog"><button id="graph-close" type="button">关闭 ✕</button><h2>知识之间的连接</h2><p>拖动节点、滚轮缩放，点击阅读文章</p><svg id="graph-svg" aria-label="文章知识图谱"></svg></dialog><script type="module" src="./assets/site.js"></script></body></html>

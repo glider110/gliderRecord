@@ -1,0 +1,78 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="关于机器人感知、工程实践与学习方法的持续整理。"><meta name="theme-color" content="#f5f4ef"><title>AI辅助专题学习方法 · Godfery 知识札记</title><link rel="stylesheet" href="./assets/site.css"><link rel="stylesheet" href="./katex/katex.min.css"></head><body class="is-article"><div id="reading-progress"></div><a class="skip" href="#content">跳到正文</a><header><a class="brand" href="./index.html"><span class="brand-mark">g.</span><span>Godfery 知识札记<small>THINK · BUILD · CONNECT</small></span></a><div class="header-links"><a href="./index.html">知识首页</a><button id="graph-open" type="button">◌ 知识图谱</button><button id="theme" type="button" aria-label="切换深浅主题">◐</button><button id="menu" type="button" aria-expanded="false">目录</button></div></header><div class="layout"><aside class="navigation"><p class="nav-caption">EXPLORE THE NOTES</p><label class="search-label" for="search">搜索知识库 <kbd>/</kbd></label><input id="search" type="search" placeholder="输入一个问题或关键词…"><div id="results" aria-live="polite"></div><nav><section><h3>视觉与深度感知</h3><a href="./stereo-depth.html">双目深度估计流程</a><a href="./stereo-matching.html">传统双目立体匹配算法</a><a href="./tof-principles.html">iToF 与 dToF 测距原理</a></section><section><h3>点云与机器人基础</h3><a href="./3d-reconstruction.html">三维重建与位姿估计</a><a href="./lidar-denoising.html">激光雷达噪点与去噪</a><a href="./robot-reinforcement-learning.html">机器人强化学习</a></section><section><h3>工程工具与模型部署</h3><a href="./model-deployment.html">PyTorch、ONNX 与 TensorRT 部署链路</a><a href="./git-workflow.html">Git 工作流速查</a></section><section><h3>AI 学习与知识管理</h3><a href="./knowledge-management.html">Obsidian 知识管理方法论</a><a href="./ai-assisted-learning.html">AI辅助专题学习方法</a></section></nav><div class="nav-note"><span class="status-dot"></span>持续整理，慢慢连接。<p>从真实的问题出发，留下可以复用的思考。</p></div></aside><main id="content"><div class="article-breadcrumb"><a href="./index.html">知识首页</a><span>/</span>AI 学习与知识管理</div><div class="article-meta"><span class="pill">AI 学习与知识管理</span><span>约 4 分钟阅读</span><span>整理于 2026-09-08</span></div><article><h1 id="ai%E8%BE%85%E5%8A%A9%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95" tabindex="-1" data-source-line="1,2"><a class="header-anchor" href="#ai%E8%BE%85%E5%8A%A9%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95">§</a> AI辅助专题学习方法</h1>
+<p data-source-line="3,4">AI 最适合把陌生主题的资料压缩成可验证的领域地图；真正的学习仍要靠闭卷推理、实际产出和间隔回测完成。</p>
+<h2 id="%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98" tabindex="-1" data-source-line="5,6"><a class="header-anchor" href="#%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98">§</a> 解决什么问题</h2>
+<p data-source-line="7,8">面对一个新专题，人最容易把大量时间花在“搜什么、先看什么、术语为何互相矛盾”上，并把看过摘要误当成理解。本方法先向受来源约束的 AI 索取专家的知识组织方式，再用冲突、反例与诊断题把理解漏洞暴露出来。</p>
+<p data-source-line="9,10">它的成功标准不是“48 小时掌握一门学科”，而是能在两天内完成定向学习：说清问题边界、主流方法、关键分歧、评价指标和下一步验证任务。能独立做工程决策或通过正式考试，仍需要持续练习和真实反馈。</p>
+<h2 id="%E5%AD%A6%E4%B9%A0%E9%97%AD%E7%8E%AF" tabindex="-1" data-source-line="11,12"><a class="header-anchor" href="#%E5%AD%A6%E4%B9%A0%E9%97%AD%E7%8E%AF">§</a> 学习闭环</h2>
+<pre class="mermaid-block" data-source-line="13,23"><code class="language-mermaid">flowchart LR
+    A[定义可交付目标] --&gt; B[筛选可信来源包]
+    B --&gt; C[提炼专家心智模型]
+    C --&gt; D[定位分歧与适用边界]
+    D --&gt; E[闭卷回答诊断题]
+    E --&gt; F[依据来源订正错误]
+    F --&gt; G[完成真实产出并间隔回测]
+    G --&gt; C
+</code></pre>
+<h3 id="1.-%E5%85%88%E5%AE%9A%E4%B9%89%E7%9B%AE%E6%A0%87%E5%92%8C%E6%9D%A5%E6%BA%90%E8%BE%B9%E7%95%8C" tabindex="-1" data-source-line="24,25"><a class="header-anchor" href="#1.-%E5%85%88%E5%AE%9A%E4%B9%89%E7%9B%AE%E6%A0%87%E5%92%8C%E6%9D%A5%E6%BA%90%E8%BE%B9%E7%95%8C">§</a> 1. 先定义目标和来源边界</h3>
+<p data-source-line="26,27">把“学习某主题”改成一个可判断的任务，例如：“为 AMR 室内场景比较三种地面分割方案，并写出一份可运行的离线评测计划”。来源包应包含一份权威综述或教材、关键原始论文、官方文档或参考实现，以及与目标场景匹配的测试资料。每一条 AI 结论都必须回链到来源的具体章节；没有来源支撑的结论标记为待核验。</p>
+<h3 id="2.-%E5%85%88%E8%8E%B7%E5%BE%97%E9%A2%86%E5%9F%9F%E5%9C%B0%E5%9B%BE%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E6%91%98%E8%A6%81" tabindex="-1" data-source-line="28,29"><a class="header-anchor" href="#2.-%E5%85%88%E8%8E%B7%E5%BE%97%E9%A2%86%E5%9F%9F%E5%9C%B0%E5%9B%BE%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E6%91%98%E8%A6%81">§</a> 2. 先获得领域地图，而不是摘要</h3>
+<p data-source-line="30,31">在 NotebookLM 或任何能限定来源的工具中，连续询问：</p>
+<pre><code class="language-text">基于我提供的资料：
+1. 列出本领域专家共同使用的 5 个心智模型。每项说明它解决的问题、关键变量、典型反例，并给出来源位置。
+2. 指出 3 个根本分歧。分别列出各方主张、最强证据、适用条件和目前无法判定之处；不要合并冲突。
+3. 给出完成目标任务必须掌握的前置概念及依赖关系，并按优先级排序。
+</code></pre>
+<p data-source-line="39,40">这里的产物是一页领域地图，而非一堆摘要。它应包含术语、因果关系、方法选择条件、评价指标和未解决问题，并沉淀到 <a href="./knowledge-management.html">Obsidian 知识管理方法论</a> 中作为后续资料的入口。</p>
+<h3 id="3.-%E7%94%A8%E8%AF%8A%E6%96%AD%E9%A2%98%E5%92%8C%E7%9C%9F%E5%AE%9E%E4%BB%BB%E5%8A%A1%E9%AA%8C%E8%AF%81%E7%90%86%E8%A7%A3" tabindex="-1" data-source-line="41,42"><a class="header-anchor" href="#3.-%E7%94%A8%E8%AF%8A%E6%96%AD%E9%A2%98%E5%92%8C%E7%9C%9F%E5%AE%9E%E4%BB%BB%E5%8A%A1%E9%AA%8C%E8%AF%81%E7%90%86%E8%A7%A3">§</a> 3. 用诊断题和真实任务验证理解</h3>
+<p data-source-line="43,44">让 AI 出 8 至 12 道题，优先要求比较、反事实、故障定位和方案取舍，避免纯定义题。学习者先关闭资料作答，再要求 AI 按来源逐项指出：错误结论、漏掉的前提、证据强弱以及需要回看的材料。</p>
+<p data-source-line="45,46">最后必须做一个主题对应的真实产出：工程专题写最小实验计划或代码原型；投资专题写可证伪的判断与数据清单；理论专题用自己的例子讲清推导。第二天、一周后、一个月后各抽取 3 至 5 道旧题重答，并把错题链接回领域地图。主动检索的价值在于暴露“以为会但说不出”的部分，而不只是增加笔记量。</p>
+<h2 id="%E4%B8%A4%E5%A4%A9%E5%AE%9A%E5%90%91%E5%AD%A6%E4%B9%A0%E8%8A%82%E5%A5%8F" tabindex="-1" data-source-line="47,48"><a class="header-anchor" href="#%E4%B8%A4%E5%A4%A9%E5%AE%9A%E5%90%91%E5%AD%A6%E4%B9%A0%E8%8A%82%E5%A5%8F">§</a> 两天定向学习节奏</h2>
+<table data-source-line="49,57">
+<thead>
+<tr>
+<th>时段</th>
+<th>产物</th>
+<th>检查点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 0-2 小时</td>
+<td>目标句、来源清单、术语表</td>
+<td>来源是否覆盖基础、主流和场景约束</td>
+</tr>
+<tr>
+<td>第 2-4 小时</td>
+<td>心智模型和依赖图</td>
+<td>每项是否有来源位置和反例</td>
+</tr>
+<tr>
+<td>第 4-6 小时</td>
+<td>分歧表与评价指标</td>
+<td>是否明确哪些结论尚不能判断</td>
+</tr>
+<tr>
+<td>第 6-9 小时</td>
+<td>闭卷诊断题答案和错题单</td>
+<td>能否解释每个错误的推理缺口</td>
+</tr>
+<tr>
+<td>第二天</td>
+<td>最小项目、评测方案或口头讲解</td>
+<td>是否能在新案例中做取舍</td>
+</tr>
+<tr>
+<td>一周后</td>
+<td>二次闭卷题和修订地图</td>
+<td>是否仍能从记忆中重建主线</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%E5%B8%B8%E8%A7%81%E8%AF%AF%E7%94%A8" tabindex="-1" data-source-line="58,59"><a class="header-anchor" href="#%E5%B8%B8%E8%A7%81%E8%AF%AF%E7%94%A8">§</a> 常见误用</h2>
+<ul data-source-line="60,64">
+<li>把资料一股脑上传：语料质量差或互相矛盾时，AI 只会更快地放大混乱。</li>
+<li>只看生成的领域地图：地图是导航，不是能力本身。</li>
+<li>用“专家观点”遮蔽不确定性：必须保留来源、争议和证据等级。</li>
+<li>只出记忆题：工程学习应以故障分析、参数取舍、实验设计和新案例迁移为主。</li>
+</ul>
+</article><section class="article-end"><span>READ · THINK · TRY</span><p>把这篇笔记，带回一个真实问题里。</p></section><nav class="adjacent"><a href="./knowledge-management.html"><small>上一篇 →</small><strong>Obsidian 知识管理方法论</strong></a></nav></main><aside class="toc"><p>ON THIS PAGE / 本页目录</p><a href="#%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98">解决什么问题</a><a href="#%E5%AD%A6%E4%B9%A0%E9%97%AD%E7%8E%AF">学习闭环</a><a href="#1.-%E5%85%88%E5%AE%9A%E4%B9%89%E7%9B%AE%E6%A0%87%E5%92%8C%E6%9D%A5%E6%BA%90%E8%BE%B9%E7%95%8C">1. 先定义目标和来源边界</a><a href="#2.-%E5%85%88%E8%8E%B7%E5%BE%97%E9%A2%86%E5%9F%9F%E5%9C%B0%E5%9B%BE%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E6%91%98%E8%A6%81">2. 先获得领域地图，而不是摘要</a><a href="#3.-%E7%94%A8%E8%AF%8A%E6%96%AD%E9%A2%98%E5%92%8C%E7%9C%9F%E5%AE%9E%E4%BB%BB%E5%8A%A1%E9%AA%8C%E8%AF%81%E7%90%86%E8%A7%A3">3. 用诊断题和真实任务验证理解</a><a href="#%E4%B8%A4%E5%A4%A9%E5%AE%9A%E5%90%91%E5%AD%A6%E4%B9%A0%E8%8A%82%E5%A5%8F">两天定向学习节奏</a><a href="#%E5%B8%B8%E8%A7%81%E8%AF%AF%E7%94%A8">常见误用</a><a href="#">回到顶部 ↑</a><div class="reading-note">阅读只是起点。<br>理解，发生在验证之后。</div></aside></div><footer><a class="brand-footer" href="./index.html">g. / Godfery</a><span>让零散的经验，成为彼此连接的知识。</span><span>机器人感知 · 工程实践 · 学习方法</span></footer><dialog id="graph-dialog"><button id="graph-close" type="button">关闭 ✕</button><h2>知识之间的连接</h2><p>拖动节点、滚轮缩放，点击阅读文章</p><svg id="graph-svg" aria-label="文章知识图谱"></svg></dialog><script type="module" src="./assets/site.js"></script></body></html>

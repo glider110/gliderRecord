@@ -1,0 +1,139 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="关于机器人感知、工程实践与学习方法的持续整理。"><meta name="theme-color" content="#f5f4ef"><title>三维重建与位姿估计 · Godfery 知识札记</title><link rel="stylesheet" href="./assets/site.css"><link rel="stylesheet" href="./katex/katex.min.css"></head><body class="is-article"><div id="reading-progress"></div><a class="skip" href="#content">跳到正文</a><header><a class="brand" href="./index.html"><span class="brand-mark">g.</span><span>Godfery 知识札记<small>THINK · BUILD · CONNECT</small></span></a><div class="header-links"><a href="./index.html">知识首页</a><button id="graph-open" type="button">◌ 知识图谱</button><button id="theme" type="button" aria-label="切换深浅主题">◐</button><button id="menu" type="button" aria-expanded="false">目录</button></div></header><div class="layout"><aside class="navigation"><p class="nav-caption">EXPLORE THE NOTES</p><label class="search-label" for="search">搜索知识库 <kbd>/</kbd></label><input id="search" type="search" placeholder="输入一个问题或关键词…"><div id="results" aria-live="polite"></div><nav><section><h3>视觉与深度感知</h3><a href="./stereo-depth.html">双目深度估计流程</a><a href="./stereo-matching.html">传统双目立体匹配算法</a><a href="./tof-principles.html">iToF 与 dToF 测距原理</a></section><section><h3>点云与机器人基础</h3><a href="./3d-reconstruction.html">三维重建与位姿估计</a><a href="./lidar-denoising.html">激光雷达噪点与去噪</a><a href="./robot-reinforcement-learning.html">机器人强化学习</a></section><section><h3>工程工具与模型部署</h3><a href="./model-deployment.html">PyTorch、ONNX 与 TensorRT 部署链路</a><a href="./git-workflow.html">Git 工作流速查</a></section><section><h3>AI 学习与知识管理</h3><a href="./knowledge-management.html">Obsidian 知识管理方法论</a><a href="./ai-assisted-learning.html">AI辅助专题学习方法</a></section></nav><div class="nav-note"><span class="status-dot"></span>持续整理，慢慢连接。<p>从真实的问题出发，留下可以复用的思考。</p></div></aside><main id="content"><div class="article-breadcrumb"><a href="./index.html">知识首页</a><span>/</span>点云与机器人基础</div><div class="article-meta"><span class="pill">点云与机器人基础</span><span>约 3 分钟阅读</span><span>整理于 2026-04-17</span></div><article><h1 id="%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA%E4%B8%8E%E4%BD%8D%E5%A7%BF%E4%BC%B0%E8%AE%A1" tabindex="-1" data-source-line="1,2"><a class="header-anchor" href="#%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA%E4%B8%8E%E4%BD%8D%E5%A7%BF%E4%BC%B0%E8%AE%A1">§</a> 三维重建与位姿估计</h1>
+<h2 id="%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB" tabindex="-1" data-source-line="3,4"><a class="header-anchor" href="#%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB">§</a> 三维重建方法分类</h2>
+<table data-source-line="5,10">
+<thead>
+<tr>
+<th>输入类型</th>
+<th>方法</th>
+<th>输出</th>
+<th>尺度真实？</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3D → 3D</td>
+<td>ICP</td>
+<td>R, t</td>
+<td>✅ 是</td>
+<td>点云配准、位姿调整</td>
+</tr>
+<tr>
+<td>3D → 2D</td>
+<td>PnP</td>
+<td>R, t</td>
+<td>✅ 是（若3D坐标真实）</td>
+<td>相机定位、AR</td>
+</tr>
+<tr>
+<td>2D → 2D</td>
+<td>本质矩阵/F矩阵</td>
+<td>R, t（无尺度）</td>
+<td>❌ up-to-scale</td>
+<td>SfM、VO、SLAM初始化</td>
+</tr>
+</tbody>
+</table>
+<blockquote data-source-line="11,12">
+<p><strong>记忆规律</strong>：时间为移动（SfM），空间为双目标定（带尺度）。</p>
+</blockquote>
+<h2 id="%E5%9F%BA%E7%A1%80%E7%9F%A9%E9%98%B5-f-vs-%E6%9C%AC%E8%B4%A8%E7%9F%A9%E9%98%B5-e" tabindex="-1" data-source-line="13,14"><a class="header-anchor" href="#%E5%9F%BA%E7%A1%80%E7%9F%A9%E9%98%B5-f-vs-%E6%9C%AC%E8%B4%A8%E7%9F%A9%E9%98%B5-e">§</a> 基础矩阵 F vs 本质矩阵 E</h2>
+<table data-source-line="15,19">
+<thead>
+<tr>
+<th>矩阵</th>
+<th>名称</th>
+<th>用途</th>
+<th>是否需要内参K</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F</strong></td>
+<td>基础矩阵（Fundamental Matrix）</td>
+<td>像素坐标之间的几何约束</td>
+<td>❌ 不需要</td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td>本质矩阵（Essential Matrix）</td>
+<td>相机坐标系下的几何约束</td>
+<td>✅ 需要K</td>
+</tr>
+</tbody>
+</table>
+<p data-source-line="20,21"><strong>E矩阵</strong>描述相机间相对运动（R,t）的几何关系，<code>E = K^T · F · K</code>。</p>
+<h2 id="nerf-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86" tabindex="-1" data-source-line="22,23"><a class="header-anchor" href="#nerf-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">§</a> NeRF 工作原理</h2>
+<p data-source-line="24,25">NeRF（Neural Radiance Field）对每张输入图像：</p>
+<ol data-source-line="26,32">
+<li>根据内参K将每个像素(u,v)反投影为光线</li>
+<li>通过外参(R,t)将光线转换到世界坐标系</li>
+<li>沿光线在3D空间采样若干点</li>
+<li>神经网络预测每点的密度σ和颜色c</li>
+<li>体渲染公式合成像素颜色，与原图计算监督误差</li>
+</ol>
+<blockquote data-source-line="32,33">
+<p><strong>关键</strong>：内参决定光线方向，外参决定光线在世界坐标系的位置。</p>
+</blockquote>
+<h2 id="3d-gaussian-splatting-%E8%BE%93%E5%87%BA%E5%AD%97%E6%AE%B5" tabindex="-1" data-source-line="34,35"><a class="header-anchor" href="#3d-gaussian-splatting-%E8%BE%93%E5%87%BA%E5%AD%97%E6%AE%B5">§</a> 3D Gaussian Splatting 输出字段</h2>
+<table data-source-line="36,44">
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+<th>CloudCompare显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x,y,z</code></td>
+<td>点的位置</td>
+<td>✅ 默认</td>
+</tr>
+<tr>
+<td><code>f_dc_0~2</code></td>
+<td>类RGB颜色</td>
+<td>✅ 可手动映射</td>
+</tr>
+<tr>
+<td><code>opacity</code></td>
+<td>渲染权重</td>
+<td>✅ Scalar Field可视化</td>
+</tr>
+<tr>
+<td><code>scale_*</code></td>
+<td>尺度（高斯椭球大小）</td>
+<td>✅ 体积分布</td>
+</tr>
+<tr>
+<td><code>rot_*</code></td>
+<td>方向四元数</td>
+<td>❌ 需转换</td>
+</tr>
+<tr>
+<td><code>f_rest_*</code></td>
+<td>高阶球谐函数</td>
+<td>❌ 仅用于渲染</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6d-%E4%BD%8D%E5%A7%BF%E4%BC%B0%E8%AE%A1" tabindex="-1" data-source-line="45,46"><a class="header-anchor" href="#6d-%E4%BD%8D%E5%A7%BF%E4%BC%B0%E8%AE%A1">§</a> 6D 位姿估计</h2>
+<h3 id="%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%BA%AF%E7%82%B9%E4%BA%916d%E4%BD%8D%E5%A7%BF%E4%BC%B0%E8%AE%A1%E6%80%9D%E8%B7%AF" tabindex="-1" data-source-line="47,48"><a class="header-anchor" href="#%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%BA%AF%E7%82%B9%E4%BA%916d%E4%BD%8D%E5%A7%BF%E4%BC%B0%E8%AE%A1%E6%80%9D%E8%B7%AF">§</a> 基于深度学习的纯点云6D位姿估计思路</h3>
+<p data-source-line="49,50"><strong>核心</strong>：构建参考点云→转换点云（RT变换+噪声+clip+下采样）的特征提取网络，训练出目标RT。</p>
+<p data-source-line="51,52"><strong>数据制作方案：</strong></p>
+<ol data-source-line="52,56">
+<li><strong>增强一</strong>：对参考点云（单帧）用脚本生成各种位姿下的点云</li>
+<li><strong>增强二</strong>：通过转台或机械臂多帧拍摄获取不同位姿</li>
+<li><strong>增强三</strong>：仿真模型生成点云数据</li>
+</ol>
+<p data-source-line="56,57"><strong>训练流程：</strong></p>
+<pre><code>Input: (参考点云, 增强点云, Label位姿)
+Output: Model
+
+推理: Input(参考点云, 实时点云, Model) → Output(位姿)
+</code></pre>
+<h2 id="open-questions" tabindex="-1" data-source-line="65,66"><a class="header-anchor" href="#open-questions">§</a> Open Questions</h2>
+<ul data-source-line="67,68">
+<li>单目深度估计需要内参吗？如果不需要，假如多个相机在同一位置拍摄相同物体，得到的深度图一样吗？</li>
+</ul>
+</article><section class="article-end"><span>READ · THINK · TRY</span><p>把这篇笔记，带回一个真实问题里。</p></section><nav class="adjacent"><a href="./tof-principles.html"><small>上一篇 →</small><strong>iToF 与 dToF 测距原理</strong></a><a href="./lidar-denoising.html"><small>下一篇 →</small><strong>激光雷达噪点与去噪</strong></a></nav></main><aside class="toc"><p>ON THIS PAGE / 本页目录</p><a href="#%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB">三维重建方法分类</a><a href="#%E5%9F%BA%E7%A1%80%E7%9F%A9%E9%98%B5-f-vs-%E6%9C%AC%E8%B4%A8%E7%9F%A9%E9%98%B5-e">基础矩阵 F vs 本质矩阵 E</a><a href="#nerf-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">NeRF 工作原理</a><a href="#3d-gaussian-splatting-%E8%BE%93%E5%87%BA%E5%AD%97%E6%AE%B5">3D Gaussian Splatting 输出字段</a><a href="#6d-%E4%BD%8D%E5%A7%BF%E4%BC%B0%E8%AE%A1">6D 位姿估计</a><a href="#%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%BA%AF%E7%82%B9%E4%BA%916d%E4%BD%8D%E5%A7%BF%E4%BC%B0%E8%AE%A1%E6%80%9D%E8%B7%AF">基于深度学习的纯点云6D位姿估计思路</a><a href="#open-questions">Open Questions</a><a href="#">回到顶部 ↑</a><div class="reading-note">阅读只是起点。<br>理解，发生在验证之后。</div></aside></div><footer><a class="brand-footer" href="./index.html">g. / Godfery</a><span>让零散的经验，成为彼此连接的知识。</span><span>机器人感知 · 工程实践 · 学习方法</span></footer><dialog id="graph-dialog"><button id="graph-close" type="button">关闭 ✕</button><h2>知识之间的连接</h2><p>拖动节点、滚轮缩放，点击阅读文章</p><svg id="graph-svg" aria-label="文章知识图谱"></svg></dialog><script type="module" src="./assets/site.js"></script></body></html>

@@ -1,0 +1,48 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="关于机器人感知、工程实践与学习方法的持续整理。"><meta name="theme-color" content="#f5f4ef"><title>激光雷达噪点与去噪 · Godfery 知识札记</title><link rel="stylesheet" href="./assets/site.css"><link rel="stylesheet" href="./katex/katex.min.css"></head><body class="is-article"><div id="reading-progress"></div><a class="skip" href="#content">跳到正文</a><header><a class="brand" href="./index.html"><span class="brand-mark">g.</span><span>Godfery 知识札记<small>THINK · BUILD · CONNECT</small></span></a><div class="header-links"><a href="./index.html">知识首页</a><button id="graph-open" type="button">◌ 知识图谱</button><button id="theme" type="button" aria-label="切换深浅主题">◐</button><button id="menu" type="button" aria-expanded="false">目录</button></div></header><div class="layout"><aside class="navigation"><p class="nav-caption">EXPLORE THE NOTES</p><label class="search-label" for="search">搜索知识库 <kbd>/</kbd></label><input id="search" type="search" placeholder="输入一个问题或关键词…"><div id="results" aria-live="polite"></div><nav><section><h3>视觉与深度感知</h3><a href="./stereo-depth.html">双目深度估计流程</a><a href="./stereo-matching.html">传统双目立体匹配算法</a><a href="./tof-principles.html">iToF 与 dToF 测距原理</a></section><section><h3>点云与机器人基础</h3><a href="./3d-reconstruction.html">三维重建与位姿估计</a><a href="./lidar-denoising.html">激光雷达噪点与去噪</a><a href="./robot-reinforcement-learning.html">机器人强化学习</a></section><section><h3>工程工具与模型部署</h3><a href="./model-deployment.html">PyTorch、ONNX 与 TensorRT 部署链路</a><a href="./git-workflow.html">Git 工作流速查</a></section><section><h3>AI 学习与知识管理</h3><a href="./knowledge-management.html">Obsidian 知识管理方法论</a><a href="./ai-assisted-learning.html">AI辅助专题学习方法</a></section></nav><div class="nav-note"><span class="status-dot"></span>持续整理，慢慢连接。<p>从真实的问题出发，留下可以复用的思考。</p></div></aside><main id="content"><div class="article-breadcrumb"><a href="./index.html">知识首页</a><span>/</span>点云与机器人基础</div><div class="article-meta"><span class="pill">点云与机器人基础</span><span>约 2 分钟阅读</span><span>整理于 2026-04-17</span></div><article><h1 id="%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%99%AA%E7%82%B9%E4%B8%8E%E5%8E%BB%E5%99%AA" tabindex="-1" data-source-line="1,2"><a class="header-anchor" href="#%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E5%99%AA%E7%82%B9%E4%B8%8E%E5%8E%BB%E5%99%AA">§</a> 激光雷达噪点与去噪</h1>
+<p data-source-line="3,4">激光雷达前端处理的第一步不是“识别目标”，而是先理解噪点来源。不同噪声类型对应的抑制策略完全不同。</p>
+<h2 id="%E5%99%AA%E7%82%B9%E6%9D%A5%E6%BA%90%E5%88%86%E7%B1%BB" tabindex="-1" data-source-line="5,6"><a class="header-anchor" href="#%E5%99%AA%E7%82%B9%E6%9D%A5%E6%BA%90%E5%88%86%E7%B1%BB">§</a> 噪点来源分类</h2>
+<table data-source-line="7,12">
+<thead>
+<tr>
+<th>类型</th>
+<th>典型表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传感器自身问题</td>
+<td>盲区吸点、多径噪声</td>
+</tr>
+<tr>
+<td>环境因素</td>
+<td>拖尾点、平行点、高反鬼影、高反膨胀、雨雾尾气噪声</td>
+</tr>
+<tr>
+<td>外部干扰</td>
+<td>阳光干扰、对射干扰</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%E5%B7%A5%E7%A8%8B%E5%88%A4%E6%96%AD" tabindex="-1" data-source-line="13,14"><a class="header-anchor" href="#%E5%B7%A5%E7%A8%8B%E5%88%A4%E6%96%AD">§</a> 工程判断</h2>
+<p data-source-line="15,16">同样是“离群点”，其根因可能不同：</p>
+<ul data-source-line="17,21">
+<li>高反鬼影更像物理成像问题，单靠统计滤波很难彻底解决</li>
+<li>拖尾点和平行点往往与安装位姿、入射角有关</li>
+<li>雨雾尾气噪声更偏场景条件变化，需要策略退化和鲁棒阈值</li>
+</ul>
+<p data-source-line="21,22">因此去噪不能只依赖单一滤波器，而要把<strong>安装、硬件特性、点云标签信息、后处理规则</strong>一起考虑。</p>
+<h2 id="%E5%B8%B8%E8%A7%81%E5%A4%84%E7%90%86%E6%80%9D%E8%B7%AF" tabindex="-1" data-source-line="23,24"><a class="header-anchor" href="#%E5%B8%B8%E8%A7%81%E5%A4%84%E7%90%86%E6%80%9D%E8%B7%AF">§</a> 常见处理思路</h2>
+<ol data-source-line="25,30">
+<li>ROI 裁剪：先剔除明显无关区域，减少后续噪声传播。</li>
+<li>Tag / 回波信息过滤：能用传感器原始标签时，不要只靠几何滤波。</li>
+<li>统计或半径滤波：处理孤立坏点和局部稀疏异常。</li>
+<li>场景特定规则：对高反地面、玻璃、斜打场景做补充约束。</li>
+</ol>
+<h2 id="%E5%AE%89%E8%A3%85%E7%AD%96%E7%95%A5%E5%BD%B1%E5%93%8D" tabindex="-1" data-source-line="30,31"><a class="header-anchor" href="#%E5%AE%89%E8%A3%85%E7%AD%96%E7%95%A5%E5%BD%B1%E5%93%8D">§</a> 安装策略影响</h2>
+<p data-source-line="32,33">安装方式本身也是去噪设计的一部分：</p>
+<ul data-source-line="34,37">
+<li>合理的安装角度可以减少正向高反回波</li>
+<li>也可能引入新的遮挡或稀疏采样问题</li>
+</ul>
+<p data-source-line="37,38">所以前端点云质量问题不能只在算法里兜底，必须和传感器安装一起联调。</p>
+</article><section class="article-end"><span>READ · THINK · TRY</span><p>把这篇笔记，带回一个真实问题里。</p></section><nav class="adjacent"><a href="./3d-reconstruction.html"><small>上一篇 →</small><strong>三维重建与位姿估计</strong></a><a href="./robot-reinforcement-learning.html"><small>下一篇 →</small><strong>机器人强化学习</strong></a></nav></main><aside class="toc"><p>ON THIS PAGE / 本页目录</p><a href="#%E5%99%AA%E7%82%B9%E6%9D%A5%E6%BA%90%E5%88%86%E7%B1%BB">噪点来源分类</a><a href="#%E5%B7%A5%E7%A8%8B%E5%88%A4%E6%96%AD">工程判断</a><a href="#%E5%B8%B8%E8%A7%81%E5%A4%84%E7%90%86%E6%80%9D%E8%B7%AF">常见处理思路</a><a href="#%E5%AE%89%E8%A3%85%E7%AD%96%E7%95%A5%E5%BD%B1%E5%93%8D">安装策略影响</a><a href="#">回到顶部 ↑</a><div class="reading-note">阅读只是起点。<br>理解，发生在验证之后。</div></aside></div><footer><a class="brand-footer" href="./index.html">g. / Godfery</a><span>让零散的经验，成为彼此连接的知识。</span><span>机器人感知 · 工程实践 · 学习方法</span></footer><dialog id="graph-dialog"><button id="graph-close" type="button">关闭 ✕</button><h2>知识之间的连接</h2><p>拖动节点、滚轮缩放，点击阅读文章</p><svg id="graph-svg" aria-label="文章知识图谱"></svg></dialog><script type="module" src="./assets/site.js"></script></body></html>
