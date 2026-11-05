@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iToF 与 dToF 交互式原理</title>
+<style>
+  :root{
+    --bg:#0b1020; --panel:#121a2e; --panel2:#17203a; --line:#26324f;
+    --text:#e6edf7; --muted:#93a1bd; --itof:#4cc9f0; --dtof:#f4a261; --carrier:#a78bfa; --ok:#4ade80; --warn:#f87171;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#16203a 0%,var(--bg) 60%);
+       color:var(--text);font:15px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+  header{padding:44px 28px 16px;max-width:1080px;margin:0 auto}
+  h1{margin:0 0 8px;font-size:28px;letter-spacing:.3px}
+  .sub{color:var(--muted);margin:0;max-width:760px}
+  main{max-width:1080px;margin:0 auto;padding:0 28px 80px}
+  section{margin-top:36px;background:linear-gradient(180deg,var(--panel) 0%,#0f1628 100%);
+          border:1px solid var(--line);border-radius:16px;padding:22px 22px 18px}
+  h2{margin:0 0 4px;font-size:19px}
+  h3{margin:26px 0 8px;font-size:15px;color:var(--muted);font-weight:600;letter-spacing:.5px}
+  .hint{color:var(--muted);font-size:13px;margin:6px 0 16px}
+  canvas{width:100%;display:block;border-radius:10px;background:#0a1020;border:1px solid #1b2540}
+  .controls{display:flex;flex-wrap:wrap;gap:18px;margin:16px 0 6px}
+  .ctrl{flex:1 1 220px;min-width:200px}
+  .ctrl label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:4px}
+  .ctrl label b{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
+  input[type=range]{width:100%;accent-color:var(--itof)}
+  .readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+  .ro{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .ro span{display:block;font-size:12px;color:var(--muted)}
+  .ro strong{font-size:17px;font-variant-numeric:tabular-nums}
+  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600}
+  .badge.ok{background:rgba(74,222,128,.14);color:var(--ok);border:1px solid rgba(74,222,128,.35)}
+  .badge.warn{background:rgba(248,113,113,.14);color:var(--warn);border:1px solid rgba(248,113,113,.35)}
+  table{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:14px}
+  th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:13px}
+  td:first-child{color:var(--muted);white-space:nowrap}
+  .itof{color:var(--itof)} .dtof{color:var(--dtof)} .carrier{color:var(--carrier)}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:10px}
+  .legend i{display:inline-block;width:16px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+  button{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:9px;
+         padding:8px 16px;font-size:13.5px;cursor:pointer;transition:.15s}
+  button:hover{border-color:#3b4d78;background:#1b2742}
+  button.primary{border-color:rgba(76,201,240,.5);color:var(--itof)}
+  .rowbtns{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .note{background:rgba(167,139,250,.08);border-left:3px solid var(--carrier);padding:10px 14px;border-radius:8px;font-size:13.5px;color:#cfd8ec;margin:14px 0 0}
+  code{background:#0d1527;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px}
+  .foot{color:var(--muted);font-size:12.5px;margin-top:26px}
+  @media (max-width:640px){
+    header{padding:28px 16px 8px} main{padding:0 16px 56px}
+    section{padding:18px 14px 14px}
+    table{font-size:12.5px} th,td{padding:7px 6px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>iToF 与 dToF：从光载波到深度值</h1>
+  <p class="sub">两种测距体制都靠光速往返折算距离，差别只在「时间怎么测」。下面三个实验分别展示：载波与包络差了 7 个数量级、iToF 如何用四相位解出距离、dToF 如何靠光子直方图找峰值。</p>
+</header>
+
+<main>
+
+<!-- ============ 1. 尺度 ============ -->
+<section>
+  <h2>1 · 两个时间尺度</h2>
+  <p class="hint">上面是 940 nm 光载波，下面是 30 MHz 的光强包络。两者周期相差约 10<sup>7</sup> 倍——所以 iToF 测的从来不是光波本身。</p>
+  <canvas id="scaleCanvas" style="height:300px"></canvas>
+  <div class="legend">
+    <span><i style="background:var(--carrier)"></i>光载波 940 nm（3.13 fs）</span>
+    <span><i style="background:var(--itof)"></i>包络 f<sub>m</sub> = 30 MHz（33.3 ns）</span>
+  </div>
+  <div class="note">
+    时间轴用对数刻度：光周期 3.13 fs，电子学响应约 0.1 ns，包络周期 33 ns，昆虫闪烁融合约 3 ms，人眼积分约 10 ms。任何生物与电路都落在包络右侧，碰不到载波。
+  </div>
+</section>
+
+<!-- ============ 2. iToF ============ -->
+<section>
+  <h2>2 · iToF：相位差怎么变成距离</h2>
+  <p class="hint">拖动距离和调制频率，观察接收波形相对发射波形的相位漂移。超过不模糊距离后相位会折叠，解算出的距离与真实距离分离。</p>
+  <canvas id="itofCanvas" style="height:290px"></canvas>
+  <div class="legend">
+    <span><i style="background:var(--itof)"></i>发射包络</span>
+    <span><i style="background:#f4a261"></i>接收包络（延迟 Δt = 2d/c）</span>
+    <span><i style="background:#a78bfa"></i>四相位采样点 0°/90°/180°/270°</span>
+  </div>
+  <div class="controls">
+    <div class="ctrl">
+      <label>真实距离 d <b><span id="dVal">2.00</span> m</b></label>
+      <input id="dRange" type="range" min="0.2" max="8" step="0.05" value="2">
+    </div>
+    <div class="ctrl">
+      <label>调制频率 f<sub>m</sub> <b><span id="fmVal">30</span> MHz</b></label>
+      <input id="fmRange" type="range" min="10" max="100" step="1" value="30">
+    </div>
+  </div>
+  <div class="readouts">
+    <div class="ro"><span>相位差 φ</span><strong><span id="phaseVal">—</span>°</strong></div>
+    <div class="ro"><span>单频不模糊距离 d<sub>max</sub></span><strong><span id="dmaxVal">—</span> m</strong></div>
+    <div class="ro"><span>由相位解算的距离</span><strong><span id="dmeasVal">—</span> m</strong></div>
+    <div class="ro"><span>状态</span><strong><span id="itofState" class="badge ok">—</span></strong></div>
+  </div>
+  <div class="note" id="itofNote">相位 φ = 4π f<sub>m</sub> d / c，对 2π 取模；距离解算 d = cφ / (4π f<sub>m</sub>)。</div>
+</section>
+
+<!-- ============ 3. dToF ============ -->
+<section>
+  <h2>3 · dToF：数光子，找峰值</h2>
+  <p class="hint">每次发射一个窄脉冲，SPAD 记录光子到达时刻，累积成直方图（TCSPC）。加大环境光会让底噪抬高，加宽脉冲会让峰值变胖——两者都会让估计变差。</p>
+  <canvas id="dtofCanvas" style="height:320px"></canvas>
+  <div class="legend">
+    <span><i style="background:#f4a261"></i>累积光子直方图</span>
+    <span><i style="background:#a78bfa"></i>真实回波时刻 2d/c</span>
+    <span><i style="background:#4ade80"></i>峰值估计</span>
+  </div>
+  <div class="controls">
+    <div class="ctrl">
+      <label>真实距离 d <b><span id="ddVal">3.00</span> m</b></label>
+      <input id="ddRange" type="range" min="0.3" max="10" step="0.05" value="3">
+    </div>
+    <div class="ctrl">
+      <label>脉冲宽度（FWHM） <b><span id="pwVal">0.8</span> ns</b></label>
+      <input id="pwRange" type="range" min="0.2" max="3" step="0.1" value="0.8">
+    </div>
+    <div class="ctrl">
+      <label>环境光强度 <b><span id="ambVal">0.2</span></b></label>
+      <input id="ambRange" type="range" min="0" max="1" step="0.02" value="0.2">
+    </div>
+  </div>
+  <div class="readouts">
+    <div class="ro"><span>理论飞行时间</span><strong><span id="tofVal">—</span> ns</strong></div>
+    <div class="ro"><span>峰值估计距离</span><strong><span id="destVal">—</span> m</strong></div>
+    <div class="ro"><span>误差</span><strong><span id="errVal">—</span> cm</strong></div>
+    <div class="ro"><span>已累积光子</span><strong><span id="cntVal">0</span></strong></div>
+  </div>
+  <div class="rowbtns">
+    <button class="primary" id="runBtn">暂停累积</button>
+    <button id="resetBtn">重置直方图</button>
+  </div>
+</section>
+
+<!-- ============ 4. 对比 ============ -->
+<section>
+  <h2>4 · 对照与选型</h2>
+  <table>
+    <thead><tr><th>维度</th><th class="itof">iToF</th><th class="dtof">dToF</th></tr></thead>
+    <tbody>
+      <tr><td>测的是什么</td><td>包络的相位差（间接）</td><td>光子到达时刻（直接）</td></tr>
+      <tr><td>核心器件</td><td>调制光源 + 相关解调像素</td><td>脉冲激光 + SPAD 阵列 + TDC</td></tr>
+      <tr><td>典型量程</td><td>0.15–5.5 m</td><td>0.2–7 m，可更远</td></tr>
+      <tr><td>分辨率</td><td>高，640×480 及以上</td><td>较低，240×96 / 640×480</td></tr>
+      <tr><td>抗环境光</td><td>中，强日光退化</td><td>强，单光子 + 时间门控</td></tr>
+      <tr><td>主要误差</td><td>多路径、反射率、相位包裹</td><td>走离误差、堆积效应、光子噪声</td></tr>
+      <tr><td>功耗</td><td>连续调制，较高</td><td>脉冲间歇，较低</td></tr>
+      <tr><td>成本</td><td>低—中</td><td>中—高，正在下降</td></tr>
+    </tbody>
+  </table>
+  <h3>选型口诀</h3>
+  <p class="hint" style="margin:0">要稠密点云或近距精细识别 → iToF（或结构光）；要中远距、强光、少维护 → dToF；两者不能互换着说，量程公式与误差结构完全不同。</p>
+  <p class="foot">对应知识库页面：concepts/iToF 与 dToF 测距原理</p>
+</section>
+
+</main>
+
+<script>
+(function(){
+  const C = 299792458;
+
+  /* ---------- 通用画布 ---------- */
+  function fit(canvas){
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (canvas.width !== Math.round(w*dpr) || canvas.height !== Math.round(h*dpr)){
+      canvas.width = Math.round(w*dpr);
+      canvas.height = Math.round(h*dpr);
+    }
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,w,h);
+    return {ctx,w,h};
+  }
+  const css = getComputedStyle(document.documentElement);
+  const col = n => css.getPropertyValue(n).trim();
+
+  /* ================= 1. 尺度 ================= */
+  const scaleCanvas = document.getElementById('scaleCanvas');
+  function drawScales(t){
+    const {ctx,w,h} = fit(scaleCanvas);
+    const padL=70, padR=24;
+    const plotW = w-padL-padR;
+
+    // --- 载波 ---
+    const y1 = 58, amp1 = 26;
+    ctx.fillStyle = col('--muted'); ctx.font='12px -apple-system,PingFang SC,sans-serif';
+    ctx.fillText('光载波 940 nm', 10, y1+4);
+    ctx.fillText('3.13 fs', 10, y1+20);
+    ctx.strokeStyle = 'rgba(167,139,250,.85)'; ctx.lineWidth=1.4;
+    ctx.beginPath();
+    const cycles1 = 46, phase1 = t*0.0012;
+    for (let i=0;i<=plotW;i++){
+      const x = padL+i;
+      const y = y1 + amp1*Math.sin(i/plotW*cycles1*Math.PI*2 + phase1);
+      i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+    }
+    ctx.stroke();
+
+    // --- 包络 ---
+    const y2 = 140, amp2 = 30;
+    ctx.fillStyle = col('--muted');
+    ctx.fillText('光强包络', 10, y2-14);
+    ctx.fillText('33.3 ns', 10, y2+30);
+    ctx.strokeStyle = col('--itof'); ctx.lineWidth=2;
+    ctx.beginPath();
+    const cycles2 = 2.4, phase2 = t*0.00006;
+    for (let i=0;i<=plotW;i++){
+      const x = padL+i;
+      const y = y2 + amp2*Math.sin(i/plotW*cycles2*Math.PI*2 + phase2);
+      i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+    }
+    ctx.stroke();
+    // 填充
+    ctx.beginPath(); ctx.moveTo(padL,y2);
+    for (let i=0;i<=plotW;i++){
+      const x = padL+i, y = y2 + amp2*Math.sin(i/plotW*cycles2*Math.PI*2 + phase2);
+      ctx.lineTo(x,y);
+    }
+    ctx.lineTo(padL+plotW,y2); ctx.closePath();
+    ctx.fillStyle='rgba(76,201,240,.10)'; ctx.fill();
+
+    // 比例标注
+    ctx.strokeStyle='rgba(255,255,255,.18)'; ctx.setLineDash([4,4]); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(padL, y1+amp1+8); ctx.lineTo(padL, y2-amp2-8); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = col('--text'); ctx.font='13px -apple-system,PingFang SC,sans-serif';
+    ctx.fillText('× 10⁷', padL+8, (y1+y2)/2+5);
+
+    // --- 对数时间轴 ---
+    const ty = 240, x0 = padL, x1 = padL+plotW;
+    ctx.strokeStyle = col('--line'); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(x0,ty); ctx.lineTo(x1,ty); ctx.stroke();
+    const logMin=-15.5, logMax=0.5; // 10^-15.5 .. 10^0.5 秒
+    const X = sec => x0 + (Math.log10(sec)-logMin)/(logMax-logMin)*plotW;
+    for (let e=Math.ceil(logMin); e<=logMax; e++){
+      const x = X(Math.pow(10,e));
+      ctx.strokeStyle='rgba(255,255,255,.10)';
+      ctx.beginPath(); ctx.moveTo(x,ty-4); ctx.lineTo(x,ty+4); ctx.stroke();
+      ctx.fillStyle='rgba(147,161,189,.75)'; ctx.font='10.5px ui-monospace,SFMono-Regular,Menlo,monospace';
+      ctx.fillText('10^'+e, x-11, ty+18);
+    }
+    const marks = [
+      {s:1/3.2e14, label:'光周期 3.1 fs', c:'--carrier', dy:-34},
+      {s:1e-10,     label:'电子学 ~0.1 ns', c:'--itof', dy:-62},
+      {s:1/30e6,    label:'包络 33 ns', c:'--itof', dy:-34},
+      {s:3.3e-3,    label:'昆虫 CFF', c:'--dtof', dy:-34},
+      {s:1e-2,      label:'人眼积分', c:'--dtof', dy:-62}
+    ];
+    marks.forEach(m=>{
+      const x = X(m.s);
+      ctx.strokeStyle = col(m.c); ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(x,ty); ctx.lineTo(x,ty+m.dy+8); ctx.stroke();
+      ctx.fillStyle = col(m.c); ctx.beginPath(); ctx.arc(x,ty,3.5,0,Math.PI*2); ctx.fill();
+      ctx.font='11.5px -apple-system,PingFang SC,sans-serif';
+      const tw = ctx.measureText(m.label).width;
+      ctx.fillText(m.label, Math.min(x-tw/2, x1-tw), ty+m.dy);
+    });
+  }
+
+  /* ================= 2. iToF ================= */
+  const itofCanvas = document.getElementById('itofCanvas');
+  const dRange=document.getElementById('dRange'), fmRange=document.getElementById('fmRange');
+  const dVal=document.getElementById('dVal'), fmVal=document.getElementById('fmVal');
+  const phaseVal=document.getElementById('phaseVal'), dmaxVal=document.getElementById('dmaxVal');
+  const dmeasVal=document.getElementById('dmeasVal'), itofState=document.getElementById('itofState');
+
+  function itofParams(){
+    const d = parseFloat(dRange.value);
+    const fm = parseFloat(fmRange.value)*1e6;
+    return {d, fm};
+  }
+  function drawIToF(t){
+    const {d, fm} = itofParams();
+    const {ctx,w,h} = fit(itofCanvas);
+    const padL=64, padR=28, padT=34, padB=52;
+    const plotW = w-padL-padR, midY = padT + (h-padT-padB)/2;
+    const amp = Math.min(52,(h-padT-padB)/2-16);
+    const T = 1/fm, dt = 2*d/C;
+    const span = 2*T;                        // 显示两个包络周期
+    const X = tt => padL + tt/span*plotW;
+
+    // 网格与时基
+    ctx.strokeStyle='rgba(255,255,255,.06)';
+    for(let k=0;k<=4;k++){
+      const x = padL + plotW*k/4;
+      ctx.beginPath(); ctx.moveTo(x,padT-8); ctx.lineTo(x,h-padB+6); ctx.stroke();
+    }
+    ctx.fillStyle=col('--muted'); ctx.font='11.5px -apple-system,PingFang SC,sans-serif';
+    for(let k=0;k<=4;k++){
+      const tt = span*k/4;
+      ctx.fillText((tt*1e9).toFixed(0)+' ns', padL + plotW*k/4 - 14, h-padB+24);
+    }
+
+    const curve = (fn,color,dash,width)=>{
+      ctx.beginPath();
+      for(let i=0;i<=plotW;i++){
+        const tt = span*i/plotW;
+        const y = midY - amp*fn(tt);
+        i?ctx.lineTo(padL+i,y):ctx.moveTo(padL+i,y);
+      }
+      ctx.setLineDash(dash||[]); ctx.strokeStyle=color; ctx.lineWidth=width;
+      ctx.stroke(); ctx.setLineDash([]);
+    };
+    const emitted = tt => Math.sin(2*Math.PI*tt/T);
+    const recv    = tt => Math.sin(2*Math.PI*(tt-dt)/T);
+
+    // 零点参考
+    ctx.strokeStyle='rgba(255,255,255,.15)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(padL,midY); ctx.lineTo(w-padR,midY); ctx.stroke();
+
+    curve(emitted, col('--itof'), [], 2.2);
+    curve(recv, '#f4a261', [], 2.2);
+
+    // 四相位采样点（对接收波形在 0/90/180/270 处采样）
+    const I=[];
+    for(let k=0;k<4;k++){
+      const tt = k*T/4;
+      const v = recv(tt); I.push(v);
+      for(let rep=0;rep<2;rep++){
+        const ttk = tt + rep*T;
+        if (ttk>span) continue;
+        const x = X(ttk), y = midY - amp*recv(ttk);
+        ctx.beginPath(); ctx.arc(x,y,4.2,0,Math.PI*2);
+        ctx.fillStyle='#a78bfa'; ctx.fill();
+        ctx.strokeStyle='#0b1020'; ctx.lineWidth=1.5; ctx.stroke();
+        ctx.strokeStyle='rgba(167,139,250,.35)'; ctx.setLineDash([3,4]);
+        ctx.beginPath(); ctx.moveTo(x,midY); ctx.lineTo(x,y); ctx.stroke(); ctx.setLineDash([]);
+      }
+    }
+
+    // 相位解算
+    let phi = Math.atan2(I[2]-I[0], I[1]-I[3]);
+    if (phi < 0) phi += Math.PI*2;
+    const dmax = C/(2*fm);
+    const dmeas = C*phi/(4*Math.PI*fm);
+
+    phaseVal.textContent = (phi*180/Math.PI).toFixed(1);
+    dmaxVal.textContent = dmax.toFixed(2);
+    dmeasVal.textContent = dmeas.toFixed(2);
+    const ambiguous = d > dmax;
+    itofState.textContent = ambiguous ? '已折叠' : '一致';
+    itofState.className = 'badge ' + (ambiguous?'warn':'ok');
+
+    // 标注
+    ctx.font='12px -apple-system,PingFang SC,sans-serif';
+    ctx.fillStyle=col('--muted');
+    ctx.fillText('发射', padL+6, midY-amp-8);
+    ctx.fillStyle='#f4a261';
+    ctx.fillText('接收 Δt = '+(dt*1e9).toFixed(1)+' ns', padL+46, midY+amp+18);
+  }
+
+  /* ================= 3. dToF ================= */
+  const dtofCanvas = document.getElementById('dtofCanvas');
+  const ddRange=document.getElementById('ddRange'), pwRange=document.getElementById('pwRange'), ambRange=document.getElementById('ambRange');
+  const ddVal=document.getElementById('ddVal'), pwVal=document.getElementById('pwVal'), ambVal=document.getElementById('ambVal');
+  const tofVal=document.getElementById('tofVal'), destVal=document.getElementById('destVal'), errVal=document.getElementById('errVal'), cntVal=document.getElementById('cntVal');
+  const runBtn=document.getElementById('runBtn'), resetBtn=document.getElementById('resetBtn');
+
+  const NB = 420, TMAX = 80e-9;             // 80 ns 窗口，420 个 bin
+  let hist = new Float64Array(NB), total=0, running=true;
+
+  function resetHist(){ hist = new Float64Array(NB); total=0; cntVal.textContent='0'; }
+  resetBtn.addEventListener('click', resetHist);
+  runBtn.addEventListener('click', ()=>{ running=!running; runBtn.textContent = running?'暂停累积':'继续累积'; });
+
+  function gauss(){ // Box-Muller
+    let u=0,v=0;
+    while(u===0)u=Math.random();
+    while(v===0)v=Math.random();
+    return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+  }
+  function addPhotons(){
+    const d = parseFloat(ddRange.value);
+    const pw = parseFloat(pwRange.value)*1e-9;
+    const amb = parseFloat(ambRange.value);
+    const tTrue = 2*d/C;
+    const sigma = pw/2.355;
+    const nSig = 34, nAmb = Math.round(amb*110);
+    for(let i=0;i<nSig;i++){
+      const tt = tTrue + gauss()*sigma;
+      if(tt<0||tt>=TMAX) continue;
+      hist[Math.min(NB-1,Math.floor(tt/TMAX*NB))] += 1; total++;
+    }
+    for(let i=0;i<nAmb;i++){
+      const tt = Math.random()*TMAX;
+      hist[Math.min(NB-1,Math.floor(tt/TMAX*NB))] += 1; total++;
+    }
+  }
+
+  function smooth(arr){
+    const k=[1,4,6,4,1], s=16, out=new Float64Array(arr.length);
+    for(let i=0;i<arr.length;i++){
+      let acc=0;
+      for(let j=-2;j<=2;j++){
+        const idx=i+j;
+        if(idx>=0&&idx<arr.length) acc += arr[idx]*k[j+2];
+      }
+      out[i]=acc/s;
+    }
+    return out;
+  }
+
+  function drawDToF(){
+    const {ctx,w,h} = fit(dtofCanvas);
+    const padL=56, padR=26, padT=22, histTop=110, padB=34;
+    const plotW=w-padL-padR, histH=h-histTop-padB;
+    const d = parseFloat(ddRange.value);
+
+    // 顶部：脉冲示意
+    ctx.fillStyle=col('--muted'); ctx.font='11.5px -apple-system,PingFang SC,sans-serif';
+    const laneY=44, laneH=26;
+    ctx.fillText('发射脉冲', 8, laneY+18);
+    ctx.fillText('回波', 8, laneY+52);
+    const X = tt => padL + tt/TMAX*plotW;
+    ctx.fillStyle='rgba(76,201,240,.85)';
+    ctx.fillRect(padL, laneY, 4, laneH);
+    ctx.fillStyle='rgba(244,162,97,.9)';
+    ctx.fillRect(X(2*d/C)-2, laneY+34, Math.max(3, parseFloat(pwRange.value)*1e-9/TMAX*plotW), laneH);
+
+    // 直方图
+    let maxv=1;
+    for(let i=0;i<NB;i++) if(hist[i]>maxv) maxv=hist[i];
+    const bw = plotW/NB;
+    for(let i=0;i<NB;i++){
+      if(hist[i]<=0) continue;
+      const bh = hist[i]/maxv*histH;
+      const x = padL+i*bw;
+      const grad = ctx.createLinearGradient(0,histTop+histH-bh,0,histTop+histH);
+      grad.addColorStop(0,'rgba(244,162,97,.95)');
+      grad.addColorStop(1,'rgba(244,162,97,.35)');
+      ctx.fillStyle=grad;
+      ctx.fillRect(x, histTop+histH-bh, Math.max(1,bw*0.9), bh);
+    }
+    // 基线
+    ctx.strokeStyle='rgba(255,255,255,.12)';
+    ctx.beginPath(); ctx.moveTo(padL,histTop+histH); ctx.lineTo(padL+plotW,histTop+histH); ctx.stroke();
+
+    // 真实位置
+    const xTrue = X(2*d/C);
+    ctx.strokeStyle='rgba(167,139,250,.8)'; ctx.setLineDash([5,5]); ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(xTrue,histTop-4); ctx.lineTo(xTrue,histTop+histH); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle='rgba(167,139,250,.9)'; ctx.fillText('真实 2d/c', xTrue+6, histTop+12);
+
+    // 峰值估计
+    const sm = smooth(hist);
+    let bi=0, bv=-1;
+    for(let i=2;i<NB-2;i++){ if(sm[i]>bv){bv=sm[i]; bi=i;} }
+    const tEst = (bi+0.5)/NB*TMAX, dEst = C*tEst/2;
+    if(total>50){
+      ctx.strokeStyle='rgba(74,222,128,.9)'; ctx.lineWidth=1.6;
+      ctx.beginPath(); ctx.moveTo(X(tEst),histTop); ctx.lineTo(X(tEst),histTop+histH); ctx.stroke();
+      ctx.fillStyle='rgba(74,222,128,.95)'; ctx.fillText('峰值', X(tEst)+6, histTop+histH-6);
+    }
+
+    // 刻度
+    ctx.fillStyle='rgba(147,161,189,.8)'; ctx.font='10.5px ui-monospace,Menlo,monospace';
+    for(let k=0;k<=4;k++){
+      const tt = TMAX*k/4;
+      ctx.fillText((tt*1e9).toFixed(0)+'ns', padL+plotW*k/4-10, h-10);
+    }
+
+    // 读数
+    tofVal.textContent = (2*d/C*1e9).toFixed(2);
+    destVal.textContent = total>50 ? dEst.toFixed(2) : '—';
+    errVal.textContent = total>50 ? ((dEst-d)*100).toFixed(1) : '—';
+    cntVal.textContent = total.toLocaleString();
+  }
+
+  /* ---------- 主循环 ---------- */
+  let last = performance.now();
+  function loop(now){
+    const t = now;
+    drawScales(t);
+    drawIToF(t);
+    if (running){ addPhotons(); addPhotons(); addPhotons(); }
+    drawDToF();
+    last = now;
+    requestAnimationFrame(loop);
+  }
+
+  dRange.addEventListener('input', ()=>{ dVal.textContent=parseFloat(dRange.value).toFixed(2); });
+  fmRange.addEventListener('input', ()=>{ fmVal.textContent=parseInt(fmRange.value); });
+  ddRange.addEventListener('input', ()=>{ ddVal.textContent=parseFloat(ddRange.value).toFixed(2); });
+  pwRange.addEventListener('input', ()=>{ pwVal.textContent=parseFloat(pwRange.value).toFixed(1); });
+  ambRange.addEventListener('input', ()=>{ ambVal.textContent=parseFloat(ambRange.value).toFixed(2); });
+
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

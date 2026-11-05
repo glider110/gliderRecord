@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PyTorch 自动求导 · 交互演示</title>
+<style>
+  :root{
+    color-scheme: light;
+    --bg:#f6f3ec;
+    --panel:#fffdf7;
+    --ink:#1b1a17;
+    --muted:#6a6459;
+    --line:#e2dbcd;
+    --grid:#c8c0b0;
+    --chip:#f1ece1;
+    --input:#1f6f9c;
+    --param:#6b4fc0;
+    --op:#1f7a56;
+    --loss:#b8560f;
+    --target:#767066;
+    --grad:#b3261e;
+    --accent:#9a5209;
+    --ok:#1f7a4d;
+    --shadow:0 1px 2px rgba(30,24,15,.05), 0 12px 30px -22px rgba(30,24,15,.45);
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:#121418;
+    --panel:#1a1d22;
+    --ink:#ece6da;
+    --muted:#9c968a;
+    --line:#2c323a;
+    --grid:#3a424d;
+    --chip:#232a33;
+    --input:#6cb6dc;
+    --param:#a58bf0;
+    --op:#5fc79a;
+    --loss:#f1915c;
+    --target:#a29b8e;
+    --grad:#f08375;
+    --accent:#f0b36b;
+    --ok:#5fc79a;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -24px rgba(0,0,0,.9);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:34px 22px 90px}
+  .mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+  .muted{color:var(--muted)}
+  code{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;background:var(--chip);padding:1px 5px;border-radius:5px;font-size:.92em}
+
+  .header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px}
+  .kicker::before{content:'';width:22px;height:2px;background:var(--accent);border-radius:2px}
+  h1{font-size:clamp(25px,3.1vw,37px);line-height:1.24;letter-spacing:-.02em;margin:0 0 12px;font-weight:700}
+  .lede{font-size:16px;color:var(--muted);max-width:76ch;margin:0 0 16px}
+  .lede b{color:var(--ink);font-weight:650}
+
+  .legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:var(--muted);align-items:center}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:9px;height:9px;border-radius:3px;display:inline-block;flex:none}
+  .dot.k-input{background:var(--input)}
+  .dot.k-param{background:var(--param)}
+  .dot.k-op{background:var(--op)}
+  .dot.k-loss{background:var(--loss)}
+  .dot.k-target{background:var(--target)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow)}
+  .card + .card{margin-top:18px}
+  .card-title{font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--muted);margin:0 0 12px}
+  section{margin-top:26px}
+
+  /* controls */
+  .sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px 20px}
+  .slider{display:flex;flex-direction:column;gap:3px;font-size:12.5px;color:var(--muted)}
+  .slider .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .slider output{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .slider input[type=range]{width:100%;accent-color:var(--accent);margin:0;height:22px}
+  .btns{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px}
+  .btn{
+    appearance:none;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    font:inherit;font-size:13.5px;font-weight:600;padding:8px 15px;border-radius:10px;cursor:pointer;
+    transition:background .15s,border-color .15s,transform .06s;
+  }
+  .btn:hover{border-color:var(--accent)}
+  .btn:active{transform:translateY(1px)}
+  .btn:disabled{opacity:.4;cursor:not-allowed;border-color:var(--line)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  :root[data-theme="dark"] .btn.primary{color:#1a1206}
+  .btn.ghost{background:transparent}
+  .theme-btn{flex:none;margin-top:4px}
+  .switch{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);cursor:pointer;margin-left:4px}
+  .switch input{accent-color:var(--accent);width:15px;height:15px}
+  .counter{margin-left:auto;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .bar{height:3px;background:var(--line);border-radius:3px;margin-top:14px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:3px;transition:width .25s ease}
+
+  /* graph */
+  .graph-card{padding:14px 16px 10px}
+  .graph-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+  .graph-head .hint{font-size:12px;color:var(--muted)}
+  .graph-scroll{overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+  .scroll-hint{display:none;font-size:12px;color:var(--muted);margin:0 0 6px}
+  @media (max-width:1080px){.scroll-hint{display:block}}
+  #graph{display:block;width:100%;min-width:820px;height:auto;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC",sans-serif}
+
+  #graph .dir{font-size:10.5px;letter-spacing:.14em;fill:var(--grid);font-weight:600}
+  #graph .edge{stroke:var(--grid);stroke-width:1.4;fill:none;opacity:.85;transition:stroke .18s,stroke-width .18s,opacity .18s}
+  #graph .edge.on{stroke:var(--accent);stroke-width:2.4;opacity:1}
+  #graph .edge.off{stroke-dasharray:4 4;opacity:.35}
+  #graph .mh{fill:var(--grid)}
+  #graph .mh-on{fill:var(--accent)}
+
+  #graph .node{cursor:pointer;transition:opacity .2s}
+  #graph .node .box{fill:var(--panel);stroke:var(--line);stroke-width:1.2;transition:stroke .18s,stroke-width .18s}
+  #graph .node:hover .box{stroke:var(--muted)}
+  #graph .node.dim{opacity:.3}
+  #graph .node.active .box{stroke:var(--accent);stroke-width:2.3}
+  #graph .node.sel .box{stroke-dasharray:5 3}
+  #graph .node.off{opacity:.42}
+  #graph .node.off .expr{fill:var(--muted)}
+  #graph .node.stale{opacity:.45}
+  #graph .fn{font-size:9.5px;letter-spacing:.03em;fill:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  #graph .expr{font-size:13px;font-weight:650;fill:var(--ink)}
+  #graph .k-input .expr{fill:var(--input)}
+  #graph .k-param .expr{fill:var(--param)}
+  #graph .k-op .expr{fill:var(--op)}
+  #graph .k-loss .expr{fill:var(--loss)}
+  #graph .k-target .expr{fill:var(--target)}
+  #graph .val,#graph .grd{font-size:11.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  #graph .vlab{fill:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;font-size:10.5px}
+  #graph .vnum{fill:var(--ink);font-weight:600}
+  #graph .grd{fill:var(--grid);transition:fill .18s}
+  #graph .node.grad-on .grd{fill:var(--grad);font-weight:600}
+  #graph .node.newval .vnum{fill:var(--accent)}
+  #graph .node.stale .vnum{fill:var(--muted);font-size:10px;font-weight:500}
+
+  .callout{display:none;margin:12px 2px 2px;padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.55}
+  .callout.show{display:block}
+  .callout.warn{background:color-mix(in srgb,var(--accent) 10%,transparent);border:1px solid color-mix(in srgb,var(--accent) 26%,transparent)}
+  .callout.loss{background:color-mix(in srgb,var(--ok) 10%,transparent);border:1px solid color-mix(in srgb,var(--ok) 26%,transparent)}
+  .callout b{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px}
+  .callout.loss b{color:var(--ok)}
+
+  /* panels */
+  .panels{display:grid;grid-template-columns:1.12fr .88fr;gap:18px;margin-top:26px;align-items:start}
+  @media (max-width:900px){.panels{grid-template-columns:1fr}}
+  .step-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  .chip{font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 9px;border-radius:999px;background:var(--chip);color:var(--muted)}
+  .chip.fwd{background:color-mix(in srgb,var(--op) 14%,transparent);color:var(--op)}
+  .chip.bwd{background:color-mix(in srgb,var(--grad) 13%,transparent);color:var(--grad)}
+  .chip.upd{background:color-mix(in srgb,var(--param) 14%,transparent);color:var(--param)}
+  .step-head h3{margin:0;font-size:16px;font-weight:650;letter-spacing:-.01em}
+  .step-intro{margin:0 0 12px;color:var(--muted);font-size:14px}
+  .math{background:var(--chip);border-radius:11px;padding:12px 14px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.8px;line-height:1.9;font-variant-numeric:tabular-nums;white-space:pre-wrap;overflow-x:auto}
+  .math:empty{display:none}
+  .step-note{margin:12px 0 0;font-size:13.5px;color:var(--muted);border-left:2px solid var(--line);padding-left:12px}
+  .step-note:empty{display:none}
+
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:7px 16px;font-size:13px;margin:0}
+  .kv dt{color:var(--muted);white-space:nowrap}
+  .kv dd{margin:0;text-align:right;overflow-wrap:anywhere}
+  .kv dd.gradv{color:var(--grad);font-weight:600}
+  .why{margin:14px 0 0;font-size:13px;color:var(--muted);background:var(--chip);padding:10px 12px;border-radius:10px}
+  .empty{margin:0;color:var(--muted);font-size:13.5px}
+  .hintline{margin:10px 0 0;font-size:11.5px;color:var(--muted);line-height:1.55}
+  .stale-note{margin:10px 0 0;font-size:12.5px;color:var(--accent)}
+
+  /* check table */
+  .check-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+  .loss-pill{font-size:12.5px;color:var(--muted)}
+  .loss-pill b{font-family:ui-monospace,Menlo,monospace;color:var(--ink);font-size:13.5px}
+  table{width:100%;border-collapse:collapse;font-size:12.8px;font-variant-numeric:tabular-nums}
+  th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right}
+  thead th{color:var(--muted);font-weight:650;font-size:11.5px;letter-spacing:.03em}
+  th:first-child,td:first-child{text-align:left}
+  tbody tr:last-child td{border-bottom:none}
+  td.num{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  td.err{color:var(--muted)}
+  .fine{font-size:12px;color:var(--muted);margin:10px 0 0}
+  .maxerr{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:650}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="header-top">
+      <div>
+        <div class="kicker">PyTorch · Autograd</div>
+        <h1>梯度到底是怎么算出来的？</h1>
+        <p class="lede">
+          前向传播<b>不算梯度</b>。它只做两件事：<b>搭计算图</b>、<b>存中间值</b>。
+          梯度是 <code>backward()</code> 时沿图反向走、把「上游梯度 × 局部导数」一路乘出来的；
+          真正改权重的是 <code>optimizer.step()</code>。
+        </p>
+      </div>
+      <button class="btn ghost theme-btn" id="theme" type="button">深色</button>
+    </div>
+    <div class="legend">
+      <span><i class="dot k-input"></i>输入</span>
+      <span><i class="dot k-param"></i>参数（叶子）</span>
+      <span><i class="dot k-op"></i>中间运算</span>
+      <span><i class="dot k-loss"></i>损失</span>
+      <span><i class="dot k-target"></i>目标值</span>
+    </div>
+  </header>
+
+  <section class="card">
+    <div class="card-title">参数（拖动滑杆，整张图和梯度会实时重算）</div>
+    <div class="sliders">
+      <label class="slider"><span class="row"><span>输入 x</span><output id="o-x">1.50</output></span>
+        <input type="range" id="s-x" min="-2" max="3" step="0.01" value="1.5"></label>
+      <label class="slider"><span class="row"><span>权重 w₁</span><output id="o-w1">0.80</output></span>
+        <input type="range" id="s-w1" min="-2" max="2" step="0.01" value="0.8"></label>
+      <label class="slider"><span class="row"><span>偏置 b₁</span><output id="o-b1">-0.20</output></span>
+        <input type="range" id="s-b1" min="-2" max="2" step="0.01" value="-0.2"></label>
+      <label class="slider"><span class="row"><span>权重 w₂</span><output id="o-w2">1.30</output></span>
+        <input type="range" id="s-w2" min="-2" max="2" step="0.01" value="1.3"></label>
+      <label class="slider"><span class="row"><span>偏置 b₂</span><output id="o-b2">0.10</output></span>
+        <input type="range" id="s-b2" min="-2" max="2" step="0.01" value="0.1"></label>
+      <label class="slider"><span class="row"><span>目标 y</span><output id="o-y">1.00</output></span>
+        <input type="range" id="s-y" min="-2" max="3" step="0.01" value="1.0"></label>
+    </div>
+    <div class="btns">
+      <button class="btn" id="prev" type="button">← 上一步</button>
+      <button class="btn primary" id="next" type="button">下一步 →</button>
+      <button class="btn" id="play" type="button">自动播放</button>
+      <button class="btn ghost" id="reset" type="button">重置</button>
+      <label class="switch"><input type="checkbox" id="xreq" checked><span>x.requires_grad</span></label>
+      <span class="counter" id="counter">0 / 21</span>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+  </section>
+
+  <section class="card graph-card">
+    <div class="graph-head">
+      <div class="card-title" style="margin:0">计算图（横向是前向，反向时梯度沿箭头倒着走）</div>
+      <div class="hint">点任意节点，看它在前向时记录了什么</div>
+    </div>
+    <p class="scroll-hint">图较宽，可左右滑动查看完整链路 →</p>
+    <div class="graph-scroll">
+      <svg id="graph" viewBox="0 0 1140 380" role="img" aria-label="PyTorch 计算图"></svg>
+    </div>
+    <div class="callout" id="callout"></div>
+  </section>
+
+  <section class="panels">
+    <div class="card" id="stepCard"></div>
+    <div class="card" id="nodeCard"></div>
+  </section>
+
+  <section class="card" id="checkCard">
+    <div class="check-head">
+      <div class="card-title" style="margin:0">对一下答案：解析梯度 vs 有限差分</div>
+      <div class="loss-pill">当前 L = <b id="lossVal">—</b></div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>变量</th><th>∂L/∂·（链式法则）</th><th>有限差分</th><th>误差</th></tr>
+      </thead>
+      <tbody id="checkBody"></tbody>
+    </table>
+    <p class="fine">
+      数值梯度 = (L(w+h) − L(w−h)) / 2h，取 h = 1e-5 的中心差分。默认参数下最大误差
+      <span class="maxerr" id="maxErr">—</span>，说明手推的链路就是 PyTorch 内部实际做的事。
+    </p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var DEFAULTS = { x:1.5, w1:0.8, b1:-0.2, w2:1.3, b2:0.1, y:1.0 };
+  var V = Object.assign({}, DEFAULTS);
+  var LR = 0.5;
+  var xReq = true;
+  var steps = [];
+  var idx = 0;
+  var selected = null;
+  var playing = false;
+  var timer = null;
+
+  /* ---------------- model ---------------- */
+
+  function forward(v){
+    var m  = v.w1 * v.x;
+    var z1 = m + v.b1;
+    var a1 = Math.tanh(z1);
+    var p  = v.w2 * a1;
+    var z2 = p + v.b2;
+    var d  = z2 - v.y;
+    var L  = 0.5 * d * d;
+    return { x:v.x, w1:v.w1, b1:v.b1, m:m, z1:z1, a1:a1,
+             w2:v.w2, p:p, b2:v.b2, z2:z2, y:v.y, L:L, d:d };
+  }
+
+  function grads(f, xOn){
+    var gz2 = f.d;
+    var gp  = gz2;
+    var gb2 = gz2;
+    var gw2 = gp * f.a1;
+    var ga1 = gp * f.w2;
+    var gz1 = ga1 * (1 - f.a1 * f.a1);
+    var gm  = gz1;
+    var gb1 = gz1;
+    var gw1 = gm * f.x;
+    var gx  = gm * f.w1;
+    return {
+      L:1, z2:gz2, p:gp, b2:gb2, w2:gw2, a1:ga1,
+      z1:gz1, m:gm, b1:gb1, w1:gw1,
+      x: xOn ? gx : null,
+      y: null
+    };
+  }
+
+  function fmt(v){
+    if (v === null || v === undefined) return '—';
+    if (!isFinite(v)) return String(v);
+    if (v === 0) return '0.0000';
+    var a = Math.abs(v);
+    if (a >= 0.001 && a < 10000) return v.toFixed(4);
+    return v.toExponential(2);
+  }
+
+  function fmtSigned(v){
+    return (v < 0 ? '−' : '+') + fmt(Math.abs(v));
+  }
+
+  /* ---------------- graph model ---------------- */
+
+  var LEAF_KINDS = { input:1, param:1, target:1 };
+
+  var NODES = [
+    { id:'x', sym:'x', cx:80, cy:130, kind:'input', expr:'x', gradFn:'leaf', isLeaf:true,
+      next:'None', saved:function(){ return '—（叶子没有反向算子）'; },
+      why:'输入张量。只有 requires_grad=True 时才会进入反向图并拿到 .grad。' },
+    { id:'w1', sym:'w₁', cx:240, cy:300, kind:'param', expr:'w₁', gradFn:'leaf', isLeaf:true,
+      next:'None', saved:function(){ return '—（叶子没有反向算子）'; },
+      why:'参数叶子。optimizer.step() 读的就是它的 .grad；.grad 默认累加，所以每轮要 zero_grad()。' },
+    { id:'b1', sym:'b₁', cx:400, cy:300, kind:'param', expr:'b₁', gradFn:'leaf', isLeaf:true,
+      next:'None', saved:function(){ return '—（叶子没有反向算子）'; },
+      why:'参数叶子，和 w₁ 一样，在反向结束时拿到 .grad。' },
+    { id:'w2', sym:'w₂', cx:720, cy:300, kind:'param', expr:'w₂', gradFn:'leaf', isLeaf:true,
+      next:'None', saved:function(){ return '—（叶子没有反向算子）'; },
+      why:'参数叶子。' },
+    { id:'b2', sym:'b₂', cx:880, cy:300, kind:'param', expr:'b₂', gradFn:'leaf', isLeaf:true,
+      next:'None', saved:function(){ return '—（叶子没有反向算子）'; },
+      why:'参数叶子。' },
+    { id:'y', sym:'y', cx:1040, cy:300, kind:'target', expr:'y', gradFn:'leaf', isLeaf:true,
+      next:'None', saved:function(){ return '—（叶子没有反向算子）'; },
+      why:'目标值也是叶子，但 requires_grad=False，不参与求导，只作为损失的一个输入。' },
+
+    { id:'m', sym:'m', cx:240, cy:130, kind:'op', expr:'m = w₁·x', gradFn:'MulBackward0', isLeaf:false,
+      next:'[w₁, x]', saved:function(f){ return 'w₁ = ' + fmt(f.w1) + '，x = ' + fmt(f.x); },
+      why:'乘法反向：∂m/∂w₁ = x，∂m/∂x = w₁。两个乘数都必须存下来——这就是前向「记录当时的值」的真正含义。' },
+    { id:'z1', sym:'z₁', cx:400, cy:130, kind:'op', expr:'z₁ = m + b₁', gradFn:'AddBackward0', isLeaf:false,
+      next:'[m, b₁]', saved:function(){ return '—（加法不需要保存）'; },
+      why:'加法反向把梯度原样透传（局部导数为 1），所以一个中间值都不用存。' },
+    { id:'a1', sym:'a₁', cx:560, cy:130, kind:'op', expr:'a₁ = tanh(z₁)', gradFn:'TanhBackward0', isLeaf:false,
+      next:'[z₁]', saved:function(f){ return 'a₁ = ' + fmt(f.a1) + '（保存输出）'; },
+      why:'tanh 的导数 1 − a₁² 只依赖输出，所以存输出比存输入更省。' },
+    { id:'p', sym:'p', cx:720, cy:130, kind:'op', expr:'p = w₂·a₁', gradFn:'MulBackward0', isLeaf:false,
+      next:'[w₂, a₁]', saved:function(f){ return 'w₂ = ' + fmt(f.w2) + '，a₁ = ' + fmt(f.a1); },
+      why:'第二次乘法。反向时同样需要「另一个乘数」，所以两个操作数都要存。' },
+    { id:'z2', sym:'z₂', cx:880, cy:130, kind:'op', expr:'z₂ = p + b₂', gradFn:'AddBackward0', isLeaf:false,
+      next:'[p, b₂]', saved:function(){ return '—（加法不需要保存）'; },
+      why:'z₂ 就是常说的「预测值」，但它在图里只是普通的一个节点，没有特殊地位。' },
+    { id:'L', sym:'L', cx:1040, cy:130, kind:'loss', expr:'L = ½(z₂−y)²', gradFn:'Sub·Pow·Mul', isLeaf:false,
+      next:'[z₂, y]', saved:function(f){ return 'z₂ = ' + fmt(f.z2) + '，y = ' + fmt(f.y); },
+      why:'∂L/∂z₂ = z₂ − y，用残差就能算。真实 PyTorch 里这会拆成 sub/pow/mul 几个节点，这里合并显示以便看清链路。' }
+  ];
+
+  var EDGES = [
+    ['x','m'], ['w1','m'], ['m','z1'], ['b1','z1'], ['z1','a1'],
+    ['a1','p'], ['w2','p'], ['p','z2'], ['b2','z2'], ['z2','L'], ['y','L']
+  ];
+
+  var byId = {};
+  NODES.forEach(function(n){ byId[n.id] = n; });
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = document.getElementById('graph');
+  var nodeEls = {};
+  var edgeEls = {};
+
+  function svgEl(name, attrs){
+    var el = document.createElementNS(NS, name);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+
+  function buildGraph(){
+    svg.innerHTML = '<defs>' +
+      '<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">' +
+        '<path class="mh" d="M0,0 L10,5 L0,10 Z"></path></marker>' +
+      '<marker id="arrowOn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">' +
+        '<path class="mh-on" d="M0,0 L10,5 L0,10 Z"></path></marker>' +
+    '</defs>';
+
+    var edgeLayer = svgEl('g', { class:'edge-layer' });
+    var nodeLayer = svgEl('g', { class:'node-layer' });
+    svg.appendChild(edgeLayer);
+    svg.appendChild(nodeLayer);
+
+    var dirF = svgEl('text', { class:'dir', x:20, y:32 });
+    dirF.textContent = '前向 →';
+    var dirB = svgEl('text', { class:'dir', x:1120, y:32, 'text-anchor':'end' });
+    dirB.textContent = '← 反向';
+    svg.appendChild(dirF);
+    svg.appendChild(dirB);
+
+    EDGES.forEach(function(e){
+      var A = byId[e[0]], B = byId[e[1]];
+      var d;
+      if (Math.abs(A.cy - B.cy) < 1){
+        d = 'M ' + (A.cx + 66) + ' ' + A.cy + ' L ' + (B.cx - 66) + ' ' + B.cy;
+      } else {
+        d = 'M ' + A.cx + ' ' + (A.cy - 42) + ' L ' + B.cx + ' ' + (B.cy + 42);
+      }
+      var p = svgEl('path', {
+        class:'edge',
+        d:d,
+        'marker-end':'url(#arrow)'
+      });
+      var key = e[0] + '-' + e[1];
+      edgeEls[key] = p;
+      edgeLayer.appendChild(p);
+    });
+
+    NODES.forEach(function(n){
+      var g = svgEl('g', {
+        class:'node k-' + n.kind,
+        'data-id':n.id,
+        transform:'translate(' + n.cx + ',' + n.cy + ')'
+      });
+      g.innerHTML =
+        '<text class="fn" x="0" y="-51" text-anchor="middle">' + n.gradFn + '</text>' +
+        '<rect class="box" x="-66" y="-42" width="132" height="84" rx="13"></rect>' +
+        '<text class="expr" x="0" y="-14" text-anchor="middle">' + n.expr + '</text>' +
+        '<text class="val" x="0" y="8" text-anchor="middle">' +
+          '<tspan class="vlab"></tspan><tspan class="vnum">—</tspan>' +
+        '</text>' +
+        '<text class="grd" x="0" y="29" text-anchor="middle">—</text>';
+      g.addEventListener('click', function(){
+        selected = n.id;
+        render();
+      });
+      nodeEls[n.id] = g;
+      nodeLayer.appendChild(g);
+    });
+  }
+
+  /* ---------------- steps ---------------- */
+
+  function buildSteps(V0){
+    var f = forward(V0);
+    var g = grads(f, xReq);
+    var n = fmt;
+    var S = [];
+    var vals = [];
+    var grs = [];
+    var P = Object.assign({}, V0);
+
+    function push(o){
+      o.vals = vals.slice();
+      o.grs = (o.grs || grs).slice();
+      if (!o.params) o.params = P;
+      if (!o.view) o.view = V0;
+      S.push(o);
+    }
+
+    push({
+      phase:'idle',
+      title:'准备：前向只做两件事',
+      active:[],
+      edges:[],
+      intro:'前向传播从头到尾只做两件事：算出每个节点的值，顺手记下「怎么算的」。它不算梯度，也不存梯度。',
+      math:[],
+      note:'现在图上什么都没有。点「下一步」，看前向如何一步步把图搭起来。'
+    });
+
+    vals = ['x','w1','b1','w2','b2','y'];
+    push({
+      phase:'fwd',
+      title:'前向 ① 叶子张量',
+      active:['x','w1','b1','w2','b2','y'],
+      edges:[],
+      intro:'x、y 和四个参数都是叶子张量：grad_fn 为 None，它们不是被算子算出来的，而是被直接创建的。',
+      math:[
+        'x  = ' + n(f.x) + '    requires_grad=' + (xReq ? 'True' : 'False'),
+        'w₁ = ' + n(f.w1) + '    requires_grad=True',
+        'b₁ = ' + n(f.b1) + '    requires_grad=True',
+        'w₂ = ' + n(f.w2) + '    requires_grad=True',
+        'b₂ = ' + n(f.b2) + '    requires_grad=True',
+        'y  = ' + n(f.y) + '    requires_grad=False'
+      ],
+      note: xReq
+        ? '此刻还没有计算图，只有一个一个的值和 requires_grad 标记。'
+        : '你把 x.requires_grad 关掉了：x 会从反向图里消失，后面不会计算 ∂L/∂x。'
+    });
+
+    vals.push('m');
+    push({
+      phase:'fwd',
+      title:'前向 ② m = w₁ · x',
+      active:['m'],
+      edges:[['w1','m'], ['x','m']],
+      intro:'第一次乘法。结果 m 上挂了一个 grad_fn=&lt;MulBackward0&gt;，它记住了产生自己的算子。',
+      math:['m = w₁ × x = ' + n(f.w1) + ' × ' + n(f.x) + ' = ' + n(f.m)],
+      note:'反向保存：w₁ = ' + n(f.w1) + '、x = ' + n(f.x) +
+        '。因为 ∂m/∂w₁ = x、∂m/∂x = w₁ ——「记录当时的权重」记录的就是这类前向值。'
+    });
+
+    vals.push('z1');
+    push({
+      phase:'fwd',
+      title:'前向 ③ z₁ = m + b₁',
+      active:['z1'],
+      edges:[['m','z1'], ['b1','z1']],
+      intro:'加法产生 z₁，grad_fn=&lt;AddBackward0&gt;。',
+      math:['z₁ = m + b₁ = ' + n(f.m) + ' + (' + n(f.b1) + ') = ' + n(f.z1)],
+      note:'加法反向把梯度原样分发给两个输入（局部导数为 1），所以它一个中间值都不需要保存。'
+    });
+
+    vals.push('a1');
+    push({
+      phase:'fwd',
+      title:'前向 ④ a₁ = tanh(z₁)',
+      active:['a1'],
+      edges:[['z1','a1']],
+      intro:'第一个非线性算子，grad_fn=&lt;TanhBackward0&gt;。',
+      math:['a₁ = tanh(z₁) = tanh(' + n(f.z1) + ') = ' + n(f.a1)],
+      note:'它保存的是输出 a₁ = ' + n(f.a1) + '。因为 tanh 的导数 1 − a₁² 只需要输出本身。'
+    });
+
+    vals.push('p');
+    push({
+      phase:'fwd',
+      title:'前向 ⑤ p = w₂ · a₁',
+      active:['p'],
+      edges:[['a1','p'], ['w2','p']],
+      intro:'第二次乘法，grad_fn=&lt;MulBackward0&gt;。',
+      math:['p = w₂ × a₁ = ' + n(f.w2) + ' × ' + n(f.a1) + ' = ' + n(f.p)],
+      note:'反向保存：w₂ = ' + n(f.w2) + '、a₁ = ' + n(f.a1) + '。'
+    });
+
+    vals.push('z2');
+    push({
+      phase:'fwd',
+      title:'前向 ⑥ z₂ = p + b₂',
+      active:['z2'],
+      edges:[['p','z2'], ['b2','z2']],
+      intro:'加法，grad_fn=&lt;AddBackward0&gt;。z₂ 就是常说的「预测值」。',
+      math:['z₂ = p + b₂ = ' + n(f.p) + ' + ' + n(f.b2) + ' = ' + n(f.z2)],
+      note:'注意：所谓「预测」只是图上某一个节点的输出，和别的中间结果没有本质区别。'
+    });
+
+    vals.push('L');
+    push({
+      phase:'fwd',
+      title:'前向 ⑦ L = ½(z₂ − y)²',
+      active:['L'],
+      edges:[['z2','L'], ['y','L']],
+      intro:'损失节点。前向到这里结束。',
+      math:['L = ½(z₂ − y)² = ½(' + n(f.z2) + ' − ' + n(f.y) + ')² = ' + n(f.L)],
+      note:'图已经搭好，值也都存好了——但梯度一个都还没有算。梯度要等 backward()。'
+    });
+
+    grs = ['L'];
+    push({
+      phase:'bwd',
+      title:'反向 ① 起点：种子梯度 = 1',
+      active:['L'],
+      edges:[],
+      intro:'调用 L.backward() 后，先给 L 自己一个梯度 ∂L/∂L = 1，再沿反向图按逆拓扑序往回走。',
+      math:['∂L/∂L = 1'],
+      note:'前向里没有算过任何梯度，一切从这一刻开始。'
+    });
+
+    grs = ['L','z2'];
+    push({
+      phase:'bwd',
+      title:'反向 ② 损失 → z₂',
+      active:['L','z2'],
+      edges:[['z2','L']],
+      intro:'损失节点用保存的 z₂、y 算出局部导数，乘上上游梯度 1。',
+      math:['∂L/∂z₂ = (z₂ − y) × 1 = ' + n(f.z2) + ' − ' + n(f.y) + ' = ' + n(g.z2)],
+      note:'局部导数 (z₂ − y) 用的就是前向保存下来的值。'
+    });
+
+    grs = ['L','z2','p','b2'];
+    push({
+      phase:'bwd',
+      title:'反向 ③ z₂ = p + b₂ → p, b₂',
+      active:['p','b2'],
+      edges:[['p','z2'], ['b2','z2']],
+      intro:'加法节点把上游梯度原样分发给两个输入。',
+      math:[
+        '∂L/∂p  = ∂L/∂z₂ × 1 = ' + n(g.p),
+        '∂L/∂b₂ = ∂L/∂z₂ × 1 = ' + n(g.b2)
+      ],
+      note:'b₂ 是叶子，梯度直接写进 b₂.grad。'
+    });
+
+    grs = ['L','z2','p','b2','w2','a1'];
+    push({
+      phase:'bwd',
+      title:'反向 ④ p = w₂ · a₁ → w₂, a₁',
+      active:['w2','a1'],
+      edges:[['w2','p'], ['a1','p']],
+      intro:'乘法节点：对某个乘数的梯度 = 上游梯度 × 另一个乘数。',
+      math:[
+        '∂L/∂w₂ = ∂L/∂p × a₁ = ' + n(g.p) + ' × ' + n(f.a1) + ' = ' + n(g.w2),
+        '∂L/∂a₁ = ∂L/∂p × w₂ = ' + n(g.p) + ' × ' + n(f.w2) + ' = ' + n(g.a1)
+      ],
+      note:'这就是前向为什么必须把两个乘数都存下来——反向时正好要用「另一个」。'
+    });
+
+    grs = ['L','z2','p','b2','w2','a1','z1'];
+    push({
+      phase:'bwd',
+      title:'反向 ⑤ a₁ = tanh(z₁) → z₁',
+      active:['z1'],
+      edges:[['z1','a1']],
+      intro:'非线性节点乘上自己的局部导数。',
+      math:['∂L/∂z₁ = ∂L/∂a₁ × (1 − a₁²) = ' + n(g.a1) + ' × (1 − ' + n(f.a1) + '²) = ' + n(g.z1)],
+      note:'这里的局部导数用的是前向保存的输出 a₁，而不是输入 z₁。'
+    });
+
+    grs = ['L','z2','p','b2','w2','a1','z1','m','b1'];
+    push({
+      phase:'bwd',
+      title:'反向 ⑥ z₁ = m + b₁ → m, b₁',
+      active:['m','b1'],
+      edges:[['m','z1'], ['b1','z1']],
+      intro:'又一次加法透传。',
+      math:[
+        '∂L/∂m  = ∂L/∂z₁ × 1 = ' + n(g.m),
+        '∂L/∂b₁ = ∂L/∂z₁ × 1 = ' + n(g.b1)
+      ],
+      note:'b₁ 拿到 .grad。'
+    });
+
+    grs = ['L','z2','p','b2','w2','a1','z1','m','b1'];
+    if (xReq) grs.push('x');
+    grs.push('w1');
+    push({
+      phase:'bwd',
+      title:'反向 ⑦ m = w₁ · x → w₁' + (xReq ? ', x' : ''),
+      active: xReq ? ['w1','x'] : ['w1'],
+      edges: xReq ? [['w1','m'], ['x','m']] : [['w1','m']],
+      intro:'最后一条乘法链。',
+      math: xReq ? [
+        '∂L/∂w₁ = ∂L/∂m × x = ' + n(g.m) + ' × ' + n(f.x) + ' = ' + n(g.w1),
+        '∂L/∂x  = ∂L/∂m × w₁ = ' + n(g.m) + ' × ' + n(f.w1) + ' = ' + n(g.x)
+      ] : [
+        '∂L/∂w₁ = ∂L/∂m × x = ' + n(g.m) + ' × ' + n(f.x) + ' = ' + n(g.w1)
+      ],
+      note: xReq
+        ? 'x 也要求梯度，所以这条支路还会继续往回走（如果 x 自己还有上游的话）。'
+        : 'x.requires_grad=False，反向图里根本没有 x 这一支，所以不算 ∂L/∂x。'
+    });
+
+    push({
+      phase:'bwd',
+      title:'反向 ⑧ 完成：叶子 .grad 就绪',
+      active: xReq ? ['w1','b1','w2','b2','x'] : ['w1','b1','w2','b2'],
+      edges:[],
+      intro:'所有梯度都是「上游梯度 × 局部导数」一路乘下来的，中间没有再重新做前向。',
+      math:[
+        'w₁.grad = ' + n(g.w1),
+        'b₁.grad = ' + n(g.b1),
+        'w₂.grad = ' + n(g.w2),
+        'b₂.grad = ' + n(g.b2)
+      ],
+      note:'默认情况下图在这一步被释放（想再反传要 retain_graph=True）。.grad 是累加的，所以训练循环每轮都要 zero_grad()。'
+    });
+
+    /* ---------------- parameter update ---------------- */
+
+    var lrTxt = LR.toFixed(2);
+
+    push({
+      phase:'upd',
+      title:'更新 ① 优化器读取 .grad',
+      active:['w1','b1','w2','b2'],
+      edges:[],
+      intro:'backward 结束，四个参数都有了 .grad。注意：到这一步为止，权重一个都没变。',
+      math:[
+        'lr = ' + lrTxt,
+        'w₁.grad = ' + n(g.w1),
+        'b₁.grad = ' + n(g.b1),
+        'w₂.grad = ' + n(g.w2),
+        'b₂.grad = ' + n(g.b2)
+      ],
+      note:'optimizer.step() 只遍历它手里的参数、读 .grad，在 torch.no_grad() 里原地写回新值；它完全看不懂计算图。'
+    });
+
+    var STALE = ['m','z1','a1','p','z2','L'];
+    var UPD = [
+      { k:'w1', sym:'w₁', mark:'②' },
+      { k:'b1', sym:'b₁', mark:'③' },
+      { k:'w2', sym:'w₂', mark:'④' },
+      { k:'b2', sym:'b₂', mark:'⑤' }
+    ];
+    var updatedSoFar = [];
+
+    UPD.forEach(function(u){
+      var before = P[u.k];
+      var grad = g[u.k];
+      var after = before - LR * grad;
+      P = Object.assign({}, P);
+      P[u.k] = after;
+      updatedSoFar.push(u.k);
+      push({
+        phase:'upd',
+        title:'更新 ' + u.mark + ' ' + u.sym + ' ← ' + u.sym + ' − lr · ∂L/∂' + u.sym,
+        active:[u.k],
+        edges:[],
+        stale:STALE,
+        params:P,
+        updated:updatedSoFar.slice(),
+        justUpdated:u.k,
+        delta:after - before,
+        intro:'SGD 就地更新 ' + u.sym + '。它是叶子节点，改的就是它自己的数据。',
+        math:[u.sym + ' = ' + n(before) + ' − ' + lrTxt + ' × ' + n(grad) + ' = ' + n(after)],
+        note:'权重一改，图里用旧权重算出来的中间值就全部过期了（灰色节点）。要等四个参数都更新完，才会重新前向。'
+      });
+    });
+
+    var fNew = forward(P);
+    push({
+      phase:'upd',
+      title:'更新 ⑥ 参数写回，重新前向',
+      active:['w1','b1','w2','b2'],
+      edges:[],
+      grs:[],
+      stale:[],
+      params:P,
+      view:P,
+      commit:true,
+      lossBefore:f.L,
+      lossAfter:fNew.L,
+      intro:'四个参数全部写回。上一轮的计算图作废，下一轮必须用新权重重新 forward——因为旧图里保存的中间值全是旧权重算的。',
+      math:[
+        'w₁: ' + n(f.w1) + ' → ' + n(P.w1),
+        'b₁: ' + n(f.b1) + ' → ' + n(P.b1),
+        'w₂: ' + n(f.w2) + ' → ' + n(P.w2),
+        'b₂: ' + n(f.b2) + ' → ' + n(P.b2),
+        'loss: ' + n(f.L) + ' → ' + n(fNew.L)
+      ],
+      note:'forward → backward → step，一次完整的训练迭代。滑杆已经同步到新权重；回到第 0 步会用新权重重跑一遍，loss 会继续下降。'
+    });
+
+    return S;
+  }
+
+  function numericGrad(key, base){
+    var h = 1e-5;
+    var up = Object.assign({}, base);
+    var dn = Object.assign({}, base);
+    up[key] = base[key] + h;
+    dn[key] = base[key] - h;
+    return (forward(up).L - forward(dn).L) / (2 * h);
+  }
+
+  /* ---------------- render ---------------- */
+
+  function render(){
+    if (!steps.length) steps = buildSteps(V);
+    if (idx > steps.length - 1) idx = steps.length - 1;
+    var st = steps[idx];
+    var P = st.params;
+    var F = forward(st.view);
+    var G = grads(F, xReq);
+
+    updateGraph(st, P, F, G);
+    updateStep(st);
+    updateNodeCard(st, P, F, G);
+    updateCallout(st);
+    updateCheck();
+
+    document.getElementById('counter').textContent = idx + ' / ' + (steps.length - 1);
+    document.getElementById('bar').style.width = (idx / (steps.length - 1) * 100) + '%';
+    document.getElementById('prev').disabled = idx === 0;
+    document.getElementById('next').disabled = idx === steps.length - 1;
+  }
+
+  function updateGraph(st, P, F, G){
+    var shownV = {};
+    var shownG = {};
+    var active = {};
+    var stale = {};
+    var updated = {};
+    var onEdges = {};
+    var i;
+
+    for (i = 0; i < st.vals.length; i++) shownV[st.vals[i]] = true;
+    for (i = 0; i < st.grs.length; i++) shownG[st.grs[i]] = true;
+    for (i = 0; i < (st.active || []).length; i++) active[st.active[i]] = true;
+    for (i = 0; i < (st.stale || []).length; i++) stale[st.stale[i]] = true;
+    for (i = 0; i < (st.updated || []).length; i++) updated[st.updated[i]] = true;
+    for (i = 0; i < st.edges.length; i++) onEdges[st.edges[i][0] + '-' + st.edges[i][1]] = true;
+
+    NODES.forEach(function(n){
+      var el = nodeEls[n.id];
+      var hasV = !!shownV[n.id];
+      var hasG = !!shownG[n.id];
+      var isStale = !!stale[n.id];
+      var isUpdated = !!updated[n.id];
+      var isOff = (n.id === 'x' && !xReq);
+      var isLeaf = LEAF_KINDS[n.kind] === 1;
+
+      el.classList.toggle('dim', !hasV);
+      el.classList.toggle('active', !!active[n.id]);
+      el.classList.toggle('sel', selected === n.id);
+      el.classList.toggle('stale', isStale);
+      el.classList.toggle('off', isOff);
+      el.classList.toggle('newval', isUpdated && hasV);
+      el.classList.toggle('grad-on', hasG && !isStale);
+
+      el.querySelector('.fn').textContent = isOff ? 'leaf · req=False' : n.gradFn;
+
+      var vlab = el.querySelector('.vlab');
+      var vnum = el.querySelector('.vnum');
+      if (isStale){
+        vlab.textContent = '';
+        vnum.textContent = '过期';
+      } else if (hasV){
+        vlab.textContent = '前向 ';
+        vnum.textContent = fmt(isLeaf ? P[n.id] : F[n.id]);
+      } else {
+        vlab.textContent = '';
+        vnum.textContent = '—';
+      }
+
+      var grd = el.querySelector('.grd');
+      if (isOff){
+        grd.textContent = '不需要梯度';
+      } else if (isStale){
+        grd.textContent = '—';
+      } else if (isUpdated && st.justUpdated === n.id && st.delta !== undefined){
+        grd.textContent = 'Δ = ' + fmtSigned(st.delta);
+      } else if (isUpdated){
+        grd.textContent = '已更新';
+      } else if (hasG && G[n.id] !== null && G[n.id] !== undefined){
+        grd.textContent = '∂L/∂' + n.sym + ' = ' + fmt(G[n.id]);
+      } else if (n.id === 'y'){
+        grd.textContent = '不参与求导';
+      } else {
+        grd.textContent = '∂L/∂' + n.sym + ' = —';
+      }
+    });
+
+    Object.keys(edgeEls).forEach(function(key){
+      var p = edgeEls[key];
+      var on = !!onEdges[key];
+      p.classList.toggle('on', on);
+      p.classList.toggle('off', key === 'x-m' && !xReq);
+      p.setAttribute('marker-end', on ? 'url(#arrowOn)' : 'url(#arrow)');
+    });
+  }
+
+  function updateStep(st){
+    var chipMap = {
+      idle:['idle','准备'],
+      fwd:['fwd','前向传播'],
+      bwd:['bwd','反向传播'],
+      upd:['upd','参数更新']
+    };
+    var chip = chipMap[st.phase] || chipMap.idle;
+    var html = '<div class="step-head"><span class="chip ' + chip[0] + '">' + chip[1] + '</span><h3>' + st.title + '</h3></div>';
+    if (st.intro) html += '<p class="step-intro">' + st.intro + '</p>';
+    if (st.math && st.math.length) html += '<div class="math">' + st.math.join('\n') + '</div>';
+    if (st.note) html += '<p class="step-note">' + st.note + '</p>';
+
+    var P = st.params || V;
+    var drift = ['w1','b1','w2','b2'].some(function(k){ return Math.abs(P[k] - V[k]) > 1e-12; });
+    if (drift) html += '<p class="step-note">图上显示的是这一步的参数快照；滑杆要等「更新 ⑥」写回后才会同步。</p>';
+
+    document.getElementById('stepCard').innerHTML = html;
+  }
+
+  function updateNodeCard(st, P, F, G){
+    var card = document.getElementById('nodeCard');
+    var id = selected || (st.active && st.active[0] ? st.active[0] : null);
+
+    if (!id){
+      card.innerHTML = '<div class="card-title">节点档案</div>' +
+        '<p class="empty">点图上的任意节点，看看它在前向时到底记录了什么：grad_fn、is_leaf、保存的中间值。</p>';
+      return;
+    }
+
+    var n = byId[id];
+    var isLeaf = LEAF_KINDS[n.kind] === 1;
+    var req = (id === 'x') ? xReq : (id !== 'y');
+    var gv = G[id];
+    var isStale = (st.stale || []).indexOf(id) !== -1;
+    var hasGrad = (st.grs || []).indexOf(id) !== -1;
+    var value = isLeaf ? P[id] : F[id];
+
+    var gradTxt;
+    if (id === 'y') gradTxt = '不参与求导（requires_grad=False）';
+    else if (id === 'x' && !xReq) gradTxt = '不需要梯度';
+    else if (isStale) gradTxt = '已过期';
+    else if (hasGrad && gv !== null && gv !== undefined) gradTxt = fmt(gv);
+    else gradTxt = '尚未计算';
+
+    var html = '<div class="card-title">节点档案 · <span class="mono">' + n.sym + '</span></div>' +
+      '<dl class="kv">' +
+        '<dt>表达式</dt><dd class="mono">' + n.expr + '</dd>' +
+        '<dt>grad_fn</dt><dd class="mono">' + n.gradFn + '</dd>' +
+        '<dt>is_leaf</dt><dd class="mono">' + isLeaf + '</dd>' +
+        '<dt>requires_grad</dt><dd class="mono">' + req + '</dd>' +
+        '<dt>next_functions</dt><dd class="mono">' + n.next + '</dd>' +
+        '<dt>保存的中间值</dt><dd class="mono">' + n.saved(F) + '</dd>' +
+        '<dt>前向值</dt><dd class="mono">' + fmt(value) + '</dd>' +
+        '<dt>梯度 ∂L/∂' + n.sym + '</dt><dd class="mono gradv">' + gradTxt + '</dd>' +
+      '</dl>' +
+      '<p class="why">' + n.why + '</p>';
+
+    if (isStale){
+      html += '<p class="stale-note">这个节点在当前步骤已过期：它的值是用旧权重算出来的，不能再用。</p>';
+    }
+    if (!isLeaf){
+      html += '<p class="hintline">简化显示：PyTorch 的 next_functions 实际存的是每个输入的 grad_fn（叶子对应 AccumulateGrad），这里用张量名代替。</p>';
+    }
+
+    card.innerHTML = html;
+  }
+
+  function updateCallout(st){
+    var el = document.getElementById('callout');
+    if (st.commit){
+      var drop = (1 - st.lossAfter / st.lossBefore) * 100;
+      el.className = 'callout show loss';
+      el.innerHTML = '写回完成，重新前向：loss <b>' + fmt(st.lossBefore) + '</b> → <b>' +
+        fmt(st.lossAfter) + '</b>（下降 ' + drop.toFixed(1) + '%）';
+    } else if (st.phase === 'upd' && st.stale && st.stale.length){
+      el.className = 'callout show warn';
+      el.innerHTML = '参数已变：旧图上用旧权重算出的中间值全部<b>过期</b>（灰色节点）。等四个参数都更新完，再统一重新前向。';
+    } else {
+      el.className = 'callout';
+      el.innerHTML = '';
+    }
+  }
+
+  function updateCheck(){
+    var f = forward(V);
+    var g = grads(f, xReq);
+    var keys = xReq ? ['x','w1','b1','w2','b2'] : ['w1','b1','w2','b2'];
+    var labels = { x:'x', w1:'w₁', b1:'b₁', w2:'w₂', b2:'b₂' };
+    var maxErr = 0;
+
+    document.getElementById('checkBody').innerHTML = keys.map(function(k){
+      var an = g[k];
+      var num = numericGrad(k, V);
+      var err = Math.abs(an - num);
+      if (err > maxErr) maxErr = err;
+      return '<tr>' +
+        '<td>' + labels[k] + (k === 'x' ? ' <span class="muted">（输入）</span>' : '') + '</td>' +
+        '<td class="num">' + fmt(an) + '</td>' +
+        '<td class="num">' + fmt(num) + '</td>' +
+        '<td class="num err">' + (err === 0 ? '0' : err.toExponential(1)) + '</td>' +
+      '</tr>';
+    }).join('');
+
+    document.getElementById('lossVal').textContent = fmt(f.L);
+    document.getElementById('maxErr').textContent = maxErr.toExponential(1);
+  }
+
+  /* ---------------- interaction ---------------- */
+
+  function syncSliders(){
+    ['x','w1','b1','w2','b2','y'].forEach(function(k){
+      document.getElementById('s-' + k).value = V[k];
+      document.getElementById('o-' + k).textContent = V[k].toFixed(2);
+    });
+  }
+
+  function setStep(i){
+    if (i === 0) steps = buildSteps(V);
+    idx = Math.max(0, Math.min(steps.length - 1, i));
+
+    var st = steps[idx];
+    if (st.commit && !st.applied){
+      st.applied = true;
+      Object.assign(V, st.params);
+      syncSliders();
+    }
+    selected = null;
+    render();
+  }
+
+  function stopPlay(){
+    playing = false;
+    if (timer){ clearInterval(timer); timer = null; }
+    document.getElementById('play').textContent = '自动播放';
+  }
+
+  function tick(){
+    if (idx >= steps.length - 1){ stopPlay(); return; }
+    setStep(idx + 1);
+    if (idx >= steps.length - 1) stopPlay();
+  }
+
+  document.getElementById('next').addEventListener('click', function(){ stopPlay(); tick(); });
+  document.getElementById('prev').addEventListener('click', function(){ stopPlay(); setStep(idx - 1); });
+
+  document.getElementById('play').addEventListener('click', function(){
+    if (playing){ stopPlay(); return; }
+    if (idx >= steps.length - 1) setStep(0);
+    playing = true;
+    this.textContent = '暂停';
+    timer = setInterval(tick, 1100);
+  });
+
+  document.getElementById('reset').addEventListener('click', function(){
+    stopPlay();
+    Object.assign(V, DEFAULTS);
+    xReq = true;
+    document.getElementById('xreq').checked = true;
+    syncSliders();
+    selected = null;
+    idx = 0;
+    steps = buildSteps(V);
+    render();
+  });
+
+  ['x','w1','b1','w2','b2','y'].forEach(function(k){
+    document.getElementById('s-' + k).addEventListener('input', function(e){
+      V[k] = parseFloat(e.target.value);
+      document.getElementById('o-' + k).textContent = V[k].toFixed(2);
+      steps = buildSteps(V);
+      idx = Math.min(idx, steps.length - 1);
+      render();
+    });
+  });
+
+  document.getElementById('xreq').addEventListener('change', function(e){
+    xReq = e.target.checked;
+    steps = buildSteps(V);
+    idx = Math.min(idx, steps.length - 1);
+    render();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.target && e.target.tagName === 'INPUT') return;
+    if (e.key === 'ArrowRight'){ stopPlay(); tick(); }
+    if (e.key === 'ArrowLeft'){ stopPlay(); setStep(idx - 1); }
+  });
+
+  /* ---------------- theme ---------------- */
+
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  var themeOverride = null;
+
+  function effectiveTheme(){
+    return themeOverride || (mq.matches ? 'dark' : 'light');
+  }
+
+  function applyTheme(){
+    document.documentElement.dataset.theme = effectiveTheme();
+    document.getElementById('theme').textContent = effectiveTheme() === 'dark' ? '浅色' : '深色';
+  }
+
+  if (mq.addEventListener) mq.addEventListener('change', function(){ if (!themeOverride) applyTheme(); });
+
+  document.getElementById('theme').addEventListener('click', function(){
+    themeOverride = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    applyTheme();
+  });
+
+  /* ---------------- boot ---------------- */
+
+  buildGraph();
+  applyTheme();
+  steps = buildSteps(V);
+  syncSliders();
+  render();
+})();
+</script>
+</body>
+</html>

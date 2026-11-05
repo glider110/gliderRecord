@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>检测损失函数交互演示</title>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --bg: #0d0f14;
+    --card: #151922;
+    --line: #232936;
+    --muted: #8b93a7;
+    --text: #e6e9ef;
+    --blue: #5b8cff;
+    --green: #3ddc97;
+    --orange: #ffb454;
+    --red: #ff7b7b;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  html, body { margin: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 36px 20px 80px; }
+  header h1 { font-size: 27px; margin: 0 0 8px; font-weight: 650; letter-spacing: .3px; }
+  header p { color: var(--muted); margin: 0 0 26px; font-size: 14px; }
+  .def {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px;
+  }
+  .def div {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px; font-size: 12px; color: var(--muted);
+  }
+  .def b { display: block; color: var(--text); font-size: 13px; margin-bottom: 2px; }
+  .tabs {
+    display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1px solid var(--line);
+    margin-bottom: 26px;
+  }
+  .tabs button {
+    background: none; border: none; color: var(--muted); padding: 11px 14px;
+    font-size: 14px; cursor: pointer; border-bottom: 2px solid transparent;
+    font-family: inherit; transition: color .15s;
+  }
+  .tabs button:hover { color: var(--text); }
+  .tabs button.active { color: var(--text); border-bottom-color: var(--blue); }
+  .panel { display: none; }
+  .panel.active { display: block; animation: fade .18s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .grid2 {
+    display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(250px, 1fr);
+    gap: 22px; align-items: start;
+  }
+  @media (max-width: 840px) {
+    .grid2 { grid-template-columns: 1fr; }
+    .def { grid-template-columns: 1fr 1fr; }
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px;
+  }
+  .card h2 { font-size: 15px; margin: 0 0 4px; font-weight: 600; }
+  .card .sub { font-size: 12px; color: var(--muted); margin: 0 0 14px; }
+  canvas {
+    display: block; max-width: 100%; border-radius: 8px; background: #0f1218;
+    cursor: crosshair; touch-action: none;
+  }
+  .controls { display: flex; flex-direction: column; gap: 15px; }
+  .control label {
+    display: flex; justify-content: space-between; gap: 12px;
+    font-size: 12px; color: var(--muted); margin-bottom: 5px;
+  }
+  .control label b { color: var(--text); font-family: var(--mono); font-weight: 500; }
+  .control input[type=range] { width: 100%; accent-color: var(--blue); }
+  .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 16px; }
+  .metric {
+    background: #0f1218; border: 1px solid var(--line); border-radius: 8px;
+    padding: 9px 11px;
+  }
+  .metric span { display: block; font-size: 11px; color: var(--muted); margin-bottom: 1px; }
+  .metric b { font-family: var(--mono); font-size: 16px; font-weight: 500; }
+  .metric.good b { color: var(--green); }
+  .metric.warn b { color: var(--orange); }
+  .metric.bad b { color: var(--red); }
+  .insight {
+    margin-top: 16px; padding: 12px 14px; background: rgba(91,140,255,.07);
+    border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0;
+    font-size: 12.5px; color: #b8c2d6;
+  }
+  .insight b { color: var(--text); }
+  .formula {
+    margin-top: 14px; padding: 12px 14px; background: #0f1218;
+    border: 1px solid var(--line); border-radius: 8px; font-family: var(--mono);
+    font-size: 13px; color: #c9d2e5; overflow-x: auto; white-space: nowrap;
+  }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 11.5px; color: var(--muted); margin-top: 12px; }
+  .legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+  .contrib-list { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+  .contrib-head { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .contrib-head code { font-family: var(--mono); color: #c9d2e5; font-size: 11.5px; }
+  .track { height: 10px; background: #0f1218; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 999px; transition: width .18s ease; }
+  .total-box {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line);
+  }
+  .total-box span { font-size: 13px; color: var(--muted); }
+  .total-box b { font-family: var(--mono); font-size: 30px; color: var(--green); font-weight: 550; }
+  .note { font-size: 12px; color: var(--muted); margin-top: 10px; }
+  .hint { font-size: 11.5px; color: #6b7488; margin-top: 10px; }
+  .steps {
+    margin-top: 14px; background: #0f1218; border: 1px solid var(--line);
+    border-radius: 8px; padding: 12px 14px;
+  }
+  .steps-title {
+    font-size: 11px; color: #6b7488; letter-spacing: .08em;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .steps .row {
+    display: flex; justify-content: space-between; gap: 14px; padding: 5px 0;
+    border-bottom: 1px dashed #1e2430; font-size: 12px; color: var(--muted);
+  }
+  .steps .row:last-child { border-bottom: none; }
+  .steps .row span { flex: 0 0 auto; }
+  .steps .row code {
+    font-family: var(--mono); color: #e6e9ef; text-align: right;
+    word-break: break-all;
+  }
+  .steps .row.hi code { color: var(--orange); }
+  .tal-table {
+    width: 100%; border-collapse: collapse; margin-top: 12px;
+    font-size: 11.5px; font-family: var(--mono);
+  }
+  .tal-table th {
+    color: #6b7488; font-weight: 400; text-align: right;
+    padding: 4px 6px; border-bottom: 1px solid var(--line);
+  }
+  .tal-table td {
+    color: #c9d2e5; text-align: right; padding: 4px 6px;
+    border-bottom: 1px dashed #1a202b;
+  }
+  .tal-table th:first-child, .tal-table td:first-child { text-align: left; }
+  .tal-table tbody tr:first-child td { color: var(--orange); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>检测损失函数是怎么定义的</h1>
+    <p>以 YOLOv8 为例：拖一拖框、调一调参数，看每一项损失怎么变。所有计算都在浏览器里实时完成。</p>
+  </header>
+
+  <div class="def">
+    <div><b>1. 逐项公式</b>分类 BCE、定位 CIoU、分布回归 DFL</div>
+    <div><b>2. 样本分配</b>TAL 决定哪些预测被监督</div>
+    <div><b>3. 归一化</b>除以正样本数或目标和</div>
+    <div><b>4. 多任务权重</b>λ 平衡三项的量级</div>
+  </div>
+
+  <nav class="tabs">
+    <button class="active" data-tab="bce">分类 BCE</button>
+    <button data-tab="ciou">定位 CIoU</button>
+    <button data-tab="dfl">DFL 分布回归</button>
+    <button data-tab="tal">TAL 样本分配</button>
+    <button data-tab="total">总损失</button>
+  </nav>
+
+  <main>
+    <!-- ================= BCE ================= -->
+    <section class="panel active" id="panel-bce">
+      <div class="grid2">
+        <div class="card">
+          <h2>二分类交叉熵</h2>
+          <p class="sub">L = −[ t·ln p + (1−t)·ln(1−p) ]，每个类别独立做一次二分类。</p>
+          <canvas id="c-bce"></canvas>
+          <div class="legend">
+            <span><i style="background:#5b8cff"></i>正样本 t=1</span>
+            <span><i style="background:#ffb454"></i>负样本 t=0</span>
+            <span><i style="background:#3ddc97"></i>当前 t</span>
+          </div>
+        </div>
+        <div class="card">
+          <h2>调参</h2>
+          <p class="sub">预测概率 p 与目标分数 t。</p>
+          <div class="controls">
+            <div class="control">
+              <label>预测概率 p <b id="bce-p-val">0.30</b></label>
+              <input type="range" id="bce-p" min="0.01" max="0.99" step="0.01" value="0.30" />
+            </div>
+            <div class="control">
+              <label>目标分数 t <b id="bce-t-val">1.00</b></label>
+              <input type="range" id="bce-t" min="0" max="1" step="0.01" value="1" />
+            </div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><span>BCE 损失</span><b id="bce-loss">0.000</b></div>
+            <div class="metric"><span>梯度 dL/dp</span><b id="bce-grad">0.000</b></div>
+          </div>
+          <div class="insight">
+            <b>为什么不是 softmax 交叉熵？</b> YOLO 把 C 个类别拆成 C 个独立二分类，一个 anchor 可以对多类都有响应，再由后续逻辑取最大。
+            正样本的 t 不是硬标签 1，而是 TAL 归一化后的对齐分数，所以目标是软的。
+          </div>
+          <p class="hint">试一下：把 p 调到 0.02 且 t=1，损失和梯度会迅速变大。错误且自信的预测，梯度接近 1/p。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CIoU ================= -->
+    <section class="panel" id="panel-ciou">
+      <div class="grid2">
+        <div class="card">
+          <h2>CIoU 的三个惩罚项</h2>
+          <p class="sub">拖动蓝色预测框，或滚轮缩放。绿色是 GT。</p>
+          <canvas id="c-ciou"></canvas>
+          <div class="legend">
+            <span><i style="background:#3ddc97"></i>GT</span>
+            <span><i style="background:#5b8cff"></i>预测框</span>
+            <span><i style="background:#ffb454"></i>交集 IoU</span>
+            <span><i style="background:#5a6478"></i>外接框 c</span>
+          </div>
+        </div>
+        <div class="card">
+          <h2>调参</h2>
+          <p class="sub">预测框的中心和尺寸。</p>
+          <div class="controls">
+            <div class="control">
+              <label>中心 X <b id="ciou-cx-val">320</b></label>
+              <input type="range" id="ciou-cx" min="40" max="520" step="1" value="320" />
+            </div>
+            <div class="control">
+              <label>中心 Y <b id="ciou-cy-val">190</b></label>
+              <input type="range" id="ciou-cy" min="40" max="360" step="1" value="190" />
+            </div>
+            <div class="control">
+              <label>宽度 <b id="ciou-w-val">170</b></label>
+              <input type="range" id="ciou-w" min="20" max="340" step="1" value="170" />
+            </div>
+            <div class="control">
+              <label>高度 <b id="ciou-h-val">165</b></label>
+              <input type="range" id="ciou-h" min="20" max="340" step="1" value="165" />
+            </div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><span>IoU</span><b id="ciou-iou">0.000</b></div>
+            <div class="metric"><span>中心惩罚 ρ²/c²</span><b id="ciou-center">0.000</b></div>
+            <div class="metric"><span>长宽比惩罚 αv</span><b id="ciou-aspect">0.000</b></div>
+            <div class="metric"><span>CIoU</span><b id="ciou-value">0.000</b></div>
+            <div class="metric bad"><span>Loss = 1 − CIoU</span><b id="ciou-loss">0.000</b></div>
+            <div class="metric"><span>中心距离 ρ</span><b id="ciou-rho">0</b></div>
+          </div>
+          <div class="insight">
+            <b>三项各管一件事。</b> IoU 管重叠，ρ²/c² 管中心偏移，αv 管长宽比。
+            即使两个框完全不重叠，CIoU 仍能通过外接框和中心距离给出梯度，这是它比纯 IoU loss 好用的原因。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DFL ================= -->
+    <section class="panel" id="panel-dfl">
+      <div class="grid2">
+        <div class="card">
+          <h2>把距离拆成 16 个 bin</h2>
+          <p class="sub">蓝柱是模型预测分布，橙色空心柱是目标软标签。</p>
+          <canvas id="c-dfl"></canvas>
+          <div class="legend">
+            <span><i style="background:#5b8cff"></i>预测分布 p(k)</span>
+            <span><i style="background:#ffb454"></i>目标软标签</span>
+          </div>
+        </div>
+        <div class="card">
+          <h2>调参</h2>
+          <p class="sub">目标距离 y、预测均值 μ 和预测宽度 σ。</p>
+          <div class="controls">
+            <div class="control">
+              <label>目标距离 y <b id="dfl-y-val">3.40</b></label>
+              <input type="range" id="dfl-y" min="0" max="15" step="0.05" value="3.4" />
+            </div>
+            <div class="control">
+              <label>预测均值 μ <b id="dfl-mu-val">4.50</b></label>
+              <input type="range" id="dfl-mu" min="0" max="15" step="0.05" value="4.5" />
+            </div>
+            <div class="control">
+              <label>预测宽度 σ <b id="dfl-sigma-val">1.20</b></label>
+              <input type="range" id="dfl-sigma" min="0.3" max="4" step="0.05" value="1.2" />
+            </div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><span>DFL 损失</span><b id="dfl-loss">0.000</b></div>
+            <div class="metric"><span>熵下界</span><b id="dfl-entropy">0.000</b></div>
+            <div class="metric"><span>解码距离 Σk·p(k)</span><b id="dfl-decoded">0.000</b></div>
+            <div class="metric"><span>解码误差</span><b id="dfl-error">0.000</b></div>
+          </div>
+          <div class="steps" id="dfl-steps"></div>
+          <div class="insight">
+            <b>DFL 有下界。</b> y 被拆成相邻两个 bin 的软标签，交叉熵最低就是这组软标签的熵。
+            y 的小数部分越接近 0.5，下界越大；越接近整数，下界越接近 0。所以 dfl 卡在 0.5 左右不一定是没收敛。
+          </div>
+          <p class="hint">演示用高斯分布模拟网络的 16 个 logits；真实网络直接输出它们。这里只看一侧距离，实际 l/t/r/b 四侧各有一套 16-bin 分布，损失取四侧平均。</p>
+          <p class="hint">试一下：把 σ 调到 0.3，分布变成尖峰；再把 μ 调离 y，损失会明显上升。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAL ================= -->
+    <section class="panel" id="panel-tal">
+      <div class="grid2">
+        <div class="card">
+          <h2>Task-Aligned Assigner</h2>
+          <p class="sub">拖动绿色 GT 框。灰点是候选 anchor，橙点是选中的正样本。</p>
+          <canvas id="c-tal"></canvas>
+          <div class="legend">
+            <span><i style="background:#3ddc97"></i>GT</span>
+            <span><i style="background:#6b7488"></i>候选 anchor</span>
+            <span><i style="background:#ffb454"></i>选中的正样本</span>
+            <span><i style="background:#5b8cff"></i>对齐度量热力</span>
+          </div>
+        </div>
+        <div class="card">
+          <h2>调参</h2>
+          <p class="sub">对齐度量 t = s^α · u^β，再取 top-k。</p>
+          <div class="controls">
+            <div class="control">
+              <label>top-k <b id="tal-k-val">10</b></label>
+              <input type="range" id="tal-k" min="1" max="30" step="1" value="10" />
+            </div>
+            <div class="control">
+              <label>α（分类分数权重）<b id="tal-alpha-val">0.50</b></label>
+              <input type="range" id="tal-alpha" min="0.1" max="2" step="0.1" value="0.5" />
+            </div>
+            <div class="control">
+              <label>β（IoU 权重）<b id="tal-beta-val">6.0</b></label>
+              <input type="range" id="tal-beta" min="1" max="10" step="0.5" value="6" />
+            </div>
+            <div class="control">
+              <label>GT 宽度 <b id="tal-w-val">190</b></label>
+              <input type="range" id="tal-w" min="60" max="330" step="1" value="190" />
+            </div>
+            <div class="control">
+              <label>GT 高度 <b id="tal-h-val">210</b></label>
+              <input type="range" id="tal-h" min="60" max="330" step="1" value="210" />
+            </div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><span>候选 anchor</span><b id="tal-cand">0</b></div>
+            <div class="metric"><span>正样本数</span><b id="tal-pos">0</b></div>
+            <div class="metric"><span>最大对齐度量</span><b id="tal-maxalign">0.000</b></div>
+            <div class="metric"><span>目标和 Σt′</span><b id="tal-sum">0.00</b></div>
+            <div class="metric"><span>选中平均 IoU</span><b id="tal-iou">0.000</b></div>
+            <div class="metric"><span>候选/正样本比</span><b id="tal-ratio">0.0</b></div>
+          </div>
+          <div class="steps" id="tal-steps"></div>
+          <div id="tal-table"></div>
+          <div class="insight">
+            <b>分配比公式更影响结果。</b> top-k 太小，正样本不足、召回上不去；太大，低质量 anchor 被当成正样本、定位变差。
+            β 越大越看重 IoU，α 越大越看重分类分数。目标和是软标签，所以最佳 anchor 的目标分数接近 1，其余按对齐度衰减。
+          </div>
+          <p class="hint">演示中 s 用“离 GT 中心越近分数越高”的平滑场模拟，u 由模拟预测框算 IoU；真实训练时两者都来自当前网络输出，所以分配会随训练变化。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 总损失 ================= -->
+    <section class="panel" id="panel-total">
+      <div class="grid2">
+        <div class="card">
+          <h2>总损失组装</h2>
+          <p class="sub">自动读取前面四个面板的当前值。</p>
+          <div id="contrib-list" class="contrib-list"></div>
+          <div class="total-box">
+            <span>总损失 L</span>
+            <b id="total-value">0.000</b>
+          </div>
+          <div class="formula" id="formula-text"></div>
+        </div>
+        <div class="card">
+          <h2>权重</h2>
+          <p class="sub">YOLOv8 默认 0.5 / 7.5 / 1.5。</p>
+          <div class="controls">
+            <div class="control">
+              <label>λ<sub>cls</sub>（分类）<b id="w-cls-val">0.50</b></label>
+              <input type="range" id="w-cls" min="0" max="2" step="0.05" value="0.5" />
+            </div>
+            <div class="control">
+              <label>λ<sub>box</sub>（定位）<b id="w-box-val">7.50</b></label>
+              <input type="range" id="w-box" min="0" max="15" step="0.25" value="7.5" />
+            </div>
+            <div class="control">
+              <label>λ<sub>dfl</sub>（分布回归）<b id="w-dfl-val">1.50</b></label>
+              <input type="range" id="w-dfl" min="0" max="5" step="0.05" value="1.5" />
+            </div>
+          </div>
+          <div class="insight">
+            <b>权重不是独立超参。</b> 分类损失对全部 anchor 求和，定位只对正样本求和，三项量级本来就不同。
+            改归一化方式、改 top-k、改 reg_max，都会改变三项的相对尺度，最优权重也会跟着变。
+          </div>
+          <div class="insight" style="border-left-color: var(--orange); background: rgba(255,180,84,.06)">
+            <b>损失下降 ≠ 指标提升。</b> 训练 loss 只说明拟合；mAP、召回、连续漏检时长才是现场指标。
+            部署时损失不会进推理图，排查要看预处理、后处理、NMS 和量化误差。
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+"use strict";
+const $ = (s, root = document) => root.querySelector(s);
+const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const fmt = (v, n = 3) => Number(v).toFixed(n);
+
+const state = {
+  bce: { p: 0.30, t: 1.0 },
+  ciou: {
+    gt: { cx: 280, cy: 200, w: 200, h: 140 },
+    pred: { cx: 320, cy: 190, w: 170, h: 165 }
+  },
+  dfl: { y: 3.4, mu: 4.5, sigma: 1.2 },
+  tal: { gt: { cx: 220, cy: 220, w: 190, h: 210 }, k: 10, alpha: 0.5, beta: 6 },
+  weights: { cls: 0.5, box: 7.5, dfl: 1.5 },
+  loss: { cls: 0, box: 0, dfl: 0 }
+};
+
+/* ---------- canvas ---------- */
+function fitCanvas(canvas, w, h) {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(w * dpr);
+  canvas.height = Math.round(h * dpr);
+  canvas.style.width = w + "px";
+  canvas.style.height = h + "px";
+  canvas._w = w;
+  canvas._h = h;
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return ctx;
+}
+function mousePos(canvas, e) {
+  const r = canvas.getBoundingClientRect();
+  return {
+    x: (e.clientX - r.left) * (canvas._w / r.width),
+    y: (e.clientY - r.top) * (canvas._h / r.height)
+  };
+}
+function line(ctx, x1, y1, x2, y2) {
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+}
+function dot(ctx, x, y, r, color) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fillStyle = color; ctx.fill();
+}
+
+/* ---------- tabs ---------- */
+$$(".tabs button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    $$(".tabs button").forEach((b) => b.classList.toggle("active", b === btn));
+    $$(".panel").forEach((p) => p.classList.toggle("active", p.id === "panel-" + btn.dataset.tab));
+    if (btn.dataset.tab === "total") updateTotal();
+  });
+});
+
+/* ============================================================
+   BCE
+   ============================================================ */
+const bceCanvas = $("#c-bce");
+const bceCtx = fitCanvas(bceCanvas, 560, 320);
+
+function bceLoss(p, t) {
+  p = clamp(p, 0.002, 0.998);
+  return -(t * Math.log(p) + (1 - t) * Math.log(1 - p));
+}
+function bceGrad(p, t) {
+  p = clamp(p, 0.002, 0.998);
+  return (p - t) / (p * (1 - p));
+}
+
+function drawBCE() {
+  const ctx = bceCtx, W = 560, H = 320;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = "#0f1218"; ctx.fillRect(0, 0, W, H);
+
+  const L = 52, R = 18, T = 18, B = 44;
+  const pw = W - L - R, ph = H - T - B, yMax = 5;
+  const X = (p) => L + p * pw;
+  const Y = (v) => T + (1 - clamp(v, 0, yMax) / yMax) * ph;
+
+  ctx.strokeStyle = "#1c2230"; ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) line(ctx, X(i / 4), T, X(i / 4), T + ph);
+  for (let v = 0; v <= yMax; v++) line(ctx, L, Y(v), L + pw, Y(v));
+
+  ctx.strokeStyle = "#394153"; ctx.lineWidth = 1;
+  line(ctx, L, T, L, T + ph); line(ctx, L, T + ph, L + pw, T + ph);
+
+  ctx.fillStyle = "#7b8498";
+  ctx.font = "11px ui-monospace, Menlo, monospace";
+  ctx.textAlign = "center";
+  [0, 0.25, 0.5, 0.75, 1].forEach((p) => ctx.fillText(p.toFixed(2), X(p), T + ph + 18));
+  ctx.textAlign = "right";
+  [0, 1, 2, 3, 4, 5].forEach((v) => ctx.fillText(String(v), L - 8, Y(v) + 4));
+  ctx.fillStyle = "#aab3c5";
+  ctx.textAlign = "center";
+  ctx.fillText("预测概率 p", L + pw / 2, H - 6);
+  ctx.save(); ctx.translate(13, T + ph / 2); ctx.rotate(-Math.PI / 2);
+  ctx.fillText("损失", 0, 0); ctx.restore();
+
+  const curve = (fn, color, dash) => {
+    ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = 2;
+    ctx.setLineDash(dash || []);
+    let started = false;
+    for (let p = 0.004; p <= 0.996; p += 0.004) {
+      const v = fn(p);
+      if (v > yMax + 0.2) { started = false; continue; }
+      const x = X(p), y = Y(v);
+      if (!started) { ctx.moveTo(x, y); started = true; }
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke(); ctx.setLineDash([]);
+  };
+  curve((p) => bceLoss(p, 1), "#5b8cff");
+  curve((p) => bceLoss(p, 0), "#ffb454");
+  curve((p) => bceLoss(p, state.bce.t), "#3ddc97", [6, 4]);
+
+  const l = bceLoss(state.bce.p, state.bce.t);
+  const px = X(state.bce.p), py = Y(l);
+  dot(ctx, px, py, 5.5, "#3ddc97");
+  ctx.strokeStyle = "#0f1218"; ctx.lineWidth = 2; ctx.stroke();
+
+  ctx.font = "12px ui-monospace, Menlo, monospace";
+  ctx.fillStyle = "#e6e9ef"; ctx.textAlign = "left";
+  ctx.fillText("L = " + fmt(l), clamp(px + 10, L + 2, L + pw - 80), clamp(py - 10, T + 12, T + ph - 4));
+
+  const leg = [["t = 1", "#5b8cff"], ["t = 0", "#ffb454"], ["当前 t", "#3ddc97"]];
+  ctx.font = "11px -apple-system, sans-serif";
+  leg.forEach((it, i) => {
+    const x = L + 8, y = T + 12 + i * 16;
+    ctx.fillStyle = it[1]; ctx.fillRect(x, y - 7, 10, 3);
+    ctx.fillStyle = "#aab3c5"; ctx.fillText(it[0], x + 16, y);
+  });
+}
+
+function updateBCE() {
+  const l = bceLoss(state.bce.p, state.bce.t);
+  state.loss.cls = l;
+  $("#bce-loss").textContent = fmt(l);
+  $("#bce-grad").textContent = fmt(bceGrad(state.bce.p, state.bce.t));
+  $("#bce-p-val").textContent = state.bce.p.toFixed(2);
+  $("#bce-t-val").textContent = state.bce.t.toFixed(2);
+  drawBCE();
+  updateTotal();
+}
+
+/* ============================================================
+   CIoU
+   ============================================================ */
+const ciouCanvas = $("#c-ciou");
+const ciouCtx = fitCanvas(ciouCanvas, 560, 400);
+
+function boxOf(o) {
+  return { x1: o.cx - o.w / 2, y1: o.cy - o.h / 2, x2: o.cx + o.w / 2, y2: o.cy + o.h / 2 };
+}
+function iouOfBoxes(a, b) {
+  const ix1 = Math.max(a.x1, b.x1), iy1 = Math.max(a.y1, b.y1);
+  const ix2 = Math.min(a.x2, b.x2), iy2 = Math.min(a.y2, b.y2);
+  const iw = Math.max(0, ix2 - ix1), ih = Math.max(0, iy2 - iy1);
+  const inter = iw * ih;
+  const areaA = Math.max(0, a.x2 - a.x1) * Math.max(0, a.y2 - a.y1);
+  const areaB = Math.max(0, b.x2 - b.x1) * Math.max(0, b.y2 - b.y1);
+  return { iou: inter / (areaA + areaB - inter + 1e-9), inter, iw, ih, ix1, iy1, ix2, iy2 };
+}
+function ciouMetrics(predO, gtO) {
+  const p = boxOf(predO), g = boxOf(gtO);
+  const ov = iouOfBoxes(p, g);
+  const iou = ov.iou;
+  const ex1 = Math.min(p.x1, g.x1), ey1 = Math.min(p.y1, g.y1);
+  const ex2 = Math.max(p.x2, g.x2), ey2 = Math.max(p.y2, g.y2);
+  const c2 = (ex2 - ex1) ** 2 + (ey2 - ey1) ** 2 + 1e-9;
+  const pcx = (p.x1 + p.x2) / 2, pcy = (p.y1 + p.y2) / 2;
+  const gcx = (g.x1 + g.x2) / 2, gcy = (g.y1 + g.y2) / 2;
+  const rho2 = (pcx - gcx) ** 2 + (pcy - gcy) ** 2;
+  const pw = p.x2 - p.x1, ph = p.y2 - p.y1;
+  const gw = g.x2 - g.x1, gh = g.y2 - g.y1;
+  const v = (4 / Math.PI ** 2) *
+    (Math.atan(gw / (gh + 1e-9)) - Math.atan(pw / (ph + 1e-9))) ** 2;
+  const alpha = v / (1 - iou + v + 1e-9);
+  const centerTerm = rho2 / c2;
+  const aspectTerm = alpha * v;
+  const ciou = iou - centerTerm - aspectTerm;
+  return {
+    iou, centerTerm, aspectTerm, ciou, loss: 1 - ciou,
+    rho: Math.sqrt(rho2), p, g,
+    enc: { x1: ex1, y1: ey1, x2: ex2, y2: ey2 },
+    pcx, pcy, gcx, gcy, inter: ov
+  };
+}
+
+function drawCIoU() {
+  const ctx = ciouCtx, W = 560, H = 400;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = "#0f1218"; ctx.fillRect(0, 0, W, H);
+
+  ctx.strokeStyle = "#161c27"; ctx.lineWidth = 1;
+  for (let x = 0; x <= W; x += 40) line(ctx, x, 0, x, H);
+  for (let y = 0; y <= H; y += 40) line(ctx, 0, y, W, y);
+
+  const m = ciouMetrics(state.ciou.pred, state.ciou.gt);
+  const { p, g, enc, inter } = m;
+
+  ctx.strokeStyle = "#5a6478"; ctx.setLineDash([6, 4]); ctx.lineWidth = 1.5;
+  ctx.strokeRect(enc.x1, enc.y1, enc.x2 - enc.x1, enc.y2 - enc.y1);
+  ctx.setLineDash([]);
+
+  if (inter.inter > 0) {
+    ctx.fillStyle = "rgba(255,180,84,.30)";
+    ctx.fillRect(inter.ix1, inter.iy1, inter.iw, inter.ih);
+  }
+
+  ctx.fillStyle = "rgba(61,220,151,.07)";
+  ctx.fillRect(g.x1, g.y1, g.x2 - g.x1, g.y2 - g.y1);
+  ctx.strokeStyle = "#3ddc97"; ctx.lineWidth = 2;
+  ctx.strokeRect(g.x1, g.y1, g.x2 - g.x1, g.y2 - g.y1);
+
+  ctx.fillStyle = "rgba(91,140,255,.07)";
+  ctx.fillRect(p.x1, p.y1, p.x2 - p.x1, p.y2 - p.y1);
+  ctx.strokeStyle = "#5b8cff"; ctx.lineWidth = 2;
+  ctx.strokeRect(p.x1, p.y1, p.x2 - p.x1, p.y2 - p.y1);
+
+  ctx.strokeStyle = "rgba(230,233,239,.35)"; ctx.setLineDash([4, 4]); ctx.lineWidth = 1;
+  line(ctx, m.pcx, m.pcy, m.gcx, m.gcy);
+  ctx.setLineDash([]);
+  dot(ctx, m.pcx, m.pcy, 3, "#5b8cff");
+  dot(ctx, m.gcx, m.gcy, 3, "#3ddc97");
+
+  ctx.font = "12px -apple-system, sans-serif";
+  ctx.fillStyle = "#3ddc97"; ctx.textAlign = "left";
+  ctx.fillText("GT", clamp(g.x1, 4, W - 40), clamp(g.y1 - 7, 14, H - 4));
+  ctx.fillStyle = "#5b8cff";
+  ctx.fillText("pred", clamp(p.x1, 4, W - 40), clamp(p.y1 - 7, 14, H - 4));
+  ctx.fillStyle = "#6b7488";
+  ctx.fillText("外接框 c", clamp(enc.x1 + 4, 4, W - 70), clamp(enc.y1 + 14, 14, H - 4));
+
+  const mx = (m.pcx + m.gcx) / 2, my = (m.pcy + m.gcy) / 2;
+  ctx.fillStyle = "#c9d2e5"; ctx.font = "11px ui-monospace, Menlo, monospace";
+  ctx.fillText("ρ=" + m.rho.toFixed(1), clamp(mx + 6, 4, W - 60), clamp(my - 4, 14, H - 4));
+}
+
+function syncCIoUControls() {
+  const p = state.ciou.pred;
+  $("#ciou-cx").value = p.cx; $("#ciou-cy").value = p.cy;
+  $("#ciou-w").value = p.w; $("#ciou-h").value = p.h;
+  $("#ciou-cx-val").textContent = Math.round(p.cx);
+  $("#ciou-cy-val").textContent = Math.round(p.cy);
+  $("#ciou-w-val").textContent = Math.round(p.w);
+  $("#ciou-h-val").textContent = Math.round(p.h);
+}
+function updateCIoU() {
+  const m = ciouMetrics(state.ciou.pred, state.ciou.gt);
+  state.loss.box = m.loss;
+  $("#ciou-iou").textContent = fmt(m.iou);
+  $("#ciou-center").textContent = fmt(m.centerTerm);
+  $("#ciou-aspect").textContent = fmt(m.aspectTerm);
+  $("#ciou-value").textContent = fmt(m.ciou);
+  $("#ciou-loss").textContent = fmt(m.loss);
+  $("#ciou-rho").textContent = m.rho.toFixed(1);
+  drawCIoU();
+  updateTotal();
+}
+
+/* pointer drag */
+let ciouDrag = null;
+ciouCanvas.addEventListener("pointerdown", (e) => {
+  const m = mousePos(ciouCanvas, e);
+  const p = boxOf(state.ciou.pred);
+  if (m.x >= p.x1 && m.x <= p.x2 && m.y >= p.y1 && m.y <= p.y2) {
+    ciouDrag = { x: state.ciou.pred.cx - m.x, y: state.ciou.pred.cy - m.y };
+    ciouCanvas.setPointerCapture(e.pointerId);
+  }
+});
+ciouCanvas.addEventListener("pointermove", (e) => {
+  if (!ciouDrag) return;
+  const m = mousePos(ciouCanvas, e);
+  state.ciou.pred.cx = clamp(m.x + ciouDrag.x, 40, 520);
+  state.ciou.pred.cy = clamp(m.y + ciouDrag.y, 40, 360);
+  syncCIoUControls();
+  updateCIoU();
+});
+ciouCanvas.addEventListener("pointerup", () => { ciouDrag = null; });
+ciouCanvas.addEventListener("pointercancel", () => { ciouDrag = null; });
+ciouCanvas.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  const f = e.deltaY > 0 ? 0.95 : 1.05;
+  state.ciou.pred.w = clamp(state.ciou.pred.w * f, 20, 340);
+  state.ciou.pred.h = clamp(state.ciou.pred.h * f, 20, 340);
+  syncCIoUControls();
+  updateCIoU();
+}, { passive: false });
+
+/* ============================================================
+   DFL
+   ============================================================ */
+const dflCanvas = $("#c-dfl");
+const dflCtx = fitCanvas(dflCanvas, 560, 300);
+
+function softmax(logits) {
+  const m = Math.max.apply(null, logits);
+  const ex = logits.map((v) => Math.exp(v - m));
+  const s = ex.reduce((a, b) => a + b, 0);
+  return ex.map((v) => v / s);
+}
+function dflMetrics(y, mu, sigma) {
+  const bins = 16;
+  const logits = Array.from({ length: bins }, (_, k) => -((k - mu) ** 2) / (2 * sigma * sigma));
+  const p = softmax(logits);
+  const yy = Math.min(y, bins - 1 - 1e-6);
+  const i = Math.floor(yy);
+  const f = yy - i;
+  const wl = 1 - f, wr = f;
+  const loss = -(wl * Math.log(Math.max(p[i], 1e-9)) + wr * Math.log(Math.max(p[i + 1], 1e-9)));
+  const entropy =
+    (wl > 1e-9 ? -wl * Math.log(wl) : 0) +
+    (wr > 1e-9 ? -wr * Math.log(wr) : 0);
+  const decoded = p.reduce((s, v, k) => s + v * k, 0);
+  return { p, i, f, wl, wr, pi: p[i], pi1: p[i + 1], loss, entropy, decoded };
+}
+
+function drawDFL() {
+  const ctx = dflCtx, W = 560, H = 300;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = "#0f1218"; ctx.fillRect(0, 0, W, H);
+
+  const m = dflMetrics(state.dfl.y, state.dfl.mu, state.dfl.sigma);
+  const L = 44, R = 16, T = 24, B = 38;
+  const pw = W - L - R, ph = H - T - B;
+  const slot = pw / 16, bw = slot * 0.62;
+  const yMax = Math.max(0.5, Math.max.apply(null, m.p), Math.max(m.wl, m.wr));
+
+  const Y = (v) => T + (1 - clamp(v, 0, yMax) / yMax) * ph;
+
+  ctx.strokeStyle = "#1c2230"; ctx.lineWidth = 1;
+  for (let k = 0; k <= 16; k++) line(ctx, L + k * slot, T, L + k * slot, T + ph);
+  [0, 0.25, 0.5, 0.75, 1].forEach((v) => {
+    const y = Y(v * yMax);
+    line(ctx, L, y, L + pw, y);
+  });
+
+  ctx.strokeStyle = "#394153";
+  line(ctx, L, T, L, T + ph); line(ctx, L, T + ph, L + pw, T + ph);
+
+  ctx.fillStyle = "#7b8498";
+  ctx.font = "10px ui-monospace, Menlo, monospace";
+  ctx.textAlign = "right";
+  [0, 0.5, 1].forEach((v) => ctx.fillText((v * yMax).toFixed(2), L - 6, Y(v * yMax) + 3));
+  ctx.textAlign = "center";
+  for (let k = 0; k < 16; k++) ctx.fillText(String(k), L + (k + 0.5) * slot, T + ph + 16);
+  ctx.fillStyle = "#aab3c5"; ctx.font = "11px -apple-system, sans-serif";
+  ctx.fillText("bin（距离 / stride）", L + pw / 2, H - 6);
+  ctx.save(); ctx.translate(12, T + ph / 2); ctx.rotate(-Math.PI / 2);
+  ctx.fillText("概率", 0, 0); ctx.restore();
+
+  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = "rgba(255,180,84,.9)";
+  ctx.fillStyle = "rgba(255,180,84,.14)";
+  [[m.i, m.wl], [m.i + 1, m.wr]].forEach(([k, w]) => {
+    if (w <= 1e-6) return;
+    const x = L + k * slot + (slot - bw * 1.18) / 2;
+    const h = (w / yMax) * ph;
+    ctx.fillRect(x, T + ph - h, bw * 1.18, h);
+    ctx.strokeRect(x, T + ph - h, bw * 1.18, h);
+  });
+
+  ctx.fillStyle = "rgba(91,140,255,.8)";
+  m.p.forEach((v, k) => {
+    const x = L + k * slot + (slot - bw) / 2;
+    const h = (v / yMax) * ph;
+    ctx.fillRect(x, T + ph - h, bw, h);
+  });
+
+  const yx = L + (state.dfl.y + 0.5) * slot;
+  ctx.strokeStyle = "rgba(255,180,84,.85)";
+  ctx.setLineDash([4, 3]);
+  line(ctx, yx, T, yx, T + ph);
+  ctx.setLineDash([]);
+  ctx.fillStyle = "#ffb454";
+  ctx.font = "11px ui-monospace, Menlo, monospace";
+  ctx.textAlign = yx > W - 90 ? "right" : "left";
+  ctx.fillText("y=" + state.dfl.y.toFixed(2), clamp(yx + 5, L, W - 6), T + 10);
+}
+
+function updateDFL() {
+  const m = dflMetrics(state.dfl.y, state.dfl.mu, state.dfl.sigma);
+  state.loss.dfl = m.loss;
+  $("#dfl-loss").textContent = fmt(m.loss);
+  $("#dfl-entropy").textContent = fmt(m.entropy);
+  $("#dfl-decoded").textContent = fmt(m.decoded);
+  $("#dfl-error").textContent = fmt(Math.abs(m.decoded - state.dfl.y));
+  $("#dfl-y-val").textContent = state.dfl.y.toFixed(2);
+  $("#dfl-mu-val").textContent = state.dfl.mu.toFixed(2);
+  $("#dfl-sigma-val").textContent = state.dfl.sigma.toFixed(2);
+  renderDFLSteps(m);
+  drawDFL();
+  updateTotal();
+}
+
+function renderDFLSteps(m) {
+  const y = state.dfl.y;
+  const terms = [];
+  if (m.wl > 1e-9) terms.push(m.wl.toFixed(2) + "·ln " + m.pi.toFixed(3));
+  if (m.wr > 1e-9) terms.push(m.wr.toFixed(2) + "·ln " + m.pi1.toFixed(3));
+  const expr = "−(" + terms.join(" + ") + ")";
+  const rows = [
+    ["1. 目标距离 d", y.toFixed(2)],
+    ["2. 整数部分 i = ⌊d⌋", String(m.i)],
+    ["3. 余数 f = d − i", m.f.toFixed(2)],
+    ["4. 软标签 q", "q" + m.i + " = " + m.wl.toFixed(2) + "，q" + (m.i + 1) + " = " + m.wr.toFixed(2) +
+      "（期望 = " + (m.wl * m.i + m.wr * (m.i + 1)).toFixed(2) + "）"],
+    ["5. 模型概率 p", "p" + m.i + " = " + m.pi.toFixed(3) + "，p" + (m.i + 1) + " = " + m.pi1.toFixed(3)],
+    ["6. 交叉熵", expr + " = " + m.loss.toFixed(3)],
+    ["7. 熵下界 H(q)", m.entropy.toFixed(3)]
+  ];
+  $("#dfl-steps").innerHTML = '<div class="steps-title">怎么算出来的</div>' +
+    rows.map((r, idx) =>
+      '<div class="row' + (idx === 5 ? " hi" : "") + '"><span>' + r[0] +
+      "</span><code>" + r[1] + "</code></div>"
+    ).join("");
+}
+
+/* ============================================================
+   TAL
+   ============================================================ */
+const talCanvas = $("#c-tal");
+const talCtx = fitCanvas(talCanvas, 440, 440);
+const TAL = { n: 20, cell: 20, margin: 20 };
+
+function talCompute() {
+  const { gt, k, alpha, beta } = state.tal;
+  const anchors = [];
+  let candidates = 0, maxAlign = 0;
+
+  for (let j = 0; j < TAL.n; j++) {
+    for (let i = 0; i < TAL.n; i++) {
+      const cx = TAL.margin + (i + 0.5) * TAL.cell;
+      const cy = TAL.margin + (j + 0.5) * TAL.cell;
+      const inside =
+        cx > gt.cx - gt.w / 2 && cx < gt.cx + gt.w / 2 &&
+        cy > gt.cy - gt.h / 2 && cy < gt.cy + gt.h / 2;
+
+      const dx = (cx - gt.cx) / (gt.w / 2);
+      const dy = (cy - gt.cy) / (gt.h / 2);
+      const wobble = 0.025 * Math.sin(i * 1.7 + j * 0.9);
+      const s = clamp(Math.exp(-0.7 * (dx * dx + dy * dy)) + wobble, 0.02, 1);
+
+      const px = cx + 0.18 * (cx - gt.cx) + 5 * Math.sin(j * 1.3);
+      const py = cy + 0.18 * (cy - gt.cy) + 5 * Math.cos(i * 1.1);
+      const scale = 0.78 + 0.22 * s + 0.03 * Math.sin((i + j) * 0.7);
+      const pred = { cx: px, cy: py, w: gt.w * scale, h: gt.h * scale };
+      const iou = iouOfBoxes(boxOf(pred), boxOf(gt)).iou;
+      const align = inside ? Math.pow(s, alpha) * Math.pow(iou, beta) : 0;
+
+      anchors.push({ i, j, cx, cy, inside, s, iou, align, score: 0, selected: false });
+      if (inside) { candidates++; maxAlign = Math.max(maxAlign, align); }
+    }
+  }
+
+  const cands = anchors.filter((a) => a.inside).sort((a, b) => b.align - a.align);
+  const selected = cands.slice(0, k);
+  const maxSelAlign = selected.length ? Math.max.apply(null, selected.map((a) => a.align)) : 0;
+  const maxIou = selected.length ? Math.max.apply(null, selected.map((a) => a.iou)) : 0;
+  selected.forEach((a) => {
+    a.selected = true;
+    a.score = maxSelAlign > 0 ? (a.align / maxSelAlign) * maxIou : 0;
+  });
+
+  const sumScore = selected.reduce((s, a) => s + a.score, 0);
+  const avgIou = selected.length
+    ? selected.reduce((s, a) => s + a.iou, 0) / selected.length : 0;
+
+  return { anchors, candidates, selected, maxAlign, maxIou, sumScore, avgIou };
+}
+
+function drawTAL() {
+  const ctx = talCtx, W = 440, H = 440;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = "#0f1218"; ctx.fillRect(0, 0, W, H);
+
+  const { cell, margin, n } = TAL;
+  const res = talCompute();
+  const gt = state.tal.gt;
+
+  ctx.strokeStyle = "#161c27"; ctx.lineWidth = 1;
+  for (let i = 0; i <= n; i++) {
+    line(ctx, margin + i * cell, margin, margin + i * cell, margin + n * cell);
+    line(ctx, margin, margin + i * cell, margin + n * cell, margin + i * cell);
+  }
+
+  res.anchors.forEach((a) => {
+    if (!a.inside) return;
+    const t = res.maxAlign > 0 ? a.align / res.maxAlign : 0;
+    ctx.fillStyle = "rgba(91,140,255," + (0.04 + 0.36 * t) + ")";
+    ctx.fillRect(margin + a.i * cell, margin + a.j * cell, cell, cell);
+  });
+
+  res.anchors.forEach((a) => {
+    if (a.inside) dot(ctx, a.cx, a.cy, 1.5, "#6b7488");
+  });
+
+  res.selected.forEach((a) => {
+    const r = 3 + 4.5 * a.score;
+    dot(ctx, a.cx, a.cy, r, "rgba(255,180,84,.95)");
+    dot(ctx, a.cx, a.cy, Math.max(1, r * 0.38), "#0f1218");
+  });
+
+  ctx.fillStyle = "rgba(61,220,151,.05)";
+  ctx.fillRect(gt.cx - gt.w / 2, gt.cy - gt.h / 2, gt.w, gt.h);
+  ctx.strokeStyle = "#3ddc97"; ctx.lineWidth = 2;
+  ctx.strokeRect(gt.cx - gt.w / 2, gt.cy - gt.h / 2, gt.w, gt.h);
+
+  ctx.fillStyle = "#3ddc97";
+  ctx.font = "12px -apple-system, sans-serif";
+  ctx.textAlign = "left";
+  ctx.fillText("GT", clamp(gt.cx - gt.w / 2, 4, W - 40), clamp(gt.cy - gt.h / 2 - 7, 14, H - 4));
+
+  if (res.selected.length) {
+    const best = res.selected[0];
+    ctx.font = "11px ui-monospace, Menlo, monospace";
+    ctx.fillStyle = "#ffb454";
+    ctx.fillText("t=" + best.score.toFixed(2), clamp(best.cx + 6, 4, W - 70), clamp(best.cy - 6, 14, H - 4));
+  }
+}
+
+function updateTAL() {
+  const res = talCompute();
+  $("#tal-cand").textContent = res.candidates;
+  $("#tal-pos").textContent = res.selected.length;
+  $("#tal-maxalign").textContent = fmt(res.maxAlign);
+  $("#tal-sum").textContent = res.sumScore.toFixed(2);
+  $("#tal-iou").textContent = fmt(res.avgIou);
+  $("#tal-ratio").textContent = (res.candidates / Math.max(1, res.selected.length)).toFixed(1);
+  $("#tal-k-val").textContent = state.tal.k;
+  $("#tal-alpha-val").textContent = state.tal.alpha.toFixed(2);
+  $("#tal-beta-val").textContent = state.tal.beta.toFixed(1);
+  $("#tal-w-val").textContent = Math.round(state.tal.gt.w);
+  $("#tal-h-val").textContent = Math.round(state.tal.gt.h);
+  renderTALSteps(res);
+  drawTAL();
+}
+
+function renderTALSteps(res) {
+  const { alpha, beta, k } = state.tal;
+  const rows = [
+    ["1. 候选 anchor", "中心落在 GT 内：" + res.candidates + " 个"],
+    ["2. 分类分数 s", "GT 类别上的 sigmoid(cls)"],
+    ["3. 定位质量 u", "预测框与 GT 的 IoU"],
+    ["4. 对齐度量", "t = s^" + alpha.toFixed(1) + " · u^" + beta.toFixed(1)],
+    ["5. 取 top-k", "取 t 最高的 " + k + " 个"],
+    ["6. 归一化目标", "t' = t / max(t) · max(u)"],
+    ["7. 结果", "正样本 " + res.selected.length + " 个，软标签和 Σt′ = " + res.sumScore.toFixed(2)]
+  ];
+  $("#tal-steps").innerHTML = '<div class="steps-title">怎么选出来的</div>' +
+    rows.map((r) =>
+      '<div class="row"><span>' + r[0] + "</span><code>" + r[1] + "</code></div>"
+    ).join("");
+
+  const top = res.selected.slice(0, 5);
+  if (!top.length) { $("#tal-table").innerHTML = ""; return; }
+  let html = '<table class="tal-table"><thead><tr>' +
+    "<th>#</th><th>s</th><th>u</th><th>t</th><th>目标</th>" +
+    "</tr></thead><tbody>";
+  top.forEach((a, idx) => {
+    html += "<tr><td>" + (idx + 1) + "</td><td>" + a.s.toFixed(3) +
+      "</td><td>" + a.iou.toFixed(3) + "</td><td>" + a.align.toFixed(4) +
+      "</td><td>" + a.score.toFixed(3) + "</td></tr>";
+  });
+  html += "</tbody></table>";
+  $("#tal-table").innerHTML = html;
+}
+
+let talDrag = null;
+talCanvas.addEventListener("pointerdown", (e) => {
+  const m = mousePos(talCanvas, e);
+  const g = state.tal.gt;
+  if (Math.abs(m.x - g.cx) <= g.w / 2 && Math.abs(m.y - g.cy) <= g.h / 2) {
+    talDrag = { x: g.cx - m.x, y: g.cy - m.y };
+    talCanvas.setPointerCapture(e.pointerId);
+  }
+});
+talCanvas.addEventListener("pointermove", (e) => {
+  if (!talDrag) return;
+  const m = mousePos(talCanvas, e);
+  state.tal.gt.cx = clamp(m.x + talDrag.x, 60, 380);
+  state.tal.gt.cy = clamp(m.y + talDrag.y, 60, 380);
+  updateTAL();
+});
+talCanvas.addEventListener("pointerup", () => { talDrag = null; });
+talCanvas.addEventListener("pointercancel", () => { talDrag = null; });
+
+/* ============================================================
+   Total
+   ============================================================ */
+function updateTotal() {
+  const parts = [
+    { label: "分类 BCE", l: state.loss.cls, lam: state.weights.cls, color: "#5b8cff" },
+    { label: "定位 CIoU", l: state.loss.box, lam: state.weights.box, color: "#3ddc97" },
+    { label: "DFL", l: state.loss.dfl, lam: state.weights.dfl, color: "#ffb454" }
+  ];
+  const vals = parts.map((p) => p.lam * p.l);
+  const total = vals.reduce((a, b) => a + b, 0);
+  const max = Math.max.apply(null, vals.concat(1e-6));
+
+  const list = $("#contrib-list");
+  list.innerHTML = "";
+  parts.forEach((p, idx) => {
+    const v = vals[idx];
+    const row = document.createElement("div");
+    row.innerHTML =
+      '<div class="contrib-head"><span>' + p.label + "</span>" +
+      "<code>λ=" + p.lam.toFixed(2) + " · L=" + p.l.toFixed(3) + " = " + v.toFixed(3) + "</code></div>" +
+      '<div class="track"><div class="fill" style="width:' +
+      Math.max(2, (v / max) * 100) + "%;background:" + p.color + '"></div></div>';
+    list.appendChild(row);
+  });
+
+  $("#total-value").textContent = total.toFixed(3);
+  $("#formula-text").innerHTML =
+    "L = " + state.weights.cls.toFixed(2) + "·L<sub>cls</sub> + " +
+    state.weights.box.toFixed(2) + "·L<sub>box</sub> + " +
+    state.weights.dfl.toFixed(2) + "·L<sub>dfl</sub> = <b>" + total.toFixed(3) + "</b>";
+}
+
+/* ============================================================
+   Bindings
+   ============================================================ */
+function bindRange(id, onInput) {
+  const el = document.getElementById(id);
+  el.addEventListener("input", () => onInput(parseFloat(el.value)));
+}
+
+bindRange("bce-p", (v) => { state.bce.p = v; updateBCE(); });
+bindRange("bce-t", (v) => { state.bce.t = v; updateBCE(); });
+
+bindRange("ciou-cx", (v) => { state.ciou.pred.cx = v; updateCIoU(); });
+bindRange("ciou-cy", (v) => { state.ciou.pred.cy = v; updateCIoU(); });
+bindRange("ciou-w", (v) => { state.ciou.pred.w = v; updateCIoU(); });
+bindRange("ciou-h", (v) => { state.ciou.pred.h = v; updateCIoU(); });
+
+bindRange("dfl-y", (v) => { state.dfl.y = v; updateDFL(); });
+bindRange("dfl-mu", (v) => { state.dfl.mu = v; updateDFL(); });
+bindRange("dfl-sigma", (v) => { state.dfl.sigma = v; updateDFL(); });
+
+bindRange("tal-k", (v) => { state.tal.k = v; updateTAL(); });
+bindRange("tal-alpha", (v) => { state.tal.alpha = v; updateTAL(); });
+bindRange("tal-beta", (v) => { state.tal.beta = v; updateTAL(); });
+bindRange("tal-w", (v) => { state.tal.gt.w = v; updateTAL(); });
+bindRange("tal-h", (v) => { state.tal.gt.h = v; updateTAL(); });
+
+bindRange("w-cls", (v) => { state.weights.cls = v; $("#w-cls-val").textContent = v.toFixed(2); updateTotal(); });
+bindRange("w-box", (v) => { state.weights.box = v; $("#w-box-val").textContent = v.toFixed(2); updateTotal(); });
+bindRange("w-dfl", (v) => { state.weights.dfl = v; $("#w-dfl-val").textContent = v.toFixed(2); updateTotal(); });
+
+/* init */
+syncCIoUControls();
+updateBCE();
+updateCIoU();
+updateDFL();
+updateTAL();
+updateTotal();
+</script>
+</body>
+</html>
